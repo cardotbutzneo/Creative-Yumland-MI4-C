@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+
+#nom-resto{
+    font-family: "Monsieur La Doulaise", cursive;
+    text-align: center;
+    background-color: white;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    grid-area: header;
+}
+
+
+
+body{
+    margin-top: 120px;
+    display: grid;
+}
+
+h1{
+    margin: 0px;
+    font-size: 70px;
+}
