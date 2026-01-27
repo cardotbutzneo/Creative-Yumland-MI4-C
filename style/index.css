@@ -4,25 +4,35 @@
     font-family: "Monsieur La Doulaise", cursive;
     text-align: center;
     background-color: white;
+    padding-bottom: 5px;
+}
+
+#nom-resto>h1{
+    font-size: 70px;
+    margin: 0px;
+}
+
+#nom-resto>p{
+    font-size: 20px;
+    margin-top: -1%;
 }
 
 header{
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
+    grid-row: 1;
     z-index: 1000;
-    grid-area: header;
+    background-color: white;
 }
-
-
 
 body{
-    margin-top: 120px;
     display: grid;
+    grid-template-rows: auto 1fr;
+    margin: 0;
 }
 
-h1{
-    margin: 0px;
-    font-size: 70px;
+section{
+    grid-row: 2;
+    margin: 2% 10% 0 10%;
+    columns: 2;
 }
