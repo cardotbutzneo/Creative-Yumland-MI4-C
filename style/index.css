@@ -26,13 +26,42 @@ header{
 }
 
 body{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: grid;
     grid-template-rows: auto 1fr;
-    margin: 0;
+    margin: 2%;
 }
 
 section{
     grid-row: 2;
     margin: 2% 10% 0 10%;
     columns: 2;
+}
+
+.tool-bar{
+    text-align: center;
+    list-style: none;
+}
+
+.tool-bar > li{
+    display: inline;
+}
+
+.tool-bar > li > a{
+    color: #015001;
+    text-decoration: none;
+}
+
+.tool-bar > li:hover{
+    font-weight: bold;
+}
+
+.tool-bar > li > a:hover{
+    color: #030301;
+}
+
+.plats{
+    margin-left: 40px;
+    font-style: italic;
+    display: inline-block;
 }

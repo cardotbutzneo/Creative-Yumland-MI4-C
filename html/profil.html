@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/profil.css"> 
+    <title>Page de Profil</title>
+</head>
+<body>
+    <header>
+        <div id="nom-resto">
+            <h1>L'oro di Cicerone</h1>
+            <p>Since 2026</p>
+        </div>
+        <div>
+            <ul class="tool-bar">
+                <li>
+                    <a href="index.html">Acceuil</a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="#">Menu</a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="#">Suivi</a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="profil.html">Deconnexion</a>
+                </li>
+                <span>|</span>
+                <li id="panier">
+                    <img src="../style/img/panier-ajouter.png" alt="panier d'achat" onclick="afficherSection()">
+                    <span>Panier</span>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </header>
+    <section>
+        <hr>
+        <div class="contenent">
+            <h2>Favori</h2>
+        </div>
+        <hr>
+        <div class="contenent">
+            <h2>Nos sugestions</h2>
+            <ul class="sugestions">
+                <li>
+                    Pizza à la truffe <span class="plats"> 35€</span><input type="checkbox" name="" class="fav-check"><span style="display: none;">Ajouter aux favioris</span>
+                </li>
+                <li>
+                    Pizza au homard <span class="plats">40€</span>
+                </li>
+                <li>
+                    Pizza aux St Jacques <span class="plats">65€</span>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="contenent">
+            <h2>Vos points fidélités</h2>
+        </div>
+    </section>
+</body>
+</html>
