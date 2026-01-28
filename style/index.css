@@ -13,7 +13,7 @@
 }
 
 #nom-resto>p{
-    font-size: 20px;
+    font-size: 35px;
     margin-top: -1%;
 }
 
@@ -43,6 +43,10 @@ section{
     list-style: none;
 }
 
+.tool-bar {
+    padding-inline-start: 0px;
+}
+
 .tool-bar > li{
     display: inline;
 }
@@ -64,4 +68,13 @@ section{
     margin-left: 40px;
     font-style: italic;
     display: inline-block;
+}
+
+.block{
+    border: 2px black solid;
+    width: 25%;
+    height: 25%;
+    margin: auto;
+    text-align: center;
+    
 }

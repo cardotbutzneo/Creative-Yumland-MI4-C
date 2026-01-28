@@ -1,0 +1,37 @@
+:root{
+    --color : #149414;
+}
+
+body{
+    background-color: black;
+    color: var(--color);
+}
+
+h1{
+    text-align: center;
+}
+
+table, th, td{
+    width: 100%;;
+    border: 2px  solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.block td{
+    padding: 15px;
+}
+
+.block{
+    width: 100%;
+}
+
+#nom-utilisateur{
+    background-color: black;
+    color: var(--color);
+}
+
+#Recherche-utilisateur div{
+    padding: 10px;
+    display: inline-block;
+}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="../style/profil.css"> 
+    <link rel="stylesheet" href="../style/profil_client.css"> 
     <title>Page de Profil</title>
 </head>
 <body>
@@ -32,8 +32,7 @@
                 </li>
                 <span>|</span>
                 <li id="panier">
-                    <img src="../style/img/panier-ajouter.png" alt="panier d'achat" onclick="afficherSection()">
-                    <span>Panier</span>
+                    <a href="#"><img src="../style/img/panier-ajouter.png" alt="panier d'achat" class="image">Panier</a>
                 </li>
             </ul>
         </div>
@@ -49,7 +48,8 @@
             <h2>Nos sugestions</h2>
             <ul class="sugestions">
                 <li>
-                    Pizza à la truffe <span class="plats"> 35€</span><input type="checkbox" name="" class="fav-check"><span style="display: none;">Ajouter aux favioris</span>
+                    Pizza à la truffe 
+                    <span class="plats"> 35€</span>   
                 </li>
                 <li>
                     Pizza au homard <span class="plats">40€</span>
@@ -62,6 +62,9 @@
         <hr>
         <div class="contenent">
             <h2>Vos points fidélités</h2>
+            <div class="block">
+                <p>0 point.s</p>
+            </div>
         </div>
     </section>
 </body>
