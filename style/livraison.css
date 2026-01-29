@@ -5,3 +5,22 @@
     color: #030303;
     font-size: 30px;
 }
+
+ul li{
+    list-style-type: none;
+    padding-top: 12px;
+}
+
+ul {
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+#lien_maps{
+    padding-top: 30px;
+    margin: 0 auto;
+    text-decoration: none;
+    color:rgb(94, 94, 94);
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
