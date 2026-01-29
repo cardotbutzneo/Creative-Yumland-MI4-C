@@ -54,6 +54,7 @@ section{
 .tool-bar > li > a{
     color: #015001;
     text-decoration: none;
+    font-size: 18px;
 }
 
 .tool-bar > li:hover{
