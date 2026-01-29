@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/inscription.css">
     <link rel="stylesheet" href="../style/index.css">
-    <title>Connexion</title>
+    <title>Inscription</title>
 </head>
 <body>
     <header>
@@ -16,7 +16,7 @@
         <div>
             <ul class="tool-bar">
                 <li>
-                    <a href="index.html">Acceuil</a>
+                    <a href="index.html">Accueil</a>
                 </li>
                 <span>|</span>
                 <li>
@@ -33,24 +33,61 @@
     <div id="conteneur">
         <form name="inscription" method="post" action="#">
             <fieldset>
-                <legend>Connexion</legend>
+                <legend>S'inscrire</legend>
+                <div class="intitule">
+                    Nom
+                </div>
+                <div class="reponse">
+                <input type="text" name="nom" class="champ" required/>
+                </div><br />
+                <div class="intitule">
+                    Prénom
+                </div>
+                <div class="reponse">
+                    <input type="text" name="prenom" class="champ" required/>
+                </div><br />
+                <div class="intitule">
+                    Adresse
+                </div>
+                <div class="reponse">
+                    <input type="text" name="adresse" class="champ" required/>
+                </div><br />
+                <div class="intitule">
+                    Complément d'adresse
+                </div>
+                <div class="reponse">
+                    <input type="text" name="complement_adresse" class="champ" placeholder="Ex : Code immeuble, étage..."/>
+                </div><br />
+                <div class="intitule">
+                    Numéro de téléphone
+                </div>
+                <div class="reponse">
+                    <input type="text" name="tel" class="champ" required/>
+                </div><br />
                 <div class="intitule">
                     Adresse e-mail
                 </div>
                 <div class="reponse">
-                <input type="text" name="email" class="champ" />
+                    <input type="mail" name="mail" class="champ" required/>
                 </div><br />
                 <div class="intitule">
                     Mot de passe
                 </div>
                 <div class="reponse">
-                    <input type="password" name="password" class="champ" />
+                    <input type="password" name="password" class="champ" required/>
                 </div><br />
+                <div class="intitule">
+                    Confirmer mot de passe
+                </div>
+                <div class="reponse">
+                    <input type="password" name="confirmer_password" class="champ" required/>
+                </div><br />
+
                 <div class="reponse2">
-                    <input type="submit" name="connexion" value="Se connecter" class="champ" />
+                    <input type="submit" name="inscription" value="S'inscrire" class="champ"/>
                 </div>
                 <div class="reponse2">
-                    <a href="inscription.html">Je n'ai pas de compte. S'inscrire</a>
+                    <a href="connexion.html">Vous avez déjà un compte ? Se connecter</a>
                 </div>
             </fieldset>
         </form>
