@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/connexion.css">
+    <link rel="stylesheet" href="../style/index.css">
+    <title>Connexion</title>
+</head>
+<body>
+    <header>
+        <div id="nom-resto">
+            <h1>L'oro di Cicerone</h1>
+            <p>Since 2026</p>
+        </div>
+        <div>
+            <ul class="tool-bar">
+                <li>
+                    <a href="index.html">Acceuil</a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="#">Menu</a>
+                </li>
+                <span>|</span>
+                <li>
+                    <a href="index.html" onclick="">Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="conteneur">
+        <form name="inscription" method="post" action="#">
+            <fieldset>
+                <legend>Inscription</legend>
+                <div class="div1">
+                    Adresse e-mail
+                </div>
+                <div class="div2">
+                <input type="text" name="email" class="champ" />
+                </div><br />
+                <div class="div1">
+                    Mot de passe
+                </div>
+                <div class="div2">
+                    <input type="password" name="password" class="champ" />
+                </div><br />
+                <div class="div2">
+                    <input type="submit" name="connexion" value="Se connecter" class="champ" />
+                </div><br />
+                <div class="div2">
+                    <input type="submit" name="sinscrire" value="Je n'ai pas de compte" class="champ" />
+                </div><br />
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

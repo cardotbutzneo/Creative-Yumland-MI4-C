@@ -1,0 +1,12 @@
+fieldset {
+    border: solid black;
+    border-radius: 5px;
+}
+
+form div {
+    display: inline-block;
+}
+
+input[name="sinscrire"] {
+    border: 0px;
+}
