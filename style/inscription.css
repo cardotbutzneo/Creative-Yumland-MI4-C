@@ -1,12 +1,18 @@
+body{
+    margin: 10px;
+}
+
 fieldset {
     border: solid #030301;
     border-radius: 5px;
     padding: 20px 30px;
+    box-shadow: 0 0 10px gold;
 }
 
 form div {
     display: inline-block;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px ;
 }
 
 a {
@@ -24,6 +30,7 @@ a:hover{
 
 #conteneur {
     margin: 0 auto;
+    text-align: center;
 }
 
 legend{
@@ -32,7 +39,7 @@ legend{
 }
 
 .intitule {
-    min-width: 180px;
+    min-width: 220px;
     font-weight: bold;
 }
 
@@ -54,4 +61,13 @@ input[name="inscription"]:hover {
 .reponse2 {
     display: block;
     text-align: center;
+}
+
+@media screen and (max-width: 900px){
+    body{
+        font-size: 10px;
+    }
+    .intitule, .champ{
+        min-width: 120px;
+    }
 }

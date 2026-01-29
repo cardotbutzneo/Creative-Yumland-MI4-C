@@ -10,7 +10,7 @@ caption{
 }
 
 table, th, td{
-    border: 2px solid black;
+    border: 2px solid white;
     text-align: center;
 }
 
@@ -26,5 +26,9 @@ button{
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: larger;
+}
+
+ul{
+    list-style: none;
 }
 

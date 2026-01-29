@@ -1,67 +1,31 @@
-#panier > img{
-    width: 16px;
-    text-align: right;
-}
-
-#panier > p{
-    text-align: right;
-}
-
-section{
-    columns: 1;
-}
-
-.image{
-    height: 16px;
-}
-
-.contenent{
-    align-items: center;;
-    padding: 2px;
-}
-
-.contenent > h2 {
+.contenent h2{
     text-align: center;
-    font-family: "Monsieur La Doulaise", cursive;
+    padding : 10px 0 15px 0;
 }
 
-.sugestions {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    padding: 0;
-    gap: 10px;
+.contenent div{
+    margin: auto;
 }
 
-.sugestions li {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.tool-bar{
-    margin-top: -30px ;
-}
-
-.plats {
-    font-style: italic;
+.block{
+    border: 2px white solid;
+    box-shadow: 0 0 10px gold;
+    width: 20%;
+    padding: 5px;
 }
 
 .block p{
-    font-size: 20px;
+    text-align: center;
 }
 
-#modif{
-    text-align: right;
-    padding-right: 10px;
+.sugestions{
     width: 100%;
+    display: inline-block;    
+    list-style: none;
 }
 
-#modif button{
-    border: none;
-    height: 32px;
-    width: 32px;
-    border-radius: 10px;
+.sugestions li{
+    padding: 10px 0 10px 0;
+    display: flex;
+    justify-content: space-between;
 }

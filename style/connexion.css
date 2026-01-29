@@ -1,12 +1,14 @@
 fieldset {
-    border: solid #030301;
+    border: solid lightgray;
     border-radius: 5px;
     padding: 20px 30px;
+    box-shadow: 0 0 10px gold;
 }
 
 form div {
     display: inline-block;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 a {
@@ -23,6 +25,7 @@ a:hover{
 }
 
 #conteneur {
+    text-align: center;
     margin: 0 auto;
 }
 
@@ -35,6 +38,7 @@ legend{
     min-width: 120px;
     font-weight: bold;
 }
+
 
 input[name="connexion"]{
     margin-top: 8px;
@@ -54,4 +58,12 @@ input[name="connexion"]:hover {
 .reponse2 {
     display: block;
     text-align: center;
+}
+
+.naviagation-bar:hover{
+    text-decoration: none;
+}
+
+.naviagation-bar ul li a:hover{
+    text-decoration: none;
 }

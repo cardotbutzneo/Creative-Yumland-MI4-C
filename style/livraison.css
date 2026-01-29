@@ -1,8 +1,12 @@
+body{
+    text-align: center;
+}
+
 .titre{
     padding-top: 40px;
     margin: 0 auto;
     font-weight: bold;
-    color: #030303;
+    color: white;
     font-size: 30px;
 }
 
