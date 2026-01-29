@@ -16,6 +16,9 @@ section{
 }
 
 .contenent{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 2px;
 }
 
@@ -40,13 +43,31 @@ section{
     border-radius: 4px;
 }
 
+.tool-bar{
+    margin-top: -30px ;
+}
 
 .plats {
     font-style: italic;
 }
 
-
-
 .block p{
     font-size: 20px;
+}
+
+#modif{
+    text-align: right;
+    padding-right: 10px;
+    width: 100%;
+}
+
+#modif button{
+    border: none;
+    height: 32px;
+    width: 32px;
+    border-radius: 10px;
+}
+
+#modif:hover{
+    
 }

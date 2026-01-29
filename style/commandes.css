@@ -1,0 +1,30 @@
+table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 0 auto;
+}
+
+caption{
+    padding: 20px;
+}
+
+table, th, td{
+    border: 2px solid black;
+    text-align: center;
+}
+
+th, td{
+    padding: 8px;
+    word-break: break-word;   
+}
+
+button{
+    background-color: #47bb02;
+    border-radius: 10px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: larger;
+}
+
