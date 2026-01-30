@@ -1,5 +1,5 @@
 fieldset {
-    border: solid lightgray;
+    border: solid #030301;
     border-radius: 5px;
     padding: 20px 30px;
     box-shadow: 0 0 10px gold;
@@ -28,7 +28,8 @@ a:hover{
 
 #conteneur {
     text-align: center;
-    margin: 0 auto;
+    margin-right: 0 auto;
+    margin-top: 80px;
 }
 
 legend{
