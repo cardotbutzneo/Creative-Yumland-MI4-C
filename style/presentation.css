@@ -44,12 +44,14 @@ select{
 
 .rectangle li{
     margin-bottom: 15px;
+    margin-left: 10px;
 }
 
 .rectangle .ligne{
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .rectangle .nom{

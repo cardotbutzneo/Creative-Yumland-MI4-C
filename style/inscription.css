@@ -1,7 +1,3 @@
-body{
-    margin: 10px;
-}
-
 fieldset {
     border: solid #030301;
     border-radius: 5px;
@@ -33,6 +29,7 @@ a:hover{
 #conteneur {
     margin: 0 auto;
     text-align: center;
+    padding-bottom: 20px;
 }
 
 legend{
