@@ -1,34 +1,32 @@
-table{
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    margin: 0 auto;
-}
-
-caption{
-    padding: 20px;
-}
-
-table, th, td{
-    border: 2px solid white;
+.block{
+    display: grid;
     text-align: center;
+    grid-template-columns: auto 1fr auto;
+    border: 1px white solid;
+    margin: 10px;
+    padding: 10px;
 }
 
-th, td{
-    padding: 8px;
-    word-break: break-word;   
-}
-
-button{
-    background-color: #47bb02;
-    border-radius: 10px;
-    width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: larger;
-}
-
-ul{
+.block ul{
     list-style: none;
 }
 
+.block li{
+    padding: 5px ;
+}
+
+.block button{
+    grid-column: 1/-1;
+    padding: 20px;
+}
+
+#Complement{
+    grid-column: 1/-1;
+    text-align: left;
+}
+
+@media screen and (max-width : 900px) {
+    body{
+        font-size: small;
+    }
+}

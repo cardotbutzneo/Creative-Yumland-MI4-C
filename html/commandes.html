@@ -8,52 +8,38 @@
     <title>Page de commande</title>
 </head>
 <body>
-    <div class="commandes">
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Accueil</a></li>
-                </ul>
-            </nav>
-        </header>
-        <table>
-            <caption>Détails des commandes</caption>
-            <tr>
-                <th>Numéro de commande</th>
-                <th>description</th>
-                <th>Statut</th>
-            </tr>
-            <span id="">
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <ul>
-                            <li>Pizza truffe</li>
-                            <li>Pizza homard</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <p>En préparation</p>
-                        <button>Commande terminée</button>
-                    </td>
-                </tr>
-            </span>
+    <header>
+    <a href="index.html"><h1>L’oro di Cicerone</h1></a>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+        </ul>
+    </nav>
+</header>
+    <div>
+        <div class="block">
+            <button>
+                Finir la commande
+            </button>
+            <p>Commande n°1</p>
             <span>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <ul>
-                            <li>Pizza truffe</li>
-                            <li>Pâte aux feuilles d'or</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <p>En préparation</p>
-                        <button>Commande terminée</button>
-                    </td>
-                </tr>
+                <ul>
+                    <li>Pates aux gamba x2</li>
+                    <li>Burata x1</li>
+                    <li>Lasagne x1</li>
+                </ul>
             </span>
-        </table>
+            <p>Statut : en cours</p>
+            <p id="Complement">Complément : Burata sans fromage</p>
+        </div>
+    </div>
+
+    <div class="block" >
+        <p>Commande n°2</p>
+        <span>
+            <p>café x3</p>
+        </span>
+        <p>Statut : en livraison</p>
     </div>
 </body>
 </html>
