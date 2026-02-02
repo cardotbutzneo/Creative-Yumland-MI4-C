@@ -34,7 +34,7 @@ select{
 .rectangle h2{
     font-size: 24px;
     margin-bottom: 10px;
-    border-bottom: solid 2px #bfa460
+    border-bottom: solid 2px #bfa460;
 }
 
 .rectangle ul{
@@ -44,14 +44,12 @@ select{
 
 .rectangle li{
     margin-bottom: 15px;
-    margin-left: 10px;
 }
 
 .rectangle .ligne{
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
-    padding-bottom: 10px;
 }
 
 .rectangle .nom{
