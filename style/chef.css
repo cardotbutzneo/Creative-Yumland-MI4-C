@@ -19,12 +19,23 @@ a {
 header {
     position: sticky;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 1);
     padding: 20px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+}
+.chef-hero video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    filter: blur(5px);
 }
 
 header h1 {
