@@ -16,7 +16,6 @@ ul li{
 }
 
 ul {
-    padding-top: 20px;
     margin: 0 auto;
 }
 
@@ -27,8 +26,4 @@ ul {
     color:rgb(94, 94, 94);
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-footer{
-
 }
