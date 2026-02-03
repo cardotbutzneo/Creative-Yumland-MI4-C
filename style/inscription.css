@@ -35,6 +35,7 @@ a:hover{
 legend{
     font-weight: bold;
     font-size: 25px;
+    background-color: #0f0f0f;
 }
 
 .intitule {
@@ -60,6 +61,13 @@ input[name="inscription"]:hover {
 .reponse2 {
     display: block;
     text-align: center;
+}
+
+input[type="text"].champ,
+input[type="password"].champ,
+input[type="email"].champ {
+    font-size: 15px;
+    padding: 3px 8px;
 }
 
 @media screen and (max-width: 900px){

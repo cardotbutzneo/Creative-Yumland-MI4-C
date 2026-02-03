@@ -35,6 +35,7 @@ a:hover{
 legend{
     font-weight: bold;
     font-size: 25px;
+    background-color: #0f0f0f;
 }
 
 .intitule {
@@ -63,10 +64,27 @@ input[name="connexion"]:hover {
     text-align: center;
 }
 
+.reponse3 {
+    display:block;
+    text-align: right;
+}
+
+.reponse3 a {
+    font-size: 12px;
+    font-weight: normal;
+}
+
 .naviagation-bar:hover{
     text-decoration: none;
 }
 
 .naviagation-bar ul li a:hover{
     text-decoration: none;
+}
+
+input[type="text"].champ,
+input[type="password"].champ,
+input[type="email"].champ {
+    font-size: 15px;
+    padding: 3px 8px;
 }
