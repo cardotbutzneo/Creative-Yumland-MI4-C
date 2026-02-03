@@ -41,6 +41,7 @@ legend{
 .intitule {
     min-width: 220px;
     font-weight: bold;
+    text-align: left;
 }
 
 input[name="inscription"]{
