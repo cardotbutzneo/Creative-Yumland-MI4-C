@@ -57,7 +57,13 @@ nav ul {
     font-family: 'Playfair Display', serif;
     font-size: 60px;
     font-weight: 400;
-    max-width: 600px;
+    line-height: 1.1;
+}
+
+.sous-titre {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 40px;
 }
 
 section {
