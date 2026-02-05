@@ -1,63 +1,131 @@
-body{
-    text-align: center;
-}
-
-.titre{
-    padding-top: 40px;
-    margin: 0 auto;
-    font-weight: bold;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #000;
     color: white;
-    font-size: 30px;
 }
 
-.liste_informations {
-    padding-top: 20px;
-    margin: 0 auto;
+.conteneur-livraison {
+    padding: 40px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.chainon {
-    list-style: none;
-    padding-top: 12px;
-    display: flex;
-    justify-content: center;
-    text-align: left;
+.titre-page {
+    font-size: 32px;
+    margin-bottom: 30px;
 }
 
-span {
-    font-weight: bold;
-    margin-right: 6px;
+.carte-livraison {
+    width: 100%;
+    max-width: 700px;
+    background: #111;
+    padding: 32px;
+    border-radius: 16px;
+}    
+
+.ligne-information {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding-left: 16px;
+    margin-bottom: 14px;
 }
 
-#lien_maps {
-    display: block;
-    padding-top: 30px;
-    margin: 0 auto;
+.intitule {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.valeur {
+    font-size: 16px;
+}
+
+.valeur a {
+    color: #fff;
     text-decoration: none;
-    color: rgb(94, 94, 94);
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
-input[name="terminer_livraison"]{
-    margin-top: 15px;
-    padding: 15px 52px;
+.valeur a:hover {
+    text-decoration: underline;
+}
+
+.bloc-adresse {
+    margin-top: 24px;
+    padding: 20px;
+    background: #0b0b0b;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+.lien-maps {
+    display: inline-block;
+    margin-top: 10px;
+    color: #c9a24d;
+    text-decoration: none;
     font-weight: bold;
-    background-color: #030301;
-    color: white;
-    border-radius: 20px;
-    border: solid #030301;
+}
+
+.lien-maps:hover {
+    text-decoration: underline;
+}
+
+.bouton-validation {
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
     font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #030301;
+    border: solid #333333 1px;
+    border-radius: 50px;
 }
 
-input[name="terminer_livraison"]:hover {
-    background-color: #333333;
-    border-color: #333333;
+.bouton-validation:hover {
+    background: #333333;
 }
 
-.reponse2 {
-    display: block;
-    text-align: center;
+@media screen and (max-width: 600px) {
+
+    .titre-page {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .carte-livraison {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .ligne-information {
+        grid-template-columns: 1fr;
+        padding-left: 0;
+        gap: 4px;
+    }
+
+    .intitule {
+        font-size: 14px;
+    }
+
+    .valeur {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .bloc-adresse {
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+    .lien-maps {
+        font-size: 14px;
+    }
+
+    .bouton-validation {
+        font-size: 16px;
+        padding: 14px;
+        border-radius: 40px;
+    }
 }

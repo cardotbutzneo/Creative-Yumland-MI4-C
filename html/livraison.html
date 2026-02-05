@@ -3,37 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/livraison.css">
     <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/livraison.css">
     <title>Livraison - L’oro di Cicerone</title>
 </head>
 <body>
-    <header>
-        <a href="index.html"><h1>L’oro di Cicerone</h1></a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="presentation.html">Menu</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <div class="titre">Informations de livraison</div>
-    
-    <ul class="liste_informations">
-        <li class="chainon"><span>Numéro de commande : </span>02740237</li>
-        <li class="chainon"><span>Nom du client : </span>SATHTHIRIYAN</li>
-        <li class="chainon"><span>Prénom du client : </span>Rémi</li>
-        <li class="chainon"><span>Adresse e-mail : </span>remi.saththiriyan@etu.cyu.fr</li>
-        <li class="chainon"><span>Numéro de tel. : </span>07 61 41 44 23</li>
-        <li class="chainon"><span>Adresse de livraison : </span>24 Rue de Malcouture, 95100 Argenteuil</li>
-        <li class="chainon"><span>Complément d'adresse : </span>Appartement 1</li>
-    </ul>
-    <a href="https://www.google.com/maps/@48.9553663,2.2388904,3a,75y,79.17h,90t/data=!3m7!1e1!3m5!1sUCh0ZtUjoiYzrZaFT3x6Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DUCh0ZtUjoiYzrZaFT3x6Aw%26yaw%3D79.17288!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI2MDEyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" id="lien_maps">Ouvrir l'adresse via Google Maps</a>
+<header>
+    <a href="index.html"><h1>L’oro di Cicerone</h1></a>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="presentation.html">Menu</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <div class="reponse">
-        <input type="submit" name="terminer_livraison" value="Terminer livraison" class="champ"/>
-    </div>
+<main class="conteneur-livraison">
+
+    <h2 class="titre-page">Informations de livraison</h2>
+
+    <section class="carte-livraison">
+
+        <div class="ligne-information">
+            <span class="intitule">Numéro de commande</span>
+            <span class="valeur">02740237</span>
+        </div>
+        <div class="ligne-information">
+            <span class="intitule">Nom</span>
+            <span class="valeur">SATHTHIRIYAN</span>
+        </div>
+        <div class="ligne-information">
+            <span class="intitule">Prénom</span>
+            <span class="valeur">Rémi</span>
+        </div>
+        <div class="ligne-information">
+            <span class="intitule">Adresse e-mail</span>
+            <span class="valeur">
+                <a href="mailto:remi.saththiriyan@etu.cyu.fr">
+                    remi.saththiriyan@etu.cyu.fr
+                </a>
+            </span>
+        </div>
+        <div class="ligne-information">
+            <span class="intitule">Téléphone</span>
+            <span class="valeur">
+                <a href="tel:+33761414423">07 61 41 44 23</a>
+            </span>
+        </div>
+        <div class="bloc-adresse">
+            <div class="intitule">Adresse de livraison</div>
+            <div class="valeur">
+                24 Rue de Malcouture<br>
+                95100 Argenteuil<br>
+                Appartement 1
+            </div>
+            <a class="lien-maps" target="_blank"
+               href="https://www.google.com/maps/search/?api=1&query=24+Rue+de+Malcouture+95100+Argenteuil">
+                Ouvrir dans Google Maps
+            </a>
+        </div>
+
+        <input type="submit" value="Terminer livraison" class="bouton-validation">
+
+    </section>
+
+</main>
 
 </body>
 </html>
