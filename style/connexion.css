@@ -21,7 +21,7 @@ a {
     text-decoration: none;
 }
 
-a:hover{
+ a:hover{
     font-weight: bold;
     text-decoration: underline;
 }
@@ -41,6 +41,7 @@ legend{
 .intitule {
     min-width: 120px;
     font-weight: bold;
+    text-align: left;
 }
 
 
@@ -64,6 +65,10 @@ input[name="connexion"]:hover {
     text-align: center;
 }
 
+.reponse2 a:hover{
+    text-decoration: underline;
+}
+
 .reponse3 {
     display:block;
     text-align: right;
@@ -72,6 +77,10 @@ input[name="connexion"]:hover {
 .reponse3 a {
     font-size: 12px;
     font-weight: normal;
+}
+
+.reponse3 a:hover{
+    text-decoration: underline;
 }
 
 .naviagation-bar:hover{

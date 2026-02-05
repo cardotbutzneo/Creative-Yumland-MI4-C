@@ -172,6 +172,10 @@ footer {
     letter-spacing: 1px;
 }
 
+a:hover {
+    font-weight: bold;
+    text-decoration: none;
+}
 
 @media screen and (max-width: 900px) {
 header {

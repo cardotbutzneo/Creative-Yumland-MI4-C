@@ -21,7 +21,7 @@ a {
     text-decoration: none;
 }
 
-a:hover{
+.reponse2 a:hover{
     font-weight: bold;
     text-decoration: underline;
 }
@@ -41,6 +41,7 @@ legend{
 .intitule {
     min-width: 220px;
     font-weight: bold;
+    text-align: left;
 }
 
 input[name="inscription"]{
