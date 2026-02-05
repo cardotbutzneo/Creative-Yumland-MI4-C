@@ -10,25 +10,54 @@ body{
     font-size: 30px;
 }
 
-ul li{
-    list-style-type: none;
-    padding-top: 12px;
-}
-
-ul {
+.liste_informations {
     padding-top: 20px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#lien_maps{
+.chainon {
+    list-style: none;
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
+span {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+#lien_maps {
+    display: block;
     padding-top: 30px;
     margin: 0 auto;
     text-decoration: none;
-    color:rgb(94, 94, 94);
+    color: rgb(94, 94, 94);
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-footer{
+input[name="terminer_livraison"]{
+    margin-top: 15px;
+    padding: 15px 52px;
+    font-weight: bold;
+    background-color: #030301;
+    color: white;
+    border-radius: 20px;
+    border: solid #030301;
+    font-size: 18px;
+}
 
+input[name="terminer_livraison"]:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.reponse2 {
+    display: block;
+    text-align: center;
 }
