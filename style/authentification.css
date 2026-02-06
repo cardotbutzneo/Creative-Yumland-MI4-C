@@ -1,16 +1,12 @@
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+.conteneur-connexion {
     background-color: #000;
     color: white;
-}
-
-.conteneur-connexion {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 16px;
+    padding: 60px 16px 40px;
 }
+
 
 .carte-connexion {
     width: 100%;
@@ -18,7 +14,9 @@ body {
     background: #111;
     padding: 32px;
     border-radius: 16px;
+    font-family: 'Montserrat', sans-serif;
 }
+
 
 .titre-page {
     text-align: center;
