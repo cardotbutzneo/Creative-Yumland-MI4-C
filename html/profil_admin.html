@@ -16,38 +16,36 @@
             </ul>
         </nav>
     </header>
-    <h1>Page de commande</h1>
-    <div class="block">
-        <span id="">
-            <form action="" method="post" id="Recherche-utilisateur">
-                <div>
-                    Rechercher un utilisateur :
-                    <input type="text" name="nom-utilisteur" id="nom-utilisateur">
-                </div>
-            </form>
-        </span>
-        <table>
-            <tr>
-                <th>Nom d'utilisateur</th>
-                <th>Role</th>
-                <th>Dernière connexion</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><a href="#">admin1</a></td>
-                <td>admin</td>
-                <td>2026_01_28-09:53:00</td>
-                <td>
-                    <button>Bloquer l'utilisateur</button>
-
-                </td>
-            </tr>
-            <tr>
-                <td><a href="#">admin2</a></td>
-                <td>admin</td>
-                <td>2026_01_28-09:53:00</td>
-            </tr>
-        </table>
+    <h1>Page d'administration</h1>
+    <hr>
+    <div class="grid">
+        <section class="graphique">
+            <h2>Graphique</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem accusamus commodi, vero iure impedit minima et! Voluptatibus dolores aliquam fugiat maxime perspiciatis suscipit magni? Culpa dolorem facilis distinctio doloribus quas!</p>
+        </section>
+        <section class="table-utilisateur">
+            <h2>Utilisateurs</h2>
+            <table>
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <th>Identifiant</th>
+                    <th>Dernière date de connexion</th>
+                    <th>Bloquer</th>
+                </tr>
+                <tr>
+                    <td><a href="profil_client.html">admin1</a></td>
+                    <td>#0000</td>
+                    <td>2026-01-01 [00:00]</td>
+                    <td><button class="bloquer">Bloquer</button></td>
+                </tr>
+                <tr>
+                    <td><a href="profil_client.html">admin2</a></td>
+                    <td>#0001</td>
+                    <td>2026-01-01 [00:00]</td>
+                    <td><button class="bloquer">Bloquer</button></td>
+                </tr>
+            </table>
+        </section>
     </div>
 </body>
 </html>
