@@ -21,27 +21,43 @@
     <div class="grid">
         <section class="graphique">
             <h2>Graphique</h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem accusamus commodi, vero iure impedit minima et! Voluptatibus dolores aliquam fugiat maxime perspiciatis suscipit magni? Culpa dolorem facilis distinctio doloribus quas!</p>
+            <p>In progress, <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Brick by Boring Brick</a>. Awaiting the JS...</p>
         </section>
         <section class="table-utilisateur">
             <h2>Utilisateurs</h2>
             <table>
                 <tr>
+                    <td>Selection</td>
                     <th>Nom d'utilisateur</th>
                     <th>Identifiant</th>
+                    <th>Statut</th>
                     <th>Dernière date de connexion</th>
                     <th>Bloquer</th>
                 </tr>
                 <tr>
+                    <td class="check" ><input type="checkbox" id="myCheckbox"><label for="myCheckbox"></label></td>
                     <td><a href="profil_client.html">admin1</a></td>
                     <td>#0000</td>
+                    <td><select name="role">
+                        <option value="role">Utilisateur</option>
+                        <option value="role">Livreur</option>
+                        <option value="role">Restaurateur</option>
+                        <option value="role">Administrateur</option>
+                    </select></td>
                     <td>2026-01-01 [00:00]</td>
                     <td><button class="bloquer">Bloquer</button></td>
                 </tr>
                 <tr>
+                    <td class="check"><input type="checkbox" id="myCheckbox2"><label for="myCheckbox2"></label></td>
                     <td><a href="profil_client.html">admin2</a></td>
                     <td>#0001</td>
-                    <td>2026-01-01 [00:00]</td>
+                    <td><select name="role">
+                        <option value="role">Utilisateur</option>
+                        <option value="role">Livreur</option>
+                        <option value="role">Restaurateur</option>
+                        <option value="role">Administrateur</option>
+                    </select></td>
+                    <td>1s</td>
                     <td><button class="bloquer">Bloquer</button></td>
                 </tr>
             </table>
