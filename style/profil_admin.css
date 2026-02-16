@@ -13,7 +13,6 @@ h1{
 
 section{
     padding: 1rem;
-    margin: 2rem;
     background-color: #101011;
     border-radius: 10px;
 }
@@ -39,6 +38,9 @@ section{
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     gap: 2rem;
+    
+    max-width: 1200px;
+    margin: 2rem auto;
 }
 
 .table ul{
@@ -98,6 +100,13 @@ tr:not(:last-child) th {
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+#search-button{
+    background-color: #149414;
+    border: none; 
+    border-radius: 5px; 
+    padding: 5px;
 }
 
 @media screen and (max-width : 600px){
