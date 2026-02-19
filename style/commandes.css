@@ -1,10 +1,31 @@
-.block{
+#main-contenent{
     display: grid;
-    text-align: center;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+.commande{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.block{
+    min-width: 200px;
+    background-color: rgb(26, 25, 25);
     border: 1px white solid;
     margin: 10px;
     padding: 10px;
+    gap: 10px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.block span p:first-of-type{
+    text-align: left;
+}
+
+.block span p:nth-of-type(2){
+    text-align: right;
 }
 
 .block ul{
@@ -16,17 +37,19 @@
 }
 
 .block button{
-    grid-column: 1/-1;
+    width: 100%;
     padding: 20px;
 }
 
 #Complement{
-    grid-column: 1/-1;
     text-align: left;
 }
 
 @media screen and (max-width : 900px) {
     body{
         font-size: small;
+    }
+    .block{
+        min-width: 150px;
     }
 }
