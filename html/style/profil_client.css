@@ -1,0 +1,31 @@
+.contenent h2{
+    text-align: center;
+    padding : 10px 0 15px 0;
+}
+
+.contenent div{
+    margin: auto;
+}
+
+.block{
+    border: 2px white solid;
+    box-shadow: 0 0 10px gold;
+    width: 20%;
+    padding: 5px;
+}
+
+.block p{
+    text-align: center;
+}
+
+.sugestions{
+    width: 100%;
+    display: inline-block;    
+    list-style: none;
+}
+
+.sugestions li{
+    padding: 10px 0 10px 0;
+    display: flex;
+    justify-content: space-between;
+}

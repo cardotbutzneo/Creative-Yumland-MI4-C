@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Restaurant - L’oro di Cicerone</title>
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="../style/restaurant.css">
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/restaurant.css">
 </head>
 <body>
     <header>

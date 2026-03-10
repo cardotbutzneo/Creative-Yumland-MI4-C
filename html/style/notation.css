@@ -1,0 +1,101 @@
+body{
+    background-color: black;
+}
+
+.bulle{
+    background-color: #111;
+    color: #f5f5f5;
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 550px;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bulle h1{
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.ligne{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.intitule{
+    min-width: 170px;
+    color: #aaa;
+}
+
+.etoiles{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.etoiles input{
+    display: none;
+}
+
+.etoiles label{
+    font-size: 30px;
+    color: #ccc;
+}
+
+.etoiles input:checked ~ label{
+    color: #c9a24d;
+}
+
+.commentaires{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.commentaires textarea{
+    height: 100px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    margin-top: 10px;
+    background: #0b0b0b;
+    color: #f5f5f5;    
+}
+
+.commentaires textarea:focus{
+    outline: none;
+    border-color: #c9a24d;
+}
+
+.button-centre{
+    text-align: center;
+}
+
+button{
+    margin-top: 10px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #f5f5f5;
+    background: #030301;
+    border: solid #333333 1px;
+    border-radius: 50px;
+}
+
+button:hover{
+    background-color: #333;
+}
+
+.naviagation-bar:hover{
+    text-decoration: none;
+}
+
+.naviagation-bar ul li a:hover{
+    text-decoration: none;
+}

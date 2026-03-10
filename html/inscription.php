@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/index.css">
-    <link rel="stylesheet" href="../style/authentification.css">
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/authentification.css">
     <title>Inscription - L’oro di Cicerone</title>
 </head>
 <body>
@@ -26,7 +26,7 @@
     <section class="carte-connexion">
         <h2 class="titre-page">Créer un compte</h2>
 
-        <form method="post" action="../serveur.php">
+        <form method="post">
             <div class="champ-formulaire">
                 <label class="intitule">Nom</label>
                 <input type="text" name="nom" class="champ" required>
@@ -69,3 +69,23 @@
 </main>
 </body>
 </html>
+
+<?php
+
+if(isset($_POST["inscription"]) && $_POST["password"] == $_POST["confirmer_password"]){
+
+$data = array(
+    "Nom" => $_POST["nom"],
+    "Prénom" => $_POST["prenom"],
+    "Adresse" => $_POST["adresse"],
+    "Complément d'adresse" => $_POST["complement_adresse"],
+    "Téléphone" => $_POST["tel"],
+    "Adresse email" => $_POST["mail"],
+    "Rôle" => "Client",
+    "Dernières" => null
+);
+
+file_put_contents("client.json", json_encode($data, JSON_PRETTY_PRINT));
+
+}
+?>

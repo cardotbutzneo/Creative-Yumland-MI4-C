@@ -1,0 +1,131 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #000;
+    color: #f5f5f5;
+}
+
+.conteneur-livraison {
+    padding: 40px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titre-page {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.carte-livraison {
+    width: 100%;
+    max-width: 700px;
+    background: #111;
+    padding: 32px;
+    border-radius: 16px;
+}    
+
+.ligne-information {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding-left: 16px;
+    margin-bottom: 14px;
+}
+
+.intitule {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.valeur {
+    font-size: 16px;
+}
+
+.valeur a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.valeur a:hover {
+    text-decoration: underline;
+}
+
+.bloc-adresse {
+    margin-top: 24px;
+    padding: 20px;
+    background: #0b0b0b;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+.lien-maps {
+    display: inline-block;
+    margin-top: 10px;
+    color: #c9a24d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.lien-maps:hover {
+    text-decoration: underline;
+}
+
+.bouton-validation {
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #f5f5f5;
+    background: #030301;
+    border: solid #333333 1px;
+    border-radius: 50px;
+}
+
+.bouton-validation:hover {
+    background: #333333;
+}
+
+@media screen and (max-width: 600px) {
+
+    .titre-page {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .carte-livraison {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .ligne-information {
+        grid-template-columns: 1fr;
+        padding-left: 0;
+        gap: 4px;
+    }
+
+    .intitule {
+        font-size: 14px;
+    }
+
+    .valeur {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .bloc-adresse {
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+    .lien-maps {
+        font-size: 14px;
+    }
+
+    .bouton-validation {
+        font-size: 16px;
+        padding: 14px;
+        border-radius: 40px;
+    }
+}
