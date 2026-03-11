@@ -1,10 +1,29 @@
 {
-    "Nom": "Cardo Butz",
-    "Pr\u00e9nom": "N\u00e9o",
-    "Adresse": "4 Rue du chemin dupuis vert",
-    "Compl\u00e9ment d'adresse": "Appartement 105",
-    "T\u00e9l\u00e9phone": "0706453918",
-    "Adresse email": "neo@gmail.com",
-    "R\u00f4le": "Client",
-    "Derni\u00e8res": null
+    "neo@gmail.com": {
+        "id": "0000",
+        "nom": "cardot butz",
+        "prenom": "neo",
+        "mot de passe (hash\u00e9 !)": "1234",
+        "contact": {
+            "adresse": "rue du pape",
+            "complement adress": "immeuble 5",
+            "telephone": "+33 ...",
+            "adress mail": "neo@gmail.com"
+        },
+        "role": "cuisinier",
+        "parametre": {
+            "taille_police": "12px",
+            "couleur": "defaut",
+            "langue": "fr",
+            "modifiable": true
+        },
+        "derniers-plats": [],
+        "securite": {
+            "date_creation": "2026-03-11",
+            "derniere_connexion": "...",
+            "est_banni": false,
+            "est_en_ligne": "...",
+            "tentative_echec": 0
+        }
+    }
 }

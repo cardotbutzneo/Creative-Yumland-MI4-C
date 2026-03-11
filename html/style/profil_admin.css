@@ -102,6 +102,11 @@ tr:not(:last-child) th {
     border-radius: 5px;
 }
 
+.bloquer input[type="submit"]{
+    border: 0px;
+    background-color: rgb(178,34,34);
+}
+
 #search-button{
     background-color: #149414;
     border: none; 
