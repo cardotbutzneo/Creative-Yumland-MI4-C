@@ -1,28 +1,22 @@
 {
     "neo@gmail.com": {
-        "id": "0000",
-        "nom": "cardot butz",
-        "prenom": "neo",
-        "mot de passe (hash\u00e9 !)": "1234",
+        "id": "00000001",
+        "nom": "nerson",
+        "prenom": "tom",
+        "mot de passe": "$2y$10$5oI6qajW1hEblc.Cj5qj0eOryx1PXII3Q6flg4povfd4ZNIQzJ7Om",
         "contact": {
-            "adresse": "rue du pape",
-            "complement adress": "immeuble 5",
-            "telephone": "+33 ...",
-            "adress mail": "neo@gmail.com"
+            "adresse": "33 rue du pape",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "+33",
+            "adresse email": "neo@gmail.com"
         },
-        "role": "cuisinier",
-        "parametre": {
-            "taille_police": "12px",
-            "couleur": "defaut",
-            "langue": "fr",
-            "modifiable": true
-        },
+        "role": "Client",
         "derniers-plats": [],
         "securite": {
-            "date_creation": "2026-03-11",
-            "derniere_connexion": "...",
+            "date_creation": "2026-03-12",
+            "derniere_connexion": "2026-03-12-18:55:33",
             "est_banni": false,
-            "est_en_ligne": "...",
+            "est_en_ligne": false,
             "tentative_echec": 0
         }
     }

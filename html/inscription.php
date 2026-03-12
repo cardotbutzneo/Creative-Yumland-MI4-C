@@ -72,20 +72,47 @@
 
 <?php
 
+require_once __DIR__."/../serveur.php";
+
+function creer_client(array $donnee) : array{
+    /** Créer le tableau d'un nouvel utilisateur*/
+    $nombre_utilisateur = $donnee;
+    $nouveau_nombre = count($nombre_utilisateur) + 1;
+    $id = str_pad($nouveau_nombre,8,"0",STR_PAD_LEFT);
+    return [
+        "id" => $id,
+        "nom" => $_POST["nom"],
+        "prenom" => $_POST["prenom"],
+        "mot de passe" => password_hash($_POST["password"], PASSWORD_BCRYPT),
+        "contact" => [
+            "adresse" => $_POST["adresse"],
+            "complément d'adresse" => $_POST["complement_adresse"],
+            "téléphone" => $_POST["tel"],
+            "adresse email" => $_POST["mail"]
+        ],   
+        "role" => "Client",
+        "derniers-plats" => [],
+        "securite" => [
+            "date_creation"=> date("Y-m-d"),
+            "derniere_connexion" => date("Y-m-d-H:i:s"),
+            "est_banni" => false,
+            "est_en_ligne" => false,
+            "tentative_echec" => 0
+        ]
+    ];  
+}
+
 if(isset($_POST["inscription"]) && $_POST["password"] == $_POST["confirmer_password"]){
 
-$data = array(
-    "Nom" => $_POST["nom"],
-    "Prénom" => $_POST["prenom"],
-    "Adresse" => $_POST["adresse"],
-    "Complément d'adresse" => $_POST["complement_adresse"],
-    "Téléphone" => $_POST["tel"],
-    "Adresse email" => $_POST["mail"],
-    "Rôle" => "Client",
-    "Dernières" => null
-);
-
-file_put_contents("client.json", json_encode($data, JSON_PRETTY_PRINT));
-
+    $bdd_actuelle = lire_data("client.json");
+    if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
+    $nouveau_client = creer_client($bdd_actuelle);
+    if (is_array($nouveau_client)){
+        $email = $_POST["mail"];
+        if (isset($email)){
+            $bdd_actuelle[$email] = $nouveau_client;
+            file_put_contents("client.json", json_encode($bdd_actuelle, JSON_PRETTY_PRINT));
+        }
+    }
 }
 ?>
