@@ -86,6 +86,18 @@ body {
 .liens-secondaires a:hover {
     text-decoration: underline;
 }
+.message-erreur {
+    max-width: 420px;
+    margin: 20px auto;
+    background: #1a0000;
+    border: 1px solid #5a1a1a;
+    color: #ff6b6b;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
 
 @media (max-width: 480px) {
     .carte-connexion {

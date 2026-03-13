@@ -97,18 +97,26 @@ function creer_client(array $donnee) : array{
             "derniere_connexion" => date("Y-m-d-H:i:s"),
             "est_banni" => false,
             "est_en_ligne" => false,
+            "est_modifiable" => true,
             "tentative_echec" => 0
         ]
     ];  
 }
 
-if(isset($_POST["inscription"]) && $_POST["password"] == $_POST["confirmer_password"]){
-
+if(isset($_POST["inscription"])){
+    if(isset($_POST["password"]) && isset($_POST["confirmer_password"]) and $_POST["password"] != $_POST["confirmer_password"]){
+        echo "<div class='message-erreur'>Les mots de passe sont différents</div>";
+        exit(1);
+    }
     $bdd_actuelle = lire_data("client.json");
+    $email = $_POST["mail"];
+    if(isset($bdd_actuelle[$email])){
+        echo "<div class='message-erreur'>Un compte utilisateur existe déjà avec cette adresse mail</div>";
+        exit(1);
+    }
     if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
     $nouveau_client = creer_client($bdd_actuelle);
     if (is_array($nouveau_client)){
-        $email = $_POST["mail"];
         if (isset($email)){
             $bdd_actuelle[$email] = $nouveau_client;
             file_put_contents("client.json", json_encode($bdd_actuelle, JSON_PRETTY_PRINT));

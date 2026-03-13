@@ -1,22 +1,23 @@
 {
-    "neo@gmail.com": {
+    "admin_restaurant@gmail.com": {
         "id": "00000001",
-        "nom": "nerson",
-        "prenom": "tom",
-        "mot de passe": "$2y$10$5oI6qajW1hEblc.Cj5qj0eOryx1PXII3Q6flg4povfd4ZNIQzJ7Om",
+        "nom": "Admin",
+        "prenom": "Admin",
+        "mot de passe": "$2y$10$U2Y1IqE8y23yr3sbsG0Nc.MDjTwa54b3pAEdrS5ESWWoy1YhoQwXS",
         "contact": {
-            "adresse": "33 rue du pape",
+            "adresse": "33 rue du Pape",
             "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "+33",
-            "adresse email": "neo@gmail.com"
+            "t\u00e9l\u00e9phone": "33",
+            "adresse email": "admin_restaurant@gmail.com"
         },
         "role": "Client",
         "derniers-plats": [],
         "securite": {
-            "date_creation": "2026-03-12",
-            "derniere_connexion": "2026-03-12-18:55:33",
+            "date_creation": "2026-03-13",
+            "derniere_connexion": "2026-03-13-12:41:12",
             "est_banni": false,
             "est_en_ligne": false,
+            "est_modifiable": true,
             "tentative_echec": 0
         }
     }
