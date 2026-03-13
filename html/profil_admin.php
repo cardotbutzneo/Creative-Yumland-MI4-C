@@ -1,4 +1,10 @@
-<?php session_start();?>
+<?php session_start();
+
+if (!isset($_SESSION["mail"]) and $_SESSION["role"] != "admin"){
+    header("Location: connexion.php?error=unauthorized");
+    exit;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +99,7 @@ function changer_role(string $mail_utilisateur, string $nouveau_role) : bool{
     $data = lire_data("client.json");
     if (!isset($data[$mail_utilisateur])) return false; // on retourne rien si l'utilisateur n'est pas trouvé
 
-    if (!isset($data[$mail_utilisateur]["parametre"]["modifiable"]) and $data[$mail_utilisateur]["parametre"]["modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
+    if (!isset($data[$mail_utilisateur]["parametre"]["est_modifiable"]) and $data[$mail_utilisateur]["parametre"]["est_modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
     $data[$mail_utilisateur]["role"] = $nouveau_role; // on change le role de l'utilisateur
 
     $nouvelle_data = json_encode($data, JSON_PRETTY_PRINT);

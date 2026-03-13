@@ -1,5 +1,10 @@
 <?php session_start();
 
+if (!isset($_SESSION["mail"])){
+    header("Location: profil_client.php?error=unauthorized");
+    exit;
+}
+
 $afficher_confirmation = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
