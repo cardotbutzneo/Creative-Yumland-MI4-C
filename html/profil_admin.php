@@ -40,7 +40,7 @@
                 <tr>
                     <form method="POST">
                         <td class="check" ><input type="checkbox" id="myCheckbox"><label for="myCheckbox"></label></td>
-                        <td><input type="hidden" name="nom_utilisateur" value="neo@gmaildmin1"><a href="profil_client.html">neo@gmail</a></td>
+                        <td><input type="hidden" name="nom_utilisateur" value="neo@gmaildmin1"><a href="profil_client.php">neo@gmail</a></td>
                         <td>#0000<input type="hidden" name="id_utilisateur" value="0000"></td>
                         <td>   
                             <select name="role">
@@ -58,7 +58,7 @@
                 <tr>
                     <form method="POST">
                         <td class="check" ><input type="checkbox" id="myCheckbox"><label for="myCheckbox"></label></td>
-                        <td><input type="hidden" name="nom_utilisateur" value="admin2"><a href="profil_client.html">admin2</a></td>
+                        <td><input type="hidden" name="nom_utilisateur" value="admin2"><a href="profil_client.php">admin2</a></td>
                         <td>#0001<input type="hidden" name="id_utilisateur" value="0001"></td>
                         <td>   
                             <select name="role">

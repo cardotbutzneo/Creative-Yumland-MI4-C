@@ -10,21 +10,21 @@
 <body>
 
 <header>
-    <a href="index.html"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="restaurant.html">Le Restaurant</a></li>
-            <li><a href="chef.html">Le Chef</a></li>
-            <li><a href="presentation.html">Menu</a></li>
-            <li><a href="connexion.html">Réserver</a></li>
+            <li><a href="index.php">Accueil</a></li>
+            <li><a href="restaurant.php">Le Restaurant</a></li>
+            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="presentation.php">Menu</a></li>
+            <li><a href="connexion.php">Réserver</a></li>
         </ul>
     </nav>
 </header>
 
 <section class="hero">
   <video autoplay muted loop playsinline>
-    <source src="../style/video/main.mp4" type="video/mp4">
+    <source src="style/video/main.mp4" type="video/mp4">
   </video>
 
   <div class="hero-content">
@@ -35,7 +35,7 @@
 
 <section class="section-light">
     <div class="experience">
-        <img src="../style/img/tour Eiffel.jpg" alt="Restaurant dans la Tour Eiffel">
+        <img src="style/img/tour Eiffel.jpg" alt="Restaurant dans la Tour Eiffel">
         <div>
             <h3>L’Expérience</h3>
             <p>
@@ -55,18 +55,18 @@
                 de son enfance, sublimées par un parcours au sein des plus grandes tables européennes.
             </p>
         </div>
-        <img src="../style/img/chef.png" alt="Chef étoilé">
+        <img src="style/img/chef.png" alt="Chef étoilé">
     </div>
 </section>
 
 <section class="section-light cta">
     <p>Vivez un moment d’exception au sommet de la Ville Lumière</p>
-    <a href="connexion.html">Réserver une table</a>
+    <a href="connexion.php">Réserver une table</a>
 </section>
 
 <footer>
     <p>© 2026 L’oro di Cicerone — Tous droits réservés</p>
-    <a href="contact.html">Nous contacter</a>
+    <a href="contact.php">Nous contacter</a>
 </footer>
 
 </body>

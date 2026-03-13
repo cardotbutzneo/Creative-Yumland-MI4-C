@@ -10,14 +10,14 @@
 </head>
 <body>
     <header>
-        <a href="index.html" class="naviagation-bar"><h1>L’oro di Cicerone</h1></a>
+        <a href="index.php" class="naviagation-bar"><h1>L’oro di Cicerone</h1></a>
         <nav class="naviagation-bar">
         <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="restaurant.html">Le Restaurant</a></li>
-            <li><a href="chef.html">Le Chef</a></li>
-            <li><a href="presentation.html">Menu</a></li>
-            <li><a href="connexion.html">Réserver</a></li>
+            <li><a href="index.php">Accueil</a></li>
+            <li><a href="restaurant.php">Le Restaurant</a></li>
+            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="presentation.php">Menu</a></li>
+            <li><a href="connexion.php">Réserver</a></li>
         </ul>
     </nav>
     </header>

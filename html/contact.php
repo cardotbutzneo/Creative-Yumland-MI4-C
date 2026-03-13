@@ -9,14 +9,14 @@
 </head>
 <body>
     <header>
-        <a href="index.html"><h1>L’oro di Cicerone</h1></a>
+        <a href="index.php"><h1>L’oro di Cicerone</h1></a>
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="restaurant.html">Le Restaurant</a></li>
-                <li><a href="chef.html">Le Chef</a></li>
-                <li><a href="presentation.html">Menu</a></li>
-                <li><a href="connexion.html">Réserver</a></li>
+                <li><a href="index.php">Accueil</a></li>
+                <li><a href="restaurant.php">Le Restaurant</a></li>
+                <li><a href="chef.php">Le Chef</a></li>
+                <li><a href="presentation.php">Menu</a></li>
+                <li><a href="connexion.php">Réserver</a></li>
             </ul>
         </nav>
     </header>
@@ -29,10 +29,10 @@
 
                 <div class="links">
                     <a href="https://github.com/cardotbutzneo" target="_blank">
-                        <img src="../style/img/github logo.png" alt="GitHub" class="logo1">
+                        <img src="style/img/github logo.png" alt="GitHub" class="logo1">
                     </a>
                     <a href="https://www.linkedin.com/in/n%C3%A9o-cardot-butz-737b35309/" target="_blank">
-                        <img src="../style/img/linkedin-logo.webp" alt="LinkedIn" class="logo">
+                        <img src="style/img/linkedin-logo.webp" alt="LinkedIn" class="logo">
                     </a>
                 </div>
             </li>
@@ -40,10 +40,10 @@
                 <p class="name">JEYAKUMAR Adchayan</p>
                 <div class="links">
                     <a href="https://github.com/jadchayan" target="_blank">
-                        <img src="../style/img/github logo.png" alt="GitHub" class="logo1">
+                        <img src="style/img/github logo.png" alt="GitHub" class="logo1">
                     </a>
                     <a href="https://www.linkedin.com/in/adchayan-j-a89aaa3a7/" target="_blank">
-                        <img src="../style/img/linkedin-logo.webp" alt="LinkedIn" class="logo">
+                        <img src="style/img/linkedin-logo.webp" alt="LinkedIn" class="logo">
                     </a>
                 </div>
             </li>
@@ -51,10 +51,10 @@
                 <p class="name">NERSON Tom</p>
                 <div class="links">
                     <a href="https://github.com/tnerson" target="_blank">
-                        <img src="../style/img/github logo.png" alt="GitHub" class="logo1">
+                        <img src="style/img/github logo.png" alt="GitHub" class="logo1">
                     </a>
                     <a href="https://www.linkedin.com/in/tom-nerson-2b6957336/" target="_blank">
-                        <img src="../style/img/linkedin-logo.webp" alt="LinkedIn" class="logo">
+                        <img src="style/img/linkedin-logo.webp" alt="LinkedIn" class="logo">
                     </a>
                 </div>
             </li>
@@ -63,7 +63,7 @@
     <section class="contact">
     <div class="bulle">
         <div class="infos">
-             <a href="index.html"><h4>L'oro di Cicerone</h4></a>    
+             <a href="index.php"><h4>L'oro di Cicerone</h4></a>    
             <p>Adresse : Avenue Gustave Eiffel, 75007 Paris</p>
             <p>Au 3ème étage de la Tour Eiffel</p>
             <p>
