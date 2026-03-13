@@ -10,11 +10,11 @@
 <body>
 
 <header>
-    <a href="index.html"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="presentation.html">Menu</a></li>
+            <li><a href="index.php">Accueil</a></li>
+            <li><a href="presentation.php">Menu</a></li>
         </ul>
     </nav>
 </header>
