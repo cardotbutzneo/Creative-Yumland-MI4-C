@@ -1,43 +1,5 @@
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = htmlspecialchars($_POST['email'] ?? '');
-    $password = htmlspecialchars($_POST['password'] ?? '');
-}
-
-$json = file_get_contents("data.json");
-$data = json_decode($json, true);
-
-$user = $data[$username];
-
-/*
-function add_new_cust(array $data, string $username, string $password): bool
-{
-    if (empty($username) || empty($password)) {
-        return false;
-    }
-
-    $new_user = [
-        "user_id"  => count($data) + 1,
-        "username" => $username,
-        "password" => password_hash($password, PASSWORD_DEFAULT),
-        "role"     => "cust"
-    ];
-
-    $data[] = $new_user;
-
-    $json = json_encode($data, JSON_PRETTY_PRINT);
-
-    if ($json === false) {
-        return false;
-    }
-
-    file_put_contents("data.json", $json);
-
-    return true;
-}
-*/
-
 function lire_data(string $chemin, string $nom_utilisateur = "") : array{
     if (!file_exists($chemin)) return [];
     $data = json_decode(file_get_contents($chemin),true);
@@ -57,63 +19,33 @@ function ecrire_data(string $chemin, array $data) : bool {
     return false;
 }
 
-/*
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    if ($user['password'] == $password){
-        switch ($user['role']) {
-            case 'cust':
-                header("Location: /html/profil_client.php");
-                exit;
-                break;
-            case 'seller' :
-                header("Location: /html/commandes.php");
-                exit;
-                break;
-            case 'delivery' :
-                header("Location: /html/livraison.php");
-                exit;
-                break;
-            default:
-                header("Location: /html/connexion.php");
-                exit;
-                break;
-        }
-    }
 
-    else{
-        header("Location: /html/connexion.php");
-        exit;
-    }
+function ajouter_commandes(array $panier) : bool{ // panier (ex) : {"burrata" : {"prix" : 15, "quantite" : 3, "option" : ""}, "cafe" : {"prix" : 5, "quantite" : 2, "option" : ""}} -> {"plat" : {"prix","quantite","option}}
+    if (!isset($panier) or empty($panier)) return false;
+    $data = lire_data("commandes.json");
+    if (!isset($data)) return false;
+    if (empty($data)) $data = [];
+    $total = 0;
+    $liste_plat = [];
+    $options = [];
+    foreach ($panier as $plat => $info){
+        $total += $info["prix"] * $info["quantite"];
+        $liste_plat[] = $plat;
+        $options[] = $plat . ":" . $plat["option"];
+    };
+    $nouvelle_commandes = [
+        $_SESSION["mail"] => [
+            "date" => date("Y-m-d H:i:s"),
+            "total" => $total,
+            "detail" => [
+                "plats" => $liste_plat,
+                "option" =>  $options
+            ]
+        ]
+    ];
+    $nouvelle_data = json_encode($nouvelle_commandes,JSON_PRETTY_PRINT);
+    file_put_contents("html/commandes.json",$nouvelle_data);
+    return true;
 }
 
-format de la bdd :
-{
-    adresse mail{
-        "id" : ..., (id unique important !!)
-        "nom" : ...,
-        "prenom" : ...,
-        "mot de passe (hashé !)" : ...,
-        "contact" : {
-            "adresse" : ...,
-            "complement adress" : ...,
-            "telephone" : ...,
-            "adress mail" : ...,
-        },
-        "role" : ...,
-        "parametre" : {
-            "taille_police" : "12px",
-            "couleur" : "defaut",
-            "langue" : "fr"
-        },
-        "derniers-plats" : {...},
-        "securite" : {
-            "date_creation" : ...,
-            "derniere_connexion" : ...,
-            "est_banni" : false,
-            "est_en_ligne" : ... (timestemp),
-            "tentative_echec" : 0 (max 5)
-        }
-    }
-}
-*/
 ?>

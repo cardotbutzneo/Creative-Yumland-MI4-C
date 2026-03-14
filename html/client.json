@@ -20,5 +20,49 @@
             "est_modifiable": true,
             "tentative_echec": 0
         }
+    },
+    "client1@gmail.com": {
+        "id": "00000002",
+        "nom": "client1",
+        "prenom": "client",
+        "mot de passe": "$2y$10$jWOsjOum\/E14T6ue\/ExBp.5NoOHvaiuNGAqtNtvrO7\/CS.lWxsmZy",
+        "contact": {
+            "adresse": "33 rue du pape",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "+33",
+            "adresse email": "client1@gmail.com"
+        },
+        "role": "Client",
+        "derniers-plats": [],
+        "securite": {
+            "date_creation": "2026-03-14",
+            "derniere_connexion": "2026-03-14-13:20:03",
+            "est_banni": false,
+            "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0
+        }
+    },
+    "cuisinier1@gmail.com": {
+        "id": "00000003",
+        "nom": "cuisinier1",
+        "prenom": "cuisinier",
+        "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
+        "contact": {
+            "adresse": "33 rue du pape",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "+33",
+            "adresse email": "cuisinier1@gmail.com"
+        },
+        "role": "Client",
+        "derniers-plats": [],
+        "securite": {
+            "date_creation": "2026-03-14",
+            "derniere_connexion": "2026-03-14-13:20:57",
+            "est_banni": false,
+            "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0
+        }
     }
 }
