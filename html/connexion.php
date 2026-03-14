@@ -30,6 +30,8 @@ if (isset($_POST["connexion"])) {
                 $_SESSION["email"] = $email;
                 $_SESSION["connecte"] = true;
                 $_SESSION["role"] = $bdd_actuelle[$email]["role"];
+                $_SESSION["nom"] = $bdd_actuelle[$email]["nom"];
+                $_SESSION["prenom"] = $bdd_actuelle[$email]["prenom"];
                 
                 $bdd_actuelle[$email]["securite"]["derniere_connexion"] = date("Y-m-d H:i:s");
                 $bdd_actuelle[$email]["securite"]["est_en_ligne"] = true;

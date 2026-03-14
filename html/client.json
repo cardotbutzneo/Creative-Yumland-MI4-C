@@ -6,8 +6,8 @@
         "mot de passe": "$2y$10$U2Y1IqE8y23yr3sbsG0Nc.MDjTwa54b3pAEdrS5ESWWoy1YhoQwXS",
         "contact": {
             "adresse": "33 rue du Pape",
-            "complément d'adresse": "",
-            "téléphone": "33",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "33",
             "adresse email": "admin_restaurant@gmail.com"
         },
         "role": "Client",
@@ -28,15 +28,15 @@
         "mot de passe": "$2y$10$jWOsjOum\/E14T6ue\/ExBp.5NoOHvaiuNGAqtNtvrO7\/CS.lWxsmZy",
         "contact": {
             "adresse": "33 rue du pape",
-            "complément d'adresse": "",
-            "téléphone": "+33",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "+33",
             "adresse email": "client1@gmail.com"
         },
         "role": "Client",
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-14 20:47:43",
+            "derniere_connexion": "2026-03-14 21:52:12",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
@@ -50,11 +50,11 @@
         "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
         "contact": {
             "adresse": "33 rue du pape",
-            "complément d'adresse": "",
-            "téléphone": "+33",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "+33",
             "adresse email": "cuisinier1@gmail.com"
         },
-        "role": "Client",
+        "role": "admin",
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-14",
@@ -72,8 +72,8 @@
         "mot de passe": "$2y$10$T1eeFFiF7MuIxaQZOF77eenwb\/Co5bUiFT6lzItirM9k0yWio4XuC",
         "contact": {
             "adresse": "2 Rue de la paix, Paris",
-            "complément d'adresse": "2e étage",
-            "téléphone": "0763289174",
+            "compl\u00e9ment d'adresse": "2e \u00e9tage",
+            "t\u00e9l\u00e9phone": "0763289174",
             "adresse email": "client2@gmail.com"
         },
         "role": "Client",
@@ -94,15 +94,15 @@
         "mot de passe": "$2y$10$Hj2EKIVtJliGk2fcGgMYnONV3pZsRmxiHTqVcggz0uAeCxMPKOCwK",
         "contact": {
             "adresse": "33 rue du pape",
-            "complément d'adresse": "",
-            "téléphone": "+33",
+            "compl\u00e9ment d'adresse": "",
+            "t\u00e9l\u00e9phone": "+33",
             "adresse email": "admin1@gmail.com"
         },
         "role": "admin",
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-14 21:13:51",
+            "derniere_connexion": "2026-03-14 22:05:09",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,

@@ -1,9 +1,25 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["connecte"]) and $_SESSION["role"] != "admin"){
+require_once __DIR__."/../serveur.php";
+
+if(!isset($_SESSION["connecte"]) or $_SESSION["role"] != "admin"){
     header("Location: profil_client.php?error=unauthorized");
     exit;
+}
+
+$data = lire_data("client.json");
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
+    $mail = $_POST['nom_utilisateur'];
+    $nouveauRole = $_POST['role'];  
+
+    if (changer_role($mail, $nouveauRole)) {
+        // Succès : on rafraîchit la page pour voir les changements
+        header("Location: " . $_SERVER['PHP_SELF']); 
+        exit();
+    }
 }
 ?>
 
@@ -44,42 +60,32 @@ if(!isset($_SESSION["connecte"]) and $_SESSION["role"] != "admin"){
                     <th>Dernière date de connexion</th>
                     <th>Bloquer</th>
                 </tr>
-                <tr>
-                    <form method="POST">
-                        <td class="check" ><input type="checkbox" id="myCheckbox"><label for="myCheckbox"></label></td>
-                        <td><input type="hidden" name="nom_utilisateur" value="neo@gmaildmin1"><a href="profil_client.php">neo@gmail</a></td>
-                        <td>#0000<input type="hidden" name="id_utilisateur" value="0000"></td>
-                        <td>   
-                            <select name="role">
-                                <option value="utilisateur">Utilisateur</option>
-                                <option value="livreur">Livreur</option>
-                                <option value="cuisinier">Cuisinier</option>
-                                <option value="administrateur">Administrateur</option>
-                            </select>
-                            <input type="submit">
-                        </td>
-                        <td>2025-01-01</td>
-                        </form>
-                        <td><form class="bloquer"><input type="submit"></form></td>
-                </tr>
-                <tr>
-                    <form method="POST">
-                        <td class="check" ><input type="checkbox" id="myCheckbox"><label for="myCheckbox"></label></td>
-                        <td><input type="hidden" name="nom_utilisateur" value="admin2"><a href="profil_client.php">admin2</a></td>
-                        <td>#0001<input type="hidden" name="id_utilisateur" value="0001"></td>
-                        <td>   
-                            <select name="role">
-                                <option value="utilisateur">Utilisateur</option>
-                                <option value="livreur">Livreur</option>
-                                <option value="cuisinier">Cuisinier</option>
-                                <option value="administrateur">Administrateur</option>
-                            </select>
-                            <input type="submit">
-                        </td>
-                        <td>1s</td>
-                    </form>
-                    <td><form class="bloquer"><input type="submit"></form></td>
-                </tr>
+                <?php 
+                foreach ($data as $client => $info){
+                    $i = $info["id"];
+                    $roleActuel = $info["role"];
+                    echo"
+                        <tr>
+                            <form method='POST'>
+                                <td class='check' ><input type='checkbox' id='myCheckbox'><label for='myCheckbox'></label></td>
+                                <td><input type='hidden' name='nom_utilisateur' value=" . $client . "><a href='profil_client.php'>" . $client . "</a></td>
+                                <td>" . $i . "<input type='hidden' name='id_utilisateur' value=" . $i . "></td>
+                                <td>   
+                                    <select name='role'>
+                                        <option value='utilisateur' " . ($roleActuel == 'utilisateur' ? 'selected' : '') . ">Utilisateur</option>
+                                        <option value='livreur' " . ($roleActuel == 'livreur' ? 'selected' : '') . ">Livreur</option>
+                                        <option value='Cuisinier' " . ($roleActuel == 'Cuisinier' ? 'selected' : '') . ">Cuisinier</option>
+                                        <option value='admin' " . ($roleActuel == 'admin' ? 'selected' : '') . ">Administrateur</option>
+                                    </select>
+                                    <input type='submit'>
+                                </td>
+                                <td>" . $info["securite"]["derniere_connexion"] . "</td>
+                                </form>
+                                <td><form class='bloquer'><input type='submit' value='Bloquer'></form></td>
+                        </tr>";
+                }
+                
+                ?>
             </table>
         </section>
     </div>
@@ -87,7 +93,7 @@ if(!isset($_SESSION["connecte"]) and $_SESSION["role"] != "admin"){
 </html>
 
 <?php
-require_once __DIR__."/../serveur.php";
+
 
 /**
  * Change le rôle d'un utilisateur et sauvegarde dans le fichier JSON.
@@ -96,11 +102,11 @@ require_once __DIR__."/../serveur.php";
 function changer_role(string $mail_utilisateur, string $nouveau_role) : bool{
 
     if (empty($mail_utilisateur) or empty($nouveau_role)) return false;
-    if (!isset($_SESSION) or $_SESSION["role"] !== "administrateur") return false;
+    if (!isset($_SESSION) or $_SESSION["role"] !== "admin") return false;
     $data = lire_data("client.json");
     if (!isset($data[$mail_utilisateur])) return false; // on retourne rien si l'utilisateur n'est pas trouvé
 
-    if (!isset($data[$mail_utilisateur]["parametre"]["est_modifiable"]) and $data[$mail_utilisateur]["parametre"]["est_modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
+    if (isset($data[$mail_utilisateur]["parametre"]["est_modifiable"]) and $data[$mail_utilisateur]["parametre"]["est_modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
     $data[$mail_utilisateur]["role"] = $nouveau_role; // on change le role de l'utilisateur
 
     $nouvelle_data = json_encode($data, JSON_PRETTY_PRINT);
@@ -116,16 +122,6 @@ function afficher_info(string $mail_utilisateur) : void{
     echo "nom utilisateur : ".$utilisateur["nom"]."<br>";
     //echo "id utilisateur :".$utilisateur["id"]"<br>"; // n'existe pas
     echo "role : ".$utilisateur["role"]."<br>";
-}
-
-afficher_info("neo@gmail.com");
-
-// test on utilisera la session déclarer lors de la connexion
-$_SESSION["role"] = "administrateur";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["role"])){
-    $nv_role = $_POST["role"];
-    changer_role("neo@gmail.com",$nv_role);
 }
 
 ?>

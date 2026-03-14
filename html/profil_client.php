@@ -48,6 +48,7 @@ foreach ($data as $nom_plat){
     </nav>
 </header>
     <section>
+        <?= "<p>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>"?>
         <div class="contenent">
             <h2>Favori</h2>
             <nav>

@@ -12,7 +12,7 @@ h1{
 }
 
 section{
-    padding: 1rem;
+    padding: 0;
     background-color: #0f0f0f;
     border-radius: 10px;
 }
@@ -36,11 +36,9 @@ section{
 
 .grid{
     display: grid;
-    grid-template-columns: 0.5fr 1fr;
-    gap: 2rem;
-    
-    max-width: 1200px;
-    margin: 2rem auto;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    margin: 1rem;
 }
 
 .table ul{
