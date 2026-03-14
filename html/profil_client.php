@@ -41,11 +41,9 @@ foreach ($data as $nom_plat){
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
             <li><a href="modifier_profil.php">Modifier le profil</a></li>
+            <li><a href="deconnexion.php">se déconnecter</a></li>
         </ul>
     </nav>
 </header>
@@ -118,7 +116,10 @@ foreach ($data as $nom_plat){
         <div class="contenent">
             <h2>Vos points fidélités</h2>
             <div class="block">
-                <p>0 point.s</p>
+                <?php
+                    $pts = $_SESSION["pts-fidelite"] ?? 0; // Si n'existe pas, vaut 0
+                    echo "<p>$pts point" . ($pts > 1 ? "s" : "") . "</p>";
+                ?>
             </div>
         </div>
     </section>

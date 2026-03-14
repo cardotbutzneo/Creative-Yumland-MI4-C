@@ -21,6 +21,10 @@ if(isset($_POST["deconnexion"])){
     header("Location: index.php");
     exit;
 }
+elseif ($_POST["abandonner"]){
+    header("Location: profil_client.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +58,7 @@ if(isset($_POST["deconnexion"])){
         
         <form method="post" action="">
             <input type="submit" name="deconnexion" value="Se déconnecter" class="bouton-validation">
+            <input type="submit" name="abandonner" value="Abandonner la deconnexion" class="bouton-validation">
         </form>
     </section>
 </main>

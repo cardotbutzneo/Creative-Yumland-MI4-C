@@ -55,8 +55,7 @@ if (isset($_POST["inscription"])) {
             $nouveau_client = creer_client($bdd_actuelle);
             $bdd_actuelle[$email] = $nouveau_client;
             ecrire_data("client.json", $bdd_actuelle);
-
-            header("Location: index.php");
+            header("Location: profil_client.php");
             exit;
         }
     }

@@ -20,7 +20,7 @@ session_start();
             <li><a href="restaurant.php">Le Restaurant</a></li>
             <li><a href="chef.php">Le Chef</a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
+            <li><a href="connexion.php">se connecter</a></li>
         </ul>
     </nav>
 </header>

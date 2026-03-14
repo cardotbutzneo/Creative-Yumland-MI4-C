@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true) {
-    header("Location: profil_client.php?error=unauthorized");
+    header("Location: profil_client.php");
     exit;
 }
 
@@ -29,15 +29,29 @@ if (isset($_POST["connexion"])) {
             if (password_verify($mdp, $hash)) {
                 $_SESSION["email"] = $email;
                 $_SESSION["connecte"] = true;
+                $_SESSION["role"] = $bdd_actuelle[$email]["role"];
                 
                 $bdd_actuelle[$email]["securite"]["derniere_connexion"] = date("Y-m-d H:i:s");
                 $bdd_actuelle[$email]["securite"]["est_en_ligne"] = true;
                 $bdd_actuelle[$email]["securite"]["tentative_echec"] = 0;
                 
                 ecrire_data("client.json", $bdd_actuelle);
-
-                header("Location: index.php");
-                exit;
+                if ($_SESSION["role"] == "Client"){
+                    header("Location: profil_client.php");
+                    exit;
+                }
+                elseif ($_SESSION["role"] == "cuisinier"){
+                    header("Location: commandes.php");
+                    exit;
+                }
+                elseif ($_SESSION["role"] == "livreur"){
+                    header("Location: livraison.php");
+                    exit;
+                }
+                elseif ($_SESSION["role"] == "admin"){
+                    header("Location: profil_admin.php");
+                    exit;
+                }
             } else {
                 $bdd_actuelle[$email]["securite"]["tentative_echec"]++;
                 ecrire_data("client.json", $bdd_actuelle);
@@ -63,10 +77,6 @@ if (isset($_POST["connexion"])) {
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
-            <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
         </ul>
     </nav>
 </header>
@@ -83,11 +93,11 @@ if (isset($_POST["connexion"])) {
 
         <form method="post" action="">
             <div class="champ-formulaire">
-                <label class="intitule">Adresse e-mail</label>
+                <label class="intitule"><span class="obligatoire">* </span>Adresse e-mail</label>
                 <input type="email" name="email" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Mot de passe</label>
+                <label class="intitule"><span class="obligatoire">* </span>Mot de passe</label>
                 <input type="password" name="password" class="champ" required>
             </div>
             <input type="submit" name="connexion" value="Se connecter" class="bouton-validation">
@@ -96,6 +106,7 @@ if (isset($_POST["connexion"])) {
                 <a href="reset_password.php">Mot de passe oublié ?</a>
             </div>
         </form>
+        <p style="font-size : smaller; color : white" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
     </section>
 </main>
 </body>

@@ -36,9 +36,9 @@
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-14 20:25:50",
+            "derniere_connexion": "2026-03-14 20:47:43",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0
         }
@@ -83,6 +83,28 @@
             "derniere_connexion": "2026-03-14 20:17:45",
             "est_banni": false,
             "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0
+        }
+    },
+    "admin1@gmail.com": {
+        "id": "00000005",
+        "nom": "admin1",
+        "prenom": "admin1",
+        "mot de passe": "$2y$10$Hj2EKIVtJliGk2fcGgMYnONV3pZsRmxiHTqVcggz0uAeCxMPKOCwK",
+        "contact": {
+            "adresse": "33 rue du pape",
+            "complément d'adresse": "",
+            "téléphone": "+33",
+            "adresse email": "admin1@gmail.com"
+        },
+        "role": "admin",
+        "derniers-plats": [],
+        "securite": {
+            "date_creation": "2026-03-14",
+            "derniere_connexion": "2026-03-14 21:13:51",
+            "est_banni": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0
         }

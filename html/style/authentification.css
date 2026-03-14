@@ -99,6 +99,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.obligatoire{
+    color : rgb(215, 52, 52);
+}
+
 @media (max-width: 480px) {
     .carte-connexion {
         padding: 24px;

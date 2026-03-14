@@ -1,6 +1,6 @@
 <?php session_start();
 
-if (!isset($_SESSION["mail"])){
+if (!isset($_SESSION["email"])){
     header("Location: profil_client.php?error=unauthorized");
     exit;
 }
@@ -64,17 +64,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     <label class="intitule">Téléphone</label>
                     <input type="text" name="tel" class="champ">
                 </div>
-                <div class="alerte-abandon">
-                    <input name="confirmation" type="checkbox" id="conf-modifs">
-                    <label for="conf-modifs">Confirmer vos modifications</label>
-                </div>
+                <?php 
+                    if (!$afficher_confirmation){
+                        echo "<div class='alerte-abandon'>
+                            <input name='confirmation' type='checkbox' id='conf-modifs'>
+                            <label for='conf-modifs'><span class='obligatoire'>* </span>Confirmer vos modifications</label>
+                        </div>
 
-                <button type="submit" name="valider_modifs" class="bouton-validation">Enregistrer</button>
-                <br>
+                        <button type='submit' name='valider_modifs' class='bouton-validation'>Enregistrer</button>
+                        <br>";
+                    }
+                ?>
                 <hr> <?php if ($afficher_confirmation): ?>
                     <div class="alerte-abandon">
-                        <input type="checkbox" name="checkbox_ok" id="cb">
-                        <label for="cb">Confirmer la perte des modifications</label><br>
+                        <p class="message-erreur">Attention vous allez perdre toutes vos modifications</p>
+                        <input type="checkbox" name="checkbox_ok" id="cb" required>
+                        <label for="cb"><span class="obligatoire">* </span>Confirmer la perte des modifications</label><br>
                         <button type="submit" name="confirm_abandon" class="bouton-validation">Confirmer l'abandon</button>
                     </div>
                 <?php else: ?>
@@ -83,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                 <?php endif; ?>
             </form>
+            <p style="font-size : smaller" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
         </section>
     </main> 
 </body>
