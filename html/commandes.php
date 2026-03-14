@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["connecte"])){
-    header("Location: connexion.php");
+if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "cuisinier" and $_SESSION["role"] != "admin")){
+    header("Location: connexion.php?error=unauthorized");
     exit;
 }
 ?>
