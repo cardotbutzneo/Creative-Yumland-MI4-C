@@ -1,3 +1,61 @@
+<?php
+session_start();
+require_once __DIR__."/../serveur.php";
+
+$erreur = "";
+
+function creer_client(array $donnee) : array {
+    $nouveau_nombre = count($donnee) + 1;
+    $id = str_pad($nouveau_nombre, 8, "0", STR_PAD_LEFT);
+    
+    return [
+        "id" => $id,
+        "nom" => $_POST["nom"],
+        "prenom" => $_POST["prenom"],
+        "mot de passe" => password_hash($_POST["password"], PASSWORD_BCRYPT),
+        "contact" => [
+            "adresse" => $_POST["adresse"],
+            "complément d'adresse" => $_POST["complement_adresse"],
+            "téléphone" => $_POST["tel"],
+            "adresse email" => $_POST["mail"]
+        ],   
+        "role" => "Client",
+        "derniers-plats" => [],
+        "securite" => [
+            "date_creation" => date("Y-m-d"),
+            "derniere_connexion" => date("Y-m-d H:i:s"),
+            "est_banni" => false,
+            "est_en_ligne" => false,
+            "est_modifiable" => true,
+            "tentative_echec" => 0
+        ]
+    ];  
+}
+
+if (isset($_POST["inscription"])) {
+    $email = $_POST["mail"];
+    $password = $_POST["password"];
+    $confirmer_password = $_POST["confirmer_password"];
+
+    if ($password !== $confirmer_password) {
+        $erreur = "Les mots de passe sont différents.";
+    } else {
+        $bdd_actuelle = lire_data("client.json");
+        if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
+
+        if (isset($bdd_actuelle[$email])) {
+            $erreur = "Un compte utilisateur existe déjà avec cette adresse mail.";
+        } else {
+            $nouveau_client = creer_client($bdd_actuelle);
+            $bdd_actuelle[$email] = $nouveau_client;
+            ecrire_data("client.json", $bdd_actuelle);
+
+            header("Location: index.php");
+            exit;
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,7 +84,13 @@
     <section class="carte-connexion">
         <h2 class="titre-page">Créer un compte</h2>
 
-        <form method="post">
+        <?php if (!empty($erreur)): ?>
+            <div class="message-erreur">
+                <?php echo $erreur; ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="post" action="">
             <div class="champ-formulaire">
                 <label class="intitule">Nom</label>
                 <input type="text" name="nom" class="champ" required>
@@ -69,58 +133,3 @@
 </main>
 </body>
 </html>
-
-<?php
-
-require_once __DIR__."/../serveur.php";
-
-function creer_client(array $donnee) : array{
-    /** Créer le tableau d'un nouvel utilisateur*/
-    $nombre_utilisateur = $donnee;
-    $nouveau_nombre = count($nombre_utilisateur) + 1;
-    $id = str_pad($nouveau_nombre,8,"0",STR_PAD_LEFT);
-    return [
-        "id" => $id,
-        "nom" => $_POST["nom"],
-        "prenom" => $_POST["prenom"],
-        "mot de passe" => password_hash($_POST["password"], PASSWORD_BCRYPT),
-        "contact" => [
-            "adresse" => $_POST["adresse"],
-            "complément d'adresse" => $_POST["complement_adresse"],
-            "téléphone" => $_POST["tel"],
-            "adresse email" => $_POST["mail"]
-        ],   
-        "role" => "Client",
-        "derniers-plats" => [],
-        "securite" => [
-            "date_creation"=> date("Y-m-d"),
-            "derniere_connexion" => date("Y-m-d-H:i:s"),
-            "est_banni" => false,
-            "est_en_ligne" => false,
-            "est_modifiable" => true,
-            "tentative_echec" => 0
-        ]
-    ];  
-}
-
-if(isset($_POST["inscription"])){
-    if(isset($_POST["password"]) && isset($_POST["confirmer_password"]) and $_POST["password"] != $_POST["confirmer_password"]){
-        echo "<div class='message-erreur'>Les mots de passe sont différents</div>";
-        exit(1);
-    }
-    $bdd_actuelle = lire_data("client.json");
-    $email = $_POST["mail"];
-    if(isset($bdd_actuelle[$email])){
-        echo "<div class='message-erreur'>Un compte utilisateur existe déjà avec cette adresse mail</div>";
-        exit(1);
-    }
-    if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
-    $nouveau_client = creer_client($bdd_actuelle);
-    if (is_array($nouveau_client)){
-        if (isset($email)){
-            $bdd_actuelle[$email] = $nouveau_client;
-            file_put_contents("client.json", json_encode($bdd_actuelle, JSON_PRETTY_PRINT));
-        }
-    }
-}
-?>
