@@ -47,6 +47,16 @@ function lire_data(string $chemin, string $nom_utilisateur = "") : array{
     }
     return $data;
 }
+
+function ecrire_data(string $chemin, array $data) : bool {
+    $json_contenu = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if (file_put_contents($chemin, $json_contenu) !== false) {
+        return true;
+    }
+    
+    return false;
+}
+
 /*
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if ($user['password'] == $password){
