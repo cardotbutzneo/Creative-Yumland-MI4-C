@@ -18,21 +18,13 @@ if(!isset($_SESSION["connecte"])){
 </head>
 <body>
     <header>
-        <a href="index.php" class="naviagation-bar"><h1>L’oro di Cicerone</h1></a>
-        <nav class="naviagation-bar">
-        <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
-            <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
-        </ul>
-    </nav>
+        <h1>L'oro di Cicerone</h1>
+    </header>
     </header>
     <main>
         <div class="bulle">
             <h1>Évaluer votre expérience</h1>
-            <form action="https://www.cafe-it.fr/cytech/post.php" method="POST">
+            <form action="remerciement.php" method="POST">
                 <div class="ligne">
                     <span class="intitule">Note de la livraison :</span>
                     <div class="etoiles">

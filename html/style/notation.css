@@ -2,6 +2,10 @@ body{
     background-color: black;
 }
 
+header {
+    justify-content: center;
+}
+
 .bulle{
     background-color: #111;
     color: #f5f5f5;

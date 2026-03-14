@@ -13,7 +13,7 @@ session_start();
 <body>
 
 <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -24,6 +24,7 @@ session_start();
         </ul>
     </nav>
 </header>
+
 <main>
     <div class="barre-filtre">
     <input type="text" id="bar-recherche" placeholder="Rechercher un plat...">
@@ -48,9 +49,62 @@ session_start();
         <option value="sans-allergenes">Sans allergène</option>
     </select>
     </div>
+    
+<?php
+function lire_data(string $chemin, string $nom_utilisateur = "") : array {
+    if (!file_exists($chemin)) return [];
+    $data = json_decode(file_get_contents($chemin), true);
+    if ($data == null) return [];
+    if ($nom_utilisateur != "") {
+        if (isset($data[$nom_utilisateur])) return $data[$nom_utilisateur];
+    }
+    return $data;
+}
+
+$data = lire_data("plats.json");
+
+$categories = [
+    "entrees"  => "Entrées",
+    "plats"    => "Plats",
+    "desserts" => "Desserts",
+    "vins"     => "Vins",
+    "cafes"    => "Cafés",
+];
+
+foreach($categories as $id => $intitule) {
+    $plats_categorie = [];
+
+    foreach($data as $cle => $plat) {
+        if ($cle === "Allergenes") continue;
+        if ($plat["categorie"] === $id) {
+            $plats_categorie[] = $plat;
+        }
+    }
+
+    if (count($plats_categorie) === 0) continue;
+
+    echo "<section class='rectangle'>";
+    echo "<h2>" . $intitule . "</h2>";
+    echo "<ul>";
+
+    foreach($plats_categorie as $plat) {
+        echo "<li>";
+        echo "<div class='ligne'>";
+        echo "<span class='nom'>" . $plat["nom"] . "</span>";
+        echo "<span class='prix'>" . $plat["prix"] . "€</span>";
+        echo "</div>";
+        echo "<span class='description'>" . $plat["description"] . "</span>";
+        echo "</li>";
+    }
+
+    echo "</ul>";
+    echo "</section>";
+}
+?>
 </main>
+
 <footer>
-    <p>© 2026 L’oro di Cicerone — Tous droits réservés</p>
+    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
     <a href="contact.php">Nous contacter</a>
 </footer>
 </body>
