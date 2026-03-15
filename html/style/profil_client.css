@@ -1,3 +1,7 @@
+section{
+    padding: 20px 15% 20px 15%;
+}
+
 .contenent h2{
     text-align: center;
     padding : 10px 0 15px 0;
@@ -7,11 +11,17 @@
     margin: auto;
 }
 
-.block{
-    border: 2px white solid;
-    box-shadow: 0 0 10px gold;
-    width: 20%;
-    padding: 5px;
+.contenent {
+    margin: 20px auto;
+    background: #0b0b00;
+    border: 1px solid #C5A021;
+    box-shadow: 0 0 8px #C5A021;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .block p{
@@ -28,4 +38,53 @@
     padding: 10px 0 10px 0;
     display: flex;
     justify-content: space-between;
+}
+
+.notification-success {
+    background-color: #0b0b0b;
+    color: white;
+    border: 1px solid #D4AF37;
+    padding: 10px;
+    margin: 20px;
+    width: fit-content;
+    border-radius: 5px;
+    text-align: left;
+    animation: fadeOut 6s forwards;
+}
+
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 250px;
+    height: 18px;
+    border-radius: 10px;    
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow : hidden;
+}
+
+.grade-amethyste::-webkit-progress-value { background: #9966CC; border-radius: 10px; }
+.grade-amethyste::-moz-progress-bar { background: #9966CC; }
+
+.grade-rubis::-webkit-progress-value { background: rgb(215, 52, 52); border-radius: 10px; }
+.grade-rubis::-moz-progress-bar { background: rgb(215, 52, 52); }
+
+.grade-or::-webkit-progress-value { 
+    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728); 
+    border-radius: 10px; 
+}
+.grade-or::-moz-progress-bar { background: #D4AF37; }
+
+.fidelite-card {
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+
+@keyframes fadeOut {
+    0% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translatex(-20px); visibility: hidden; }
 }

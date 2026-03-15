@@ -1,5 +1,7 @@
 <?php session_start();
 
+require_once __DIR__."/../serveur.php";
+
 if (!isset($_SESSION["email"])){
     header("Location: profil_client.php?error=unauthorized");
     exit;
@@ -16,8 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         header("Location: profil_client.php");
         exit();
     }
-
+    if (isset($_POST["valider_modifs"])){
+        modifier_infos();
+        header("Location: profil_client.php?flag=success");
+        exit;
+    }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <?php 
                     if (!$afficher_confirmation){
                         echo "<div class='alerte-abandon'>
-                            <input name='confirmation' type='checkbox' id='conf-modifs'>
+                            <input name='confirmation' type='checkbox' id='conf-modifs' required>
                             <label for='conf-modifs'><span class='obligatoire'>* </span>Confirmer vos modifications</label>
                         </div>
 
@@ -88,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                 <?php endif; ?>
             </form>
-            <p style="font-size : smaller" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
+            <p style="font-size : smaller; color : white;" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
         </section>
     </main> 
 </body>
@@ -107,21 +115,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 </style>
 
 <?php 
-require_once __DIR__."/../serveur.php";
 
 $afficher_confirmation = false;
 
-function modifier_infos() : bool{
-    /**Modifie les infos de l'utilisateur */
-    $data = lire_data()[$_SESSION["mail"]];
+function modifier_infos() : void {
+    /** Modifie les infos de l'utilisateur */
+    $toute_la_data = lire_data("client.json");
+    $email = $_SESSION["email"];
 
-    foreach (["nom","prenom","adresse","complement_adresse","tel"] as $var){
-        if (isset($_POST[$var])){ // si on change les données on les modifies
-            $data[$var] = $_POST[$var];
+    if (!isset($toute_la_data[$email])) return;
+
+    foreach (["nom", "prenom", "adresse", "complement_adresse", "tel"] as $var) {
+        if (isset($_POST[$var]) && !empty(trim($_POST[$var]))) {
+            $toute_la_data[$email][$var] = htmlspecialchars($_POST[$var]);
         }
     }
-    file_put_contents("client.json",$nouvelle_data); // on sauvegarde la bdd
-}
 
+    file_put_contents("client.json", json_encode($toute_la_data, JSON_PRETTY_PRINT));
+}
 
 ?>

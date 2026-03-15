@@ -24,6 +24,25 @@ foreach ($data as $nom_plat){
             break;
     }
 }
+$pts = $_SESSION["pts-fidelite"] ?? 0;
+
+if ($pts < 25) {
+    $class = "grade-amethyste";
+    $max = 25;
+    $nom_grade = "Améthyste";
+}
+elseif ($pts < 50) {
+    $class = "grade-rubis";
+    $max = 50;
+    $nom_grade = "Rubis";
+}
+else {
+    $class = "grade-or";
+    $max = 100;
+    $nom_grade = "Buisson-Or";
+}
+$_SESSION["programme-fidelite"] = $nom_grade;
+
 ?>
 
 <!DOCTYPE html>
@@ -47,10 +66,23 @@ foreach ($data as $nom_plat){
         </ul>
     </nav>
 </header>
+    <?php 
+        if (isset($_GET["flag"]) && $_GET["flag"] === "success") {
+            echo '<div class="notification-success">
+                    <p>Vos modifications ont bien été prises en compte</p>
+                  </div>';
+}
+    ?>
     <section>
-        <?= "<p>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>"?>
+        <div class="contenent" style="text-align : left;">
+            <?php if ($_SESSION["role"] == "Client"){
+                echo "<p>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>";
+                echo "<p>Programme " . $_SESSION["programme-fidelite"];
+            }
+            ?>
+        </div>
         <div class="contenent">
-            <h2>Favori</h2>
+            <h2>Historique des dernières commandes</h2>
             <nav>
                 <?php
                     if (isset($_SESSION["derniers-plats"]) and !empty($_SESSION["derniers-plats"]) and isset($plats)){
@@ -61,12 +93,11 @@ foreach ($data as $nom_plat){
                         echo "</ul>";
                     }
                     else{
-                        echo "<p>Pas de plats favoris pour le moment.</p>";
+                        echo "<p>Pas d'historique pour le moment.</p>";
                     }
                 ?>
             </nav>
         </div>
-        <hr>
         <div class="contenent">
             <h2>Nos suggestions</h2>
             <nav>
@@ -113,14 +144,14 @@ foreach ($data as $nom_plat){
                 </ul>
             </nav>
         </div>
-        <hr>
         <div class="contenent">
             <h2>Vos points fidélités</h2>
-            <div class="block">
-                <?php
-                    $pts = $_SESSION["pts-fidelite"] ?? 0; // Si n'existe pas, vaut 0
-                    echo "<p>$pts point" . ($pts > 1 ? "s" : "") . "</p>";
-                ?>
+            <div class="fidelite-card">
+                <progress class="<?= $class ?>" value="<?= $pts ?>" max="<?= $max ?>"></progress>
+                <span><?php if ($pts <= $max) {echo "$pts / $max points";} else echo "$pts points"?></span>
+                <?php if ($pts < 50): ?>
+                    <p>Prochain programme : <strong><?= ($pts < 25) ? "Rubis" : "Or" ?></strong></p>
+                <?php endif; ?>
             </div>
         </div>
     </section>
