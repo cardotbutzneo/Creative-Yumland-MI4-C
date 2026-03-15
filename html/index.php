@@ -20,11 +20,10 @@ session_start();
             <li><a href="restaurant.php">Le Restaurant</a></li>
             <li><a href="chef.php">Le Chef</a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">se connecter</a></li>
+            <li><?php if (isset($_SESSION) and $_SESSION["connecte"] == true) echo '<a href="connexion.php">Profil</a>'; else echo '<a href="connexion.php">se connecter</a>'?></li>
         </ul>
     </nav>
 </header>
-
 <section class="hero">
   <video autoplay muted loop playsinline>
     <source src="style/video/main.mp4" type="video/mp4">
@@ -69,7 +68,8 @@ session_start();
 
 <footer>
     <p>© 2026 L’oro di Cicerone — Tous droits réservés</p>
-    <a href="contact.php">Nous contacter</a>
+    <a href="contact.php">Nous contacter </a><span>|</span>
+    <a href="condition_generale.php">Confidentialité</a>
 </footer>
 
 </body>

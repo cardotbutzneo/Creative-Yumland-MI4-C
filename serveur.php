@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Paris');
 
 function lire_data(string $chemin, string $nom_utilisateur = "") : array{
     if (!file_exists($chemin)) return [];

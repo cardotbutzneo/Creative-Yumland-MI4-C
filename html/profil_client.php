@@ -1,5 +1,10 @@
 <?php session_start();
 
+if (!isset($_SESSION["email"])){
+    header("Location: connexion.php?error=unauthorized");
+    exit;
+}
+
 require_once __DIR__."/../serveur.php";
 
 $_SESSION["derniers-plats"] = [];
@@ -62,6 +67,7 @@ $_SESSION["programme-fidelite"] = $nom_grade;
             <li><a href="index.php">Accueil</a></li>
             <li><a href="presentation.php">Menu</a></li>
             <li><a href="modifier_profil.php">Modifier le profil</a></li>
+            <li><a href="securite.php">Sécurité</a></li>
             <li><a href="deconnexion.php">se déconnecter</a></li>
         </ul>
     </nav>

@@ -130,8 +130,7 @@ function modifier_infos() : void {
             $toute_la_data[$email][$var] = htmlspecialchars($_POST[$var]);
         }
     }
-
-    file_put_contents("client.json", json_encode($toute_la_data, JSON_PRETTY_PRINT));
+    ecrire_data("client.json",$toute_la_data);
 }
 
 ?>
