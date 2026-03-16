@@ -20,36 +20,12 @@ session_start();
             <li><a href="restaurant.php">Le Restaurant</a></li>
             <li><a href="chef.php">Le Chef</a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
+            <li><?php if (isset($_SESSION) and $_SESSION["connecte"] == true) echo '<a href="connexion.php">Profil</a>'; else echo '<a href="connexion.php">se connecter</a>'?></li>
         </ul>
     </nav>
 </header>
 
 <main>
-    <div class="barre-filtre">
-    <input type="text" id="bar-recherche" placeholder="Rechercher un plat...">
-    <select id="filtre-carte">
-        <option value="tous">Toute la carte</option>
-        <option value="entrees">Entrées</option>
-        <option value="plats">Plats</option>
-        <option value="desserts">Desserts</option>
-        <option value="vins">Vins</option>
-        <option value="cafes">Cafés</option>
-    </select>
-    <select id="filtre-regime">
-        <option value="tous-regimes">Tous les régimes</option>
-        <option value="vege">Végétarien</option>
-        <option value="non-vege">Non végétarien</option>
-    </select>
-    <select id="filtre-allergenes">
-        <option value="tous-allergenes">Tous (avec ou sans allergènes)</option>
-        <option value="sans-gluten">Sans gluten</option>
-        <option value="sans-lactose">Sans lactose</option>
-        <option value="sans-fruits-coquilles">Sans fruits à coque</option>
-        <option value="sans-allergenes">Sans allergène</option>
-    </select>
-    </div>
-    
 <?php
 function lire_data(string $chemin, string $nom_utilisateur = "") : array {
     if (!file_exists($chemin)) return [];
@@ -60,9 +36,47 @@ function lire_data(string $chemin, string $nom_utilisateur = "") : array {
     }
     return $data;
 }
-
+ 
+function selection(string $filtre, string $valeur): string {
+    if ($filtre === $valeur){
+        return "selected";
+    }
+    return "";
+}
+ 
+$categorie = $_GET['categorie'] ?? '';
+$regime    = $_GET['regime']    ?? '';
+$allergene = $_GET['allergene'] ?? '';
+?>    
+<form method="GET" action="presentation.php">
+    <div class="barre-filtre">
+    <input type="text" id="bar-recherche" placeholder="Rechercher un plat...">
+    <select name="categorie" id="filtre-carte">
+        <option value="">Toute la carte</option>
+        <option value="entrees" <?php echo selection($categorie, 'entrees'); ?>>Entrées</option>
+        <option value="plats" <?php echo selection($categorie, 'plats'); ?>>Plats</option>
+        <option value="desserts" <?php echo selection($categorie, 'desserts'); ?>>Desserts</option>
+        <option value="vins" <?php echo selection($categorie, 'vins'); ?>>Vins</option>
+        <option value="cafes" <?php echo selection($categorie, 'cafes'); ?>>Cafés</option>
+    </select>
+    <select name="regime" id="filtre-regime">
+        <option value="">Tous les régimes</option>
+        <option value="vege" <?php echo selection($regime, 'vege'); ?>>Végétarien</option>
+        <option value="non-vege" <?php echo selection($regime, 'non-vege'); ?>>Non végétarien</option>
+    </select>
+    <select name="allergene" id="filtre-allergenes">
+        <option value="">Tous (avec ou sans allergènes)</option>
+            <option value="50" <?php echo selection($allergene, '50') ?>>Sans gluten</option>
+            <option value="51" <?php echo selection($allergene, '51') ?>>Sans crustacés</option>
+            <option value="52" <?php echo selection($allergene, '52') ?>>Sans oeufs</option>
+            <option value="53" <?php echo selection($allergene, '53') ?>>Sans lactose</option>
+            <option value="54" <?php echo selection($allergene, '54') ?>>Sans fruits à coque</option>
+    </select>
+    <button type="submit">Filtrer</button>
+    </div>
+</form>    
+<?php
 $data = lire_data("plats.json");
-
 $categories = [
     "entrees"  => "Entrées",
     "plats"    => "Plats",
@@ -70,23 +84,23 @@ $categories = [
     "vins"     => "Vins",
     "cafes"    => "Cafés",
 ];
-
 foreach($categories as $id => $intitule) {
+    if ($categorie !== '' && $categorie !== $id) continue;
     $plats_categorie = [];
-
     foreach($data as $cle => $plat) {
         if ($cle === "Allergenes") continue;
-        if ($plat["categorie"] === $id) {
-            $plats_categorie[] = $plat;
-        }
+        if ($plat["categorie"] !== $id) continue;
+        if ($regime === 'vege' && !$plat["est_vegetarien"]) continue;
+        if ($regime === 'non-vege' &&  $plat["est_vegetarien"]) continue;
+        if ($allergene !== '') {
+            if (in_array($allergene, $plat["allergene_id"])) continue;
+        }     
+        $plats_categorie[] = $plat;
     }
-
     if (count($plats_categorie) === 0) continue;
-
     echo "<section class='rectangle'>";
     echo "<h2>" . $intitule . "</h2>";
     echo "<ul>";
-
     foreach($plats_categorie as $plat) {
         echo "<li>";
         echo "<div class='ligne'>";
@@ -96,7 +110,6 @@ foreach($categories as $id => $intitule) {
         echo "<span class='description'>" . $plat["description"] . "</span>";
         echo "</li>";
     }
-
     echo "</ul>";
     echo "</section>";
 }

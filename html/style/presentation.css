@@ -1,3 +1,13 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 .barre-filtre {
     display: flex;
     justify-content: center; 
@@ -65,6 +75,20 @@ select{
 .rectangle .description{
     font-style: italic;
     font-size: 14px;
+}
+
+button{
+    padding: 10px 15px;
+    border-radius: 50px;
+    border: 1px solid #c9a24d;
+    color: #c9a24d;
+    background-color: #0f0f0f;
+    font-size: 15px;
+}
+
+button:hover{
+    background-color: #c9a24d; 
+    color:#0f0f0f;
 }
 
 @media (max-width: 768px) {
