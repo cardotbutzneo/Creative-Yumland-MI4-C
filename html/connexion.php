@@ -2,8 +2,23 @@
 session_start();
 
 if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true) {
-    header("Location: profil_client.php");
-    exit;
+    if ($_SESSION["role"] == "Client"){
+        header("Location: profil_client.php");
+        exit;
+    }    
+    else if($_SESSION["role"] == "Cuisinier"){
+        header("Location: commandes.php");
+        exit;
+    }
+    else if($_SESSION["role"] == "admin"){
+        header("Location: profil_admin.php");
+        exit;
+    }
+    else{
+        header("Location: livraison.php");
+        exit;
+    }
+
 }
 
 require_once __DIR__."/../serveur.php";

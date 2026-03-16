@@ -2,7 +2,7 @@
 
 require_once __DIR__."/../serveur.php";
 
-if (!isset($_SESSION["email"])){
+if (!isset($_SESSION["connecte"]) or $_SESSION["role"] != "Client" or $_SESSION["role"] != "admin"){
     header("Location: profil_client.php?error=unauthorized");
     exit;
 }
