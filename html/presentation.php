@@ -45,7 +45,7 @@ function selection(string $filtre, string $valeur): string {
 }
  
 $categorie = $_GET['categorie'] ?? '';
-$regime    = $_GET['regime']    ?? '';
+$regime = $_GET['regime']    ?? '';
 $allergene = $_GET['allergene'] ?? '';
 ?>    
 <form method="GET" action="presentation.php">
@@ -115,7 +115,6 @@ foreach($categories as $id => $intitule) {
 }
 ?>
 </main>
-
 <footer>
     <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
     <a href="contact.php">Nous contacter</a>
