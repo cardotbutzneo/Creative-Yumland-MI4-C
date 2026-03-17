@@ -6,9 +6,9 @@
         "53":  "Lactose",
         "54":  "Fruits à coque"
     },
-    "Buratta" : {
+    "Burrata" : {
             "id": 1,
-            "nom": "Buratta",
+            "nom": "Burrata",
             "description": "Fromage frais crémeux servi avec tomates cerises et basilic.",
             "prix": 29,
             "categorie": "entrees",
