@@ -13,7 +13,6 @@
             "prix": 29,
             "categorie": "entrees",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [53],
             "disponible": true,
             "ordre_affichage": 1
@@ -25,7 +24,6 @@
             "prix": 32,
             "categorie": "entrees",
             "est_vegetarien": false,
-            "est_vegan": false,
             "allergene_id": [53],
             "disponible": true,
             "ordre_affichage": 2
@@ -37,7 +35,6 @@
             "prix": 24,
             "categorie": "entrees",
             "est_vegetarien": true,
-            "est_vegan": true,
             "allergene_id": [50],
             "disponible": true,
             "ordre_affichage": 3
@@ -49,7 +46,6 @@
             "prix": 95,
             "categorie": "plats",
             "est_vegetarien": false,
-            "est_vegan": false,
             "allergene_id": [50, 52, 53],
             "disponible": true,
             "ordre_affichage": 1
@@ -61,7 +57,6 @@
             "prix": 38,
             "categorie": "plats",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [50, 53, 54],
             "disponible": true,
             "ordre_affichage": 2
@@ -73,7 +68,6 @@
             "prix": 56,
             "categorie": "plats",
             "est_vegetarien": false,
-            "est_vegan": false,
             "allergene_id": [50, 51],
             "disponible": true,
             "ordre_affichage": 3
@@ -85,7 +79,6 @@
             "prix": 42,
             "categorie": "plats",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [50, 53],
             "disponible": true,
             "ordre_affichage": 4
@@ -97,7 +90,6 @@
             "prix": 82,
             "categorie": "plats",
             "est_vegetarien": false,
-            "est_vegan": false,
             "allergene_id": [50, 53],
             "disponible": true,
             "ordre_affichage": 5
@@ -109,7 +101,6 @@
             "prix": 68,
             "categorie": "plats",
             "est_vegetarien": false,
-            "est_vegan": false,
             "allergene_id": [50, 53],
             "disponible": true,
             "ordre_affichage": 6
@@ -121,7 +112,6 @@
             "prix": 57,
             "categorie": "plats",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [53],
             "disponible": true,
             "ordre_affichage": 7
@@ -133,7 +123,6 @@
             "prix": 18,
             "categorie": "desserts",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [53],
             "disponible": true,
             "ordre_affichage": 1
@@ -145,7 +134,6 @@
             "prix": 20,
             "categorie": "desserts",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [53],
             "disponible": true,
             "ordre_affichage": 2
@@ -157,7 +145,6 @@
             "prix": 22,
             "categorie": "desserts",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [50, 52, 53],
             "disponible": true,
             "ordre_affichage": 3
@@ -169,7 +156,6 @@
             "prix": 45,
             "categorie": "vins",
             "est_vegetarien": true,
-            "est_vegan": true,
             "allergene_id": [],
             "disponible": true,
             "ordre_affichage": 1
@@ -181,7 +167,6 @@
             "prix": 50,
             "categorie": "vins",
             "est_vegetarien": true,
-            "est_vegan": true,
             "allergene_id": [],
             "disponible": true,
             "ordre_affichage": 2
@@ -193,7 +178,6 @@
             "prix": 60,
             "categorie": "vins",
             "est_vegetarien": true,
-            "est_vegan": true,
             "allergene_id": [],
             "disponible": true,
             "ordre_affichage": 3
@@ -205,7 +189,6 @@
             "prix": 7,
             "categorie": "cafes",
             "est_vegetarien": true,
-            "est_vegan": true,
             "allergene_id": [],
             "disponible": true,
             "ordre_affichage": 1
@@ -217,7 +200,6 @@
             "prix": 10,
             "categorie": "cafes",
             "est_vegetarien": true,
-            "est_vegan": false,
             "allergene_id": [53],
             "disponible": true,
             "ordre_affichage": 2

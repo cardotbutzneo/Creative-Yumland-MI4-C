@@ -47,10 +47,11 @@ function selection(string $filtre, string $valeur): string {
 $categorie = $_GET['categorie'] ?? '';
 $regime = $_GET['regime']    ?? '';
 $allergene = $_GET['allergene'] ?? '';
+$recherche = $_GET['recherche'] ?? ''; 
 ?>    
 <form method="GET" action="presentation.php">
     <div class="barre-filtre">
-    <input type="text" id="bar-recherche" placeholder="Rechercher un plat...">
+    <input type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un plat" value="<?php echo $recherche ?>">    
     <select name="categorie" id="filtre-carte">
         <option value="">Toute la carte</option>
         <option value="entrees" <?php echo selection($categorie, 'entrees'); ?>>Entrées</option>
@@ -77,6 +78,7 @@ $allergene = $_GET['allergene'] ?? '';
 </form>    
 <?php
 $data = lire_data("plats.json");
+$recherche1 = strtolower($_GET['recherche'] ?? '');
 $categories = [
     "entrees"  => "Entrées",
     "plats"    => "Plats",
@@ -94,7 +96,8 @@ foreach($categories as $id => $intitule) {
         if ($regime === 'non-vege' &&  $plat["est_vegetarien"]) continue;
         if ($allergene !== '') {
             if (in_array($allergene, $plat["allergene_id"])) continue;
-        }     
+        }    
+        if ($recherche1 !== '' && strpos(strtolower($plat["nom"]), $recherche1) === false) continue; 
         $plats_categorie[] = $plat;
     }
     if (count($plats_categorie) === 0) continue;
