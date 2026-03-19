@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if (isset($_POST["confirm_abandon"]) and isset($_POST["checkbox_ok"])){
         header("Location: profil_client.php");
-        exit();
+        exit;
     }
     if (isset($_POST["valider_modifs"])){
         modifier_infos();

@@ -6,21 +6,22 @@
         "mot de passe": "$2y$10$U2Y1IqE8y23yr3sbsG0Nc.MDjTwa54b3pAEdrS5ESWWoy1YhoQwXS",
         "contact": {
             "adresse": "33 rue du Pape",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "33",
+            "complément d'adresse": "",
+            "téléphone": "33",
             "adresse email": "admin_restaurant@gmail.com"
         },
         "role": "admin",
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-13",
-            "derniere_connexion": "2026-03-14 20:08:28",
+            "derniere_connexion": "2026-03-19 21:29:36",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0
         },
-        "pts-fidelite": 0
+        "pts-fidelite": 0,
+        "livraison": false
     },
     "client1@gmail.com": {
         "id": "00000002",
@@ -29,21 +30,22 @@
         "mot de passe": "$2y$10$jWOsjOum\/E14T6ue\/ExBp.5NoOHvaiuNGAqtNtvrO7\/CS.lWxsmZy",
         "contact": {
             "adresse": "33 rue du pape",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "+33",
+            "complément d'adresse": "",
+            "téléphone": "+33",
             "adresse email": "client1@gmail.com"
         },
         "role": "Client",
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-16 13:56:42",
+            "derniere_connexion": "2026-03-19 22:40:38",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0
         },
-        "pts-fidelite": 350
+        "pts-fidelite": 350,
+        "livraison": false
     },
     "cuisinier1@gmail.com": {
         "id": "00000003",
@@ -52,8 +54,8 @@
         "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
         "contact": {
             "adresse": "33 rue du pape",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "+33",
+            "complément d'adresse": "",
+            "téléphone": "+33",
             "adresse email": "cuisinier1@gmail.com"
         },
         "role": "Cuisinier",
@@ -62,11 +64,12 @@
             "date_creation": "2026-03-14",
             "derniere_connexion": "2026-03-16 14:06:39",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0
         },
-        "pts-fidelite": 0
+        "pts-fidelite": 0,
+        "livraison": false
     },
     "client2@gmail.com": {
         "id": "00000004",
@@ -75,8 +78,8 @@
         "mot de passe": "$2y$10$T1eeFFiF7MuIxaQZOF77eenwb\/Co5bUiFT6lzItirM9k0yWio4XuC",
         "contact": {
             "adresse": "2 Rue de la paix, Paris",
-            "compl\u00e9ment d'adresse": "2e \u00e9tage",
-            "t\u00e9l\u00e9phone": "0763289174",
+            "complément d'adresse": "2e étage",
+            "téléphone": "0763289174",
             "adresse email": "client2@gmail.com"
         },
         "role": "Client",
@@ -89,7 +92,8 @@
             "est_modifiable": true,
             "tentative_echec": 0
         },
-        "pts-fidelite": 0
+        "pts-fidelite": 0,
+        "livraison": false
     },
     "admin1@gmail.com": {
         "id": "00000005",
@@ -98,8 +102,8 @@
         "mot de passe": "$2y$10$Hj2EKIVtJliGk2fcGgMYnONV3pZsRmxiHTqVcggz0uAeCxMPKOCwK",
         "contact": {
             "adresse": "33 rue du pape",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "+33",
+            "complément d'adresse": "",
+            "téléphone": "+33",
             "adresse email": "admin1@gmail.com"
         },
         "role": "admin",
@@ -112,6 +116,34 @@
             "est_modifiable": true,
             "tentative_echec": 0
         },
-        "pts-fidelite": 0
+        "pts-fidelite": 0,
+        "livraison": false
+    },
+    "livreur1@gmail.com": {
+        "id": "00000006",
+        "nom": "Livreur1",
+        "prenom": "LIVREUR",
+        "mot de passe": "$2y$10$5k3Z2Q0m1oGNjvLflPS9A.RPd0JlduhLB3Ir0UfAUfXWRwDk23FYG",
+        "contact": {
+            "adresse": "210 Impasse de la paix ",
+            "complément d'adresse": "",
+            "téléphone": "0702082819",
+            "adresse email": "livreur1@gmail.com"
+        },
+        "role": "livreur",
+        "derniers-plats": [],
+        "securite": {
+            "date_creation": "2026-03-19",
+            "derniere_connexion": "2026-03-19 22:28:25",
+            "est_banni": false,
+            "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0
+        },
+        "pts-fidelite": 0,
+        "livraison": false
+    },
+    "1": {
+        "livraison": false
     }
 }
