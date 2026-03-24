@@ -20,9 +20,9 @@ if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {
     if ($num_cmd && isset($bdd_cmd[$num_cmd])) {
         $cmd = $bdd_cmd[$num_cmd];
 
-        if ($cmd["livraison"] === true && $cmd["etat"] === "en attente de livreur") {
+        if ($cmd["livraison"] === true && $cmd["etat"] === "preparee") {
 
-            $bdd_cmd[$num_cmd]["etat"] = "en cours de livraison";
+            $bdd_cmd[$num_cmd]["etat"] = "livraison";
             $bdd_cmd[$num_cmd]["livreur"] = $email_livreur;
             $bdd_client[$email_livreur]["livraison"] = $num_cmd;
             ecrire_data("commandes.json", $bdd_cmd);
@@ -38,8 +38,8 @@ if (isset($_POST["action"]) && $_POST["action"] === "terminer_livraison") {
 
     $num_cmd = $_POST["numero_cmd"] ?? null;
     if ($num_cmd && isset($bdd_cmd[$num_cmd])) {
-        $email_client = $bdd_cmd[$num_cmd]["email_client"] ?? null;
-        $bdd_cmd[$num_cmd]["etat"] = "terminée";
+        $email_client = $bdd_cmd[$num_cmd]["email"] ?? null;
+        $bdd_cmd[$num_cmd]["etat"] = "livree";
         $bdd_cmd[$num_cmd]["livraison"] = false;
         $bdd_client[$email_livreur]["livraison"] = false;
         if ($email_client && isset($bdd_client[$email_client])) {
@@ -61,7 +61,7 @@ $client_data = null;
 
 if ($num_cmd_actif && isset($bdd_cmd[$num_cmd_actif])) {
     $commande_actuelle = $bdd_cmd[$num_cmd_actif];
-    $email_client      = $commande_actuelle["email_client"] ?? null;
+    $email_client = $commande_actuelle["email"] ?? null;
     if ($email_client && isset($bdd_client[$email_client])) {
         $client_data = $bdd_client[$email_client];
     }
@@ -71,7 +71,7 @@ $commandes_disponibles = [];
 
 if (!$num_cmd_actif) {
     foreach ($bdd_cmd as $num => $cmd) {
-        if (isset($cmd["livraison"], $cmd["etat"]) && $cmd["livraison"] === true && $cmd["etat"] === "en attente de livreur") {
+        if (isset($cmd["livraison"], $cmd["etat"]) && $cmd["livraison"] === true && $cmd["etat"] === "preparee") {
             $commandes_disponibles[$num] = $cmd;
         }
     }
@@ -136,9 +136,9 @@ if (!$num_cmd_actif) {
             <div class="bloc-adresse">
                 <div class="intitule">Adresse de livraison</div>
                 <?php
-                    $adresse    = $client_data["contact"]["adresse"] ?? "";
+                    $adresse = $client_data["contact"]["adresse"] ?? "";
                     $complement = $client_data["contact"]["complément d'adresse"] ?? "";
-                    $query      = urlencode($adresse);
+                    $query = urlencode($adresse);
                 ?>
                 <div class="valeur">
                     <?= htmlspecialchars($adresse) ?>
@@ -153,7 +153,7 @@ if (!$num_cmd_actif) {
             </div>
 
             <form method="POST" action="livraison.php">
-                <input type="hidden" name="action"     value="terminer_livraison">
+                <input type="hidden" name="action" value="terminer_livraison">
                 <input type="hidden" name="numero_cmd" value="<?= htmlspecialchars($num_cmd_actif) ?>">
                 <input type="submit" value="Terminer la livraison" class="bouton-validation">
             </form>
@@ -165,10 +165,10 @@ if (!$num_cmd_actif) {
         <p class="message-info">Vous n'avez pas de livraison en cours. Prenez une commande ci-dessous :</p>
 
         <?php foreach ($commandes_disponibles as $num => $cmd) :
-            $email_client_cmd = $cmd["email_client"] ?? null;
-            $cli              = $email_client_cmd ? ($bdd_client[$email_client_cmd] ?? []) : [];
-            $adresse_cmd      = $cli["contact"]["adresse"] ?? "Adresse inconnue";
-            $complement_cmd   = $cli["contact"]["complément d'adresse"] ?? "";
+            $email_client_cmd = $cmd["email"] ?? null;
+            $cli = $email_client_cmd ? ($bdd_client[$email_client_cmd] ?? []) : [];
+            $adresse_cmd = $cli["contact"]["adresse"] ?? "Adresse inconnue";
+            $complement_cmd = $cli["contact"]["complément d'adresse"] ?? "";
         ?>
         <section class="carte-livraison carte-disponible">
 
@@ -191,7 +191,7 @@ if (!$num_cmd_actif) {
             <?php endif; ?>
 
             <form method="POST" action="livraison.php">
-                <input type="hidden" name="action"     value="prendre_commande">
+                <input type="hidden" name="action" value="prendre_commande">
                 <input type="hidden" name="numero_cmd" value="<?= htmlspecialchars($num) ?>">
                 <input type="submit" value="Prendre cette commande" class="bouton-validation">
             </form>

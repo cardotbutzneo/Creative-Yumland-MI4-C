@@ -1,10 +1,21 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["connecte"])){
-    header("Location: connexion.php");
+require_once __DIR__."/../serveur.php";
+
+if(!isset($_SESSION["connecte"]) or ($_SESSION(["rôle"]) != "Client" )){
+    header("Location: index.php?error=unauthorized");
     exit;
 }
+
+$bdd_client = lire_data("client.json");
+$bdd_cmd = lire_data("commandes.json");
+
+$derniere_cmd = $bdd_client[$_SESSION["email"]]["dernieres_commandes"][1];
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

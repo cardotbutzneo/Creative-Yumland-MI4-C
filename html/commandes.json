@@ -4,10 +4,10 @@
         "date": "2026-03-19",
         "montant": "30",
         "numero": "00000001",
-        "livraison": true,
+        "livraison": false,
         "est-valide": true,
-        "etat": "terminée",
-        "statut" : "en cours",
+        "etat": "livree",
+        "statut": "en cours",
         "plats": [
             {
                 "nom": "Burrata",
@@ -18,7 +18,7 @@
                 "quantite": "2"
             }
         ],
-        "livreur": true
+        "livreur": "livreur1@gmail.com"
     },
     "D5BDFB78": {
         "email": "client1@gmail.com",
@@ -28,7 +28,7 @@
         "livraison": true,
         "est-valide": true,
         "etat": "en attente de livreur",
-        "statut" : "en livraison",
+        "statut": "en livraison",
         "plats": [
             {
                 "nom": "Burrata",
@@ -49,7 +49,7 @@
         "livraison": true,
         "est-valide": true,
         "etat": "terminer_livraison",
-        "statut" : "terminée",
+        "statut": "terminée",
         "plats": [
             {
                 "nom": "Burrata",

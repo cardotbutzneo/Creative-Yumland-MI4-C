@@ -26,7 +26,7 @@ function creer_client(array $donnee) : array {
             "adresse email" => $_POST["mail"]
         ],   
         "role" => "Client",
-        "derniers-plats" => [],
+        "dernieres_commandes" => [],
         "securite" => [
             "date_creation" => date("Y-m-d"),
             "derniere_connexion" => date("Y-m-d H:i:s"),
