@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
         <nav>
             <ul>
                 <li><a href="index.php">Accueil</a></li>
+                <li><a href="deconnexion.php">se déconnecter</a></li>
             </ul>
         </nav>
     </header>
@@ -64,15 +65,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
                 foreach ($data as $client => $info){
                     $i = $info["id"];
                     $roleActuel = $info["role"];
+                    if ($roleActuel == "admin") $ref = "profil_admin.php";
+                    if ($roleActuel == "Client") $ref = "profil_client.php";
+                    if ($roleActuel == "Cuisinier") $ref = "commandes.php";
+                    if ($roleActuel == "livreur") $ref = "livraison.php";
                     echo"
                         <tr>
                             <form method='POST'>
                                 <td class='check' ><input type='checkbox' id='myCheckbox'><label for='myCheckbox'></label></td>
-                                <td><input type='hidden' name='nom_utilisateur' value=" . $client . "><a href='profil_client.php'>" . $client . "</a></td>
+                                <td><input type='hidden' name='nom_utilisateur' value=" . $client . "><a href=".$ref.">" . $client . "</a></td>
                                 <td>" . $i . "<input type='hidden' name='id_utilisateur' value=" . $i . "></td>
                                 <td>   
                                     <select name='role'>
-                                        <option value='utilisateur' " . ($roleActuel == 'utilisateur' ? 'selected' : '') . ">Utilisateur</option>
+                                        <option value='Client' " . ($roleActuel == 'Client' ? 'selected' : '') . ">Client</option>
                                         <option value='livreur' " . ($roleActuel == 'livreur' ? 'selected' : '') . ">Livreur</option>
                                         <option value='Cuisinier' " . ($roleActuel == 'Cuisinier' ? 'selected' : '') . ">Cuisinier</option>
                                         <option value='admin' " . ($roleActuel == 'admin' ? 'selected' : '') . ">Administrateur</option>
@@ -123,5 +128,7 @@ function afficher_info(string $mail_utilisateur) : void{
     //echo "id utilisateur :".$utilisateur["id"]"<br>"; // n'existe pas
     echo "role : ".$utilisateur["role"]."<br>";
 }
+
+//function bloquer()
 
 ?>

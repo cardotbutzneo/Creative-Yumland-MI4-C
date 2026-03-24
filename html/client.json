@@ -62,9 +62,9 @@
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-16 14:06:39",
+            "derniere_connexion": "2026-03-20 15:39:32",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0
         },
@@ -134,7 +134,7 @@
         "derniers-plats": [],
         "securite": {
             "date_creation": "2026-03-19",
-            "derniere_connexion": "2026-03-19 22:28:25",
+            "derniere_connexion": "2026-03-20 15:32:02",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,

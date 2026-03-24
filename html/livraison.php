@@ -3,12 +3,12 @@ session_start();
 
 require_once __DIR__."/../serveur.php";
 
-if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "livreur") {
+if (!isset($_SESSION["connecte"]) || ($_SESSION["role"] != "livreur" && $_SESSION["role"] != "admin")) {
     header("Location: index.php?error=unauthorized");
     exit;
 }
 
-$email_livreur = $_SESSION["connecte"];
+$email_livreur = $_SESSION["email"];
 $bdd_client = lire_data("client.json");
 $bdd_cmd = lire_data("commandes.json");
 
@@ -94,6 +94,7 @@ if (!$num_cmd_actif) {
         <ul>
             <li><a href="index.php">Accueil</a></li>
             <li><a href="presentation.php">Menu</a></li>
+            <li><a href="deconnexion.php">se déconnecter</a></li>
         </ul>
     </nav>
 </header>

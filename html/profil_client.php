@@ -1,6 +1,6 @@
 <?php session_start();
 
-if (!isset($_SESSION["email"])){
+if (!isset($_SESSION["email"]) or ($_SESSION["role"] != "Client" and $_SESSION["role"] != "admin")){
     header("Location: connexion.php?error=unauthorized");
     exit;
 }
@@ -80,13 +80,13 @@ $_SESSION["programme-fidelite"] = $nom_grade;
 }
     ?>
     <section>
-        <div class="contenent" style="text-align : left;">
             <?php if ($_SESSION["role"] == "Client"){
+                echo '<div class="contenent" style="text-align : left;">';
                 echo "<p>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>";
                 echo "<p>Programme " . $_SESSION["programme-fidelite"];
+                echo "</div>";
             }
             ?>
-        </div>
         <div class="contenent">
             <h2>Historique des dernières commandes</h2>
             <nav>

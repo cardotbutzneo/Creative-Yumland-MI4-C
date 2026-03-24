@@ -48,6 +48,7 @@ if (isset($_POST["connexion"])) {
                 $_SESSION["nom"] = $bdd_actuelle[$email]["nom"];
                 $_SESSION["prenom"] = $bdd_actuelle[$email]["prenom"];
                 $_SESSION["pts-fidelite"] = $bdd_actuelle[$email]["pts-fidelite"];
+                $_SESSION["derniere-connexion"] = time();
                 
                 $bdd_actuelle[$email]["securite"]["derniere_connexion"] = date("Y-m-d H:i:s");
                 $bdd_actuelle[$email]["securite"]["est_en_ligne"] = true;
@@ -58,7 +59,7 @@ if (isset($_POST["connexion"])) {
                     header("Location: profil_client.php");
                     exit;
                 }
-                elseif ($_SESSION["role"] == "cuisinier"){
+                elseif ($_SESSION["role"] == "Cuisinier"){
                     header("Location: commandes.php");
                     exit;
                 }

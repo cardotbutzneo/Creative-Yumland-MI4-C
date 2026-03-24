@@ -1,55 +1,142 @@
-#main-contenent{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+:root {
+    --bg-block: rgb(26, 25, 25);
+    --border-color: white;
 }
 
-.commande{
+#main-content {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.block{
-    min-width: 200px;
-    background-color: rgb(26, 25, 25);
-    border: 1px white solid;
-    margin: 10px;
-    padding: 10px;
-    gap: 10px;
-    overflow-wrap: break-word;
-    word-break: break-word;
-}
-
-.block span p:first-of-type{
-    text-align: left;
-}
-
-.block span p:nth-of-type(2){
-    text-align: right;
-}
-
-.block ul{
-    list-style: none;
-}
-
-.block li{
-    padding: 5px ;
-}
-
-.block button{
-    width: 100%;
+    flex-direction: column;
+    gap: 20px;
     padding: 20px;
 }
 
-#Complement{
-    text-align: left;
+.section{
+    padding: 50px;
 }
 
-@media screen and (max-width : 900px) {
-    body{
-        font-size: small;
+summary {
+    list-style: none; 
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+summary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+summary h2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+}
+
+summary h2::before {
+    content: '▶';
+    font-size: 0.7em;
+    transition: transform 0.3s;
+}
+
+details[open] summary h2::before {
+    transform: rotate(90deg);
+}
+
+.block {
+    background-color: rgb(26, 25, 25);
+    border: 1px white solid;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-wrap: break-word;
+}
+
+.commande {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 5px;
+}
+
+.block ul {
+    list-style: none;
+    padding: 0;
+}
+
+.block li {
+    padding: 8px 0;
+    border-bottom: 1px dotted #444;
+}
+
+.block button {
+    width: 100%;
+    padding: 15px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: none;
+}
+
+#Complement {
+    text-align: left;
+    font-style: italic;
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+
+.colonne-commandes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+#barre-recherche{
+    padding: 50px;
+    text-align: center;
+}
+
+#barre-recherche input[type="text"]{
+    height: 100%;
+}
+
+#barre-recherche input[type="submit"]{
+    border: none;
+    color: black;
+    background-color: white;
+}
+
+@media screen and (max-width: 1024px) {
+    #main-content {
+        padding: 10px;
     }
-    .block{
-        min-width: 150px;
+
+    .colonne-commandes {
+        gap: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .block {
+        margin: 0;
+    }
+    
+    .block button {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .colonne-commandes {
+        grid-template-columns: 1fr;
+    }
+    
+    summary h2 {
+        font-size: 1.2rem; 
     }
 }
