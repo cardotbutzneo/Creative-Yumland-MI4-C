@@ -20,7 +20,7 @@ Deuxième année de Pré-Ingénieur CY Tech, Semestre 4 2025-2026
 
 ## 📄 Documentation
 - :scroll: [Cahier des charges]()
-- :ledger: [Rapport de projet](https://github.com/cardotbutzneo/Creative-Yumland-MI4-C/blob/main/Rapport%20de%20Projet.pdf)
+- :ledger: [Rapport de projet]()
 
 ## :gear: Description
 Ce projet vise à recréer un site complet d'un ou d'une chaine de restaurant.
@@ -29,7 +29,7 @@ Par conséquent le site doit être responsive.
 
 ## :toolbox: Prérequis
 - internet (facultatif)
-- php (facultatif lors de la phase 1)
+- php
 
 ## :rocket: Téléchargement et compilation
 ### Téléchargement
@@ -42,23 +42,25 @@ php -S localhost:[port valide]
 ````
 Exemple valide :
 ```bash
-php -S localhost:5500
+php -S localhost:7180
 ```
-### Bonus
-⚠️ Nous avons ajouté un peu de php lors de la phase 1. Le php permet à l'aide d'identifiant de connexion défini dans le fichier data.json à la racine, de ce connecter à un des trois profils suivant : ⚠️
-- un client : email : xyz@gmail.com | mdp : 6789
-- un cuisinier : email : abc@gmail.com | mdp : 1234
-- un livreur : email : delivery@gmail.com | mdp : 0000
+## Lancement du programme
+### Liste des utilisateurs
+Tous les emails sont suivies de @gmail.com
+- Client : client1 : 1234
+- Client : client2 : motdepasse
+- Cuisinier : cuisinier1 : 1234
+- Livreur : livreur1 : 1234
+- Admin : admin_restaurant : motdepasse
+- Admin : admin1 : 1234
 <br>
-Pour vous connecter il suffit d'aller sur la page de connexion, qui peut vous rediriger vers une page d'insciption.
+Pour vous connecter il suffit d'aller sur la page de connexion, qui vous redirigera vers la page appropriée.
 
 Pour lancer le php :
 ````bash
-php -S localhost:5500
+php -S localhost:7180
 ````
 puis dans la bare d'ip du navigateur
 ````html
-localhost:5500/html/index.html
+localhost:7180/html/index.php
 ````
-<br>
-je n'ai pas encore implémenté l'administrateur, Néo.
