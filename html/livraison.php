@@ -103,7 +103,7 @@ if (!$num_cmd_actif) {
 
     <h2 class="titre-page">Espace livreur</h2>
 
-    <?php if ($commande_actuelle && $client_data) : //commande en cours?>
+    <?php if ($commande_actuelle && $client_data) { //commande en cours?>
 
         <section class="carte-livraison">
 
@@ -160,7 +160,7 @@ if (!$num_cmd_actif) {
 
         </section>
 
-    <?php elseif (!empty($commandes_disponibles)) : //commande(s) disponibles(s)?>
+    <?php } elseif (!empty($commandes_disponibles)) { //commande(s) disponibles(s)?>
 
         <p class="message-info">Vous n'avez pas de livraison en cours. Prenez une commande ci-dessous :</p>
 
@@ -199,13 +199,13 @@ if (!$num_cmd_actif) {
         </section>
         <?php endforeach; ?>
 
-    <?php else : //aucune commande disponible?>
+    <?php } else { //aucune commande disponible?>
 
         <section class="carte-livraison">
             <p class="message-info">Aucune commande en attente de livraison pour le moment.</p>
         </section>
 
-    <?php endif; ?>
+    <?php } ?>
 
 </main>
 

@@ -6,7 +6,7 @@
         "numero": "00000001",
         "livraison": false,
         "est-valide": true,
-        "etat": "livree",
+        "etat": "notee",
         "statut": "en cours",
         "plats": [
             {
@@ -18,7 +18,10 @@
                 "quantite": "2"
             }
         ],
-        "livreur": "livreur1@gmail.com"
+        "livreur": "livreur1@gmail.com",
+        "note_livraison": "4",
+        "note_produits": "5",
+        "commentaire": "Excellente cuisine mais livraison légèrement en retard."
     },
     "D5BDFB78": {
         "email": "client1@gmail.com",

@@ -31,16 +31,18 @@
         "contact": {
             "adresse": "33 rue du pape",
             "complément d'adresse": "",
-            "téléphone": "+33",
+            "téléphone": "0763289174",
             "adresse email": "client1@gmail.com"
         },
         "role": "Client",
-        "dernieres_commandes": [],
+        "dernieres_commandes": [
+            "C5BDFB78"
+        ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-19 22:40:38",
+            "derniere_connexion": "2026-03-26 18:18:47",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0
         },
@@ -53,7 +55,7 @@
         "prenom": "cuisinier",
         "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
         "contact": {
-            "adresse": "33 rue du pape",
+            "adresse": "33 rue du pape, Marseille",
             "complément d'adresse": "",
             "téléphone": "+33",
             "adresse email": "cuisinier1@gmail.com"
@@ -103,7 +105,7 @@
         "contact": {
             "adresse": "33 rue du pape",
             "complément d'adresse": "",
-            "téléphone": "+33",
+            "téléphone": "0304028319",
             "adresse email": "admin1@gmail.com"
         },
         "role": "admin",
@@ -136,7 +138,7 @@
             "date_creation": "2026-03-19",
             "derniere_connexion": "2026-03-24 14:08:22",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0
         },
