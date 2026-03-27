@@ -128,7 +128,10 @@ function afficher_info(string $mail_utilisateur) : void{
     //echo "id utilisateur :".$utilisateur["id"]"<br>"; // n'existe pas
     echo "role : ".$utilisateur["role"]."<br>";
 }
+/*
+function bloquer(string $mail) : void{
+    if (!isset($mail)) return
 
-//function bloquer()
-
+}
+*/
 ?>
