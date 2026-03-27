@@ -53,6 +53,21 @@ if (isset($_POST["action"]) && $_POST["action"] === "terminer_livraison") {
     exit;
 }
 
+if (isset($_POST["action"]) && $_POST["action"] === "abandonner_livraison") {
+
+    $num_cmd = $_POST["numero_cmd"] ?? null;
+    if ($num_cmd && isset($bdd_cmd[$num_cmd])) {
+        $bdd_cmd[$num_cmd]["etat"] = "preparee";
+        $bdd_cmd[$num_cmd]["livreur"] = null;
+        $bdd_client[$email_livreur]["livraison"] = false;
+        ecrire_data("commandes.json", $bdd_cmd);
+        ecrire_data("client.json", $bdd_client);
+    }
+
+    header("Location: livraison.php");
+    exit;
+}
+
 $livreur_data = $bdd_client[$email_livreur] ?? [];
 $num_cmd_actif = $livreur_data["livraison"] ?? false;
 
@@ -103,7 +118,7 @@ if (!$num_cmd_actif) {
 
     <h2 class="titre-page">Espace livreur</h2>
 
-    <?php if ($commande_actuelle && $client_data) { //commande en cours?>
+    <?php if ($commande_actuelle && $client_data) { ?>
 
         <section class="carte-livraison">
 
@@ -158,9 +173,15 @@ if (!$num_cmd_actif) {
                 <input type="submit" value="Terminer la livraison" class="bouton-validation">
             </form>
 
+            <form method="POST" action="livraison.php">
+                <input type="hidden" name="action" value="abandonner_livraison">
+                <input type="hidden" name="numero_cmd" value="<?= htmlspecialchars($num_cmd_actif) ?>">
+                <input type="submit" value="Abandonner la commande" class="bouton-abandon">
+            </form>
+
         </section>
 
-    <?php } elseif (!empty($commandes_disponibles)) { //commande(s) disponibles(s)?>
+    <?php } elseif (!empty($commandes_disponibles)) { ?>
 
         <p class="message-info">Vous n'avez pas de livraison en cours. Prenez une commande ci-dessous :</p>
 
@@ -183,12 +204,12 @@ if (!$num_cmd_actif) {
                     <?= $complement_cmd ? " – " . htmlspecialchars($complement_cmd) : "" ?>
                 </span>
             </div>
-            <?php if (!empty($cmd["date"])) : ?>
+            <?php if (!empty($cmd["date"])) { ?>
             <div class="ligne-information">
                 <span class="intitule">Date de commande</span>
                 <span class="valeur"><?= htmlspecialchars($cmd["date"]) ?></span>
             </div>
-            <?php endif; ?>
+            <?php } ?>
 
             <form method="POST" action="livraison.php">
                 <input type="hidden" name="action" value="prendre_commande">
@@ -199,7 +220,7 @@ if (!$num_cmd_actif) {
         </section>
         <?php endforeach; ?>
 
-    <?php } else { //aucune commande disponible?>
+    <?php } else { ?>
 
         <section class="carte-livraison">
             <p class="message-info">Aucune commande en attente de livraison pour le moment.</p>

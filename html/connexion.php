@@ -104,11 +104,11 @@ if (isset($_POST["connexion"])) {
     <section class="carte-connexion">
         <h2 class="titre-page">Connexion</h2>
         
-        <?php if (!empty($erreur)): ?>
+        <?php if (!empty($erreur)){ ?>
             <div class="message-erreur">
                 <?php echo $erreur; ?>
             </div>
-        <?php endif; ?>
+        <?php } ?>
 
         <form method="post" action="">
             <div class="champ-formulaire">

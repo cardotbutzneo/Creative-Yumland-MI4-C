@@ -86,6 +86,23 @@ body {
     background: #333333;
 }
 
+.bouton-abandon {
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    font-size: 18px;
+    color: #f5f5f5;
+    background: #03030164;
+    border: solid #000000 1px;
+    border-radius: 50px;
+}
+
+.bouton-abandon:hover {
+    background: #fb4646;
+    border: solid #000000 1px;
+    color : black;
+}
+
 @media screen and (max-width: 600px) {
 
     .titre-page {
