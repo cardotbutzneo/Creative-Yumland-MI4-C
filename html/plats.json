@@ -39,7 +39,7 @@
             "disponible": true,
             "ordre_affichage": 3
         },
-    "Lasagne aux feuilles d'or" : {
+    "Lasagne" : {
             "id": 4,
             "nom": "Lasagne aux feuilles d'or",
             "description": "Lasagne traditionnelle garnie de feuilles d'or comestibles.",
