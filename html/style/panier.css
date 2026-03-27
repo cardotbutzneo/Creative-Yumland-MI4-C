@@ -1,0 +1,130 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 40px 15%;
+}
+
+main h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #c9a24d;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #c9a24d;
+    padding-bottom: 10px;
+}
+
+main h2 p{
+    color:#c9a24d;
+}
+
+main h2 a{
+    color:#f5f5f5;
+}
+
+.rectangle {
+    margin-bottom: 20px;
+}
+
+.rectangle ul {
+    list-style: none;
+    padding: 0;
+}
+
+.rectangle li {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ligne {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.nom {
+    font-weight: bold;
+    font-size: 18px;
+    color: #f5f5f5;
+}
+
+.prix {
+    font-weight: bold;
+    font-size: 18px;
+    color: #c9a24d;
+}
+
+.quantite {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 8px;
+    font-size: 14px;
+    width: 100%; 
+}
+
+.quantite a:not(.btn-supp) {
+    text-decoration: none;
+    color: #c9a24d;
+    border: 1px solid #c9a24d;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.unitaire {
+    color: rgba(245, 245, 245, 0.5);
+    font-style: italic;
+}
+
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 2px solid #c9a24d;
+    font-size: 22px;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action a {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: 1px solid #c9a24d;
+}
+
+.action a:hover{
+    background-color: #c9a24d;
+    color: #f5f5f5;
+}
+
+.btn-supp {
+    font-size: 12px;
+    color: red;
+    text-decoration: none;
+    border: 1px solid red;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-left: auto; 
+}
+
+.btn-supp:hover {
+    background: red;
+    color: #0f0f0f;
+}

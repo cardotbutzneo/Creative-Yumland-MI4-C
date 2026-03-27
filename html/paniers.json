@@ -1,0 +1,22 @@
+{
+    "client1@gmail.com": {
+        "articles": {
+            "Focaccia": {
+                "nom": "Focaccia",
+                "prix": 24,
+                "quantite": 1
+            }
+        },
+        "total": 24
+    },
+    "client2@gmail.com": {
+        "articles": {
+            "Carpaccio": {
+                "nom": "Carpaccio",
+                "prix": 32,
+                "quantite": 1
+            }
+        },
+        "total": 32
+    }
+}
