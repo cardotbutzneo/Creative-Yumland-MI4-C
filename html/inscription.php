@@ -99,15 +99,15 @@ if (isset($_POST["inscription"])) {
 
         <form method="post" action="">
             <div class="champ-formulaire">
-                <label class="intitule">Nom</label>
+                <label class="intitule"><span class="obligatoire">* </span>Nom</label>
                 <input type="text" name="nom" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Prénom</label>
+                <label class="intitule"><span class="obligatoire">* </span>Prénom</label>
                 <input type="text" name="prenom" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Adresse</label>
+                <label class="intitule"><span class="obligatoire">* </span>Adresse</label>
                 <input type="text" name="adresse" class="champ" required>
             </div>
             <div class="champ-formulaire">
@@ -115,19 +115,19 @@ if (isset($_POST["inscription"])) {
                 <input type="text" name="complement_adresse" class="champ" placeholder="Ex : Code immeuble, étage…">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Téléphone</label>
+                <label class="intitule"><span class="obligatoire">* </span>Téléphone</label>
                 <input type="text" name="tel" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Adresse e-mail</label>
+                <label class="intitule"><span class="obligatoire">* </span>Adresse e-mail</label>
                 <input type="email" name="mail" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Mot de passe</label>
+                <label class="intitule"><span class="obligatoire">* </span>Mot de passe</label>
                 <input type="password" name="password" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Confirmer le mot de passe</label>
+                <label class="intitule"><span class="obligatoire">* </span>Confirmer le mot de passe</label>
                 <input type="password" name="confirmer_password" class="champ" required>
             </div>
             <input type="submit" name="inscription" value="S'inscrire" class="bouton-validation">
@@ -136,6 +136,9 @@ if (isset($_POST["inscription"])) {
                 <a href="connexion.php">Déjà un compte ? Se connecter</a>
             </div>
         </form>
+        <p style="font-size: smaller; color: white" class="message-erreur">
+            Une <span class="obligatoire">* </span>signifie un champ obligatoire
+        </p>
     </section>
 </main>
 </body>

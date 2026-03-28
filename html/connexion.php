@@ -1,28 +1,22 @@
 <?php
 session_start();
 
-// Vérification du cookie de connexion automatique
 if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
     require_once __DIR__ . "/../serveur.php";
     $bdd = lire_data("../data/client.json");
     $token_recu = $_COOKIE["remember_token"];
 
     foreach ($bdd as $email => $utilisateur) {
-        $token_stocke     = $utilisateur["securite"]["remember_token"]             ?? null;
-        $token_expiration = $utilisateur["securite"]["remember_token_expiration"]  ?? 0;
+        $token_stocke = $utilisateur["securite"]["remember_token"] ?? null;
+        $token_expiration = $utilisateur["securite"]["remember_token_expiration"] ?? 0;
 
-        if (
-            $token_stocke &&
-            hash_equals($token_stocke, hash("sha256", $token_recu)) &&
-            $token_expiration > time() &&
-            !$utilisateur["securite"]["est_banni"]
-        ) {
-            $_SESSION["email"]             = $email;
-            $_SESSION["connecte"]          = true;
-            $_SESSION["role"]              = $utilisateur["role"];
-            $_SESSION["nom"]               = $utilisateur["nom"];
-            $_SESSION["prenom"]            = $utilisateur["prenom"];
-            $_SESSION["pts-fidelite"]      = $utilisateur["pts-fidelite"];
+        if ($token_stocke && hash_equals($token_stocke, hash("sha256", $token_recu)) && $token_expiration > time() && !$utilisateur["securite"]["est_banni"]) {
+            $_SESSION["email"] = $email;
+            $_SESSION["connecte"] = true;
+            $_SESSION["role"] = $utilisateur["role"];
+            $_SESSION["nom"] = $utilisateur["nom"];
+            $_SESSION["prenom"] = $utilisateur["prenom"];
+            $_SESSION["pts-fidelite"] = $utilisateur["pts-fidelite"];
             $_SESSION["derniere-connexion"] = time();
             break;
         }
@@ -51,8 +45,8 @@ $erreur = "";
 
 if (isset($_POST["connexion"])) {
     $bdd_actuelle = lire_data("../data/client.json");
-    $email        = $_POST["email"];
-    $mdp          = $_POST["password"];
+    $email = $_POST["email"];
+    $mdp = $_POST["password"];
 
     if (!isset($bdd_actuelle[$email])) {
         $erreur = "Adresse email ou mot de passe incorrect";
@@ -84,8 +78,8 @@ if (isset($_POST["connexion"])) {
                     $expiration = time() + (24 * 60 * 60);
 
                     setcookie("remember_token", $token, [
-                        "expires"  => $expiration,
-                        "path"     => "/",
+                        "expires" => $expiration,
+                        "path" => "/",
                         "httponly" => true,
                         "samesite" => "Strict"
                     ]);
@@ -150,11 +144,11 @@ if (isset($_POST["connexion"])) {
 
         <form method="post" action="">
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Adresse e-mail</label>
+                <label class="intitule">Adresse e-mail</label>
                 <input type="email" name="email" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Mot de passe</label>
+                <label class="intitule">Mot de passe</label>
                 <input type="password" name="password" class="champ" required>
             </div>
             <div class="champ-formulaire">
@@ -167,9 +161,6 @@ if (isset($_POST["connexion"])) {
                 <a href="inscription.php">Créer un compte</a>
             </div>
         </form>
-        <p style="font-size: smaller; color: white" class="message-erreur">
-            Une <span class="obligatoire">* </span>signifie un champ obligatoire
-        </p>
     </section>
 </main>
 </body>
