@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         if (isset($_POST["confirmation"])){
             $email = $_SESSION["email"];
-            $data_client = lire_data("client.json",$email);
+            $data_client = lire_data("../data/client.json",$email);
             if (password_verify($_POST["mdp"],$data_client["mot de passe"])){
                 if (supprimer_compte($email)){
                     $verif = true;
@@ -124,11 +124,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 function supprimer_compte(string $email) : bool{
     if (!isset($email)) return false;
-    $data = lire_data("client.json");
+    $data = lire_data("../data/client.json");
     $email = $_SESSION["email"];
     if (!isset($data)) return false;
     unset($data[$email]);
-    $success = ecrire_data("client.json",$data);
+    $success = ecrire_data("../data/client.json",$data);
     if ($success){
         session_destroy();
         return true;

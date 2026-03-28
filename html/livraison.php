@@ -9,8 +9,8 @@ if (!isset($_SESSION["connecte"]) || ($_SESSION["role"] != "livreur" && $_SESSIO
 }
 
 $email_livreur = $_SESSION["email"];
-$bdd_client = lire_data("client.json");
-$bdd_cmd = lire_data("commandes.json");
+$bdd_client = lire_data("../data/client.json");
+$bdd_cmd = lire_data("../data/commandes.json");
 
 
 if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {
@@ -25,8 +25,8 @@ if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {
             $bdd_cmd[$num_cmd]["etat"] = "livraison";
             $bdd_cmd[$num_cmd]["livreur"] = $email_livreur;
             $bdd_client[$email_livreur]["livraison"] = $num_cmd;
-            ecrire_data("commandes.json", $bdd_cmd);
-            ecrire_data("client.json", $bdd_client);
+            ecrire_data("../data/commandes.json", $bdd_cmd);
+            ecrire_data("../data/client.json", $bdd_client);
         }
     }
 
@@ -45,8 +45,8 @@ if (isset($_POST["action"]) && $_POST["action"] === "terminer_livraison") {
         if ($email_client && isset($bdd_client[$email_client])) {
             $bdd_client[$email_client]["livraison"] = false;
         }
-        ecrire_data("commandes.json", $bdd_cmd);
-        ecrire_data("client.json", $bdd_client);
+        ecrire_data("../data/commandes.json", $bdd_cmd);
+        ecrire_data("../data/client.json", $bdd_client);
     }
 
     header("Location: livraison.php");
@@ -60,8 +60,8 @@ if (isset($_POST["action"]) && $_POST["action"] === "abandonner_livraison") {
         $bdd_cmd[$num_cmd]["etat"] = "preparee";
         $bdd_cmd[$num_cmd]["livreur"] = null;
         $bdd_client[$email_livreur]["livraison"] = false;
-        ecrire_data("commandes.json", $bdd_cmd);
-        ecrire_data("client.json", $bdd_client);
+        ecrire_data("../data/commandes.json", $bdd_cmd);
+        ecrire_data("../data/client.json", $bdd_client);
     }
 
     header("Location: livraison.php");

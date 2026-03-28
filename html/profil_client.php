@@ -9,7 +9,7 @@ require_once __DIR__."/../serveur.php";
 
 $_SESSION["derniers-plats"] = [];
 $plats = ["entree" => [], "plats" => [], "dessert" => [], "cafe" => []];
-$data = lire_data("plats.json");
+$data = lire_data("../data/plats.json");
 foreach ($data as $nom_plat){
     $cat = $nom_plat["categorie"];
     switch ($cat) {

@@ -8,20 +8,29 @@ if(!isset($_SESSION["connecte"])){
 }
 
 if(isset($_POST["deconnexion"])){
-    $bdd_actuelle = lire_data("client.json");
+    $bdd_actuelle = lire_data("../data/client.json");
     $email = $_SESSION["email"];
 
     if(isset($bdd_actuelle[$email])){
         $bdd_actuelle[$email]["securite"]["est_en_ligne"] = false;
-        ecrire_data("client.json", $bdd_actuelle);
+        $bdd_actuelle[$email]["securite"]["remember_token"] = null;
+        $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = null;
+        ecrire_data("../data/client.json", $bdd_actuelle);
     }
+
+    setcookie("remember_token", "", [
+        "expires" => time() - 3600,
+        "path" => "/",
+        "httponly" => true,
+        "samesite" => "Strict"
+    ]);
 
     session_unset();
     session_destroy();
     header("Location: index.php");
     exit;
 }
-elseif ($_POST["abandonner"]){
+elseif (isset($_POST["abandonner"])){
     header("Location: profil_client.php");
     exit;
 }
@@ -34,12 +43,12 @@ elseif ($_POST["abandonner"]){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
-    <title>Déconnexion - L’oro di Cicerone</title>
+    <title>Déconnexion - L'oro di Cicerone</title>
 </head>
 <body>
 
 <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>

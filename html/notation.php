@@ -10,10 +10,10 @@ if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "Client")){
 
 
 $email_client = $_SESSION["email"];
-$bdd_client = lire_data("client.json", $email_client);
+$bdd_client = lire_data("../data/client.json", $email_client);
 
 $derniere_cmd = $bdd_client["dernieres_commandes"][0];
-$bdd_cmd = lire_data("commandes.json");
+$bdd_cmd = lire_data("../data/commandes.json");
 
 if (isset($_POST["valider"])) {
     $note_livraison = $_POST["note_livraison"];
@@ -27,7 +27,7 @@ if (isset($_POST["valider"])) {
     }
     $bdd_cmd[$derniere_cmd]["etat"] = "notee";
 
-    ecrire_data("commandes.json", $bdd_cmd);
+    ecrire_data("../data/commandes.json", $bdd_cmd);
 }    
 
 ?>

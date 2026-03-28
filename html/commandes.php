@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <section class='colonne-commandes'>
             ";
         
-            $data = lire_data("commandes.json");
+            $data = lire_data("../data/commandes.json");
             //echo "Commandes en cours :";
             foreach ($data as $hash => $commande) {
                 if ($commande["est-valide"]){
@@ -175,20 +175,20 @@ function prendre_commande(string $id_cmd) : void{
     if (!isset($id_cmd)){
         return;
     }
-    $data = lire_data("commandes.json");
+    $data = lire_data("../data/commandes.json");
     if (!isset($data)) return;
     $data[$id_cmd]["etat"] = "en preparation";
-    ecrire_data("commandes.json",$data);
+    ecrire_data("../data/commandes.json",$data);
 }
 
 function finir_commande(string $id_cmd) : void{
     if (!isset($id_cmd)){
         return;
     }
-    $data = lire_data("commandes.json");
+    $data = lire_data("../data/commandes.json");
     if (!isset($data)) return;
     $data[$id_cmd]["etat"] = "preparee";
-    ecrire_data("commandes.json",$data);
+    ecrire_data("../data/commandes.json",$data);
 }
 
 ?>

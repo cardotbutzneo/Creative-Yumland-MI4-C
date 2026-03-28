@@ -5,7 +5,7 @@ if(!isset($_SESSION["connecte"])){
     exit;
 }
 $email = $_SESSION["email"];
-$a = "paniers.json";
+$a = "../data/paniers.json";
 function lire_data(string $chemin, string $nom_utilisateur = "") : array {
     if (!file_exists($chemin)) return [];
     $data = json_decode(file_get_contents($chemin), true);
@@ -35,7 +35,7 @@ if ($action === "ajouter") {
     if (isset($paniers[$email]["articles"][$id_plat])) {
         $paniers[$email]["articles"][$id_plat]["quantite"]++;
     } else {
-        $plats = lire_data("plats.json");
+        $plats = lire_data("../data/plats.json");
         $plat  = $plats[$id_plat] ?? null;
         if ($plat !== null) {
             $paniers[$email]["articles"][$id_plat] = [

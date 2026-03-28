@@ -120,7 +120,7 @@ $afficher_confirmation = false;
 
 function modifier_infos() : void {
     /** Modifie les infos de l'utilisateur */
-    $toute_la_data = lire_data("client.json");
+    $toute_la_data = lire_data("../data/client.json");
     $email = $_SESSION["email"];
 
     if (!isset($toute_la_data[$email])) return;
@@ -130,7 +130,7 @@ function modifier_infos() : void {
             $toute_la_data[$email][$var] = htmlspecialchars($_POST[$var]);
         }
     }
-    ecrire_data("client.json",$toute_la_data);
+    ecrire_data("../data/client.json",$toute_la_data);
 }
 
 ?>

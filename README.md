@@ -51,7 +51,6 @@ Tous les emails sont suivies de @gmail.com
 - Client : client2 : motdepasse
 - Cuisinier : cuisinier1 : 1234
 - Livreur : livreur1 : 1234
-- Admin : admin_restaurant : motdepasse
 - Admin : admin1 : 1234
 <br>
 Pour vous connecter il suffit d'aller sur la page de connexion, qui vous redirigera vers la page appropriée.

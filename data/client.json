@@ -1,35 +1,11 @@
 {
-    "admin_restaurant@gmail.com": {
-        "id": "00000001",
-        "nom": "Admin",
-        "prenom": "Admin",
-        "mot de passe": "$2y$10$U2Y1IqE8y23yr3sbsG0Nc.MDjTwa54b3pAEdrS5ESWWoy1YhoQwXS",
-        "contact": {
-            "adresse": "33 rue du Pape",
-            "complément d'adresse": "",
-            "téléphone": "33",
-            "adresse email": "admin_restaurant@gmail.com"
-        },
-        "role": "admin",
-        "dernieres_commandes": [],
-        "securite": {
-            "date_creation": "2026-03-13",
-            "derniere_connexion": "2026-03-19 21:29:36",
-            "est_banni": false,
-            "est_en_ligne": true,
-            "est_modifiable": true,
-            "tentative_echec": 0
-        },
-        "pts-fidelite": 0,
-        "livraison": false
-    },
     "client1@gmail.com": {
         "id": "00000002",
-        "nom": "client1",
-        "prenom": "client",
+        "nom": "Chalamet",
+        "prenom": "Timothée",
         "mot de passe": "$2y$10$jWOsjOum\/E14T6ue\/ExBp.5NoOHvaiuNGAqtNtvrO7\/CS.lWxsmZy",
         "contact": {
-            "adresse": "33 rue du pape",
+            "adresse": "20 Rue d'Antin, Paris",
             "complément d'adresse": "",
             "téléphone": "0763289174",
             "adresse email": "client1@gmail.com"
@@ -40,24 +16,26 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-27 15:26:14",
+            "derniere_connexion": "2026-03-28 16:19:49",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
-            "tentative_echec": 0
+            "tentative_echec": 0,
+            "remember_token": null,
+            "remember_token_expiration": null
         },
         "pts-fidelite": 350,
         "livraison": false
     },
     "cuisinier1@gmail.com": {
         "id": "00000003",
-        "nom": "cuisinier1",
-        "prenom": "cuisinier",
+        "nom": "Costanzo",
+        "prenom": "Federico",
         "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
         "contact": {
-            "adresse": "33 rue du pape, Marseille",
+            "adresse": "76 Rue Maurice Bokanowski, Asnières-sur-Seine",
             "complément d'adresse": "",
-            "téléphone": "+33",
+            "téléphone": "0629843711",
             "adresse email": "cuisinier1@gmail.com"
         },
         "role": "Cuisinier",
@@ -75,11 +53,11 @@
     },
     "client2@gmail.com": {
         "id": "00000004",
-        "nom": "client2",
-        "prenom": "client",
+        "nom": "Guetta",
+        "prenom": "David",
         "mot de passe": "$2y$10$T1eeFFiF7MuIxaQZOF77eenwb\/Co5bUiFT6lzItirM9k0yWio4XuC",
         "contact": {
-            "adresse": "2 Rue de la paix, Paris",
+            "adresse": "12 Rue Jeanne Hachette, Paris",
             "complément d'adresse": "2e étage",
             "téléphone": "0763289174",
             "adresse email": "client2@gmail.com"
@@ -99,11 +77,11 @@
     },
     "admin1@gmail.com": {
         "id": "00000005",
-        "nom": "admin1",
-        "prenom": "admin1",
+        "nom": "Gates",
+        "prenom": "Bill",
         "mot de passe": "$2y$10$Hj2EKIVtJliGk2fcGgMYnONV3pZsRmxiHTqVcggz0uAeCxMPKOCwK",
         "contact": {
-            "adresse": "33 rue du pape",
+            "adresse": "42 Avenue de la Porte de Clichy, Paris",
             "complément d'adresse": "",
             "téléphone": "0304028319",
             "adresse email": "admin1@gmail.com"
@@ -123,11 +101,11 @@
     },
     "livreur1@gmail.com": {
         "id": "00000006",
-        "nom": "Livreur1",
-        "prenom": "LIVREUR",
+        "nom": "Banatzailea",
+        "prenom": "Sébastien",
         "mot de passe": "$2y$10$5k3Z2Q0m1oGNjvLflPS9A.RPd0JlduhLB3Ir0UfAUfXWRwDk23FYG",
         "contact": {
-            "adresse": "210 Impasse de la paix ",
+            "adresse": "126 Rue Blomet, Paris",
             "complément d'adresse": "",
             "téléphone": "0702082819",
             "adresse email": "livreur1@gmail.com"

@@ -82,7 +82,7 @@ $recherche = $_GET['recherche'] ?? '';
 </form>
 
 <?php
-$data = lire_data("plats.json");
+$data = lire_data("../data/plats.json");
 $recherche1 = strtolower($recherche);
 $categories = [
     "entrees"  => "Entrées",
