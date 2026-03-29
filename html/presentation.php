@@ -18,7 +18,12 @@ session_start();
             <li><a href="index.php">Accueil</a></li>
             <li><a href="restaurant.php">Le Restaurant</a></li>
             <li><a href="chef.php">Le Chef</a></li>
-            <li><a href="presentation.php">Menu</a></li>
+            <li><?php 
+                if (isset($_SESSION) && $_SESSION["connecte"] === true) {
+                    echo '<a href="panier.php">Panier</a>';
+                }
+            ?>
+            </li>
             <li>
                 <?php 
                 if (isset($_SESSION) && $_SESSION["connecte"] === true) {

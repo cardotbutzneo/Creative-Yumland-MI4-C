@@ -1,0 +1,136 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding: 40px 15%;
+}
+
+main h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #c9a24d;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #c9a24d;
+    padding-bottom: 10px;
+}
+
+.recap table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.recap table thead tr {
+    border-bottom: 1px solid #c9a24d;
+}
+
+.recap table thead th {
+    padding: 10px 0;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(245, 245, 245, 0.5);
+    font-weight: 400;
+}
+
+.recap table thead th:last-child {
+    text-align: right;
+}
+
+.recap table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recap table tbody td {
+    padding: 16px 0;
+    color: #f5f5f5;
+    font-size: 17px;
+}
+
+.recap table tbody td.nom {
+    font-weight: bold;
+}
+
+.recap table tbody td.qte {
+    color: rgba(245, 245, 245, 0.5);
+    font-size: 15px;
+}
+
+.recap table tbody td.sous-total {
+    text-align: right;
+    font-weight: bold;
+    color: #c9a24d;
+}
+
+.infos-commande {
+    margin-bottom: 20px;
+}
+
+.info-ligne {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 15px;
+}
+
+.info-ligne:last-child {
+    border-bottom: none;
+}
+
+.info-ligne .label {
+    color: rgba(245, 245, 245, 0.5);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-ligne .valeur {
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-top: 10px;
+    border-top: 2px solid #c9a24d;
+    font-size: 22px;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.total .montant {
+    color: #c9a24d;
+}
+
+.action {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.action a,
+.action button {
+    padding: 12px 25px;
+    border: 1px solid #c9a24d;
+    background: transparent;
+    color: #f5f5f5;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.action a:hover,
+.action button:hover {
+    background-color: #c9a24d;
+    color: #f5f5f5;
+}

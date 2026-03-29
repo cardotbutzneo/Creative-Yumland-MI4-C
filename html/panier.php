@@ -84,8 +84,7 @@ $nb_articles = array_sum(array_column($articles, "quantite"));
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="presentation.php">Menu</a></li>
-                <li><a href="profil.php">Profil</a></li>
-                <li><a href="panier.php">Mon panier</a></li>
+                <li><a href="profil_client.php">Profil</a></li>
             </ul>
         </nav>
     </header>
@@ -130,4 +129,5 @@ $nb_articles = array_sum(array_column($articles, "quantite"));
         <a href="contact.php">Nous contacter</a>
     </footer>
 </body>
+</html>
 </html>
