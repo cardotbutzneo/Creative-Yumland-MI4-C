@@ -1,0 +1,105 @@
+:root{
+    --gold : #C5A021;
+}
+
+body{
+    background-color: #010101;
+}
+
+h2{
+    padding: 10px;
+}
+
+section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    gap : 40px;
+    letter-spacing: 2px;
+    text-align: center;
+    background-color: #0f0f0f;
+}
+
+.titre{
+    text-align: center;
+    padding: 20px;
+    color: #C5A021;
+}
+
+.titre p{
+    color: grey;
+    text-transform: uppercase;
+}
+
+.pts{
+    text-align: center;
+    border: 1px #C5A021 solid;
+    background-color: #1C1910;
+    padding: 20px;
+}
+
+.contenent {
+    display: inline-block;
+    background: #1A1A0A;
+    border: 1px solid #C5A021;
+    border-radius: 5px;
+    color: white;
+    margin: auto;
+    padding: 20px;
+    max-width: 520px;
+    min-height: 250px;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.contenent .expliquation{
+    text-align: justify;
+}
+
+.expliquation{
+    font-style: italic;
+    font-size: small;
+    padding: 10px;
+}
+
+.pts-bouton{
+    margin-right: -10px;
+    padding: 5px;
+    background-color: #1A1A0A;
+    border: 1px white solid;
+    color: white;
+    border-radius: 5px;
+    text-transform: uppercase;
+    width: 25%;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #C5A021;
+  width: 80%;
+  margin: 20px auto;
+}   
+
+.valeur{
+    font-size : 12px;
+    font-weight: bold;
+    text-align: left;
+    padding: 20px;
+}
+
+.disponibilite{
+    padding: 20px;
+
+}
+
+.disponibilite p{
+    padding: 5px;
+}
+
+@media screen and (max-width : 760px) {
+    section{
+        grid-template-columns: none;        
+    }
+}

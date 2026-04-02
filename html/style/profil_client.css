@@ -40,6 +40,15 @@ section{
     justify-content: space-between;
 }
 
+#fidelite{
+    display: flex;
+    justify-content: space-between;
+}
+
+#nom{
+    font-size: x-large;
+}
+
 .notification-success {
     background-color: #0b0b0b;
     color: white;
@@ -87,4 +96,16 @@ progress {
     0% { opacity: 1; transform: translateY(0); }
     80% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translatex(-20px); visibility: hidden; }
+}
+
+@media screen and (max-width : 900px) {
+    p{
+        text-align: center;
+    }
+    #fidelite{
+        font-size: small;
+    }
+    nav ul{
+        letter-spacing: 0px;
+    }
 }

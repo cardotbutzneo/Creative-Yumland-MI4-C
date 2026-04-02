@@ -7,29 +7,29 @@ if (!isset($_SESSION["email"]) or ($_SESSION["role"] != "Client" and $_SESSION["
 
 require_once __DIR__."/../serveur.php";
 
-$_SESSION["derniers-plats"] = [];
 $plats = ["entree" => [], "plats" => [], "dessert" => [], "cafe" => []];
 $data = lire_data("../data/plats.json");
-foreach ($data as $nom_plat){
-    $cat = $nom_plat["categorie"];
+foreach ($data as $nom_plat => $plat){
+    if ($nom_plat == "Allergenes") continue;
+    $cat = $plat["categorie"];
     switch ($cat) {
         case 'entrees':
-            $plats["entrees"][] = $nom_plat;
+            $plats["entrees"][] = $plat;
             break;
         case 'plats':
-            $plats["plats"][] = $nom_plat;
+            $plats["plats"][] = $plat;
             break;
         case 'desserts':
-            $plats["desserts"][] = $nom_plat;
+            $plats["desserts"][] = $plat;
             break;
         case 'cafes':
-            $plats["cafe"][] = $nom_plat;
+            $plats["cafe"][] = $plat;
             break;
         default:
             break;
     }
 }
-$pts = $_SESSION["pts-fidelite"] ?? 0;
+$pts = $_SESSION["total-fidelite"] ?? 0;
 
 if ($pts < 25) {
     $class = "grade-amethyste";
@@ -66,6 +66,7 @@ $_SESSION["programme-fidelite"] = $nom_grade;
         <ul>
             <li><a href="index.php">Accueil</a></li>
             <li><a href="presentation.php">Menu</a></li>
+            <?php if ($nom_grade == "Buisson-Or" or $nom_grade == "Rubi") echo "<li><a href='vip.php'>VIP</a></li>";?>
             <li><a href="modifier_profil.php">Modifier le profil</a></li>
             <li><a href="securite.php">Sécurité</a></li>
             <li><a href="deconnexion.php">se déconnecter</a></li>
@@ -81,9 +82,9 @@ $_SESSION["programme-fidelite"] = $nom_grade;
     ?>
     <section>
             <?php if ($_SESSION["role"] == "Client"){
-                echo '<div class="contenent" style="text-align : left;">';
-                echo "<p>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>";
-                echo "<p>Programme " . $_SESSION["programme-fidelite"];
+                echo '<div class="contenent">';
+                echo "<p id='nom'>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>";
+                echo "<div id='fidelite'><span>Programme " . $_SESSION["programme-fidelite"] . "</span><span>Nombre de points : ". $_SESSION["pts-fidelite"] . "</span></div>";
                 echo "</div>";
             }
             ?>
@@ -91,10 +92,17 @@ $_SESSION["programme-fidelite"] = $nom_grade;
             <h2>Historique des dernières commandes</h2>
             <nav>
                 <?php
-                    if (isset($_SESSION["derniers-plats"]) and !empty($_SESSION["derniers-plats"]) and isset($plats)){
+                    if (isset($_SESSION["derniers-plats"]) and !empty($_SESSION["derniers-plats"]) and isset($plats)){ 
                         echo '<ul class="sugestions">';
-                        foreach ($_SESSION["derniers-plats"] as $plat){
-                            echo "<li><span>" . htmlspecialchars($plat) . "</span> <span>". htmlspecialchars($plats[$plat]["prix"]) . "€ </span></li>";
+                        foreach ($_SESSION["derniers-plats"] as $cmd){
+                            $cmd_complette = récupérer_commande($cmd);
+                            $cat_cmd = $cmd_complette["plats"];
+                            foreach($cat_cmd as $cat){
+                                if (isset($cat)){
+                                    echo "<li><span>" . htmlspecialchars($cat["nom"]) . "</span> <span>x". htmlspecialchars($cat["quantite"]) . "</span></li>";
+                                }
+                            }
+                            echo "<p>Total : " . $cmd_complette["montant"] . "€</p>";
                         }
                         echo "</ul>";
                     }
@@ -154,7 +162,7 @@ $_SESSION["programme-fidelite"] = $nom_grade;
             <h2>Vos points fidélités</h2>
             <div class="fidelite-card">
                 <progress class="<?= $class ?>" value="<?= $pts ?>" max="<?= $max ?>"></progress>
-                <span><?php if ($pts <= $max) {echo "$pts / $max points";} else echo "$pts points"?></span>
+                <span><?php if ($pts <= $max) {echo "$pts / $max points";} else echo "$pts points cumulés"?></span>
                 <?php if ($pts < 50): ?>
                     <p>Prochain programme : <strong><?= ($pts < 25) ? "Rubis" : "Or" ?></strong></p>
                 <?php endif; ?>

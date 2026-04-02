@@ -36,6 +36,7 @@ function creer_client(array $donnee) : array {
             "tentative_echec" => 0
         ],
         "pts-fidelite" => 0,
+        "total-fidelite" => 0,
         "livraison" => false
     ];  
 }

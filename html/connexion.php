@@ -13,10 +13,12 @@ if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
         if ($token_stocke && hash_equals($token_stocke, hash("sha256", $token_recu)) && $token_expiration > time() && !$utilisateur["securite"]["est_banni"]) {
             $_SESSION["email"] = $email;
             $_SESSION["connecte"] = true;
-            $_SESSION["role"] = $utilisateur["role"];
-            $_SESSION["nom"] = $utilisateur["nom"];
-            $_SESSION["prenom"] = $utilisateur["prenom"];
-            $_SESSION["pts-fidelite"] = $utilisateur["pts-fidelite"];
+            $_SESSION["role"] = $bdd_actuelle[$email]["role"];
+            $_SESSION["nom"] = $bdd_actuelle[$email]["nom"];
+            $_SESSION["prenom"] = $bdd_actuelle[$email]["prenom"];
+            $_SESSION["pts-fidelite"] = $bdd_actuelle[$email]["pts-fidelite"];
+            $_SESSION["total-fidelite"] = $bdd_actuelle[$email]["total-fidelite"];
+            $_SESSION["derniers-plats"] = $bdd_actuelle[$email]["dernieres_commandes"] ?? [];
             $_SESSION["derniere-connexion"] = time();
             break;
         }
@@ -66,6 +68,8 @@ if (isset($_POST["connexion"])) {
                 $_SESSION["nom"] = $bdd_actuelle[$email]["nom"];
                 $_SESSION["prenom"] = $bdd_actuelle[$email]["prenom"];
                 $_SESSION["pts-fidelite"] = $bdd_actuelle[$email]["pts-fidelite"];
+                $_SESSION["total-fidelite"] = $bdd_actuelle[$email]["total-fidelite"];
+                $_SESSION["derniers-plats"] = $bdd_actuelle[$email]["dernieres_commandes"] ?? [];
                 $_SESSION["derniere-connexion"] = time();
 
                 $bdd_actuelle[$email]["securite"]["derniere_connexion"] = date("Y-m-d H:i:s");

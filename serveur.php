@@ -38,4 +38,26 @@ function difference_date(string $date1): bool {
         }
     }
 }
+
+function récupérer_commande(string $numéro) : ?array{
+    if (!isset($numéro)) return null;
+    $data = lire_data("../data/commandes.json");
+    if (!isset($data)) return null;
+    if (!isset($data[$numéro]["plats"])) return null;
+    return $data[$numéro];
+}
+
+function calculer_points(int $montant_total, string $rang) : int{
+    /**Renvoie le nombre de point du client apres achat */
+    /**Exemple : si on dépense 200€ en étant membre or on gagne : (200*200*1.5)/1000 = 60pts */
+    if (!isset($montant_total) or !isset($rang)) return -1;
+    if ($montant_total <= 0) return -1;
+    if ($rang === "Amethyste") $coeff = 1;
+    if ($rang === "Rubi") $coeff = 1.2;
+    if ($rang === "Buisson-or") $coeff = 1.5;
+    $K = 1000; // constante arbitraire
+    $pts = (($montant_total**2)*$coeff) / $K;
+    return $pts;
+}
+
 ?>
