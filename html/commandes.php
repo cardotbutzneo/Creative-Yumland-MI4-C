@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 echo "</ul>";
                             echo "</div>";
 
-                            echo "<p id='Complement'>Complément : Burata sans fromage</p>";
+                            if (isset($commande["infos"]) and ) echo "<p id='Complement'>".$commande["infos"]."</p>";
                         echo "</div>";
                     }
                 }

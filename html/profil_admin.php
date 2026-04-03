@@ -20,7 +20,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
         header("Location: " . $_SERVER['PHP_SELF']); 
         exit();
     }
+    
 }
+
+if (isset($_POST["bloquer"])){
+    $val = explode("|", $_POST["mail"]);
+    $mail = $val[0];
+    $actionBanir = !($val[1] == "1"); 
+    
+    if (bloquer($mail, $actionBanir)){
+        header("Location: ".$_SERVER["PHP_SELF"]);
+        exit;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
                     if ($roleActuel == "Client") $ref = "profil_client.php";
                     if ($roleActuel == "Cuisinier") $ref = "commandes.php";
                     if ($roleActuel == "livreur") $ref = "livraison.php";
+                    if ($info["securite"]["est_banni"] == false) $value = 'Bloquer';
+                    else if ($info["securite"]["est_banni"] == true) $value = 'Débloquer';
                     echo"
                         <tr>
                             <form method='POST'>
@@ -82,11 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
                                         <option value='Cuisinier' " . ($roleActuel == 'Cuisinier' ? 'selected' : '') . ">Cuisinier</option>
                                         <option value='admin' " . ($roleActuel == 'admin' ? 'selected' : '') . ">Administrateur</option>
                                     </select>
-                                    <input type='submit'>
+                                    <input type='submit' class='bouton-role'>
                                 </td>
                                 <td>" . $info["securite"]["derniere_connexion"] . "</td>
                                 </form>
-                                <td><form class='bloquer'><input type='submit' value='Bloquer'></form></td>
+                                <td><form class='bloquer' method='POST'><input type='submit' name='bloquer' value=".$value."><input type='hidden' name='mail' value=".$info["contact"]["adresse email"]."|".$info["securite"]["est_banni"]."></form></td>
                         </tr>";
                 }
                 
@@ -128,10 +143,17 @@ function afficher_info(string $mail_utilisateur) : void{
     //echo "id utilisateur :".$utilisateur["id"]"<br>"; // n'existe pas
     echo "role : ".$utilisateur["role"]."<br>";
 }
-/*
-function bloquer(string $mail) : void{
-    if (!isset($mail)) return
 
+function bloquer(string $mail, bool $banir = true) : bool {
+    if (empty($mail)) return false;
+
+    $path = "../data/client.json";
+    $data = lire_data($path);
+
+    if (!$data || !isset($data[$mail])) return false;
+
+    $data[$mail]["securite"]["est_banni"] = $banir;
+
+    return ecrire_data($path, $data);
 }
-*/
 ?>

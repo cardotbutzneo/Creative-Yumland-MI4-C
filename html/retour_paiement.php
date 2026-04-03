@@ -128,6 +128,7 @@ if ($paiement_valide) {
             <?php } elseif ($statut_reel === "accepted") { ?>
                 <div class="icon success">✓</div>
                 <h2>Commande confirmée !</h2>
+                <?php $id_affichage = count($commandes); ?>
                 <p>Merci pour votre confiance. Votre commande n°<strong><?= $id_affichage ?></strong> est désormais en cuisine.</p>
                 <div class="cta">
                     <a href="profil_client.php">Suivre ma commande</a>
