@@ -71,7 +71,7 @@ if ($livraison && $date_livraison !== "") {
 
 $nv["transaction"] = $transaction;
 $_SESSION["commande_en_attente"] = $nv;
-$retour  = "http://" . $_SERVER["HTTP_HOST"] . "/retour_paiement.php";
+$retour  = "http://" . $_SERVER["HTTP_HOST"] . "/html/retour_paiement.php";
 $api_key = getAPIKey($vendeur);
 $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");
 ?>

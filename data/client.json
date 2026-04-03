@@ -12,11 +12,12 @@
         },
         "role": "Client",
         "dernieres_commandes": [
-            "C5BDFB78"
+            "D731931F",
+            "CFBC2D7D"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-03 08:45:34",
+            "derniere_connexion": "2026-04-02 18:51:20",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
@@ -43,9 +44,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-28 17:06:50",
+            "derniere_connexion": "2026-04-03 09:27:01",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
@@ -93,11 +94,13 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-03-15 09:24:36",
+            "derniere_connexion": "2026-04-03 09:11:51",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
-            "tentative_echec": 0
+            "tentative_echec": 0,
+            "remember_token": null,
+            "remember_token_expiration": null
         },
         "pts-fidelite": 0,
         "livraison": false
@@ -124,9 +127,6 @@
             "tentative_echec": 0
         },
         "pts-fidelite": 0,
-        "livraison": false
-    },
-    "1": {
         "livraison": false
     }
 }

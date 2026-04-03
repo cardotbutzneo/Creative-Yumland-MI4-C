@@ -1,9 +1,10 @@
 :root{
     --color : #149414;
+    --background : #000000
 }
 
 body{
-    background-color: #000000;
+    background-color: var(--background,#000000);
     color: var(--color);
 }
 
@@ -110,6 +111,14 @@ tr:not(:last-child) th {
     border: none; 
     border-radius: 5px; 
     padding: 5px;
+}
+
+.bouton-role{
+    border:1px grey solid;
+    color: var(--color);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #0f0f0f;
 }
 
 @media screen and (max-width : 600px){

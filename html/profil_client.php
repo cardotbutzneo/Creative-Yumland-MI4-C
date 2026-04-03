@@ -88,29 +88,29 @@ $_SESSION["programme-fidelite"] = $nom_grade;
                 echo "</div>";
             }
             ?>
-        <div class="contenent">
-            <h2>Historique des dernières commandes</h2>
-            <nav>
-                <?php
-                    if (isset($_SESSION["derniers-plats"]) and !empty($_SESSION["derniers-plats"]) and isset($plats)){ 
-                        echo '<ul class="sugestions">';
-                        foreach ($_SESSION["derniers-plats"] as $cmd){
-                            $cmd_complette = récupérer_commande($cmd);
-                            $cat_cmd = $cmd_complette["plats"];
-                            foreach($cat_cmd as $cat){
-                                if (isset($cat)){
-                                    echo "<li><span>" . htmlspecialchars($cat["nom"]) . "</span> <span>x". htmlspecialchars($cat["quantite"]) . "</span></li>";
-                                }
+        <?php
+            if (!empty($_SESSION["derniers-plats"])){
+                echo "<div class='contenent'>";
+                echo "<h2>Historique des dernières commandes</h2>";
+                echo "<nav>";
+                    foreach ($_SESSION["derniers-plats"] as $cmd) {
+                    $cmd_complette = récupérer_commande($cmd);
+                    echo "<div class='cmd-bloc'>";
+                    //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>";
+                        foreach ($cmd_complette["plats"] as $cat) {
+                            if (isset($cat)) {
+                                echo "<li><span>" . htmlspecialchars($cat["nom"]) . " </span>";
+                                echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
                             }
-                            echo "<p>Total : " . $cmd_complette["montant"] . "€</p>";
+                            echo "<hr>";
                         }
-                        echo "</ul>";
+                            echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";
+                    echo "</div>";
                     }
-                    else{
-                        echo "<p>Pas d'historique pour le moment.</p>";
-                    }
-                ?>
-            </nav>
+                echo "</nav>";
+            }
+        ?>
+            
         </div>
         <div class="contenent">
             <h2>Nos suggestions</h2>
