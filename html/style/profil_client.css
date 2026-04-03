@@ -187,6 +187,23 @@ h2 nav > p {
     text-align: center;
 }
 
+.btn-suivi {
+    display: block;
+    margin: 15px auto 0;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.btn-suivi:hover {
+    opacity: 0.85;
+}
+
 @keyframes fadeOut {
     0% { opacity: 1; transform: translateY(0); }
     80% { opacity: 1; transform: translateY(0); }

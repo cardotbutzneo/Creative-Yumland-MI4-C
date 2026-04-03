@@ -6,7 +6,7 @@
         "numero": "00000001",
         "livraison": false,
         "est-valide": true,
-        "etat": "preparee",
+        "etat": "notee",
         "plats": [
             {
                 "nom": "Burrata",

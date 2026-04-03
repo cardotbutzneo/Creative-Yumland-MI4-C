@@ -11,6 +11,11 @@ require_once __DIR__."/../serveur.php";
 $email = $_SESSION["email"];
 $bdd_client = lire_data("../data/client.json", $email);
 
+if (empty($bdd_client["dernieres_commandes"])) {
+    header("Location: profil_client.php?error=no_order");
+    exit;
+}
+
 $derniere_cmd = $bdd_client["dernieres_commandes"][0];
 $bdd_cmd = lire_data("../data/commandes.json");
 

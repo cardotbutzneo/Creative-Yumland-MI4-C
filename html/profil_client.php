@@ -108,6 +108,7 @@ $_SESSION["programme-fidelite"] = $nom_grade;
                     echo "</div>";
                     }
                 echo "</nav>";
+                echo "<a href='suivi_commande.php'><button class='btn-suivi'>Suivre ma dernière commande</button></a>";
             }
         ?>
             
