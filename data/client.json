@@ -16,9 +16,9 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-02 18:51:20",
+            "derniere_connexion": "2026-04-03 08:45:34",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
