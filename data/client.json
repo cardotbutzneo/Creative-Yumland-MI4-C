@@ -12,13 +12,14 @@
         },
         "role": "Client",
         "dernieres_commandes": [
+            "C53A28B0",
             "01B62056",
             "D731931F",
             "CFBC2D7D"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-03 18:31:23",
+            "derniere_connexion": "2026-04-03 19:50:07",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
@@ -26,8 +27,8 @@
             "remember_token": null,
             "remember_token_expiration": null
         },
-        "pts-fidelite": 3020,
-        "total-fidelite": 6020,
+        "pts-fidelite": 3083,
+        "total-fidelite": 6083,
         "livraison": false
     },
     "cuisinier1@gmail.com": {
@@ -71,7 +72,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-03 18:11:21",
+            "derniere_connexion": "2026-04-03 19:49:38",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
