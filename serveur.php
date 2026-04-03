@@ -47,14 +47,14 @@ function récupérer_commande(string $numéro) : ?array{
     return $data[$numéro];
 }
 
-function calculer_points(int $montant_total, string $rang) : int{
+function calculer_points(int $montant_total, string $pts) : int{
     /**Renvoie le nombre de point du client apres achat */
     /**Exemple : si on dépense 200€ en étant membre or on gagne : (200*200*1.5)/1000 = 60pts */
-    if (!isset($montant_total) or !isset($rang)) return -1;
+    if (!isset($montant_total) or !isset($pts)) return -1;
     if ($montant_total <= 0) return -1;
-    if ($rang === "Amethyste") $coeff = 1;
-    if ($rang === "Rubi") $coeff = 1.2;
-    if ($rang === "Buisson-or") $coeff = 1.5;
+    if ($pts < 500) {$rang = "Amethyste"; $coeff = 1;}
+    else if ($pts >= 500 and $pts < 1200) {$rang = "Rubi"; $coeff = 1.2;}
+    else {$rang = "Buisson-or"; $coeff = 1.5;}
     $K = 1000; // constante arbitraire
     $pts = (($montant_total**2)*$coeff) / $K;
     return $pts;

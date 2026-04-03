@@ -6,7 +6,7 @@
         "numero": "00000001",
         "livraison": false,
         "est-valide": true,
-        "etat": "notee",
+        "etat": "preparee",
         "plats": [
             {
                 "nom": "Burrata",
@@ -74,5 +74,57 @@
         "instructions": "",
         "livreur": null,
         "transaction": "69cf73505ee1f"
+    },
+    "4FB75A00": {
+        "email": "client1@gmail.com",
+        "date": "2026-04-03 16:32:08",
+        "montant": "117.00",
+        "numero": "00000003",
+        "livraison": false,
+        "est-valide": true,
+        "etat": "en preparation",
+        "plats": [
+            {
+                "nom": "Carpaccio",
+                "quantite": 2
+            },
+            {
+                "nom": "Focaccia",
+                "quantite": 1
+            },
+            {
+                "nom": "Burrata",
+                "quantite": 1
+            }
+        ],
+        "instructions": "",
+        "livreur": null,
+        "transaction": "69cfeb88e0e67"
+    },
+    "01B62056": {
+        "email": "client1@gmail.com",
+        "date": "2026-04-03 16:32:08",
+        "montant": "117.00",
+        "numero": "00000004",
+        "livraison": false,
+        "est-valide": true,
+        "etat": "en preparation",
+        "plats": [
+            {
+                "nom": "Carpaccio",
+                "quantite": 2
+            },
+            {
+                "nom": "Focaccia",
+                "quantite": 1
+            },
+            {
+                "nom": "Burrata",
+                "quantite": 1
+            }
+        ],
+        "instructions": "",
+        "livreur": null,
+        "transaction": "69cfeb88e0e67"
     }
 }

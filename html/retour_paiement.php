@@ -7,16 +7,7 @@ if (!isset($_SESSION["connecte"])) {
 }
 
 require('getapikey.php');
-
-function lire_data(string $chemin, string $nom_utilisateur = ""): array {
-    if (!file_exists($chemin)) return [];
-    $data = json_decode(file_get_contents($chemin), true);
-    if ($data === null) return [];
-    if ($nom_utilisateur !== "") {
-        return $data[$nom_utilisateur] ?? [];
-    }
-    return $data;
-}
+require_once __DIR__."/../serveur.php";
 
 function sauvegarder_data(string $chemin, array $data): void {
     file_put_contents($chemin, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
@@ -79,6 +70,8 @@ if ($paiement_valide) {
                 }
                 array_unshift($clients[$email]["dernieres_commandes"], $nv_id);
                 $clients[$email]["dernieres_commandes"] = array_slice($clients[$email]["dernieres_commandes"], 0, 10);
+                $clients[$email]["total-fidelite"] += calculer_points($commandes[$nv_id]["montant"],$clients[$email]["total-fidelite"]);
+                $clients[$email]["pts-fidelite"] += calculer_points($commandes[$nv_id]["montant"],$clients[$email]["total-fidelite"]);
                 sauvegarder_data($chemin_clients, $clients);
             }
             $id_affichage = $nv["numero"];

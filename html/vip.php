@@ -100,7 +100,7 @@ $_GET["sub-date"] = "";
                 echo '<div class="disponibilite">
                     <p>A quelle date voulez-vous venir manger ?</p>
                     <form method="GET">
-                        <input type="date" name="sub-date" min='.$demain.'required>
+                        <input type="date" name="sub-date" min='.$demain.' required>
                         <input type="submit" class="pts-bouton">
                     </form>
                 </div>';
@@ -111,14 +111,14 @@ $_GET["sub-date"] = "";
         </div>
         <div class="contenent">
             <h2>Le chef à domicile</h2>
-            <p class="expliquation">Notre chef se déplace chez vous pour composer un menu sur-mesure et préparer un dîner d'exception dans le confort de votre maison..</p>
+            <p class="expliquation">Notre chef se déplace chez vous pour composer un menu sur-mesure et préparer un dîner d'exception dans le confort de votre maison.</p>
             <hr>
            <form method="POST"><span class="valeur">1200 pts par personne</span><input type="submit" value="Utiliser" name="domicile" class="pts-bouton"></input></form>
             <?php if (isset($target) and $target == "domicile"){
                 echo '<div class="disponibilite">
                     <p>A quelle date voulez-vous venir manger ?</p>
                     <form method="GET">
-                        <input type="date" name="sub-date" min='.$demain.'required>
+                        <input type="date" name="sub-date" min='.$demain.' required>
                         <input type="submit" class="pts-bouton">
                     </form>
                 </div>';
@@ -133,7 +133,7 @@ $_GET["sub-date"] = "";
                 echo '<div class="disponibilite">
                     <p>A quelle date voulez-vous venir manger ?</p>
                     <form method="GET">
-                        <input type="date" name="sub-date" min='.$demain.'required>
+                        <input type="date" name="sub-date" min='.$demain.' required>
                         <input type="submit" class="pts-bouton">
                     </form>
                 </div>';

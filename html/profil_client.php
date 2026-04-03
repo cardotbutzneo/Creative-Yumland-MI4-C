@@ -31,19 +31,19 @@ foreach ($data as $nom_plat => $plat){
 }
 $pts = $_SESSION["total-fidelite"] ?? 0;
 
-if ($pts < 25) {
+if ($pts < 500) {
     $class = "grade-amethyste";
-    $max = 25;
+    $max = 500;
     $nom_grade = "Améthyste";
 }
-elseif ($pts < 50) {
+elseif ($pts >= 500 and $pts < 1200) {
     $class = "grade-rubis";
-    $max = 50;
+    $max = 1200;
     $nom_grade = "Rubis";
 }
 else {
     $class = "grade-or";
-    $max = 100;
+    $max = 1200;
     $nom_grade = "Buisson-Or";
 }
 $_SESSION["programme-fidelite"] = $nom_grade;

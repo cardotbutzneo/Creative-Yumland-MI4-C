@@ -1,6 +1,22 @@
 {
     "client1@gmail.com": {
-        "articles": [],
-        "total": 0
+        "articles": {
+            "Burrata": {
+                "nom": "Burrata",
+                "prix": 29,
+                "quantite": 1
+            }
+        },
+        "total": 29
+    },
+    "client2@gmail.com": {
+        "articles": {
+            "Burrata": {
+                "nom": "Burrata",
+                "prix": 29,
+                "quantite": 1
+            }
+        },
+        "total": 29
     }
 }
