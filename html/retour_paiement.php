@@ -83,7 +83,6 @@ if ($paiement_valide) {
             }
             $id_affichage = $nv["numero"];
             unset($_SESSION["commande_en_attente"]); 
-            $_SESSION["derniers-plats"] = $clients[$_SESSION["email"]]["dernieres_commandes"];
         } else {
             if (isset($clients[$email]["dernieres_commandes"][0])) {
                 $derniere_cle = $clients[$email]["dernieres_commandes"][0];
@@ -99,7 +98,7 @@ if ($paiement_valide) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Retour paiement – L'oro di Cicerone</title>
+    <title>Retour paiement - L'oro di Cicerone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/retour_paiement.css">

@@ -33,7 +33,7 @@ if (isset($_POST["bloquer"])){
         exit;
     }
 }
-
+$recherche = $_GET['recherche'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -43,11 +43,11 @@ if (isset($_POST["bloquer"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/profil_admin.css">
-    <title>Profil Admin - L’oro di Cicerone</title>
+    <title>Profil Admin - L'oro di Cicerone</title>
 </head>
 <body>
     <header>
-        <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+        <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
                 <li><a href="index.php">Accueil</a></li>
@@ -63,8 +63,10 @@ if (isset($_POST["bloquer"])){
         </section>
         <section class="table-utilisateur">
             <h2>Utilisateurs</h2>
-            <input type="text" name="search" placeholder="Saisir un Identifiant">
-            <input type="submit" id="search-button">
+            <form action="profil_admin.php" method="get">
+            <input type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un utilisateur" value="<?php echo htmlspecialchars($recherche); ?>">    
+            <button type="submit">Rechercher</button>
+            </form>
             <table>
                 <tr>
                     <td>Selection</td>
@@ -75,9 +77,11 @@ if (isset($_POST["bloquer"])){
                     <th>Bloquer</th>
                 </tr>
                 <?php 
+                $recherche1 = strtolower($recherche);
                 foreach ($data as $client => $info){
                     $i = $info["id"];
                     $roleActuel = $info["role"];
+                    if ($recherche1 !== '' && strpos(strtolower($client), $recherche1) === false) continue;
                     if ($roleActuel == "admin") $ref = "profil_admin.php";
                     if ($roleActuel == "Client") $ref = "profil_client.php";
                     if ($roleActuel == "Cuisinier") $ref = "commandes.php";

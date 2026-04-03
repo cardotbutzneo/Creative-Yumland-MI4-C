@@ -80,7 +80,7 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur .
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paiement – L'oro di Cicerone</title>
+    <title>Paiement - L'oro di Cicerone</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/paiement.css">
 </head>
@@ -111,7 +111,7 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur .
                     <?php foreach ($panier["articles"] as $article) { ?>
                     <tr>
                         <td class="nom"><?= $article["nom"] ?></td>
-                        <td class="qte">× <?= (int)$article["quantite"] ?></td>
+                        <td class="qte">x <?= (int)$article["quantite"] ?></td>
                         <td class="sous-total"><?= number_format($article["prix"] * $article["quantite"], 2, ',', '') ?>€</td>
                     </tr>
                     <?php } ?>

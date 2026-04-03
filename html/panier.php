@@ -104,7 +104,7 @@ $nb_articles = array_sum(array_column($articles, "quantite"));
                 echo "<span class='prix'>" . $article["prix"] * $article["quantite"] . "€</span>";
                 echo "</div>";
                 echo "<div class='quantite'>";
-                echo "<a href='panier.php?action=retirer&id=" . $cle . "'>−</a>";
+                echo "<a href='panier.php?action=retirer&id=" . $cle . "'>-</a>";
                 echo "<span>" . $article["quantite"] . "</span>";
                 echo "<a href='panier.php?action=ajouter&id=" . $cle . "'>+</a>";
                 echo "<span class='unitaire'>" . $article["prix"] . "€ / unité</span>";

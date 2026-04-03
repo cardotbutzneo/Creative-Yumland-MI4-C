@@ -8,6 +8,29 @@ body{
     color: var(--color);
 }
 
+#bar-recherche {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    color: #f5f5f5;
+    font-size: 15px;
+    background-color: #0f0f0f;
+}
+
+button{
+    padding: 10px 15px;
+    border-radius: 50px;
+    border: 1px solid var(--color);
+    color: var(--color);
+    background-color: #0f0f0f;
+    font-size: 15px;
+}
+
+button:hover{
+    background-color: var(--color); 
+    color:#0f0f0f;
+}
+
 h1{
     text-align: center;
 }

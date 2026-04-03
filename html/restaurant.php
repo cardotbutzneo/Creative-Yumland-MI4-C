@@ -6,13 +6,13 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Restaurant - L’oro di Cicerone</title>
+    <title>Le Restaurant - L'oro di Cicerone</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/restaurant.css">
 </head>
 <body>
     <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -25,7 +25,7 @@ session_start();
     </header>
     <section class="section-light">
         <div class="experience">
-            <p>Niché au cœur de Paris, à l’intérieur même de la Dame de Fer, L’oro di Cicerone vous invite à vivre une expérience hors du temps. Suspendu à 324 mètres de hauteur, notre restaurant offre un cadre d’exception où la gastronomie italienne s’élève au rang d’art, sublimée par une vue panoramique à couper le souffle sur la capitale.</p>
+            <p>Niché au cœur de Paris, à l'intérieur même de la Dame de Fer, L'oro di Cicerone vous invite à vivre une expérience hors du temps. Suspendu à 324 mètres de hauteur, notre restaurant offre un cadre d’exception où la gastronomie italienne s’élève au rang d’art, sublimée par une vue panoramique à couper le souffle sur la capitale.</p>
             <img src="style/img/vue ensemble resto.jpg" alt="Une vue d'ensemble du restaurant">
         </div>
     </section>
