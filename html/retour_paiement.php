@@ -70,6 +70,7 @@ if ($paiement_valide) {
                 }
                 array_unshift($clients[$email]["dernieres_commandes"], $nv_id);
                 $clients[$email]["dernieres_commandes"] = array_slice($clients[$email]["dernieres_commandes"], 0, 10);
+                $_SESSION["derniers-plats"] = $clients[$email]["dernieres_commandes"]; // on met a jours la session avec les nv plats
                 $clients[$email]["total-fidelite"] += calculer_points($commandes[$nv_id]["montant"],$clients[$email]["total-fidelite"]);
                 $clients[$email]["pts-fidelite"] += calculer_points($commandes[$nv_id]["montant"],$clients[$email]["total-fidelite"]);
                 sauvegarder_data($chemin_clients, $clients);
