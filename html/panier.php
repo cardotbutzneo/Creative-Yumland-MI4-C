@@ -23,8 +23,9 @@ function sauvegarder(string $fichier, array $data): void {
 }
 
 $action = $_GET["action"] ?? '';
-$id_plat = $_GET["id"]     ?? '';
+$id_plat = $_GET["id"] ?? '';
 $paniers = lire_data($a);
+
 if (!isset($paniers[$email])) {
     $paniers[$email] = ["articles" => [], "total" => 0];
 }
@@ -59,29 +60,37 @@ if ($action === "supprimer") {
 }
 
 if ($action !== '') {
-    $paniers[$email]["total"] = calcul($paniers[$email]["articles"]);
+    $pts = $_SESSION["total-fidelite"] ?? 0;
+    $total_brut = calcul($paniers[$email]["articles"]);
+    $nv_total = $total_brut;
+
+    if ($pts >= 500 && $pts < 1200) {
+        $reduc = 0.15; // 15 % de reduc
+        $nv_total = ceil($total_brut*(1-$reduc));
+    } elseif ($pts >= 1200) {
+        $reduc = 0.3; // 30 % de reduc
+        $nv_total = ceil($total_brut*(1-$reduc));
+    }
+
+    $paniers[$email]["total"] = $nv_total;
     sauvegarder($a, $paniers);
     header("Location: panier.php");
     exit;
 }
 
+$articles = $paniers[$email]["articles"];
+$total_brut = calcul($articles);
+
 $pts = $_SESSION["total-fidelite"] ?? 0;
+$nv_total = $total_brut;
 
-$panier = $paniers[$email];
-$articles = $panier["articles"];
-$total = $panier["total"];
-$nb_articles = array_sum(array_column($articles, "quantite"));
-
-$nv_total = $total;
-if ($pts >= 500 and $pts < 1200) {
+if ($pts >= 500 && $pts < 1200) {
     $reduc = 0.15; // 15 % de reduc
-    $nv_total = ceil($total*(1-$reduc));
-}
-elseif ($pts > 1200) {
+    $nv_total = ceil($total_brut*(1-$reduc));
+} elseif ($pts >= 1200) {
     $reduc = 0.3; // 30 % de reduc
-    $nv_total = ceil($total*(1-$reduc));
+    $nv_total = ceil($total_brut*(1-$reduc));
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -117,14 +126,14 @@ elseif ($pts > 1200) {
                 echo "<li>";
                 echo "<div class='ligne'>";
                 echo "<span class='nom'>" . $article["nom"] . "</span>";
-                echo "<span class='prix'>" . $article["prix"] * $article["quantite"] . "€</span>";
+                echo "<span class='prix'>" . ($article["prix"] * $article["quantite"]) . "€</span>";
                 echo "</div>";
                 echo "<div class='quantite'>";
-                echo "<a href='panier.php?action=retirer&id=" . $cle . "'>-</a>";
+                echo "<a href='panier.php?action=retirer&id=$cle'>-</a>";
                 echo "<span>" . $article["quantite"] . "</span>";
-                echo "<a href='panier.php?action=ajouter&id=" . $cle . "'>+</a>";
+                echo "<a href='panier.php?action=ajouter&id=$cle'>+</a>";
                 echo "<span class='unitaire'>" . $article["prix"] . "€ / unité</span>";
-                echo "<a class='btn-supp' href='panier.php?action=supprimer&id=" . $cle . "'>Supprimer</a>"; 
+                echo "<a class='btn-supp' href='panier.php?action=supprimer&id=$cle'>Supprimer</a>";
                 echo "</div>";
                 echo "</li>";
             }
@@ -132,10 +141,11 @@ elseif ($pts > 1200) {
             echo "</section>";
             echo "<div class='total'>";
             echo "<span>Total</span>";
-            echo "<span>" . $total . "€</span>";
+            echo "<span>" . $total_brut . "€</span>";
             echo "</div>";
-            if ($total == $nv_total) echo "<p>Pas de réduction disponible</p>";
-            else{
+            if ($total_brut == $nv_total) {
+                echo "<p>Pas de réduction disponible</p>";
+            } else {
                 echo "<div class='total'>";
                 echo "<span>Total après réductions</span>";
                 echo "<span>" . $nv_total . "€</span>";
@@ -153,5 +163,4 @@ elseif ($pts > 1200) {
         <a href="contact.php">Nous contacter</a>
     </footer>
 </body>
-</html>
 </html>
