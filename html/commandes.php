@@ -59,44 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         </form>
     </div>
     <div id="main-contenent">
-        <?php 
-        echo "<details open>
-            <summary><h2>Commandes validées</h2></summary>
-            <section class='colonne-commandes'>
-            ";
-        
+        <?php
             $data = lire_data("../data/commandes.json");
             //echo "Commandes en cours :";
-            foreach ($data as $hash => $commande) {
-                if ($commande["est-valide"]){
-                    // On vérifie si la commande est dans moins d'une heure
-                    if (isset($commande["date-livraison"]) && !difference_date($commande["date-livraison"])) {
-                        continue;
-                    }
-                    if ($commande["etat"] == "validee"){
-                        echo "<div class='block'>";
-                        echo "<form method='POST'>
-                                <input type='hidden' name='commande' value=".$hash.">
-                                <button type='submit' name='prendre-cmd'>Prendre la commande</button>
-                            </form>";
-                        echo "<span class='commande'>";
-                            echo "<p>identifiant de commande : " . $commande["numero"] . "</p>";
-                            echo "<p>Statut : " . $commande["etat"] . "</p>";
-                        echo "</span>";
-
-                        echo "<div>";
-                            echo "<ul>";
-                                foreach ($commande["plats"] as $p) {
-                                    echo "<li>" . htmlspecialchars($p["nom"]) . " x" . $p["quantite"] . "</li>";
-                                }
-                            echo "</ul>";
-                        echo "</div>";
-
-                        echo "<p id='Complement'>Complément : Burata sans fromage</p>";
-                    echo "</div>";
-                    }
-                }
-            }
             echo "</details>";
             echo "<details open>
             <summary><h2>Commandes en préparation </h2></summary>
@@ -127,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                             echo "</ul>";
                         echo "</div>";
 
-                        echo "<p id='Complement'>Complément : Burata sans fromage</p>";
+                        if (isset($commande["infos"])) echo "<p id='Complement'>".$commande["infos"]."</p>";
                     echo "</div>";
                     }
                 }
@@ -159,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 echo "</ul>";
                             echo "</div>";
 
-                            if (isset($commande["infos"]) and ) echo "<p id='Complement'>".$commande["infos"]."</p>";
+                            if (isset($commande["infos"])) echo "<p id='Complement'>".$commande["infos"]."</p>";
                         echo "</div>";
                     }
                 }

@@ -91,6 +91,87 @@ progress {
     color: white;
 }
 
+h2 nav {
+    background: #0b0b00;
+    border: 1px solid rgba(197, 160, 33, 0.4);
+    border-radius: 8px;
+    padding: 20px;
+        
+}
+
+h2 nav > p {
+    color: rgba(245, 245, 245, 0.45);
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.historique-titre {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #C5A021;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(197, 160, 33, 0.25);
+}
+
+.sugestions {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cmd-bloc {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding-bottom: 14px;
+}
+
+.cmd-bloc:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.sugestions li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 13px;
+}
+
+.sugestions li span:first-child {
+    color: rgba(245, 245, 245, 0.85);
+}
+
+.sugestions li span:last-child {
+    color: #C5A021;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.cmd-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(245, 245, 245, 0.4);
+    gap: 6px;
+}
+
+.cmd-total strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: #C5A021;
+}
 
 @keyframes fadeOut {
     0% { opacity: 1; transform: translateY(0); }
