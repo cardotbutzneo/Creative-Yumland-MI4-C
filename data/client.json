@@ -12,11 +12,12 @@
         },
         "role": "Client",
         "dernieres_commandes": [
+            "D731931F",
             "CFBC2D7D"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-03 09:17:27",
+            "derniere_connexion": "2026-04-03 10:04:10",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,

@@ -96,7 +96,6 @@ h2 nav {
     border: 1px solid rgba(197, 160, 33, 0.4);
     border-radius: 8px;
     padding: 20px;
-        
 }
 
 h2 nav > p {
@@ -130,11 +129,17 @@ h2 nav > p {
 .cmd-bloc {
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     padding-bottom: 14px;
+    text-align: left;
 }
 
 .cmd-bloc:last-child {
     border-bottom: none;
     padding-bottom: 0;
+}
+
+.cmd-bloc li{
+    padding: 10px;
+    list-style-type: none;
 }
 
 .sugestions li {
@@ -156,6 +161,7 @@ h2 nav > p {
 }
 
 .cmd-total {
+    padding: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -168,9 +174,17 @@ h2 nav > p {
 }
 
 .cmd-total strong {
-    font-family: 'Playfair Display', serif;
     font-size: 15px;
     color: #C5A021;
+}
+
+.cmd-bloc hr {
+  border: none;
+  border: 1px solid rgba(245,245,245,0.5);
+}   
+
+.numero_cmd{
+    text-align: center;
 }
 
 @keyframes fadeOut {

@@ -96,11 +96,13 @@ $_SESSION["programme-fidelite"] = $nom_grade;
                     foreach ($_SESSION["derniers-plats"] as $cmd) {
                     $cmd_complette = récupérer_commande($cmd);
                     echo "<div class='cmd-bloc'>";
+                    //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>";
                         foreach ($cmd_complette["plats"] as $cat) {
                             if (isset($cat)) {
-                                echo "<li><span>" . htmlspecialchars($cat["nom"]) . "</span>";
+                                echo "<li><span>" . htmlspecialchars($cat["nom"]) . " </span>";
                                 echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
                             }
+                            echo "<hr>";
                         }
                             echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";
                     echo "</div>";

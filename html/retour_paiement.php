@@ -83,6 +83,7 @@ if ($paiement_valide) {
             }
             $id_affichage = $nv["numero"];
             unset($_SESSION["commande_en_attente"]); 
+            $_SESSION["derniers-plats"] = $clients[$_SESSION["email"]]["dernieres_commandes"];
         } else {
             if (isset($clients[$email]["dernieres_commandes"][0])) {
                 $derniere_cle = $clients[$email]["dernieres_commandes"][0];
