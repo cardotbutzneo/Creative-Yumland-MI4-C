@@ -6,6 +6,7 @@ if(!isset($_SESSION["connecte"])){
 }
 
 require_once __DIR__."/../serveur.php";
+date_default_timezone_set("'Europe/Paris");
 
 $email = $_SESSION["email"];
 $a = "../data/paniers.json";
@@ -145,6 +146,10 @@ if ($pts >= 500 && $pts < 1200) {
             if ($total_brut == $nv_total) {
                 echo "<p>Pas de réduction disponible</p>";
             } else {
+                echo "<div style='text-align : right'>";
+                echo "<span>Remise imédiates : </span>";
+                echo "<span> " . -$reduc*100 . "%</span>";
+                echo "</div>";
                 echo "<div class='total'>";
                 echo "<span>Total après réductions</span>";
                 echo "<span>" . $nv_total . "€</span>";
@@ -164,7 +169,7 @@ if ($pts >= 500 && $pts < 1200) {
             echo "</div>";
             echo "<div class='form-groupe'>";
             echo "<label for='date_livraison'>Date et heure de livraison <span class='label-hint'>(laisser vide pour une livraison immédiate)</span></label>";
-            echo "<input type='datetime-local' name='date_livraison' id='date_livraison'>";
+            echo "<input type='datetime-local' name='date_livraison' id='date_livraison' min=".date("Y-m-d\TH:i")." step='1800'>";
             echo "</div>";
             echo "<div class='action'>";
             echo "<a href='presentation.php'>Continuer mes achats</a>";

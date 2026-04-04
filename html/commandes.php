@@ -61,6 +61,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <div id="main-contenent">
         <?php
             $data = lire_data("../data/commandes.json");
+            $date_aujourdhui = date_create();
+             echo "<details open>
+            <summary><h2>Commande à livraison différée (mise en livraison 1h avant)</h2></summary>
+            <section class='colonne-commandes'>";
+            foreach ($data as $hash => $commande) {
+                if ($commande["est-valide"]) {
+                    if (isset($commande["date_livraison"])) {
+                        $test = date_diff($date_aujourdhui,date_create($commande["date_livraison"]));  
+                        if ($test->format("%d") >= 1 or ($test->format("%d") < 1 and $test->format("%h") > 1)){
+                            echo "<div class='block'>";
+                            echo "<span class='commande'>";
+                                echo "<p>identifiant de commande : " . $commande["numero"] . "</p>";
+                                echo "<p>Statut : " . $commande["etat"] . "</p>";
+                            echo "</span>";
+                            echo "<span class='commande'>";
+                            echo "<p>Date de livraison : " . date_format(date_create($commande["date_livraison"]),"d/m/Y à H\hi") . "</p>";
+                            echo "</span>";
+
+                            echo "<div>";
+                                echo "<ul>";
+                                    foreach ($commande["plats"] as $p) {
+                                        echo "<li>" . htmlspecialchars($p["nom"]) . " x" . $p["quantite"] . "</li>";
+                                    }
+                                echo "</ul>";
+                            echo "</div>";
+
+                            if (isset($commande["instructions"])) echo "<p id='Complement'>".$commande["instructions"]."</p>";
+                        echo "</div>";
+                        }
+                    }
+                }
+            } 
+            echo "</details>";
             //echo "Commandes en cours :";
             echo "</details>";
             echo "<details open>
@@ -70,8 +103,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             foreach ($data as $hash => $commande) {
                 if ($commande["est-valide"]) {
                     // On vérifie si la commande est dans moins d'une heure
-                    if (isset($commande["date-livraison"]) && !difference_date($commande["date-livraison"])) {
-                        continue;
+                    if (isset($commande["date_livraison"])) {
+                        $test = date_diff($date_aujourdhui,date_create($commande["date_livraison"]));  
+                        if ($test->format("%d") >= 1 or ($test->format("%d") < 1 and $test->format("%h") > 1)){
+                            continue;
+                        }
                     }
                     if ($commande["etat"] == "en preparation"){
                         echo "<div class='block'>";
@@ -92,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                             echo "</ul>";
                         echo "</div>";
 
-                        if (isset($commande["infos"])) echo "<p id='Complement'>".$commande["infos"]."</p>";
+                        if (isset($commande["instructions"])) echo "<p id='Complement'>".$commande["instructions"]."</p>";
                     echo "</div>";
                     }
                 }
@@ -105,10 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             foreach ($data as $hash => $commande) {
                 if ($commande["est-valide"]) {
                     // On vérifie si la commande est dans moins d'une heure
-                    if (isset($commande["date-livraison"]) && !difference_date($commande["date-livraison"])) {
-                        continue;
-                    }
-
                     if ($commande["etat"] == "preparee") {
                         echo "<div class='block'>";
                             echo "<span class='commande'>";
@@ -124,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 echo "</ul>";
                             echo "</div>";
 
-                            if (isset($commande["infos"])) echo "<p id='Complement'>".$commande["infos"]."</p>";
+                            if (isset($commande["instructions"])) echo "<p id='Complement'>".$commande["instructions"]."</p>";
                         echo "</div>";
                     }
                 }
