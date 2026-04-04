@@ -19,14 +19,7 @@ main h2 {
     padding-bottom: 10px;
 }
 
-main h2 p{
-    color:#c9a24d;
-}
-
-main h2 a{
-    color:#f5f5f5;
-}
-
+/* ── ARTICLES ── */
 .rectangle {
     margin-bottom: 20px;
 }
@@ -39,6 +32,10 @@ main h2 a{
 .rectangle li {
     padding: 16px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rectangle li:last-child {
+    border-bottom: none;
 }
 
 .ligne {
@@ -66,7 +63,7 @@ main h2 a{
     gap: 15px;
     margin-top: 8px;
     font-size: 14px;
-    width: 100%; 
+    width: 100%;
 }
 
 .quantite a:not(.btn-supp) {
@@ -86,7 +83,22 @@ main h2 a{
     font-style: italic;
 }
 
+.btn-supp {
+    font-size: 12px;
+    color: #e8928f;
+    text-decoration: none;
+    border: 1px solid #e8928f;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-left: auto;
+}
 
+.btn-supp:hover {
+    background: #e8928f;
+    color: #0f0f0f;
+}
+
+/* ── TOTAL ── */
 .total {
     display: flex;
     justify-content: space-between;
@@ -98,33 +110,139 @@ main h2 a{
     color: #f5f5f5;
 }
 
+/* ── FORMULAIRE ── */
+.form-groupe {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-groupe label {
+    font-size: 14px;
+    color: rgba(245, 245, 245, 0.7);
+    letter-spacing: 0.05em;
+}
+
+.label-hint {
+    font-size: 12px;
+    color: rgba(245, 245, 245, 0.4);
+    font-style: italic;
+    margin-left: 6px;
+}
+
+.form-groupe textarea {
+    background: #1a1a1a;
+    border: 1px solid rgba(201, 162, 77, 0.3);
+    color: #f5f5f5;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    resize: vertical;
+    min-height: 80px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.form-groupe textarea:focus {
+    border-color: #c9a24d;
+}
+
+.form-groupe textarea::placeholder {
+    color: rgba(245, 245, 245, 0.3);
+}
+
+.form-groupe input[type="datetime-local"] {
+    background: #1a1a1a;
+    border: 1px solid rgba(201, 162, 77, 0.3);
+    color: #f5f5f5;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 4px;
+    outline: none;
+    width: fit-content;
+}
+
+.form-groupe input[type="datetime-local"]:focus {
+    border-color: #c9a24d;
+}
+
+.radio-groupe {
+    display: flex;
+    gap: 24px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #f5f5f5;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    accent-color: #c9a24d;
+    width: 16px;
+    height: 16px;
+}
+
+/* ── ACTIONS ── */
 .action {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 12px;
 }
 
 .action a {
-    margin-top: 30px;
+    padding: 12px 25px;
+    border: 1px solid rgba(245, 245, 245, 0.2);
+    color: rgba(245, 245, 245, 0.6);
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 13px;
+}
+
+.action a:hover {
+    border-color: #c9a24d;
+    color: #c9a24d;
+}
+
+.action button {
     padding: 12px 25px;
     border: 1px solid #c9a24d;
+    background: none;
+    color: #c9a24d;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 50px;
 }
 
-.action a:hover{
+.action button:hover {
     background-color: #c9a24d;
-    color: #f5f5f5;
-}
-
-.btn-supp {
-    font-size: 12px;
-    color: red;
-    text-decoration: none;
-    border: 1px solid red;
-    padding: 3px 10px;
-    border-radius: 4px;
-    margin-left: auto; 
-}
-
-.btn-supp:hover {
-    background: red;
     color: #0f0f0f;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 30px 20px;
+    }
+
+    .action {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action a,
+    .action button {
+        text-align: center;
+    }
+
+    .radio-groupe {
+        flex-direction: column;
+        gap: 12px;
+    }
 }

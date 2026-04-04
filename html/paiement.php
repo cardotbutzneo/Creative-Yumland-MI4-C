@@ -42,8 +42,8 @@ foreach ($panier["articles"] as $article) {
 $type_commande = $_POST["type_commande"] ?? "sur place";
 $instructions = $_POST["instructions"] ?? "";
 $livraison = $type_commande === "livraison";
-$livraison_tard = isset($_POST["livraison_plus_tard"]) && $_POST["livraison_plus_tard"] === "1";
-$date_livraison = ($livraison_tard && $livraison) ? ($_POST["date_livraison"] ?? "") : "";
+
+$date_livraison = $_POST["date_livraison"] ?? "";
 
 $vendeur = "MI-4_C";
 $montant = number_format($panier["total"], 2, '.', '');
@@ -52,6 +52,7 @@ $date = date("Y-m-d H:i:s");
 $commandes = lire_data("../data/commandes.json");
 $numero = str_pad(count($commandes) + 1, 8, "0", STR_PAD_LEFT);
 $transaction = uniqid();
+
 $nv = [
     "email"        => $email,
     "date"         => $date,
@@ -71,6 +72,7 @@ if ($livraison && $date_livraison !== "") {
 
 $nv["transaction"] = $transaction;
 $_SESSION["commande_en_attente"] = $nv;
+
 $retour  = "http://" . $_SERVER["HTTP_HOST"] . "/html/retour_paiement.php";
 $api_key = getAPIKey($vendeur);
 $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");
@@ -118,17 +120,25 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur .
                 </tbody>
             </table>
         </div>
+
         <div class="infos-commande">
             <div class="info-ligne">
                 <span class="label">Type de commande</span>
                 <span class="valeur"><?= $livraison ? "Livraison" : "Sur place" ?></span>
             </div>
+
             <?php if ($livraison && $date_livraison !== "") { ?>
             <div class="info-ligne">
                 <span class="label">Livraison prévue</span>
-                <span class="valeur"><?= $date_livraison ?></span>
+                <span class="valeur">
+                    <?php
+                    $dt = DateTime::createFromFormat('Y-m-d\TH:i', $date_livraison);
+                    echo $dt ? $dt->format('d/m/Y H:i') : '';
+                    ?>
+                </span>
             </div>
             <?php } ?>
+
             <?php if ($instructions !== "") { ?>
             <div class="info-ligne">
                 <span class="label">Instructions</span>
@@ -136,10 +146,12 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur .
             </div>
             <?php } ?>
         </div>
+
         <div class="total">
             <span>Total à payer</span>
             <span class="montant"><?= $montant ?>€</span>
         </div>
+
         <form action="https://www.plateforme-smc.fr/cybank/index.php" method="POST">
             <input type="hidden" name="transaction" value="<?= $transaction ?>">
             <input type="hidden" name="montant" value="<?= $montant ?>">
@@ -152,6 +164,7 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur .
             </div>
         </form>
     </main>
+
     <footer>
         <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
         <a href="contact.php">Nous contacter</a>

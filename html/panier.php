@@ -63,12 +63,12 @@ if ($action !== '') {
     $pts = $_SESSION["total-fidelite"] ?? 0;
     $total_brut = calcul($paniers[$email]["articles"]);
     $nv_total = $total_brut;
-
+    
     if ($pts >= 500 && $pts < 1200) {
-        $reduc = 0.15; // 15 % de reduc
+        $reduc = 0.15;
         $nv_total = ceil($total_brut*(1-$reduc));
     } elseif ($pts >= 1200) {
-        $reduc = 0.3; // 30 % de reduc
+        $reduc = 0.3;
         $nv_total = ceil($total_brut*(1-$reduc));
     }
 
@@ -85,14 +85,13 @@ $pts = $_SESSION["total-fidelite"] ?? 0;
 $nv_total = $total_brut;
 
 if ($pts >= 500 && $pts < 1200) {
-    $reduc = 0.15; // 15 % de reduc
+    $reduc = 0.15;
     $nv_total = ceil($total_brut*(1-$reduc));
 } elseif ($pts >= 1200) {
-    $reduc = 0.3; // 30 % de reduc
+    $reduc = 0.3;
     $nv_total = ceil($total_brut*(1-$reduc));
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -151,10 +150,27 @@ if ($pts >= 500 && $pts < 1200) {
                 echo "<span>" . $nv_total . "€</span>";
                 echo "</div>";
             }
+            echo "<form method='POST' action='paiement.php'>";
+            echo "<div class='form-groupe'>";
+            echo "<label for='instructions'>Instructions spéciales :</label>";
+            echo "<textarea name='instructions' id='instructions' placeholder='Ex : pizza sans olives, allergie aux noix...'>" . htmlspecialchars($_POST["instructions"] ?? "") . "</textarea>";
+            echo "</div>";
+            echo "<div class='form-groupe'>";
+            echo "<label>Type de commande :</label>";
+            echo "<div class='radio-groupe'>";
+            echo "<label class='radio-label'><input type='radio' name='type_commande' value='sur_place' checked> Sur place</label>";
+            echo "<label class='radio-label'><input type='radio' name='type_commande' value='livraison'> Livraison</label>";
+            echo "</div>";
+            echo "</div>";
+            echo "<div class='form-groupe'>";
+            echo "<label for='date_livraison'>Date et heure de livraison <span class='label-hint'>(laisser vide pour une livraison immédiate)</span></label>";
+            echo "<input type='datetime-local' name='date_livraison' id='date_livraison'>";
+            echo "</div>";
             echo "<div class='action'>";
             echo "<a href='presentation.php'>Continuer mes achats</a>";
-            echo "<a href='paiement.php'>Valider mon panier</a>";
+            echo "<button type='submit'>Valider mon panier</button>";
             echo "</div>";
+            echo "</form>";
         }
         ?>
     </main>
