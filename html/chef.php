@@ -6,13 +6,13 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Chef - L’oro di Cicerone</title>
+    <title>Le Chef - L'oro di Cicerone</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/chef.css">
 </head>
 <body>
     <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -36,15 +36,15 @@ session_start();
             <div class="experience">
                 <img src="style/img/chef.png" alt="Chef étoilé">
                     <div>
-                        <h3>Un parcours d’exception</h3>
+                        <h3>Un parcours d'exception</h3>
                         <p>
-                        Originaire d’Italie, notre chef découvre très tôt la richesse de la cuisine méditerranéenne.
+                        Originaire d'Italie, notre chef découvre très tôt la richesse de la cuisine méditerranéenne.
                         Formé au sein des plus grandes maisons européennes, il développe une vision culinaire où
                         la tradition italienne se mêle à une recherche constante de perfection.
                         </p>
                         <p>
                         Fasciné par Paris et son rayonnement culturel, il choisit la Tour Eiffel comme écrin pour
-                        exprimer pleinement son art et fonder L’oro di Cicerone, symbole d’excellence et de transmission.
+                        exprimer pleinement son art et fonder L'oro di Cicerone, symbole d'excellence et de transmission.
                         </p>
                     </div>
             </div>
@@ -54,7 +54,7 @@ session_start();
                 <h3>Sa philosophie</h3>
                 <p>
                 Pour le chef, la cuisine est un langage universel. Chaque plat doit raconter une histoire,
-                évoquer une émotion et célébrer l’authenticité des produits.
+                évoquer une émotion et célébrer l'authenticité des produits.
                 </p>
                 <p class="quote">« La simplicité est la plus grande des élégances. »</p>
             </div>
@@ -67,11 +67,11 @@ session_start();
                     <p>Excellence gastronomique</p>
                 </div>
                 <div class="award">
-                    <h4>Chef de l’année</h4>
+                    <h4>Chef de l'année</h4>
                     <p>Guide européen</p>
                 </div>
                 <div class="award">
-                    <h4>Prix de l’innovation</h4>
+                    <h4>Prix de l'innovation</h4>
                     <p>Cuisine contemporaine</p>
                 </div>
             </div>

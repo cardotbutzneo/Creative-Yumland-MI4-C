@@ -57,11 +57,11 @@ $_SESSION["programme-fidelite"] = $nom_grade;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/profil_client.css"> 
-    <title>Profil Client - L’oro di Cicerone</title>
+    <title>Profil Client - L'oro di Cicerone</title>
 </head>
 <body>
     <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -164,14 +164,14 @@ $_SESSION["programme-fidelite"] = $nom_grade;
             <div class="fidelite-card">
                 <progress class="<?= $class ?>" value="<?= $pts ?>" max="<?= $max ?>"></progress>
                 <span><?php if ($pts <= $max) {echo "$pts / $max points";} else echo "$pts points cumulés"?></span>
-                <?php if ($pts < 50): ?>
+                <?php if ($pts < 50){ ?>
                     <p>Prochain programme : <strong><?= ($pts < 25) ? "Rubis" : "Or" ?></strong></p>
-                <?php endif; ?>
+                <?php } ?>
             </div>
         </div>
     </section>
 <footer>
-    <p>© 2026 L’oro di Cicerone — Tous droits réservés</p>
+    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
     <a href="contact.php">Nous contacter</a>
 </footer>
 </body>

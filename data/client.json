@@ -1,6 +1,6 @@
 {
     "client1@gmail.com": {
-        "id": "00000002",
+        "id": "00000001",
         "nom": "Chalamet",
         "prenom": "Timothée",
         "mot de passe": "$2y$10$jWOsjOum\/E14T6ue\/ExBp.5NoOHvaiuNGAqtNtvrO7\/CS.lWxsmZy",
@@ -33,7 +33,7 @@
         "livraison": false
     },
     "cuisinier1@gmail.com": {
-        "id": "00000003",
+        "id": "00000002",
         "nom": "Costanzo",
         "prenom": "Federico",
         "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
@@ -59,7 +59,7 @@
         "livraison": false
     },
     "client2@gmail.com": {
-        "id": "00000004",
+        "id": "00000003",
         "nom": "Guetta",
         "prenom": "David",
         "mot de passe": "$2y$10$T1eeFFiF7MuIxaQZOF77eenwb\/Co5bUiFT6lzItirM9k0yWio4XuC",
@@ -85,7 +85,7 @@
         "livraison": false
     },
     "admin1@gmail.com": {
-        "id": "00000005",
+        "id": "00000004",
         "nom": "Gates",
         "prenom": "Bill",
         "mot de passe": "$2y$10$Hj2EKIVtJliGk2fcGgMYnONV3pZsRmxiHTqVcggz0uAeCxMPKOCwK",
@@ -99,7 +99,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-03 17:52:01",
+            "derniere_connexion": "2026-04-04 17:16:03",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
@@ -111,7 +111,7 @@
         "livraison": false
     },
     "livreur1@gmail.com": {
-        "id": "00000006",
+        "id": "00000005",
         "nom": "Banatzailea",
         "prenom": "Sébastien",
         "mot de passe": "$2y$10$5k3Z2Q0m1oGNjvLflPS9A.RPd0JlduhLB3Ir0UfAUfXWRwDk23FYG",
@@ -134,6 +134,31 @@
             "remember_token_expiration": null
         },
         "pts-fidelite": 0,
+        "livraison": false
+    },
+    "admin2@gmail.com": {
+        "id": "00000006",
+        "nom": "Torvalds",
+        "prenom": "Linus",
+        "mot de passe": "$2y$10$SXHX2tTj7xuetFRA6sBRdehlnP8E4QcPq5s.YhGlAYKerSQK.UzvW",
+        "contact": {
+            "adresse": "27 Rue Singer, Paris",
+            "complément d'adresse": "",
+            "téléphone": "0656390122",
+            "adresse email": "admin2@gmail.com"
+        },
+        "role": "admin",
+        "dernieres_commandes": [],
+        "securite": {
+            "date_creation": "2026-04-04",
+            "derniere_connexion": "2026-04-04 17:09:49",
+            "est_banni": false,
+            "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0
+        },
+        "pts-fidelite": 0,
+        "total-fidelite": 0,
         "livraison": false
     }
 }

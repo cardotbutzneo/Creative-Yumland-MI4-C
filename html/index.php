@@ -7,13 +7,13 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
-    <title>L’oro di Cicerone</title>
+    <title>L'oro di Cicerone</title>
 
 </head>
 <body>
 
 <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -30,7 +30,7 @@ session_start();
   </video>
 
   <div class="hero-content">
-    <h2>L’oro di Cicerone</h2>
+    <h2>L'oro di Cicerone</h2>
     <p>Gastronomie italienne au sommet de Paris</p>
   </div>
 </section>
@@ -39,10 +39,10 @@ session_start();
     <div class="experience">
         <img src="style/img/tour Eiffel.jpg" alt="Restaurant dans la Tour Eiffel">
         <div>
-            <h3>L’Expérience</h3>
+            <h3>L'Expérience</h3>
             <p>
-                Suspendu au cœur de la Tour Eiffel, L’oro di Cicerone propose une expérience gastronomique unique,
-                mêlant l’excellence de la cuisine italienne à l’élégance intemporelle de Paris.
+                Suspendu au cœur de la Tour Eiffel, L'oro di Cicerone propose une expérience gastronomique unique,
+                mêlant l'excellence de la cuisine italienne à l'élégance intemporelle de Paris.
             </p>
         </div>
     </div>
@@ -62,12 +62,12 @@ session_start();
 </section>
 
 <section class="section-light cta">
-    <p>Vivez un moment d’exception au sommet de la Ville Lumière</p>
+    <p>Vivez un moment d'exception au sommet de la Ville Lumière</p>
     <a href="connexion.php">Réserver une table</a>
 </section>
 
 <footer>
-    <p>© 2026 L’oro di Cicerone — Tous droits réservés</p>
+    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
     <a href="contact.php">Nous contacter </a><span>|</span>
     <a href="condition_generale.php">Confidentialité</a>
 </footer>

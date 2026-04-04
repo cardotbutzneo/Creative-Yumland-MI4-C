@@ -45,7 +45,6 @@ if (isset($_POST["valider"])) {
     <header>
         <h1>L'oro di Cicerone</h1>
     </header>
-    </header>
     
     <main>
         <?php if($bdd_cmd[$derniere_cmd]["etat"] === "livree") {?>

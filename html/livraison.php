@@ -157,9 +157,9 @@ if (!$num_cmd_actif) {
                 ?>
                 <div class="valeur">
                     <?= htmlspecialchars($adresse) ?>
-                    <?php if ($complement): ?>
+                    <?php if ($complement){ ?>
                         <br><?= htmlspecialchars($complement) ?>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
                 <a class="lien-maps" target="_blank"
                    href="https://www.google.com/maps/search/?api=1&query=<?= $query ?>">

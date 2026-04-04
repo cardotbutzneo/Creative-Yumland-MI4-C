@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+        <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
                 <li><a href="index.php">Accueil</a></li>

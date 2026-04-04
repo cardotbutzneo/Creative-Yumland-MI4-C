@@ -90,11 +90,11 @@ $recherche = $_GET['recherche'] ?? '';
 $data = lire_data("../data/plats.json");
 $recherche1 = strtolower($recherche);
 $categories = [
-    "entrees"  => "Entrées",
-    "plats"    => "Plats",
+    "entrees" => "Entrées",
+    "plats" => "Plats",
     "desserts" => "Desserts",
-    "vins"     => "Vins",
-    "cafes"    => "Cafés",
+    "vins" => "Vins",
+    "cafes" => "Cafés",
 ];
 foreach ($categories as $id => $intitule) {
     if ($categorie !== '' && $categorie !== $id) continue;

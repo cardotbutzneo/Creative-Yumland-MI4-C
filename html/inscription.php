@@ -71,12 +71,12 @@ if (isset($_POST["inscription"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
-    <title>Inscription - L’oro di Cicerone</title>
+    <title>Inscription - L'oro di Cicerone</title>
 </head>
 <body>
 
 <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -112,7 +112,7 @@ if (isset($_POST["inscription"])) {
                 <input type="text" name="adresse" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Complément d’adresse</label>
+                <label class="intitule">Complément d'adresse</label>
                 <input type="text" name="complement_adresse" class="champ" placeholder="Ex : Code immeuble, étage…">
             </div>
             <div class="champ-formulaire">

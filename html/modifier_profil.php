@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <header>
-    <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+    <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="text" name="adresse" class="champ">
                 </div>
                 <div class="champ-formulaire">
-                    <label class="intitule">Complément d’adresse</label>
+                    <label class="intitule">Complément d'adresse</label>
                     <input type="text" name="complement_adresse" class="champ" placeholder="Ex : Code immeuble, étage…">
                 </div>
                 <div class="champ-formulaire">
@@ -83,18 +83,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         <br>";
                     }
                 ?>
-                <hr> <?php if ($afficher_confirmation): ?>
+                <hr> <?php if ($afficher_confirmation){ ?>
                     <div class="alerte-abandon">
                         <p class="message-erreur">Attention vous allez perdre toutes vos modifications</p>
                         <input type="checkbox" name="checkbox_ok" id="cb" required>
                         <label for="cb"><span class="obligatoire">* </span>Confirmer la perte des modifications</label><br>
                         <button type="submit" name="confirm_abandon" class="bouton-validation">Confirmer l'abandon</button>
                     </div>
-                <?php else: ?>
+                <?php } else { ?>
                     <div class="liens-secondaires">
                         <button type="submit" name="demande_abandon" class="bouton-validation">Abandonner les modifications</button>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
             </form>
             <p style="font-size : smaller; color : white;" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
         </section>
