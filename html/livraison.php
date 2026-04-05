@@ -185,7 +185,7 @@ if (!$num_cmd_actif) {
 
         <p class="message-info">Vous n'avez pas de livraison en cours. Prenez une commande ci-dessous :</p>
 
-        <?php foreach ($commandes_disponibles as $num => $cmd) :
+        <?php foreach ($commandes_disponibles as $num => $cmd) {
             $email_client_cmd = $cmd["email"] ?? null;
             $cli = $email_client_cmd ? ($bdd_client[$email_client_cmd] ?? []) : [];
             $adresse_cmd = $cli["contact"]["adresse"] ?? "Adresse inconnue";
@@ -201,7 +201,7 @@ if (!$num_cmd_actif) {
                 <span class="intitule">Adresse</span>
                 <span class="valeur">
                     <?= htmlspecialchars($adresse_cmd) ?>
-                    <?= $complement_cmd ? " – " . htmlspecialchars($complement_cmd) : "" ?>
+                    <?= $complement_cmd ? " - " . htmlspecialchars($complement_cmd) : "" ?>
                 </span>
             </div>
             <?php if (!empty($cmd["date"])) { ?>
@@ -218,7 +218,7 @@ if (!$num_cmd_actif) {
             </form>
 
         </section>
-        <?php endforeach; ?>
+        <?php } ?>
 
     <?php } else { ?>
 
