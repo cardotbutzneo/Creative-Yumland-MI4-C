@@ -101,69 +101,11 @@
         "livreur": null,
         "transaction": "69cfeb88e0e67"
     },
-    "91214DBF": {
-        "email": "client1@gmail.com",
-        "date": "2026-04-04 13:21:42",
-        "montant": "23.00",
-        "numero": "00000006",
-        "livraison": true,
-        "est-valide": true,
-        "etat": "en preparation",
-        "plats": [
-            {
-                "nom": "Carpaccio",
-                "quantite": 1
-            }
-        ],
-        "instructions": "livraison express",
-        "livreur": null,
-        "date_livraison": "2026-04-08T18:27",
-        "transaction": "69d1106683548"
-    },
-    "949D4CF0": {
-        "email": "client2@gmail.com",
-        "date": "2026-04-05 17:11:27",
-        "montant": "420.00",
-        "numero": "00000005",
-        "livraison": true,
-        "est-valide": true,
-        "etat": "en preparation",
-        "plats": [
-            {
-                "nom": "Burrata",
-                "quantite": 1
-            },
-            {
-                "nom": "Lasagne aux feuilles d'or",
-                "quantite": 2
-            },
-            {
-                "nom": "Albino Rocca",
-                "quantite": 2
-            },
-            {
-                "nom": "Espresso",
-                "quantite": 1
-            },
-            {
-                "nom": "Pâtes au pesto",
-                "quantite": 1
-            },
-            {
-                "nom": "Pâtes aux gambas",
-                "quantite": 1
-            }
-        ],
-        "instructions": "",
-        "livreur": null,
-        "date_livraison": "2026-04-23T19:20",
-        "transaction": "69d297bfaa442"
-    },
     "4FDBA8E1": {
         "email": "client2@gmail.com",
         "date": "2026-04-05 17:11:27",
         "montant": "420.00",
-        "numero": "00000006",
+        "numero": "00000004",
         "livraison": true,
         "est-valide": true,
         "etat": "en preparation",
@@ -195,7 +137,7 @@
         ],
         "instructions": "",
         "livreur": null,
-        "date_livraison": "2026-04-23T19:20",
+        "date_livraison": "2026-06-19T20:30",
         "transaction": "69d297bfaa442"
     }
 }
