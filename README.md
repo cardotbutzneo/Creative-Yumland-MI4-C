@@ -16,11 +16,11 @@ Deuxième année de Pré-Ingénieur CY Tech, Semestre 4 2025-2026
 ## 👥 Collaborateur :
 - [CARDOT-BUTZ Néo](https://github.com/cardotbutzneo)
 - [JEYAKUMAR Adchayan](https://github.com/jadchayan)
-- [NERSON Tom](https://github.com/Skaercel022)
+- [NERSON Tom](https://github.com/tnerson)
 
 ## 📄 Documentation
 - :scroll: [Cahier des charges]()
-- :ledger: [Rapport de projet]()
+- :ledger: [Rapport de projet](https://github.com/cardotbutzneo/Creative-Yumland-MI4-C/blob/main/Rapport%20de%20Projet.pdf)
 
 ## :gear: Description
 Ce projet vise à recréer un site complet d'un ou d'une chaine de restaurant.
