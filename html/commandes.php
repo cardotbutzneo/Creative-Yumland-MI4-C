@@ -68,7 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             foreach ($data as $hash => $commande) {
                 if ($commande["est-valide"]) {
                     if (isset($commande["date_livraison"])) {
-                        $test = date_diff($date_aujourdhui,date_create($commande["date_livraison"]));  
+                        $test = date_diff($date_aujourdhui,date_create($commande["date_livraison"]));
+                        if ($date_aujourdhui > date_create($commande["date_livraison"])) continue;
                         if ($test->format("%d") >= 1 or ($test->format("%d") < 1 and $test->format("%h") > 1)){
                             echo "<div class='block'>";
                             echo "<span class='commande'>";

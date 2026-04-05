@@ -69,7 +69,6 @@ $recherche = $_GET['recherche'] ?? '';
             </form>
             <table>
                 <tr>
-                    <td>Selection</td>
                     <th>Nom d'utilisateur</th>
                     <th>Identifiant</th>
                     <th>Statut</th>
@@ -91,8 +90,7 @@ $recherche = $_GET['recherche'] ?? '';
                     echo"
                         <tr>
                             <form method='POST'>
-                                <td class='check' ><input type='checkbox' id='myCheckbox'><label for='myCheckbox'></label></td>
-                                <td><input type='hidden' name='nom_utilisateur' value=" . $client . "><a href=".$ref.">" . $client . "</a></td>
+                                <td><input type='hidden' name='nom_utilisateur' value=" . $client . "><a href=".$ref."?id=".$client.">" . $client . "</a></td>
                                 <td>" . $i . "<input type='hidden' name='id_utilisateur' value=" . $i . "></td>
                                 <td>   
                                     <select name='role'>
@@ -150,7 +148,6 @@ function afficher_info(string $mail_utilisateur) : void{
 
 function bloquer(string $mail, bool $banir = true) : bool {
     if (empty($mail)) return false;
-
     $path = "../data/client.json";
     $data = lire_data($path);
 

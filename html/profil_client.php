@@ -29,24 +29,26 @@ foreach ($data as $nom_plat => $plat){
             break;
     }
 }
-$pts = $_SESSION["total-fidelite"] ?? 0;
+if ($_SESSION["role"] == "Client"){
+    $pts = $_SESSION["total-fidelite"] ?? 0;
 
-if ($pts < 500) {
-    $class = "grade-amethyste";
-    $max = 500;
-    $nom_grade = "Améthyste";
+    if ($pts < 500) {
+        $class = "grade-amethyste";
+        $max = 500;
+        $nom_grade = "Améthyste";
+    }
+    elseif ($pts >= 500 and $pts < 1200) {
+        $class = "grade-rubis";
+        $max = 1200;
+        $nom_grade = "Rubis";
+    }
+    else {
+        $class = "grade-or";
+        $max = 1200;
+        $nom_grade = "Buisson-Or";
+    }
+    $_SESSION["programme-fidelite"] = $nom_grade;
 }
-elseif ($pts >= 500 and $pts < 1200) {
-    $class = "grade-rubis";
-    $max = 1200;
-    $nom_grade = "Rubis";
-}
-else {
-    $class = "grade-or";
-    $max = 1200;
-    $nom_grade = "Buisson-Or";
-}
-$_SESSION["programme-fidelite"] = $nom_grade;
 
 ?>
 
@@ -81,35 +83,41 @@ $_SESSION["programme-fidelite"] = $nom_grade;
 }
     ?>
     <section>
-            <?php if ($_SESSION["role"] == "Client"){
-                echo '<div class="contenent">';
-                echo "<p id='nom'>Bienvenue " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . "</p>";
-                echo "<div id='fidelite'><span>Programme " . $_SESSION["programme-fidelite"] . "</span><span>Nombre de points : ". $_SESSION["pts-fidelite"] . "</span></div>";
-                echo "</div>";
-            }
-            ?>
         <?php
-            if (!empty($_SESSION["derniers-plats"])){
-                echo "<div class='contenent'>";
-                echo "<h2>Historique des dernières commandes</h2>";
-                echo "<nav>";
-                    foreach ($_SESSION["derniers-plats"] as $cmd) {
-                    $cmd_complette = récupérer_commande($cmd);
-                    echo "<div class='cmd-bloc'>";
-                    //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>";
-                        foreach ($cmd_complette["plats"] as $cat) {
-                            if (isset($cat)) {
-                                echo "<li><span>" . htmlspecialchars($cat["nom"]) . " </span>";
-                                echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
-                            }
-                            echo "<hr>";
+        $clients = lire_data("../data/client.json");
+        if ($_SESSION["role"] == "Client"){
+            $client = $_SESSION;
+        }
+        else if ($_SESSION["role"] == "admin"){
+            $client = $clients[$_GET["id"]];
+            $client["programme-fidelite"] = donner_grade($clients[$_GET["id"]]["total-fidelite"]);
+        }
+        echo '<div class="contenent">';
+        echo "<p id='nom'>Bienvenue " . $client["nom"] . " " . $client["prenom"] . "</p>";
+        echo "<div id='fidelite'><span>Programme " . $client["programme-fidelite"] . "</span><span>Nombre de points : ". $client["pts-fidelite"] . "</span></div>";
+        echo "</div>";
+
+        if (!empty($_SESSION["derniers-plats"])){
+            echo "<div class='contenent'>";
+            echo "<h2>Historique des dernières commandes</h2>";
+            echo "<nav>";
+                foreach ($_SESSION["derniers-plats"] as $cmd) {
+                $cmd_complette = récupérer_commande($cmd);
+                echo "<div class='cmd-bloc'>";
+                //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>"; 
+                    foreach ($cmd_complette["plats"] as $cat) {
+                        if (isset($cat)) {
+                            echo "<li><span>" . htmlspecialchars($cat["nom"]) . " </span>";
+                            echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
                         }
-                            echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";
-                    echo "</div>";
+                        echo "<hr>";
                     }
-                echo "</nav>";
-                echo "<a href='suivi_commande.php'><button class='btn-suivi'>Suivre ma dernière commande</button></a>";
-            }
+                        echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";
+                echo "</div>";
+                }
+            echo "</nav>";
+            echo "<a href='suivi_commande.php'><button class='btn-suivi'>Suivre ma dernière commande</button></a>";
+        }
         ?>
             
         </div>
@@ -189,6 +197,26 @@ function generer_suggestions(array $plats, string $type) : ?array {
         "plat" => $plat["nom"],
         "prix" => $plat["prix"]
     ];
+}
+
+function donner_grade(int $pts) : ?string{
+    if ($pts < 0 ) return null;
+    if ($pts < 500) {
+    $class = "grade-amethyste";
+    $max = 500;
+    $nom_grade = "Améthyste";
+    }
+    elseif ($pts >= 500 and $pts < 1200) {
+        $class = "grade-rubis";
+        $max = 1200;
+        $nom_grade = "Rubis";
+    }
+    else {
+        $class = "grade-or";
+        $max = 1200;
+        $nom_grade = "Buisson-Or";
+    }
+    return $nom_grade;
 }
 
 ?>

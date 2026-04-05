@@ -12,15 +12,13 @@
         },
         "role": "Client",
         "dernieres_commandes": [
-            "91214DBF",
-            "C53A28B0",
-            "01B62056",
+            "4FB75A00",
             "D731931F",
             "CFBC2D7D"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-04 16:02:41",
+            "derniere_connexion": "2026-04-05 19:54:10",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
@@ -47,9 +45,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-05 19:19:14",
+            "derniere_connexion": "2026-04-05 19:56:21",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
