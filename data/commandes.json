@@ -48,7 +48,7 @@
         "numero": "00000002",
         "livraison": false,
         "est-valide": true,
-        "etat": "en preparation",
+        "etat": "preparee",
         "plats": [
             {
                 "nom": "Burrata",
@@ -101,73 +101,6 @@
         "livreur": null,
         "transaction": "69cfeb88e0e67"
     },
-    "01B62056": {
-        "email": "client1@gmail.com",
-        "date": "2026-04-03 16:32:08",
-        "montant": "117.00",
-        "numero": "00000004",
-        "livraison": false,
-        "est-valide": true,
-        "etat": "en preparation",
-        "plats": [
-            {
-                "nom": "Carpaccio",
-                "quantite": 2
-            },
-            {
-                "nom": "Focaccia",
-                "quantite": 1
-            },
-            {
-                "nom": "Burrata",
-                "quantite": 1
-            }
-        ],
-        "instructions": "",
-        "livreur": null,
-        "transaction": "69cfeb88e0e67"
-    },
-    "C53A28B0": {
-        "email": "client1@gmail.com",
-        "date": "2026-04-03 17:44:51",
-        "montant": "206.00",
-        "numero": "00000005",
-        "livraison": false,
-        "est-valide": true,
-        "etat": "notee",
-        "plats": [
-            {
-                "nom": "Burrata",
-                "quantite": 1
-            },
-            {
-                "nom": "Pizza Cicerone",
-                "quantite": 1
-            },
-            {
-                "nom": "Pâtes aux gambas",
-                "quantite": 1
-            },
-            {
-                "nom": "Tiramisu",
-                "quantite": 2
-            },
-            {
-                "nom": "Carpaccio",
-                "quantite": 1
-            },
-            {
-                "nom": "Albino Rocca",
-                "quantite": 1
-            }
-        ],
-        "instructions": "",
-        "livreur": null,
-        "transaction": "69cffc9377b6c",
-        "note_livraison": "5",
-        "note_produits": "5",
-        "commentaire": ""
-    },
     "91214DBF": {
         "email": "client1@gmail.com",
         "date": "2026-04-04 13:21:42",
@@ -186,5 +119,83 @@
         "livreur": null,
         "date_livraison": "2026-04-08T18:27",
         "transaction": "69d1106683548"
+    },
+    "949D4CF0": {
+        "email": "client2@gmail.com",
+        "date": "2026-04-05 17:11:27",
+        "montant": "420.00",
+        "numero": "00000005",
+        "livraison": true,
+        "est-valide": true,
+        "etat": "en preparation",
+        "plats": [
+            {
+                "nom": "Burrata",
+                "quantite": 1
+            },
+            {
+                "nom": "Lasagne aux feuilles d'or",
+                "quantite": 2
+            },
+            {
+                "nom": "Albino Rocca",
+                "quantite": 2
+            },
+            {
+                "nom": "Espresso",
+                "quantite": 1
+            },
+            {
+                "nom": "Pâtes au pesto",
+                "quantite": 1
+            },
+            {
+                "nom": "Pâtes aux gambas",
+                "quantite": 1
+            }
+        ],
+        "instructions": "",
+        "livreur": null,
+        "date_livraison": "2026-04-23T19:20",
+        "transaction": "69d297bfaa442"
+    },
+    "4FDBA8E1": {
+        "email": "client2@gmail.com",
+        "date": "2026-04-05 17:11:27",
+        "montant": "420.00",
+        "numero": "00000006",
+        "livraison": true,
+        "est-valide": true,
+        "etat": "en preparation",
+        "plats": [
+            {
+                "nom": "Burrata",
+                "quantite": 1
+            },
+            {
+                "nom": "Lasagne aux feuilles d'or",
+                "quantite": 2
+            },
+            {
+                "nom": "Albino Rocca",
+                "quantite": 2
+            },
+            {
+                "nom": "Espresso",
+                "quantite": 1
+            },
+            {
+                "nom": "Pâtes au pesto",
+                "quantite": 1
+            },
+            {
+                "nom": "Pâtes aux gambas",
+                "quantite": 1
+            }
+        ],
+        "instructions": "",
+        "livreur": null,
+        "date_livraison": "2026-04-23T19:20",
+        "transaction": "69d297bfaa442"
     }
 }

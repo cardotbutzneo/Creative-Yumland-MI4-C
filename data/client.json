@@ -47,15 +47,16 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-04 16:04:16",
+            "derniere_connexion": "2026-04-05 18:55:30",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
             "remember_token_expiration": null
         },
         "pts-fidelite": 0,
+        "total-fidelite": 0,
         "livraison": false
     },
     "client2@gmail.com": {
@@ -70,18 +71,21 @@
             "adresse email": "client2@gmail.com"
         },
         "role": "Client",
-        "dernieres_commandes": [],
+        "dernieres_commandes": [
+            "4FDBA8E1"
+        ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-03 19:49:38",
+            "derniere_connexion": "2026-04-05 19:10:07",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
             "remember_token_expiration": null
         },
-        "pts-fidelite": 0,
+        "pts-fidelite": 176,
+        "total-fidelite": 176,
         "livraison": false
     },
     "admin1@gmail.com": {
@@ -108,6 +112,7 @@
             "remember_token_expiration": null
         },
         "pts-fidelite": 0,
+        "total-fidelite": 0,
         "livraison": false
     },
     "livreur1@gmail.com": {
@@ -125,7 +130,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-19",
-            "derniere_connexion": "2026-04-03 17:35:02",
+            "derniere_connexion": "2026-04-05 18:56:29",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
