@@ -6,7 +6,8 @@ if(!isset($_SESSION["connecte"])){
 }
 
 require_once __DIR__."/../serveur.php";
-date_default_timezone_set("'Europe/Paris");
+
+date_default_timezone_set("Europe/Paris");
 
 $email = $_SESSION["email"];
 $a = "../data/paniers.json";
@@ -39,8 +40,8 @@ if ($action === "ajouter") {
         $plat  = $plats[$id_plat] ?? null;
         if ($plat !== null) {
             $paniers[$email]["articles"][$id_plat] = [
-                "nom"      => $plat["nom"],
-                "prix"     => $plat["prix"],
+                "nom" => $plat["nom"],
+                "prix" => $plat["prix"],
                 "quantite" => 1
             ];
         }
@@ -72,7 +73,6 @@ if ($action !== '') {
         $reduc = 0.3;
         $nv_total = ceil($total_brut*(1-$reduc));
     }
-
     $paniers[$email]["total"] = $nv_total;
     sauvegarder($a, $paniers);
     header("Location: panier.php");
@@ -92,6 +92,8 @@ if ($pts >= 500 && $pts < 1200) {
     $reduc = 0.3;
     $nv_total = ceil($total_brut*(1-$reduc));
 }
+
+$minDateTime = date("Y-m-d\TH:i");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -139,16 +141,18 @@ if ($pts >= 500 && $pts < 1200) {
             }
             echo "</ul>";
             echo "</section>";
+
             echo "<div class='total'>";
             echo "<span>Total</span>";
             echo "<span>" . $total_brut . "€</span>";
             echo "</div>";
+
             if ($total_brut == $nv_total) {
                 echo "<p>Pas de réduction disponible</p>";
             } else {
                 echo "<div style='text-align : right'>";
-                echo "<span>Remise imédiates : </span>";
-                echo "<span> " . -$reduc*100 . "%</span>";
+                echo "<span>Remise immédiate : </span>";
+                echo "<span> " . ($reduc*100) . "%</span>";
                 echo "</div>";
                 echo "<div class='total'>";
                 echo "<span>Total après réductions</span>";
@@ -169,8 +173,7 @@ if ($pts >= 500 && $pts < 1200) {
             echo "</div>";
             echo "<div class='form-groupe'>";
             echo "<label for='date_livraison'>Date et heure de livraison <span class='label-hint'>(laisser vide pour une livraison immédiate)</span></label>";
-            echo "<input type='datetime-local' name='date_livraison' id='date_livraison' min=".date("Y-m-d\TH:i")." step='1800'>";
-            echo "</div>";
+            echo "<input type='datetime-local' name='date_livraison' id='date_livraison' min='".$minDateTime."'>";            echo "</div>";
             echo "<div class='action'>";
             echo "<a href='presentation.php'>Continuer mes achats</a>";
             echo "<button type='submit'>Valider mon panier</button>";
