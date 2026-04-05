@@ -1,14 +1,5 @@
 # Creative-Yumland-MI4-C
 
-charte graphique :
-- restaurant italien de luxe
-- nom : L'oro di Cicerone
-- couleur style italienne
-- #c7011a
-- #f2531b
-- #47bb02
-- #015001
-- #030301
 
 # 🍜🍝 Creative-Yumland
 Deuxième année de Pré-Ingénieur CY Tech, Semestre 4 2025-2026
@@ -19,7 +10,7 @@ Deuxième année de Pré-Ingénieur CY Tech, Semestre 4 2025-2026
 - [NERSON Tom](https://github.com/tnerson)
 
 ## 📄 Documentation
-- :scroll: [Cahier des charges]()
+- :scroll: [Cahier des charges](https://github.com/cardotbutzneo/Creative-Yumland-MI4-C/blob/main/Projet_Creative_Yumland_preIng2_2025_2026_Phase2_V1.0.pdf)
 - :ledger: [Rapport de projet](https://github.com/cardotbutzneo/Creative-Yumland-MI4-C/blob/main/Rapport%20de%20Projet.pdf)
 
 ## :gear: Description
