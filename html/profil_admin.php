@@ -8,6 +8,32 @@ if(!isset($_SESSION["connecte"]) or $_SESSION["role"] != "admin"){
     exit;
 }
 
+// On attrape le JSON envoyé par Fetch
+$json = file_get_contents('php://input');
+$datajs = json_decode($json, true);
+
+if ($datajs && isset($datajs['action']) && $datajs['action'] === "bloquer_user") {
+    $passwordSaisi = $datajs['password'];
+    $mailCible = $datajs['mail'];
+    $nouvelEtat = $datajs['nouvelEtat'];
+
+    // On récupère le hash de l'admin (celui qui est connecté)
+    $data_client = lire_data("../data/client.json");
+    $hashAdmin = $data_client[$_SESSION["email"]]["mot de passe"]; 
+
+    if (password_verify($passwordSaisi, $hashAdmin)) {
+        // Le mot de passe est bon, on bloque/débloque
+        if (bloquer($mailCible, $nouvelEtat)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Erreur écriture JSON']);
+        }
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Mot de passe incorrect']);
+    }
+    exit; // Crucial : on arrête le script ici pour ne pas envoyer le HTML de la page !
+}
+
 $data = lire_data("../data/client.json");
 
 
@@ -27,10 +53,20 @@ if (isset($_POST["bloquer"])){
     $val = explode("|", $_POST["mail"]);
     $mail = $val[0];
     $actionBanir = !($val[1] == "1"); 
-    
-    if (bloquer($mail, $actionBanir)){
-        header("Location: ".$_SERVER["PHP_SELF"]);
-        exit;
+
+    // On récupère le mot de passe envoyé par le JS
+    $datajs = json_decode(file_get_contents('php://input'), true);
+    $passwordSaisi = $datajs['password'];
+
+    // Ton hash stocké en base de données (exemple)
+    $data_client = lire_data("../data/client.json");
+    $hashEnBDD = $data_client[$_SESSION["email"]]["mot de passe"]; 
+
+    if (password_verify($passwordSaisi, $hashEnBDD)) {
+        echo json_encode(['success' => true]);
+        
+    } else {
+        echo json_encode(['success' => false]);
     }
 }
 $recherche = $_GET['recherche'] ?? '';
@@ -43,6 +79,7 @@ $recherche = $_GET['recherche'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/profil_admin.css">
+    <script src="../script.js" defer></script>
     <title>Profil Admin - L'oro di Cicerone</title>
 </head>
 <body>
@@ -66,7 +103,7 @@ $recherche = $_GET['recherche'] ?? '';
             <form action="profil_admin.php" method="get">
             <input type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un utilisateur" value="<?php echo htmlspecialchars($recherche); ?>">    
             <button type="submit">Rechercher</button>
-            </form>
+            </form> 
             <table>
                 <tr>
                     <th>Nom d'utilisateur</th>
@@ -87,26 +124,31 @@ $recherche = $_GET['recherche'] ?? '';
                     if ($roleActuel == "livreur") $ref = "livraison.php";
                     if ($info["securite"]["est_banni"] == false) $value = 'Bloquer';
                     else if ($info["securite"]["est_banni"] == true) $value = 'Débloquer';
-                    echo"
+                    ?>
                         <tr>
                             <form method='POST'>
-                                <td><input type='hidden' name='nom_utilisateur' value=" . $client . "><a href=".$ref."?id=".$client.">" . $client . "</a></td>
-                                <td>" . $i . "<input type='hidden' name='id_utilisateur' value=" . $i . "></td>
+                                <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref?>><?=$client?></a></td>
+                                <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>
                                 <td>   
                                     <select name='role'>
-                                        <option value='Client' " . ($roleActuel == 'Client' ? 'selected' : '') . ">Client</option>
-                                        <option value='livreur' " . ($roleActuel == 'livreur' ? 'selected' : '') . ">Livreur</option>
-                                        <option value='Cuisinier' " . ($roleActuel == 'Cuisinier' ? 'selected' : '') . ">Cuisinier</option>
-                                        <option value='admin' " . ($roleActuel == 'admin' ? 'selected' : '') . ">Administrateur</option>
+                                        <option value='Client' <?= ($roleActuel == 'Client' ? 'selected' : '') ?>>Client</option>
+                                        <option value='livreur' <?= ($roleActuel == 'livreur' ? 'selected' : '') ?>>Livreur</option>
+                                        <option value='Cuisinier' <?= ($roleActuel == 'Cuisinier' ? 'selected' : '') ?>>Cuisinier</option>
+                                        <option value='admin' <?= ($roleActuel == 'admin' ? 'selected' : '') ?>>Administrateur</option>
                                     </select>
                                     <input type='submit' class='bouton-role'>
                                 </td>
-                                <td>" . $info["securite"]["derniere_connexion"] . "</td>
+                                <td> <?= $info["securite"]["derniere_connexion"] ?></td>
                                 </form>
-                                <td><form class='bloquer' method='POST'><input type='submit' name='bloquer' value=".$value."><input type='hidden' name='mail' value=".$info["contact"]["adresse email"]."|".$info["securite"]["est_banni"]."></form></td>
-                        </tr>";
+                                <td>
+                                    <button type='button' class='bloquer'
+                                            onclick="demanderValidation('<?php echo $info['contact']['adresse email']; ?>', <?php echo $info['securite']['est_banni'] ? 'true' : 'false'; ?>)">
+                                        <?php echo $info["securite"]["est_banni"] ? 'Débloquer' : 'Bloquer'; ?>
+                                    </button>
+                                </td>
+                        </tr>
+                    <?php
                 }
-                
                 ?>
             </table>
         </section>

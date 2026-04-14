@@ -45,9 +45,8 @@ section{
     text-align: center;
 }
 
-.table-utilisateur{
+.table-utilisateur{ 
     text-align: center;
-    margin: auto;
     font-size: 1.2rem;
 }
 
@@ -74,6 +73,7 @@ th,td{
 }
 
 table {
+    width: 100%;
     border-collapse: collapse;
 }
 
