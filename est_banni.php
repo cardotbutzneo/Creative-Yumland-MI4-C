@@ -34,6 +34,9 @@ if (isset($data[$username])) {
         session_unset();
         session_destroy();
     }
+    else {
+        echo json_encode(['banned' => false]);
+    }
 } else {
     echo json_encode(['banned' => false]);
 }

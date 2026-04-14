@@ -19,6 +19,12 @@ if (isset($_POST["banni"])) {
     bloquer($user, $raison, $estBanni);
 }
 
+if (isset($_POST["nvRole"])){
+    $user = $_POST["mail"];
+    $nvRole = $_POST["nvRole"];
+    changer_role($user,$nvRole);
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
     $mail = $_POST['nom_utilisateur'];
     $nouveauRole = $_POST['role'];  
@@ -93,13 +99,12 @@ $recherche = $_GET['recherche'] ?? '';
                                 <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref?>><?=$client?></a></td>
                                 <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>
                                 <td>   
-                                    <select name='role'>
+                                    <select name='role' id="role" onchange="changerRole('<?= $client?>')">
                                         <option value='Client' <?= ($roleActuel == 'Client' ? 'selected' : '') ?>>Client</option>
                                         <option value='livreur' <?= ($roleActuel == 'livreur' ? 'selected' : '') ?>>Livreur</option>
                                         <option value='Cuisinier' <?= ($roleActuel == 'Cuisinier' ? 'selected' : '') ?>>Cuisinier</option>
                                         <option value='admin' <?= ($roleActuel == 'admin' ? 'selected' : '') ?>>Administrateur</option>
                                     </select>
-                                    <input type='submit' class='bouton-role'>
                                 </td>
                                 <td> <?= $info["securite"]["derniere_connexion"] ?></td>
                                 

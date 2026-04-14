@@ -1,7 +1,6 @@
 setInterval(async () => {
 	const response = await fetch("../est_banni.php");
 	const data = await response.json();
-	console.log(data);
 	if (data.banned) {
 		alert("Vous avez été banni. Raison : " + data.reason);
 		window.location.href = "/html/index.php";
@@ -10,8 +9,6 @@ setInterval(async () => {
 
 function bannir(mail, action, msg) {
 	// envoie un post à profil_client avec des données
-	console.log(mail);
-	console.log(action);
 	const formData = new FormData();
 	formData.append("banni", true);
 	formData.append("raison", msg);
@@ -22,6 +19,18 @@ function bannir(mail, action, msg) {
 		// envoie des données
 		method: "POST",
 		body: formData, // Pas besoin de "headers" ici, le navigateur s'en occupe
+	});
+	window.location.href = "/html/profil_admin.php";
+}
+
+function changerRole(mail) {
+	let nvRole = document.getElementById("role").value;
+	const formData = new FormData();
+	formData.append("nvRole", nvRole);
+	formData.append("mail", mail);
+	fetch("profil_admin.php", {
+		method: "POST",
+		body: formData,
 	});
 	window.location.href = "/html/profil_admin.php";
 }
