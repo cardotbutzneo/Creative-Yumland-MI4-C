@@ -7,6 +7,18 @@ if (!isset($_SESSION["email"]) or ($_SESSION["role"] != "Client" and $_SESSION["
 
 require_once __DIR__."/../serveur.php";
 
+$bdd_actuelle = lire_data("../data/client.json");
+if (isset($_POST["est_banni"]) && $_POST["est_banni"] == true){
+    $bdd_actuelle[$email]["securite"]["est_en_ligne"] = false;
+    $bdd_actuelle[$email]["securite"]["remember_token"] = null;
+    $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = null;
+    ecrire_data("../data/client.json", $bdd_actuelle);
+    session_unset();
+    session_destroy();
+    header("Location: connexion.php");
+    exit;
+}
+
 $plats = ["entree" => [], "plats" => [], "dessert" => [], "cafe" => []];
 $data = lire_data("../data/plats.json");
 foreach ($data as $nom_plat => $plat){
@@ -59,6 +71,7 @@ if ($_SESSION["role"] == "Client"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/profil_client.css"> 
+    <script src="../script.js" defer></script>
     <title>Profil Client - L'oro di Cicerone</title>
 </head>
 <body>

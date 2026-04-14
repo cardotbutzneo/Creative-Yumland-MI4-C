@@ -8,34 +8,22 @@ if(!isset($_SESSION["connecte"]) or $_SESSION["role"] != "admin"){
     exit;
 }
 
-// On attrape le JSON envoyé par Fetch
-$json = file_get_contents('php://input');
-$datajs = json_decode($json, true);
-
-if ($datajs && isset($datajs['action']) && $datajs['action'] === "bloquer_user") {
-    $passwordSaisi = $datajs['password'];
-    $mailCible = $datajs['mail'];
-    $nouvelEtat = $datajs['nouvelEtat'];
-
-    // On récupère le hash de l'admin (celui qui est connecté)
-    $data_client = lire_data("../data/client.json");
-    $hashAdmin = $data_client[$_SESSION["email"]]["mot de passe"]; 
-
-    if (password_verify($passwordSaisi, $hashAdmin)) {
-        // Le mot de passe est bon, on bloque/débloque
-        if (bloquer($mailCible, $nouvelEtat)) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Erreur écriture JSON']);
-        }
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Mot de passe incorrect']);
-    }
-    exit; // Crucial : on arrête le script ici pour ne pas envoyer le HTML de la page !
-}
-
 $data = lire_data("../data/client.json");
 
+if (isset($_POST["banni"])) {
+    $user = $_POST["mail"];
+    $raison = $_POST["raison"] ?? "";
+    // On détermine si on banni (true) ou débloque (false)
+    $estBanni = ($_POST['action_type'] === 'Bloquer'); 
+    
+    bloquer($user, $raison, $estBanni);
+}
+
+if (isset($_POST["nvRole"])){
+    $user = $_POST["mail"];
+    $nvRole = $_POST["nvRole"];
+    changer_role($user,$nvRole);
+}
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
     $mail = $_POST['nom_utilisateur'];
@@ -49,26 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
     
 }
 
-if (isset($_POST["bloquer"])){
-    $val = explode("|", $_POST["mail"]);
-    $mail = $val[0];
-    $actionBanir = !($val[1] == "1"); 
-
-    // On récupère le mot de passe envoyé par le JS
-    $datajs = json_decode(file_get_contents('php://input'), true);
-    $passwordSaisi = $datajs['password'];
-
-    // Ton hash stocké en base de données (exemple)
-    $data_client = lire_data("../data/client.json");
-    $hashEnBDD = $data_client[$_SESSION["email"]]["mot de passe"]; 
-
-    if (password_verify($passwordSaisi, $hashEnBDD)) {
-        echo json_encode(['success' => true]);
-        
-    } else {
-        echo json_encode(['success' => false]);
-    }
-}
 $recherche = $_GET['recherche'] ?? '';
 ?>
 
@@ -114,6 +82,7 @@ $recherche = $_GET['recherche'] ?? '';
                 </tr>
                 <?php 
                 $recherche1 = strtolower($recherche);
+                $data = lire_data("../data/client.json");
                 foreach ($data as $client => $info){
                     $i = $info["id"];
                     $roleActuel = $info["role"];
@@ -130,22 +99,21 @@ $recherche = $_GET['recherche'] ?? '';
                                 <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref?>><?=$client?></a></td>
                                 <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>
                                 <td>   
-                                    <select name='role'>
+                                    <select name='role' id="role" onchange="changerRole('<?= $client?>')">
                                         <option value='Client' <?= ($roleActuel == 'Client' ? 'selected' : '') ?>>Client</option>
                                         <option value='livreur' <?= ($roleActuel == 'livreur' ? 'selected' : '') ?>>Livreur</option>
                                         <option value='Cuisinier' <?= ($roleActuel == 'Cuisinier' ? 'selected' : '') ?>>Cuisinier</option>
                                         <option value='admin' <?= ($roleActuel == 'admin' ? 'selected' : '') ?>>Administrateur</option>
                                     </select>
-                                    <input type='submit' class='bouton-role'>
                                 </td>
                                 <td> <?= $info["securite"]["derniere_connexion"] ?></td>
-                                </form>
+                                
                                 <td>
-                                    <button type='button' class='bloquer'
-                                            onclick="demanderValidation('<?php echo $info['contact']['adresse email']; ?>', <?php echo $info['securite']['est_banni'] ? 'true' : 'false'; ?>)">
-                                        <?php echo $info["securite"]["est_banni"] ? 'Débloquer' : 'Bloquer'; ?>
-                                    </button>
+                                        <input type='button' class='bloquer'
+                                            onclick="bannir('<?=$client?>','<?= $value ?>','')" value=<?php echo $info["securite"]["est_banni"] ? 'Débloquer' : 'Bloquer'; ?>>
+                                        </input>
                                 </td>
+                            </form>
                         </tr>
                     <?php
                 }
@@ -188,7 +156,7 @@ function afficher_info(string $mail_utilisateur) : void{
     echo "role : ".$utilisateur["role"]."<br>";
 }
 
-function bloquer(string $mail, bool $banir = true) : bool {
+function bloquer(string $mail, string $raison, bool $banir = true) : bool {
     if (empty($mail)) return false;
     $path = "../data/client.json";
     $data = lire_data($path);
