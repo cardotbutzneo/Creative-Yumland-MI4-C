@@ -103,6 +103,39 @@ body {
     color : rgb(215, 52, 52);
 }
 
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper .champ {
+    width: 100%;
+    padding-right: 2.5rem;
+    box-sizing: border-box;
+}
+
+.toggle-eye {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-eye img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+}
+
+.toggle-eye img:hover {
+    opacity: 1;
+}
+
 @media (max-width: 480px) {
     .carte-connexion {
         padding: 24px;

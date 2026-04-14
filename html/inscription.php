@@ -71,6 +71,7 @@ if (isset($_POST["inscription"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
+    <script src="../javascript/formulaire.js" defer></script>
     <title>Inscription - L'oro di Cicerone</title>
 </head>
 <body>
@@ -125,11 +126,19 @@ if (isset($_POST["inscription"])) {
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Mot de passe</label>
-                <input type="password" name="password" class="champ" required>
+                <div class="password-wrapper">
+                    <input type="password" name="password" id="password" class="champ" required>
+                    <button type="button" class="toggle-eye" onclick="togglePassword('password', 'oeil_ouvert', 'oeil_ferme')" aria-label="Afficher le mot de passe">
+                        <img id="oeil_ouvert" src="style/img/oeil_ouvert.png" alt="Afficher">
+                        <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="Masquer" style="display:none;">
+                    </button>
+                </div>
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Confirmer le mot de passe</label>
-                <input type="password" name="confirmer_password" class="champ" required>
+                <div class="password-wrapper">
+                    <input type="password" name="confirmer_password" id="confirmer_password" class="champ" required>
+                </div>
             </div>
             <input type="submit" name="inscription" value="S'inscrire" class="bouton-validation">
 
