@@ -12,40 +12,17 @@ $verif = false;
 $verif_mdp = false;
 $suppression = false;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (isset($_POST)){
-        if (isset($_POST["modif-info"])){
-            header("Location: modifier_profil.php");
-            exit;
-        }
-        if (isset($_POST["modif-mdp"])){
-            header("Location: reset_password.php");
-            exit;
-        }
-        if (isset($_POST["abandon"])){
-            $verif = false;
-            $verif_mdp = false;
-        }
-        if (isset($_POST["supp"])){
-            $verif = true;
-        }
-        if (isset($_POST["confirm"])){
+if (isset($_POST["password"])){
+    $email = $_SESSION["email"];
+    $data_client = lire_data("../data/client.json",$email);
+    if (password_verify($_POST["password"],$data_client["mot de passe"])){
+        if (supprimer_compte($email)){
             $verif = true;
             $verif_mdp = true;
+            $suppression = true;
         }
-        if (isset($_POST["confirmation"])){
-            $email = $_SESSION["email"];
-            $data_client = lire_data("../data/client.json",$email);
-            if (password_verify($_POST["mdp"],$data_client["mot de passe"])){
-                if (supprimer_compte($email)){
-                    $verif = true;
-                    $verif_mdp = true;
-                    $suppression = true;
-                }
-                else {
-                    echo "<p class='message-erreur'>Mot de passe incorrect.</p>";
-                }
-            }
+        else {
+            echo "<p class='message-erreur'>Mot de passe incorrect.</p>";
         }
     }
 }
@@ -78,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         <section class="carte-connexion">
             <h2 class="titre-page">Sécurité</h2>
             <form method="post"> 
-                <div id="settings">
+                <div id="settings" style="display : <?= (!$suppression) ? "block" : "none"; ?>">
                     <div class="champ-formulaire">
                         <button type="submit" name="modif-info" class="champ">Modifier vos informations
                     </div>
@@ -105,10 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                             <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="Masquer" style="display:none;">
                         </button>
                     </div>
-                    <div class="champ-formulaire"><button type="submit" name="confirmation" class="champ">Confirmer</div>
+                    <div class="champ-formulaire"><button type="submit" name="confirmation" class="champ" onclick="toogleSecurite(3)">Confirmer</div>
                     <p style="font-size : smaller; color : white;" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
                 </div>
-                <div class="delete-account" style="display : none">
+                <div id="delete-account" style="display : <?= $suppression ? "block" : "none"; ?>" >
                     <div style="text-align : center">
                         <p>Votre compte a bien été supprimé.</p>
                         <p>En espérant vous revoir !</p>

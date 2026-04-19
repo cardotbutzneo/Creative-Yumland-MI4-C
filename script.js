@@ -1,5 +1,5 @@
 setInterval(async () => {
-	const response = await fetch("../est_banni.php");
+	const response = await fetch("../api/est_banni.php");
 	const data = await response.json();
 	if (data.banned) {
 		alert("Vous avez été banni. Raison : " + data.reason);

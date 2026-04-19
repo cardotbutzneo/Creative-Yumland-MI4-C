@@ -8,31 +8,7 @@ if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "Cuisinier" and $_SESS
     exit;
 }
 
-est_banni();
-
 $_SESSION["derniere-connexion"] = time();
-
-// idée : on peut mettre en place une "alerte" pour avertir le programme quand une nouvelle commande est dans la bdd
-// On envoie un message par GET unique
-// On récupère un hash unique (mail+montant+date) qui fait office de checksum (numéro de commande)
-// Cela permet de savoir si la transaction à été altérer et donc de l'annuler au besoin
-// on recoit des infos par une bdd (mail, montant, date au minimum)
-// exemple d'url d'entrée : commande.php?alerte=true+nb-commande=0F18AB0F
-
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (isset($_POST) and isset($_POST["commande"])){
-        if (isset($_POST["prendre-cmd"])){
-            prendre_commande($_POST["commande"]);
-            header("Location: ".$_SERVER["PHP_SELF"]);
-            exit;
-        }
-        if (isset($_POST["finir-cmd"])){
-            finir_commande($_POST["commande"]);
-            header("Location:".$_SERVER["PHP_SELF"]);
-            exit;
-        }
-    }
-}
 
 ?>
 <!DOCTYPE html>
@@ -43,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/commandes.css">
     <script src="../script.js" defer></script>
+    <script src="../javascript/commande.js" defer></script>
     <title>Commandes - L'oro di Cicerone</title>
 </head>
 <body>
@@ -61,112 +38,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="submit" name="id_cmd">
         </form>
     </div>
-    <div id="main-contenent">
-        <?php
-            $data = lire_data("../data/commandes.json");
-            $date_aujourdhui = date_create();
-             echo "<details open>
-            <summary><h2>Commande à livraison différée (mise en livraison 1h avant)</h2></summary>
-            <section class='colonne-commandes'>";
-            foreach ($data as $hash => $commande) {
-                if ($commande["est-valide"]) {
-                    if (isset($commande["date_livraison"])) {
-                        $test = date_diff($date_aujourdhui,date_create($commande["date_livraison"]));
-                        if ($date_aujourdhui > date_create($commande["date_livraison"])) continue;
-                        if ($test->format("%d") >= 1 or ($test->format("%d") < 1 and $test->format("%h") > 1)){
-                            echo "<div class='block'>";
-                            echo "<span class='commande'>";
-                                echo "<p>identifiant de commande : " . $commande["numero"] . "</p>";
-                                echo "<p>Statut : " . $commande["etat"] . "</p>";
-                            echo "</span>";
-                            echo "<span class='commande'>";
-                            echo "<p>Date de livraison : " . date_format(date_create($commande["date_livraison"]),"d/m/Y à H\hi") . "</p>";
-                            echo "</span>";
 
-                            echo "<div>";
-                                echo "<ul>";
-                                    foreach ($commande["plats"] as $p) {
-                                        echo "<li>" . htmlspecialchars($p["nom"]) . " x" . $p["quantite"] . "</li>";
-                                    }
-                                echo "</ul>";
-                            echo "</div>";
-
-                            if (isset($commande["instructions"])) echo "<p id='Complement'>".$commande["instructions"]."</p>";
-                        echo "</div>";
-                        }
-                    }
-                }
-            } 
-            echo "</details>";
-            //echo "Commandes en cours :";
-            echo "</details>";
-            echo "<details open>
-            <summary><h2>Commandes en préparation </h2></summary>
-            <section class='colonne-commandes'>
-            ";
-            foreach ($data as $hash => $commande) {
-                if ($commande["est-valide"]) {
-                    // On vérifie si la commande est dans moins d'une heure
-                    if (isset($commande["date_livraison"])) {
-                        $test = date_diff($date_aujourdhui,date_create($commande["date_livraison"]));  
-                        if ($test->format("%d") >= 1 or ($test->format("%d") < 1 and $test->format("%h") > 1)){
-                            continue;
-                        }
-                    }
-                    if ($commande["etat"] == "en preparation"){
-                        echo "<div class='block'>";
-                        echo "<form method='POST'>
-                                <input type='hidden' name='commande' value=".$hash.">
-                                <button type='submit' name='finir-cmd'>Finir la commande</button>
-                            </form>";
-                        echo "<span class='commande'>";
-                            echo "<p>identifiant de commande : " . $commande["numero"] . "</p>";
-                            echo "<p>Statut : " . $commande["etat"] . "</p>";
-                        echo "</span>";
-
-                        echo "<div>";
-                            echo "<ul>";
-                                foreach ($commande["plats"] as $p) {
-                                    echo "<li>" . htmlspecialchars($p["nom"]) . " x" . $p["quantite"] . "</li>";
-                                }
-                            echo "</ul>";
-                        echo "</div>";
-
-                        if (isset($commande["instructions"])) echo "<p id='Complement'>".$commande["instructions"]."</p>";
-                    echo "</div>";
-                    }
-                }
-            } 
-            echo "</details>";
-            echo "<details open>
-            <summary><h2>Commandes préparées</h2></summary>
-            <section class='colonne-commandes'>
-            ";
-            foreach ($data as $hash => $commande) {
-                if ($commande["est-valide"]) {
-                    // On vérifie si la commande est dans moins d'une heure
-                    if ($commande["etat"] == "preparee") {
-                        echo "<div class='block'>";
-                            echo "<span class='commande'>";
-                                echo "<p>Identifiant : " . htmlspecialchars($commande["numero"]) . "</p>";
-                                echo "<p>Statut : " . htmlspecialchars($commande["etat"]) . "</p>";
-                            echo "</span>";
-
-                            echo "<div>";
-                                echo "<ul>";
-                                    foreach ($commande["plats"] as $p) {
-                                        echo "<li>" . htmlspecialchars($p["nom"]) . " x" . (int)$p["quantite"] . "</li>";
-                                    }
-                                echo "</ul>";
-                            echo "</div>";
-
-                            if (isset($commande["instructions"])) echo "<p id='Complement'>".$commande["instructions"]."</p>";
-                        echo "</div>";
-                    }
-                }
-            }
-        ?>
+    <div id="liste-commandes">
+        <p>Chargement des commandes...</p>
     </div>
+
+    <script>
+        async function chargerCommandes() {
+            try{
+                const reponse = await fetch("../api/get_new_commande.php");
+                const data = await reponse.json();
+                renderCommandes(data);
+            }
+            catch (e){
+                console.log("Erreur :" + e);
+            }
+        }
+
+        // chargement des commandes au démarages
+        chargerCommandes();
+        setInterval(chargerCommandes(), 30000); // on recharge toutes les 30s
+    </script>
 </body>
 </html>
 
@@ -193,3 +85,13 @@ function finir_commande(string $id_cmd) : void{
 }
 
 ?>
+
+<script>
+let lastCount = null;
+setInterval(async () => {
+	const response = await fetch("../api/get_new_commande.php");
+	const data = await response.json();
+    if (lastCount == null) lastcount = data.nbCommande;
+    
+}, 10000); // Vérifie toutes les 10 secondes
+</script>
