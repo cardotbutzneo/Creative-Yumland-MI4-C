@@ -8,6 +8,8 @@ if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "Cuisinier" and $_SESS
     exit;
 }
 
+est_banni();
+
 $_SESSION["derniere-connexion"] = time();
 
 // idée : on peut mettre en place une "alerte" pour avertir le programme quand une nouvelle commande est dans la bdd
@@ -40,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/commandes.css">
+    <script src="../script.js" defer></script>
     <title>Commandes - L'oro di Cicerone</title>
 </head>
 <body>

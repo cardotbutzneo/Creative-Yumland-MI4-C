@@ -2,12 +2,12 @@
     "client1@gmail.com": {
         "id": "00000001",
         "nom": "Chalamet",
-        "prenom": "Timoth\u00e9e",
+        "prenom": "Timothée",
         "mot de passe": "$2y$10$jWOsjOum\/E14T6ue\/ExBp.5NoOHvaiuNGAqtNtvrO7\/CS.lWxsmZy",
         "contact": {
             "adresse": "20 Rue d'Antin, Paris",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "0763289174",
+            "complément d'adresse": "",
+            "téléphone": "0763289174",
             "adresse email": "client1@gmail.com"
         },
         "role": "Client",
@@ -18,9 +18,9 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-14 16:55:19",
+            "derniere_connexion": "2026-04-19 16:41:37",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
@@ -36,16 +36,16 @@
         "prenom": "Federico",
         "mot de passe": "$2y$10$Ug4LNFCbQ0ZG22ZD9ZuKMudYJ4otrgI29YWwp4hSdHVC9KuvEGwkS",
         "contact": {
-            "adresse": "76 Rue Maurice Bokanowski, Asni\u00e8res-sur-Seine",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "0629843711",
+            "adresse": "76 Rue Maurice Bokanowski, Asnières-sur-Seine",
+            "complément d'adresse": "",
+            "téléphone": "0629843711",
             "adresse email": "cuisinier1@gmail.com"
         },
         "role": "Cuisinier",
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-05 19:56:21",
+            "derniere_connexion": "2026-04-19 16:39:09",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
@@ -64,8 +64,8 @@
         "mot de passe": "$2y$10$T1eeFFiF7MuIxaQZOF77eenwb\/Co5bUiFT6lzItirM9k0yWio4XuC",
         "contact": {
             "adresse": "12 Rue Jeanne Hachette, Paris",
-            "compl\u00e9ment d'adresse": "2e \u00e9tage",
-            "t\u00e9l\u00e9phone": "0763289174",
+            "complément d'adresse": "2e étage",
+            "téléphone": "0763289174",
             "adresse email": "client2@gmail.com"
         },
         "role": "Client",
@@ -93,17 +93,17 @@
         "mot de passe": "$2y$10$Hj2EKIVtJliGk2fcGgMYnONV3pZsRmxiHTqVcggz0uAeCxMPKOCwK",
         "contact": {
             "adresse": "42 Avenue de la Porte de Clichy, Paris",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "0304028319",
+            "complément d'adresse": "",
+            "téléphone": "0304028319",
             "adresse email": "admin1@gmail.com"
         },
         "role": "admin",
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-14 16:51:54",
+            "derniere_connexion": "2026-04-19 16:32:55",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
@@ -116,12 +116,12 @@
     "livreur1@gmail.com": {
         "id": "00000005",
         "nom": "Banatzailea",
-        "prenom": "S\u00e9bastien",
+        "prenom": "Sébastien",
         "mot de passe": "$2y$10$5k3Z2Q0m1oGNjvLflPS9A.RPd0JlduhLB3Ir0UfAUfXWRwDk23FYG",
         "contact": {
             "adresse": "126 Rue Blomet, Paris",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "0702082819",
+            "complément d'adresse": "",
+            "téléphone": "0702082819",
             "adresse email": "livreur1@gmail.com"
         },
         "role": "livreur",
@@ -146,8 +146,8 @@
         "mot de passe": "$2y$10$SXHX2tTj7xuetFRA6sBRdehlnP8E4QcPq5s.YhGlAYKerSQK.UzvW",
         "contact": {
             "adresse": "27 Rue Singer, Paris",
-            "compl\u00e9ment d'adresse": "",
-            "t\u00e9l\u00e9phone": "0656390122",
+            "complément d'adresse": "",
+            "téléphone": "0656390122",
             "adresse email": "admin2@gmail.com"
         },
         "role": "admin",
@@ -155,6 +155,31 @@
         "securite": {
             "date_creation": "2026-04-04",
             "derniere_connexion": "2026-04-04 17:09:49",
+            "est_banni": false,
+            "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0
+        },
+        "pts-fidelite": 0,
+        "total-fidelite": 0,
+        "livraison": false
+    },
+    "test@gmail.com": {
+        "id": "00000007",
+        "nom": "dis",
+        "prenom": "dis",
+        "mot de passe": "$2y$10$0WJlWK55KhDr4LqZrQEuZeD.KF0c30dzAKAw06xByUCfPObDt54ji",
+        "contact": {
+            "adresse": "33 rue du pape",
+            "complément d'adresse": "",
+            "téléphone": "0765256996",
+            "adresse email": "test@gmail.com"
+        },
+        "role": "Client",
+        "dernieres_commandes": [],
+        "securite": {
+            "date_creation": "2026-04-19",
+            "derniere_connexion": "2026-04-19 17:10:02",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,

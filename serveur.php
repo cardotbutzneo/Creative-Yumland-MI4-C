@@ -60,4 +60,36 @@ function calculer_points(int $montant_total, string $pts) : int{
     return $pts;
 }
 
+function ecrire_log(string $msg, string $type = "warning") : void {
+    if (empty($msg)) return;
+
+    $colors = [
+        "info"     => "\033[33m",
+        "warning"  => "\033[38;5;208m",
+        "critical" => "\033[31m",
+        "reset"    => "\033[0m"
+    ];
+
+    $type = strtolower($type);
+    $color = $colors[$type] ?? $colors['reset'];
+    
+    $date = date("Y-m-d H:i:s");
+    $format = $color . strtoupper($type) . $colors['reset'] . " [" . $date . "]: " . $msg . PHP_EOL;
+
+    error_log($format, 3, "securite.log");
+}
+
+function est_banni(){
+    $bdd_actuelle = lire_data("../data/client.json");
+    if (isset($_POST["est_banni"]) && $_POST["est_banni"] == true){
+        $bdd_actuelle[$email]["securite"]["est_en_ligne"] = false;
+        $bdd_actuelle[$email]["securite"]["remember_token"] = null;
+        $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = null;
+        ecrire_data("../data/client.json", $bdd_actuelle);
+        session_unset();
+        session_destroy();
+        header("Location: connexion.php");
+        exit;
+    }
+}
 ?>

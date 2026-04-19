@@ -36,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>modifier le profil</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
+    <script src="../script.js" defer></script>
+    <script src="../javascript/formulaire.js" defer></script>
 </head>
 <body>
     <header>
@@ -54,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <form method="post">
                 <div class="champ-formulaire">
                 <label class="intitule">Nom</label>
-                <input type="text" name="nom" class="champ">
+                <input type="text" name="nom" class="champ">    
                 </div>
                 <div class="champ-formulaire">
                     <label class="intitule">Prénom</label>
@@ -70,31 +72,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 <div class="champ-formulaire">
                     <label class="intitule">Téléphone</label>
-                    <input type="text" name="tel" class="champ">
+                    <select name="pays" id="pays" onchange="changerPrefixTel()">
+                            <option value="+33">France (+33)</option>
+                            <option value="+32">Belgique (+32)</option>
+                            <option value="+49">Alemagne (+49) </option>
+                            <option value="+44">Angleterre (+44) </option>
+                            <option value="+1">Etats Unis (+1) </option>
+                    </select>
+                    <input type="text" name="tel" class="champ" id="telephone" value="+33 " onsubmit="verifierTelephone()">
+                    <button type='submit' name='valider_modifs' class='bouton-validation'>Enregistrer</button>
                 </div>
-                <?php 
-                    if (!$afficher_confirmation){
-                        echo "<div class='alerte-abandon'>
-                            <input name='confirmation' type='checkbox' id='conf-modifs' required>
-                            <label for='conf-modifs'><span class='obligatoire'>* </span>Confirmer vos modifications</label>
-                        </div>
 
-                        <button type='submit' name='valider_modifs' class='bouton-validation'>Enregistrer</button>
-                        <br>";
-                    }
-                ?>
-                <hr> <?php if ($afficher_confirmation){ ?>
-                    <div class="alerte-abandon">
-                        <p class="message-erreur">Attention vous allez perdre toutes vos modifications</p>
-                        <input type="checkbox" name="checkbox_ok" id="cb" required>
-                        <label for="cb"><span class="obligatoire">* </span>Confirmer la perte des modifications</label><br>
-                        <button type="submit" name="confirm_abandon" class="bouton-validation">Confirmer l'abandon</button>
-                    </div>
-                <?php } else { ?>
-                    <div class="liens-secondaires">
-                        <button type="submit" name="demande_abandon" class="bouton-validation">Abandonner les modifications</button>
-                    </div>
-                <?php } ?>
+                <div class="">
+                    <input type="checkbox" id="abandon" onchange="toogleAbandon()">
+                    <label for="abandon" onchange="">Abandonner les modifications</label>
+                    <a href="profil_client.php" id="lien-abandon" onclick="alert('Vos modifications vont être effacées')">Revenir au profil</a>
+                </div>
             </form>
             <p style="font-size : smaller; color : white;" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
         </section>
@@ -103,14 +96,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 </html>
 <style>
     .bouton-validation{
-        margin : 0px;
+        margin-top : 20px;
         margin-bottom : 10px;
     }
     .alerte-abandon{
         padding : 5px;
     }
+    #lien-abandon{
+        text-align : center;
+        display : none;
+    }
     .liens-secondaires{
         margin-top : 10px;
+    }
+    #pays{
+        width: 20%;
+        border : 1px black solid;
+        border-radius : 5px;
+    }
+    @media screen and (max-width: 720px) {
+        #pays{
+            width: 100%;
+        }
     }
 </style>
 

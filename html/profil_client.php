@@ -7,17 +7,7 @@ if (!isset($_SESSION["email"]) or ($_SESSION["role"] != "Client" and $_SESSION["
 
 require_once __DIR__."/../serveur.php";
 
-$bdd_actuelle = lire_data("../data/client.json");
-if (isset($_POST["est_banni"]) && $_POST["est_banni"] == true){
-    $bdd_actuelle[$email]["securite"]["est_en_ligne"] = false;
-    $bdd_actuelle[$email]["securite"]["remember_token"] = null;
-    $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = null;
-    ecrire_data("../data/client.json", $bdd_actuelle);
-    session_unset();
-    session_destroy();
-    header("Location: connexion.php");
-    exit;
-}
+est_banni(); // a appeller sur chaque fichier client
 
 $plats = ["entree" => [], "plats" => [], "dessert" => [], "cafe" => []];
 $data = lire_data("../data/plats.json");

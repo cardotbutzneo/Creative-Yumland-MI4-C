@@ -20,7 +20,7 @@ session_start();
             <li><a href="restaurant.php">Le Restaurant</a></li>
             <li><a href="chef.php">Le Chef</a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><?php if (isset($_SESSION) and $_SESSION["connecte"] == true) echo '<a href="connexion.php">Profil</a>'; else echo '<a href="connexion.php">se connecter</a>'?></li>
+            <li><?php if (isset($_SESSION["connecte"]) and $_SESSION["connecte"] == true) echo '<a href="connexion.php">Profil</a>'; else echo '<a href="connexion.php">se connecter</a>'?></li>
         </ul>
     </nav>
 </header>
