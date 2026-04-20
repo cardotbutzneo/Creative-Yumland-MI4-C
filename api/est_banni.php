@@ -14,7 +14,7 @@ $data = lire_data(__DIR__ . "/../data/client.json");
 $username = $_SESSION["email"];
 if (isset($data[$username])) {
     $isBanned = $data[$username]['securite']['est_banni'];
-    $reason = "";
+    $reason = $data[$username]['securite']['raison_ban'] ?? "";
 
     if ($isBanned){
         echo json_encode([

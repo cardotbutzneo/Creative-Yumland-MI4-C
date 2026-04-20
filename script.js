@@ -7,11 +7,12 @@ setInterval(async () => {
 	}
 }, 10000); // Vérifie toutes les 10 secondes
 
-function bannir(mail, action, msg) {
+function bannir(mail, action) {
 	// envoie un post à profil_client avec des données
 	const formData = new FormData();
+	const raison = prompt("Raison du bannissement : ");
+	formData.append("raison", raison);
 	formData.append("banni", true);
-	formData.append("raison", msg);
 	formData.append("mail", mail);
 	formData.append("action_type", action);
 

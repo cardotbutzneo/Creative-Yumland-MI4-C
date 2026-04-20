@@ -96,7 +96,7 @@ $recherche = $_GET['recherche'] ?? '';
                     ?>
                         <tr>
                             <form method='POST'>
-                                <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref?>><?=$client?></a></td>
+                                <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref . "?id=" . $client?>><?=$client?></a></td>
                                 <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>
                                 <td>   
                                     <select name='role' id="role" onchange="changerRole('<?= $client?>')">
@@ -110,7 +110,7 @@ $recherche = $_GET['recherche'] ?? '';
                                 
                                 <td>
                                         <input type='button' class='bloquer'
-                                            onclick="bannir('<?=$client?>','<?= $value ?>','')" value=<?php echo $info["securite"]["est_banni"] ? 'Débloquer' : 'Bloquer'; ?>>
+                                            onclick="bannir('<?=$client?>','<?= $value ?>')" value=<?php echo $info["securite"]["est_banni"] ? 'Débloquer' : 'Bloquer'; ?>>
                                         </input>
                                 </td>
                             </form>
@@ -164,7 +164,8 @@ function bloquer(string $mail, string $raison, bool $banir = true) : bool {
     if (!$data || !isset($data[$mail])) return false;
 
     $data[$mail]["securite"]["est_banni"] = $banir;
-
+    if ($banir) $data[$mail]["securite"]["raison_ban"] = $raison ;
+    else unset($data[$mail]["securite"]["raison_ban"]);
     return ecrire_data($path, $data);
 }
 ?>

@@ -18,9 +18,9 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-19 16:41:37",
+            "derniere_connexion": "2026-04-20 15:10:25",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
@@ -28,7 +28,8 @@
         },
         "pts-fidelite": 3083,
         "total-fidelite": 6083,
-        "livraison": false
+        "livraison": false,
+        "tel": "+33 "
     },
     "cuisinier1@gmail.com": {
         "id": "00000002",
@@ -101,9 +102,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-04-19 16:32:55",
+            "derniere_connexion": "2026-04-20 15:09:45",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,

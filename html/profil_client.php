@@ -61,6 +61,7 @@ if ($_SESSION["role"] == "Client"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/profil_client.css"> 
+    <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
     <title>Profil Client - L'oro di Cicerone</title>
 </head>
@@ -78,13 +79,25 @@ if ($_SESSION["role"] == "Client"){
         </ul>
     </nav>
 </header>
+    <div class="notification" id="notification" style="display : none">
+        <div class="notification-header">
+            <span class="notification-titre">Commande confirmée</span>
+            <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
+        </div>
+        <p class="notification-body">
+            Vos modifications ont bien été enregistrées.
+        </p>
+        <div class="notification-barre">
+            <div class="notification-barre-fill"></div>
+        </div>
+    </div>
     <?php 
-        if (isset($_GET["flag"]) && $_GET["flag"] === "success") {
-            echo '<div class="notification-success">
-                    <p>Vos modifications ont bien été prises en compte</p>
-                  </div>';
-}
-    ?>
+    if (isset($_GET["flag"]) && $_GET["flag"] == "success"){?>
+        <script>
+            document.getElementById('notification').style.display = "block";
+        </script>
+    <?php } ?>
+
     <section>
         <?php
         $clients = lire_data("../data/client.json");
@@ -93,7 +106,7 @@ if ($_SESSION["role"] == "Client"){
         }
         else if ($_SESSION["role"] == "admin"){
             $client = $clients[$_GET["id"]];
-            $client["programme-fidelite"] = donner_grade($clients[$_GET["id"]]["total-fidelite"]);
+            $client["programme-fidelite"] = donner_grade($client["total-fidelite"]);
         }
         echo '<div class="contenent">';
         echo "<p id='nom'>Bienvenue " . $client["nom"] . " " . $client["prenom"] . "</p>";

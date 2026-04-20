@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                             <option value="+1">Etats Unis (+1) </option>
                     </select>
                     <input type="text" name="tel" class="champ" id="telephone" value="+33 " onsubmit="verifierTelephone()">
-                    <button type='submit' name='valider_modifs' class='bouton-validation'>Enregistrer</button>
+                    <button type='submit' name='valider_modifs' class='bouton-validation' onclick="toogleNotification()">Enregistrer</button>
                 </div>
 
                 <div class="">
@@ -135,6 +135,7 @@ function modifier_infos() : void {
     foreach (["nom", "prenom", "adresse", "complement_adresse", "tel"] as $var) {
         if (isset($_POST[$var]) && !empty(trim($_POST[$var]))) {
             $toute_la_data[$email][$var] = htmlspecialchars($_POST[$var]);
+            $_SESSION[$var] = htmlspecialchars($_POST[$var]);
         }
     }
     ecrire_data("../data/client.json",$toute_la_data);
