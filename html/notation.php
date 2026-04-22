@@ -40,6 +40,7 @@ if (isset($_POST["valider"])) {
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/notation.css">
+    <script src="../javascript/formulaire.js" defer></script>
 </head>
 <body>
     <header>
@@ -83,7 +84,10 @@ if (isset($_POST["valider"])) {
                     </div>
                     <div class="commentaires">
                         <div class="intitule">Commentaires :</div>
-                        <textarea name="commentaires" id="commentaires" placeholder="Partagez votre expérience "></textarea>
+                        <textarea name="commentaires" id="commentaires" placeholder="Partagez votre expérience" maxlength="500"></textarea>
+                        <div>
+                            <span id="compteur">0</span> / 500 caractères
+                        </div>
                     </div>
                     <div class="button-centre">
                         <input type="submit" name="valider" value="Envoyer mon avis" class="bouton-validation">

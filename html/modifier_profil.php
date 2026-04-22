@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="">
-                    <input type="checkbox" id="abandon" onchange="toogleAbandon()">
+                    <input type="checkbox" id="abandon" onchange="toggleAbandon()">
                     <label for="abandon" onchange="">Abandonner les modifications</label>
                     <a href="profil_client.php" id="lien-abandon" onclick="alert('Vos modifications vont être effacées')">Revenir au profil</a>
                 </div>

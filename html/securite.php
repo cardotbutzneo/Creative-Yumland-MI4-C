@@ -63,13 +63,13 @@ if (isset($_POST["password"])){
                         <button type="submit" name="modif-mdp" class="champ" >Changer votre mot de passe 
                     </div>
                     <div class="champ-formulaire">
-                        <button type="submit" name="supp" class="message-erreur" onclick="toogleSecurite(1)">Supprimer le compte
+                        <button type="submit" name="supp" class="message-erreur" onclick="toggleSecurite(1)">Supprimer le compte
                     </div>
                 </div>
                 
                 <div id="verif" style="display : none">
                     <div class='message-erreur'>Attention cette action sera définitive et vous perdrez votre compte.</div>
-                    <div class='champ-formulaire'><button type='submit' name='confirm' class='champ' onclick="toogleSecurite(2)">Confirmer la suppression</div>
+                    <div class='champ-formulaire'><button type='submit' name='confirm' class='champ' onclick="toggleSecurite(2)">Confirmer la suppression</div>
                     <div class='champ-formulaire'><button type='submit' name='abandon' class='champ'>Abandonner la suppression</div>
                 </div>
                 <div id="verif_password" style="display : none">
@@ -82,7 +82,7 @@ if (isset($_POST["password"])){
                             <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="Masquer" style="display:none;">
                         </button>
                     </div>
-                    <div class="champ-formulaire"><button type="submit" name="confirmation" class="champ" onclick="toogleSecurite(3)">Confirmer</div>
+                    <div class="champ-formulaire"><button type="submit" name="confirmation" class="champ" onclick="toggleSecurite(3)">Confirmer</div>
                     <p style="font-size : smaller; color : white;" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
                 </div>
                 <div id="delete-account" style="display : <?= $suppression ? "block" : "none"; ?>" >

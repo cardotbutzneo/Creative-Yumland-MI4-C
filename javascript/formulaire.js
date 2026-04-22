@@ -13,7 +13,7 @@ function togglePassword(inputId, oeil_ouvert_Id, oeil_ferme_Id) {
 	}
 }
 
-document.querySelector("form").addEventListener("submit", function (event) {
+function verifierFormulaire(event) {
 	const nom = document.querySelector("input[name='nom']").value.trim();
 	const prenom = document.querySelector("input[name='prenom']").value.trim();
 	const adresse = document
@@ -79,7 +79,9 @@ document.querySelector("form").addEventListener("submit", function (event) {
 
 		div.innerHTML = erreurs.join("<br>");
 	}
-});
+}
+
+document.querySelector("form").addEventListener("submit", verifierFormulaire);
 
 function verifierTelephone() {
 	let inputTel = document.getElementById("telephone");
@@ -121,22 +123,38 @@ function changerPrefixTel() {
 	document.getElementById("telephone").value = phoneVal + " " + newVal;
 }
 
-function toogleAbandon() {
+function toggleAbandon() {
 	if (document.getElementById("abandon").checked == true)
 		document.getElementById("lien-abandon").style.display = "block";
 	else document.getElementById("lien-abandon").style.display = "none";
 }
 
-function toogleSecurite(choix) {
+function toggleSecurite(choix) {
 	if (choix == 1) {
 		document.getElementById("settings").style.display = "none";
 		document.getElementById("verif").style.display = "block";
 	} else if (choix == 2) {
 		document.getElementById("verif").style.display = "none";
 		document.getElementById("verif_password").style.display = "block";
-	}
-	else{
+	} else {
 		document.getElementById("verif_password").style.display = "none";
 		document.getElementById("delete-account").style.display = "block";
 	}
 }
+
+function initCompteurCommentaire() {
+    const textarea = document.getElementById("commentaires");
+    const compteur = document.getElementById("compteur");
+    const MAX = 500;
+
+    if (!textarea || !compteur) return;
+
+    function mettreAJourCompteur() {
+        const nbChars = textarea.value.length;
+        compteur.textContent = nbChars;
+    }
+
+    textarea.addEventListener("input", mettreAJourCompteur);
+}
+
+document.addEventListener("DOMContentLoaded", initCompteurCommentaire);
