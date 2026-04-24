@@ -1,0 +1,86 @@
+:root{
+    --global-font-size : 16px
+}
+
+body{
+    font-size: var(--global-font-size,medium);
+}
+
+.img-accessibilite{
+    width: 20px;
+}
+
+body .img-accessibilite{
+    text-align: right;
+}
+
+.div-accessibilite{
+    text-align: center;
+    background-color: gray;
+    border: 1px black solid;
+    border-radius: 10px;
+    padding: 15px;
+
+    margin-top: 40px ;
+    margin-right: 10px;
+    right: 0;
+    letter-spacing: 2px;
+    position: absolute;
+}
+
+.forms{
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: 1fr 1fr;
+    gap : 10px;
+}
+
+.taille-police, .theme{
+    display: inline;
+}
+
+.langue button{
+    background-color: green;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.title-acc {
+    grid-column: span 2; 
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+}
+
+/* On définit l'animation de mouvement doux */
+@keyframes flotter {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(5px, 10px) rotate(1deg); }
+    66% { transform: translate(-5px, 5px) rotate(-1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* On définit une transition de couleur lente */
+@keyframes couleurDouce {
+    0% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
+    50% { border-color: #00ffff; box-shadow: 0 0 15px #00ffff; }
+    100% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
+}
+
+/* Le mode psychédélique appliqué au body */
+body.psychedelique {
+    background-color: #1a1a1a; /* Fond sombre pour reposer les yeux */
+    color: #e0e0e0;
+    transition: background-color 2s ease;
+}
+
+/* On anime tous les blocs de la page */
+body.psychedelique,
+body.psychedelique .block, 
+body.psychedelique .div-accessibilite, 
+body.psychedelique header {
+    animation: 
+        flotter 8s infinite ease-in-out, 
+        couleurDouce 12s infinite linear;
+    transition: all 1s ease;
+}

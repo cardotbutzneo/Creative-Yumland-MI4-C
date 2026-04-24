@@ -8,9 +8,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <title>L'oro di Cicerone</title>
-
+    
 </head>
-<body>
 
 <header>
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
@@ -21,9 +20,11 @@ session_start();
             <li><a href="chef.php">Le Chef</a></li>
             <li><a href="presentation.php">Menu</a></li>
             <li><?php if (isset($_SESSION["connecte"]) and $_SESSION["connecte"] == true) echo '<a href="connexion.php">Profil</a>'; else echo '<a href="connexion.php">se connecter</a>'?></li>
+            <?php require_once "../api/get_accessibilite.php" ?>
         </ul>
     </nav>
 </header>
+
 <section class="hero">
   <video autoplay muted loop playsinline>
     <source src="style/video/main.mp4" type="video/mp4">

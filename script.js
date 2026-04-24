@@ -35,3 +35,14 @@ function changerRole(mail) {
 	});
 	window.location.href = "/html/profil_admin.php";
 }
+
+function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    // path=/ permet au cookie d'être disponible sur tout ton site
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
