@@ -2,5 +2,9 @@
     "client2@gmail.com": {
         "articles": [],
         "total": 0
+    },
+    "client1@gmail.com": {
+        "articles": [],
+        "total": 0
     }
 }
