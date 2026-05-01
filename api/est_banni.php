@@ -17,22 +17,31 @@ if (isset($data[$username])) {
     $reason = $data[$username]['securite']['raison_ban'] ?? "";
 
     if ($isBanned){
+        $bdd_actuelle = lire_data("../data/client.json");
+        $commandes_actuelles = lire_data("../data/commandes.json");
+        $email = $_SESSION["email"];
+
+        if (!empty($bdd_actuelle[$email]["dernieres_commandes"])) {
+            
+            $idCommande = $bdd_actuelle[$email]["dernieres_commandes"][0];
+
+            if (isset($commandes_actuelles[$idCommande])) {
+                unset($commandes_actuelles[$idCommande]);
+            }
+
+            array_shift($bdd_actuelle[$email]["dernieres_commandes"]);
+        }
+
+        ecrire_data("../data/client.json", $bdd_actuelle);
+        ecrire_data("../data/commandes.json", $commandes_actuelles);
+
+        session_unset();
+        session_destroy();
+
         echo json_encode([
         'banned' => $isBanned,
         'reason' => $reason
         ]);
-        $bdd_actuelle = lire_data("../data/client.json");
-        $email = $_SESSION["email"];
-
-        if(isset($bdd_actuelle[$email])){
-            $bdd_actuelle[$email]["securite"]["est_en_ligne"] = false;
-            $bdd_actuelle[$email]["securite"]["remember_token"] = null;
-            $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = null;
-            ecrire_data("../data/client.json", $bdd_actuelle);
-        }
-
-        session_unset();
-        session_destroy();
     }
     else {
         echo json_encode(['banned' => false]);

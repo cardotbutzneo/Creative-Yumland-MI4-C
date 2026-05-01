@@ -75,12 +75,9 @@ body.psychedelique {
 }
 
 /* On anime tous les blocs de la page */
-body.psychedelique,
-body.psychedelique .block, 
-body.psychedelique .div-accessibilite, 
-body.psychedelique header {
+body.psychedelique > * {
     animation: 
-        flotter 8s infinite ease-in-out, 
-        couleurDouce 12s infinite linear;
+        flotter 2s infinite ease-in-out, 
+        couleurDouce 5s infinite linear;
     transition: all 1s ease;
 }
