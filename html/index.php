@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+require_once __DIR__."/../serveur.php";
+
+$txt = lire_data("../data/langue.json");
+
+$text = $txt[($_COOKIE["langue"]) ?? "fr"];
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,7 +39,7 @@ session_start();
 
   <div class="hero-content">
     <h2>L'oro di Cicerone</h2>
-    <p>Gastronomie italienne au sommet de Paris</p>
+    <p><?= $text["index"]["hero_subtitle"] ?></p>
   </div>
 </section>
 
@@ -40,10 +47,9 @@ session_start();
     <div class="experience">
         <img src="style/img/tour Eiffel.jpg" alt="Restaurant dans la Tour Eiffel">
         <div>
-            <h3>L'Expérience</h3>
+            <h3><?= $text["index"]["experience_title"] ?></h3>
             <p>
-                Suspendu au cœur de la Tour Eiffel, L'oro di Cicerone propose une expérience gastronomique unique,
-                mêlant l'excellence de la cuisine italienne à l'élégance intemporelle de Paris.
+                <?= $text["index"]["experience_text"] ?>
             </p>
         </div>
     </div>
@@ -52,10 +58,9 @@ session_start();
 <section class="section-dark">
     <div class="chef">
         <div>
-            <h3>Le Chef</h3>
+            <h3><?= $text["index"]["chef_title"] ?></h3>
             <p>
-                Triplement étoilé au guide Michelin, notre chef puise son inspiration dans les traditions italiennes
-                de son enfance, sublimées par un parcours au sein des plus grandes tables européennes.
+                <?= $text["index"]["chef_text"] ?>
             </p>
         </div>
         <img src="style/img/chef.png" alt="Chef étoilé">
@@ -63,14 +68,14 @@ session_start();
 </section>
 
 <section class="section-light cta">
-    <p>Vivez un moment d'exception au sommet de la Ville Lumière</p>
-    <a href="connexion.php">Réserver une table</a>
+    <p><?= $text["index"]["cta_text"] ?></p>
+    <a href="connexion.php"><?= $text["index"]["cta_button"] ?></a>
 </section>
 
 <footer>
-    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
-    <a href="contact.php">Nous contacter </a><span>|</span>
-    <a href="condition_generale.php">Confidentialité</a>
+    <p><?= $text["index"]["footer_rights"] ?></p>
+    <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
+    <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
 </footer>
 
 </body>

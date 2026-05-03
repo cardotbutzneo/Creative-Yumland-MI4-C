@@ -48,7 +48,7 @@
         "numero": "00000002",
         "livraison": false,
         "est-valide": true,
-        "etat": "preparee",
+        "etat": "payee",
         "plats": [
             {
                 "nom": "Burrata",

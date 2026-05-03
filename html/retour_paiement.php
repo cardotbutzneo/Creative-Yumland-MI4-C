@@ -60,7 +60,7 @@ if ($paiement_valide) {
             $nv_id = generer_id($commandes);
             $nv = $_SESSION["commande_en_attente"];
             $nv["est-valide"] = true;
-            $nv["etat"] = "en preparation";
+            $nv["etat"] = "payee";
             $nv["numero"] = str_pad(count($commandes) + 1, 8, "0", STR_PAD_LEFT);
             $commandes[$nv_id] = $nv;
             sauvegarder_data($chemin_commandes, $commandes);

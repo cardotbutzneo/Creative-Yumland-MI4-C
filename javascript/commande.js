@@ -24,6 +24,10 @@ function renderCommandes(data) {
 	const zoneDifferee = creerConteneur();
 	commandeDifferee.appendChild(zoneDifferee);
 
+	const commandePayee = createSection("Commandes payées");
+	const zonePayee = creerConteneur();
+	commandePayee.appendChild(zonePayee);
+
 	const commandeEnPreparation = createSection("Commandes en préparation");
 	const zoneEnPrep = creerConteneur();
 	commandeEnPreparation.appendChild(zoneEnPrep);
@@ -53,11 +57,11 @@ function renderCommandes(data) {
 		block.className = "block";
 
 		block.innerHTML = `
-                <button onclick="finirCommande('${hash}')">Finir la commande</button>
+                <button class='btn-cmd' onclick="finirCommande('${hash}')">Finir la commande</button>
                 <p style='display : ${flag ? "block" : "none"} '>A livrer avant : ${dateLivraison.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</p>
                 <span class='commande'>
                     <p>ID : ${commande.numero}</p>
-                    <p>Statut : ${commande.etat}</p>
+                    <p class='statut' data-stat='${commande.etat}' >Statut : ${commande.etat}</p>
                 </span>
                 <span class='commande'>
                     <p>Date de livraison : ${dateLivraison.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</p>
@@ -69,16 +73,22 @@ function renderCommandes(data) {
                 </div>
                 ${commande.instructions ? `<p id='Complement'>${commande.instructions}</p>` : ""}
             `;
-		if (commande.etat == "en preparation")
+		if (commande.etat == "payee") {
+			zonePayee.appendChild(block);
+			block.querySelector(".btn-cmd").textContent = "Accepter la commande";
+		} else if (commande.etat == "en preparation") {
 			zoneEnPrep.appendChild(block);
-		else if (commande.etat == "preparee")
+		} else if (commande.etat == "preparee") {
 			zonePrete.appendChild(block);
+			block.querySelector(".btn-cmd").style.display = "none";
+		}
 		if (flag) zoneDifferee.appendChild(block);
 	});
+
+	conteneur.appendChild(commandePayee);
 	conteneur.appendChild(commandeDifferee);
 	conteneur.appendChild(commandeEnPreparation);
 	conteneur.appendChild(commandePreparee);
-	commandeDifferee.appendChild("details");
 }
 
 async function finirCommande(hash) {

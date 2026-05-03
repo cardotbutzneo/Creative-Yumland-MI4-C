@@ -95,3 +95,9 @@ setInterval(async () => {
     
 }, 10000); // Vérifie toutes les 10 secondes
 </script>
+
+<style>
+    p.statut:not([data-stat="en preparation"]) button{
+        display : "none";
+    }
+</style>

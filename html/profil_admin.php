@@ -29,12 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
     $mail = $_POST['nom_utilisateur'];
     $nouveauRole = $_POST['role'];  
 
-    if (changer_role($mail, $nouveauRole)) {
-        // Succès : on rafraîchit la page pour voir les changements
-        header("Location: " . $_SERVER['PHP_SELF']); 
-        exit();
-    }
-    
+    changer_role($mail, $nouveauRole);
 }
 
 $recherche = $_GET['recherche'] ?? '';
@@ -99,7 +94,7 @@ $recherche = $_GET['recherche'] ?? '';
                                 <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref . "?id=" . $client?>><?=$client?></a></td>
                                 <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>
                                 <td>   
-                                    <select name='role' id="role" onchange="changerRole('<?= $client?>')">
+                                    <select name='role' id="role" onchange="changerRole('<?= $client?>',this)">
                                         <option value='Client' <?= ($roleActuel == 'Client' ? 'selected' : '') ?>>Client</option>
                                         <option value='livreur' <?= ($roleActuel == 'livreur' ? 'selected' : '') ?>>Livreur</option>
                                         <option value='Cuisinier' <?= ($roleActuel == 'Cuisinier' ? 'selected' : '') ?>>Cuisinier</option>
@@ -109,8 +104,8 @@ $recherche = $_GET['recherche'] ?? '';
                                 <td> <?= $info["securite"]["derniere_connexion"] ?></td>
                                 
                                 <td>
-                                        <input type='button' class='bloquer'
-                                            onclick="bannir('<?=$client?>','<?= $value ?>')" value=<?php echo $info["securite"]["est_banni"] ? 'Débloquer' : 'Bloquer'; ?>>
+                                        <input type='button' class='bloquer' id="bouton-banir" value=<?= $value ?>
+                                            onclick="bannir('<?=$client?>',this.value, this)">
                                         </input>
                                 </td>
                             </form>

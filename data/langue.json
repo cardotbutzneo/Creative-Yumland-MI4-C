@@ -1,0 +1,30 @@
+{
+	"fr": {
+		"index": {
+			"hero_subtitle": "Gastronomie italienne au sommet de Paris",
+			"experience_title": "L'Expérience",
+			"experience_text": "Suspendu au cœur de la Tour Eiffel, L'oro di Cicerone propose une expérience gastronomique unique, mêlant l'excellence de la cuisine italienne à l'élégance intemporelle de Paris.",
+			"chef_title": "Le Chef",
+			"chef_text": "Triplement étoilé au guide Michelin, notre chef puise son inspiration dans les traditions italiennes de son enfance, sublimées par un parcours au sein des plus grandes tables européennes.",
+			"cta_text": "Vivez un moment d'exception au sommet de la Ville Lumière",
+			"cta_button": "Réserver une table",
+			"footer_rights": "© 2026 L'oro di Cicerone — Tous droits réservés",
+			"footer_contact": "Nous contacter",
+			"footer_privacy": "Confidentialité"
+		}
+	},
+	"en": {
+		"index": {
+			"hero_subtitle": "Italian gastronomy at the peak of Paris",
+			"experience_title": "The Experience",
+			"experience_text": "Suspended in the heart of the Eiffel Tower, L'oro di Cicerone offers a unique gastronomic experience, blending the excellence of Italian cuisine with the timeless elegance of Paris.",
+			"chef_title": "The Chef",
+			"chef_text": "With three Michelin stars, our chef draws inspiration from the Italian traditions of his childhood, refined through a journey in Europe's most prestigious restaurants.",
+			"cta_text": "Experience an exceptional moment at the top of the City of Light",
+			"cta_button": "Book a table",
+			"footer_rights": "© 2026 L'oro di Cicerone — All rights reserved",
+			"footer_contact": "Contact us",
+			"footer_privacy": "Privacy Policy"
+		}
+	}
+}
