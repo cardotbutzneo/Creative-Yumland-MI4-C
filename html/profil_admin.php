@@ -17,6 +17,7 @@ if (isset($_POST["banni"])) {
     $estBanni = ($_POST['action_type'] === 'Bloquer'); 
     
     bloquer($user, $raison, $estBanni);
+    ecrire_log("L'utilisateur " . $_SESSION["prenom"] . $_SESSION["nom"] . (($estBanni) ? " est banni" : " est débanni"), "info");
 }
 
 if (isset($_POST["nvRole"])){

@@ -76,7 +76,7 @@ function ecrire_log(string $msg, string $type = "warning") : void {
     $date = date("Y-m-d H:i:s");
     $format = $color . strtoupper($type) . $colors['reset'] . " [" . $date . "]: " . $msg . PHP_EOL;
 
-    error_log($format, 3, "securite.log");
+    error_log($format, 3, "../securite.log");
 }
 
 function est_banni(){
