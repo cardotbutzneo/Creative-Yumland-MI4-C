@@ -7,7 +7,7 @@ $data = lire_data("../data/commandes.json");
 
 if (isset($_POST["hash"])){
     if (isset($data[$_POST["hash"]])){
-        $data[$_POST["hash"]]["etat"] = "preparee";
+        $data[$_POST["hash"]]["etat"] = $_POST["nouvelEtat"];
         ecrire_data("../data/commandes.json",$data);
         echo json_encode(['ok' => true]);
     }

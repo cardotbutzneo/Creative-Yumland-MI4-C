@@ -57,7 +57,7 @@ function renderCommandes(data) {
 		block.className = "block";
 
 		block.innerHTML = `
-                <button class='btn-cmd' onclick="finirCommande('${hash}')">Finir la commande</button>
+                <button class='btn-cmd' onclick="finirCommande('${hash}','${commande.etat}')">Finir la commande</button>
                 <p style='display : ${flag ? "block" : "none"} '>A livrer avant : ${dateLivraison.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</p>
                 <span class='commande'>
                     <p>ID : ${commande.numero}</p>
@@ -75,7 +75,8 @@ function renderCommandes(data) {
             `;
 		if (commande.etat == "payee") {
 			zonePayee.appendChild(block);
-			block.querySelector(".btn-cmd").textContent = "Accepter la commande";
+			block.querySelector(".btn-cmd").textContent =
+				"Accepter la commande";
 		} else if (commande.etat == "en preparation") {
 			zoneEnPrep.appendChild(block);
 		} else if (commande.etat == "preparee") {
@@ -91,13 +92,17 @@ function renderCommandes(data) {
 	conteneur.appendChild(commandePreparee);
 }
 
-async function finirCommande(hash) {
+async function finirCommande(hash, etat) {
 	if (!hash) return;
 	try {
+		let nvEtat;
+		if (etat == "payee") nvEtat = "en preparation";
+		else nvEtat = "preparee"; // par defaut
+		console.log(etat + " : " + nvEtat);
 		const response = await fetch("../api/update_statut.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
-			body: `hash=${hash}&nouvelEtat=preparee`,
+			body: `hash=${hash}&nouvelEtat=` + nvEtat,
 		});
 
 		if (response.ok) {
