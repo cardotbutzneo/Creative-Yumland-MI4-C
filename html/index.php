@@ -6,14 +6,15 @@ require_once __DIR__."/../serveur.php";
 $txt = lire_data("../data/langue.json");
 
 $text = $txt[($_COOKIE["langue"]) ?? "fr"];
-
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/notification.css">
     <title>L'oro di Cicerone</title>
     
 </head>
@@ -31,6 +32,26 @@ $text = $txt[($_COOKIE["langue"]) ?? "fr"];
         </ul>
     </nav>
 </header>
+
+<div class="notification" id="notification" style="display : none">
+        <div class="notification-header">
+            <span class="notification-titre">Notification</span>
+            <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
+        </div>
+        <p class="notification-body">
+            Votre inscription a bien été réalisée.
+        </p>
+        <div class="notification-barre">
+            <div class="notification-barre-fill"></div>
+        </div>
+</div>
+
+<?php if (isset($_GET["flag"]) && $_GET["flag"] === "success"){?>
+    <script>
+        document.getElementById('notification').style.display = "block";
+    </script>
+<?php } ?>
+
 
 <section class="hero">
   <video autoplay muted loop playsinline>

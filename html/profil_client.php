@@ -81,7 +81,7 @@ if ($_SESSION["role"] == "Client"){
 </header>
     <div class="notification" id="notification" style="display : none">
         <div class="notification-header">
-            <span class="notification-titre">Commande confirmée</span>
+            <span class="notification-titre">Notification</span>
             <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
         </div>
         <p class="notification-body">

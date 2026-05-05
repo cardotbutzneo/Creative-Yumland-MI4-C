@@ -58,7 +58,7 @@ if (isset($_POST["inscription"])) {
             $nouveau_client = creer_client($bdd_actuelle);
             $bdd_actuelle[$email] = $nouveau_client;
             ecrire_data("../data/client.json", $bdd_actuelle);
-            header("Location: profil_client.php");
+            header("Location: index.php?flag=success");
             exit;
         }
     }
@@ -71,6 +71,7 @@ if (isset($_POST["inscription"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
+    <link rel="stylesheet" href="style/notification.css">
     <script src="../javascript/formulaire.js" defer></script>
     <title>Inscription - L'oro di Cicerone</title>
 </head>
@@ -102,27 +103,29 @@ if (isset($_POST["inscription"])) {
         <form method="post" action="">
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Nom</label>
-                <input type="text" name="nom" class="champ" required>
+                <input type="text" name="nom" class="champ" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Prénom</label>
-                <input type="text" name="prenom" class="champ" required>
+                <input type="text" name="prenom" class="champ" required value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Adresse</label>
-                <input type="text" name="adresse" class="champ" required>
+                <input type="text" name="adresse" class="champ"
+                       placeholder="Ex : 19 Rue du Chemin Vert, 75011 Paris" required value="<?= htmlspecialchars($_POST['adresse'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
                 <label class="intitule">Complément d'adresse</label>
-                <input type="text" name="complement_adresse" class="champ" placeholder="Ex : Code immeuble, étage…">
+                <input type="text" name="complement_adresse" class="champ"
+                       placeholder="Ex : Code immeuble, étage…" value="<?= htmlspecialchars($_POST['complement_adresse'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Téléphone</label>
-                <input type="text" name="tel" class="champ" required>
+                <input type="text" name="tel" class="champ" required value="<?= htmlspecialchars($_POST['tel'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Adresse e-mail</label>
-                <input type="email" name="mail" class="champ" required>
+                <input type="email" name="mail" class="champ" required value="<?= htmlspecialchars($_POST['mail'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
                 <label class="intitule"><span class="obligatoire">* </span>Mot de passe</label>
