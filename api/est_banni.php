@@ -37,6 +37,7 @@ if (isset($data[$username])) {
 
         session_unset();
         session_destroy();
+        ecrire_log("L'utilisateur" . $_SESSION["prenom"] . $_SESSION["nom"] . "est banni", "info");
 
         echo json_encode([
         'banned' => $isBanned,
