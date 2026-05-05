@@ -57,47 +57,7 @@ $_SESSION["derniere-connexion"] = time();
 
         // chargement des commandes au démarages
         chargerCommandes();
-        setInterval(chargerCommandes(), 30000); // on recharge toutes les 30s
+        setInterval(chargerCommandes(),10000);
     </script>
 </body>
 </html>
-
-<?php 
-
-function prendre_commande(string $id_cmd) : void{
-    if (!isset($id_cmd)){
-        return;
-    }
-    $data = lire_data("../data/commandes.json");
-    if (!isset($data)) return;
-    $data[$id_cmd]["etat"] = "en preparation";
-    ecrire_data("../data/commandes.json",$data);
-}
-
-function finir_commande(string $id_cmd) : void{
-    if (!isset($id_cmd)){
-        return;
-    }
-    $data = lire_data("../data/commandes.json");
-    if (!isset($data)) return;
-    $data[$id_cmd]["etat"] = "preparee";
-    ecrire_data("../data/commandes.json",$data);
-}
-
-?>
-
-<script>
-let lastCount = null;
-setInterval(async () => {
-	const response = await fetch("../api/get_new_commande.php");
-	const data = await response.json();
-    if (lastCount == null) lastcount = data.nbCommande;
-    
-}, 10000); // Vérifie toutes les 10 secondes
-</script>
-
-<style>
-    p.statut:not([data-stat="en preparation"]) button{
-        display : "none";
-    }
-</style>
