@@ -24,9 +24,34 @@ function sauvegarder(string $fichier, array $data): void {
     file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
+
 $action = $_GET["action"] ?? '';
 $id_plat = $_GET["id"] ?? '';
 $paniers = lire_data($a);
+
+if (isset($_GET["id_cmd"])){
+    $id_cmd = $_GET["id_cmd"];
+    $commande = récupérer_commande($id_cmd);
+    
+    for ($i=0;$i<count($commande["plats"]);$i++){
+        $id_plat = $commande["plats"][$i]["nom"];
+        if (isset($paniers[$email]["articles"][$id_plat])) {
+            $paniers[$email]["articles"][$id_plat]["quantite"]++;
+        } else {
+            $plats = lire_data("../data/plats.json");
+            $plat  = $plats[$id_plat] ?? null;
+            if ($plat !== null) {
+                $paniers[$email]["articles"][$id_plat] = [
+                    "nom" => $plat["nom"],
+                    "prix" => $plat["prix"],
+                    "quantite" => 1
+                ];
+            }
+        }
+    }
+    $paniers[$email]["total"] = count($commande["plats"]);
+    sauvegarder($a, $paniers);
+}
 
 if (!isset($paniers[$email])) {
     $paniers[$email] = ["articles" => [], "total" => 0];

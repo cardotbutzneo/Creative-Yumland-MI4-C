@@ -18,14 +18,13 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-02 17:36:53",
-            "est_banni": true,
+            "derniere_connexion": "2026-05-05 20:48:40",
+            "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
-            "remember_token_expiration": null,
-            "raison_ban": "je t'aime pas"
+            "remember_token_expiration": null
         },
         "pts-fidelite": 3083,
         "total-fidelite": 6083,
@@ -76,7 +75,7 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-05 13:45:56",
+            "derniere_connexion": "2026-05-05 20:46:32",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,

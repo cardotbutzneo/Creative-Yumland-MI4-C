@@ -49,6 +49,15 @@ section{
     font-size: x-large;
 }
 
+.information{
+    text-align: left;
+    background-color: #0b0b00;
+}
+
+.information li{
+    list-style: none;
+}
+
 .notification-success {
     background-color: #0b0b0b;
     color: white;

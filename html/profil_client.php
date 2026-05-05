@@ -107,35 +107,55 @@ if ($_SESSION["role"] == "Client"){
         else if ($_SESSION["role"] == "admin"){
             $client = $clients[$_GET["id"]];
             $client["programme-fidelite"] = donner_grade($client["total-fidelite"]);
-        }
-        echo '<div class="contenent">';
-        echo "<p id='nom'>Bienvenue " . $client["nom"] . " " . $client["prenom"] . "</p>";
-        echo "<div id='fidelite'><span>Programme " . $client["programme-fidelite"] . "</span><span>Nombre de points : ". $client["pts-fidelite"] . "</span></div>";
-        echo "</div>";
+        }?>
 
+        <div class="contenent">
+            <p id='nom'>Bienvenue  <?=$client["nom"] . " " . $client["prenom"]?> </p>
+            <div id='fidelite'><span>Programme <?=$client["programme-fidelite"] . "</span><span>Nombre de points : ". $client["pts-fidelite"]?> </span></div>
+            <div class="information">
+                <p>Informations : </p>
+                <ul>
+                    <li>Nom : <?= $clients[$_SESSION["email"]]["nom"] ?></li>
+                    <li>Prénom : <?=$clients[$_SESSION["email"]]["prenom"] ?></li>
+                    <li>Email : <?=$clients[$_SESSION["email"]]["contact"]["adresse email"] ?></li>
+                    <li>Adresse : <?=$clients[$_SESSION["email"]]["contact"]["adresse"]?></li>
+                    <li>Téléphone : <?=$clients[$_SESSION["email"]]["contact"]["téléphone"]?></li>
+                </ul>
+            </div>
+        </div>
+
+        <?php
         if (!empty($_SESSION["derniers-plats"])){
             echo "<div class='contenent'>";
             echo "<h2>Historique des dernières commandes</h2>";
             echo "<nav>";
                 foreach ($_SESSION["derniers-plats"] as $cmd) {
-                $cmd_complette = récupérer_commande($cmd);
-                echo "<div class='cmd-bloc'>";
-                //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>"; 
-                    foreach ($cmd_complette["plats"] as $cat) {
-                        if (isset($cat)) {
-                            echo "<li><span>" . htmlspecialchars($cat["nom"]) . " </span>";
-                            echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
+                    $cmd_complette = récupérer_commande($cmd);
+                    echo "<div class='cmd-bloc'>";
+                    //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>"; 
+                    
+                        foreach ($cmd_complette["plats"] as $cat) {
+                            if (isset($cat)) {
+                                echo "<li class='cmd-list'><span>" . htmlspecialchars($cat["nom"]) . " </span>";
+                                echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
+                            }
+                            echo "<hr>";
                         }
-                        echo "<hr>";
-                    }
-                        echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";
-                echo "</div>";
-                }
+                            echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";?>
+                            <button onclick="envoyerPanier('<?=strtoupper($cmd)?>')" class='btn-suivi'>Recommander</button>
+                    </div>
+                <?php }
             echo "</nav>";
             echo "<a href='suivi_commande.php'><button class='btn-suivi'>Suivre ma dernière commande</button></a>";
         }
         ?>
-            
+        <script>
+            function envoyerPanier(id){
+                if (id.length == 0) return;
+                const url = "panier.php?id_cmd="+id;
+                window.location = url;
+            }
+        </script>
         </div>
         <div class="contenent">
             <h2>Nos suggestions</h2>
