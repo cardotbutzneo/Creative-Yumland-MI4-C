@@ -6,6 +6,11 @@ require_once __DIR__."/../serveur.php";
 $txt = lire_data("../data/langue.json");
 
 $text = $txt[($_COOKIE["langue"]) ?? "fr"];
+
+$isFrench = false;
+if (isset($_COOKIE["langue"])){
+    $isFrench = ($_COOKIE["langue"] == "fr");
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,11 +28,18 @@ $text = $txt[($_COOKIE["langue"]) ?? "fr"];
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page" ?></a></li>
+            <li><a href="restaurant.php"><?php if ($isFrench) echo "Le restaurant"; else echo "The restaurant" ?></a></li>
+            <li><a href="chef.php"><?php if ($isFrench) echo "Le chef"; else echo "The chief" ?></a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><?php if (isset($_SESSION["connecte"]) and $_SESSION["connecte"] == true) echo '<a href="connexion.php">Profil</a>'; else echo '<a href="connexion.php">se connecter</a>'?></li>
+            <?php if (isset($_SESSION["connecte"]) and $_SESSION["connecte"] == true){
+                ($isFrench) ? $txt_profil = "Profil" : $txt_profil = "Profile";
+            } 
+            else {
+                ($isFrench) ? $txt_profil = "Se connecter" : $txt_profil = "Log in";
+            }
+            ?>
+            <li><a href="connexion.php"><?= $txt_profil ?></a></li>
             <?php require_once "../api/get_accessibilite.php" ?>
         </ul>
     </nav>

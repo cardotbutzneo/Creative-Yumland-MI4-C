@@ -33,6 +33,7 @@ if (isset($_GET["id_cmd"])){
     $id_cmd = $_GET["id_cmd"];
     $commande = récupérer_commande($id_cmd);
     
+    $total_panier = 0;
     for ($i=0;$i<count($commande["plats"]);$i++){
         $id_plat = $commande["plats"][$i]["nom"];
         if (isset($paniers[$email]["articles"][$id_plat])) {
@@ -48,8 +49,9 @@ if (isset($_GET["id_cmd"])){
                 ];
             }
         }
+        $total_panier += $plat["prix"];
     }
-    $paniers[$email]["total"] = count($commande["plats"]);
+    $paniers[$email]["total"] = $total_panier;
     sauvegarder($a, $paniers);
 }
 

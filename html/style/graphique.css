@@ -1,48 +1,153 @@
-:root{
-    --global-font-size : 16px
+:root {
+    --global-font-size: 16px;
+    --gold: #C5A021;
+    --gold-dim: rgba(197, 160, 33, 0.25);
 }
 
-body{
-    font-size: var(--global-font-size,medium);
+body {
+    font-size: var(--global-font-size, medium);
 }
 
-.img-accessibilite{
+/* Bouton déclencheur */
+.btn-accessibilite {
+    background: #111;
+    border: 1px solid var(--gold-dim);
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    padding: 0;
+}
+
+.btn-accessibilite:hover {
+    border-color: var(--gold);
+    background: #1a1a0a;
+}
+
+.img-accessibilite {
     width: 20px;
+    /*filter: invert(70%) sepia(60%) saturate(400%) hue-rotate(5deg);*/
 }
 
-body .img-accessibilite{
-    text-align: right;
-}
+/* Panneau principal */
+.div-accessibilite {
+    background: #111;
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 280px;
 
-.div-accessibilite{
-    text-align: center;
-    background-color: gray;
-    border: 1px black solid;
-    border-radius: 10px;
-    padding: 15px;
-
-    margin-top: 40px ;
-    margin-right: 10px;
-    right: 0;
-    letter-spacing: 2px;
     position: absolute;
+    top: 70px;
+    right: 10px;
+    z-index: 1000;
+
+    /*font-family: 'Montserrat', sans-serif;*/
 }
 
-.forms{
-    display: grid;
-    grid-column: span 2;
-    grid-template-columns: 1fr 1fr;
-    gap : 10px;
+/* En-tête du panneau */
+.title-acc {
+    /*font-family: 'Playfair Display', serif;*/
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--gold-dim);
+    margin: 0;
 }
 
-.taille-police, .theme{
-    display: inline;
+/* Corps du panneau */
+.forms {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.langue button{
-    background-color: green;
-    border-radius: 10px;
+/* Labels de section */
+.taille-police > p,
+.theme > p {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 10px;
+}
+
+/* Groupes de radios */
+.taille-police form,
+.forms form {
+    display: flex;
+    gap: 8px;
+}
+
+.taille-police form label,
+.forms form label {
+    flex: 1;
+    text-align: center;
+    padding: 7px 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+}
+
+.taille-police form input[type="radio"],
+.forms form input[type="radio"] {
+    display: none;
+}
+
+.taille-police form input[type="radio"]:checked + label,
+.forms form input[type="radio"]:checked + label {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(197, 160, 33, 0.07);
+}
+
+/* Séparateur */
+.taille-police,
+.theme {
+    border-top: 1px solid var(--gold-dim);
+    padding-top: 16px;
+    list-style: none;
+}
+
+.taille-police:first-child,
+.theme:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* Bouton surprise */
+.theme button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+}
+
+.theme button:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(197, 160, 33, 0.05);
 }
 
 .title-acc {

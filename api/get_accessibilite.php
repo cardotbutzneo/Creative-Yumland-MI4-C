@@ -20,26 +20,28 @@
     <p class='title-acc'>Accessibilité</p>
     <div class="forms">
         <ul class='taille-police'>
-        <p>Taille de police</p>
-        <form onchange='trouverTaille()'>
-            <label for='12'>Petite</label>
-            <input type='radio' name='police' id='12'>
-            <label for='16'>Moyenne</label>
-            <input type='radio' name='police' id='16'>
-            <label for='24'>Grande</label>
-            <input type='radio' name='police' id='24'>
-        </form>
-        <p>Langue</p>
-        <form onchange='changerLangue()'>
-            <label for='fr'>Français</label>
-            <input type='radio' name='langue' id='fr' <?php if ($_COOKIE["langue"] == "fr") echo "checked" ?>>
-            <label for='en'>English</label>
-            <input type='radio' name='langue' id='en' <?php if ($_COOKIE["langue"] == "en") echo "checked" ?>>
-        </form>
+            <p>Taille de police</p>
+            <form onchange='trouverTaille()'>
+                <input type='radio' name='police' id='12'>
+                <label for='12'>Petite</label>
+                <input type='radio' name='police' id='16'>
+                <label for='16'>Moyenne</label>
+                <input type='radio' name='police' id='24'>
+                <label for='24'>Grande</label>
+            </form>
         </ul>
-        <ul class='theme'>
+        <ul class="taille-police">
+            <p>Langue</p>
+            <form onchange='changerLangue()'>
+                <input type='radio' name='langue' id='fr' <?php if ($_COOKIE["langue"] == "fr") echo "checked" ?>>
+                <label for='fr'>Français</label>
+                <input type='radio' name='langue' id='en' <?php if ($_COOKIE["langue"] == "en") echo "checked" ?>>
+                <label for='en'>English</label>
+            </form>
+        </ul>
+        <ul class="theme">
             <p>Wanna see something special ?</p>
-            <button onclick="changerTheme()">Click here</button>
+            <button class="btn-accessibilite" onclick="changerTheme()">Click here</button>
         </ul>
     </div>
 </div>
