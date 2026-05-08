@@ -1,12 +1,7 @@
 <?php
-session_start();
+require_once __DIR__."/../api/config.php";
 
-require_once __DIR__."/../serveur.php";
-
-if(!isset($_SESSION["connecte"]) or $_SESSION["role"] != "admin"){
-    header("Location: profil_client.php?error=unauthorized");
-    exit;
-}
+verifier_connexion($role, "admin");
 
 $data = lire_data("../data/client.json");
 
@@ -43,6 +38,7 @@ $recherche = $_GET['recherche'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/profil_admin.css">
+    <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
     <title>Profil Admin - L'oro di Cicerone</title>
 </head>
@@ -56,6 +52,24 @@ $recherche = $_GET['recherche'] ?? '';
             </ul>
         </nav>
     </header>
+    <div class="notification" id="notification" style="display : none">
+        <div class="notification-header">
+            <span class="notification-titre">Notification</span>
+            <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
+        </div>
+        <p class="notification-body">
+            Désolé l'utilisateur saisi n'a pas pu être atteint.
+        </p>
+        <div class="notification-barre">
+            <div class="notification-barre-fill"></div>
+        </div>
+    </div>
+    <?php 
+    if (isset($_GET["gt"]) && $_GET["gt"] == "false"){?>
+        <script>
+            document.getElementById('notification').style.display = "block";
+        </script>
+    <?php } ?>
     <h1>Page d'administration</h1>
     <div class="grid">
         <section class="graphique">

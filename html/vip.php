@@ -1,14 +1,8 @@
-<?php session_start(); 
+<?php 
 
-require_once __DIR__."/../serveur.php";
+require_once __DIR__."/../api/config.php";
 
-if (!isset($_SESSION["connecte"]) or $_SESSION["connecte"] !== true or !isset($_SESSION["role"]) or ($_SESSION["role"] !== "Client") and $_SESSION["role"] !== "admin"){
-    header("Location: connexion.php?error=unauthorized");
-    exit;
-}
-
-$aujourdhui = date("Y-m-d");
-$demain = date("Y-m-d",strtotime("+1 day"));
+verifier_connexion($role,"Client");
 
 if (!empty($_POST)){
     if (isset($_POST["chauffeur"]) && $_SESSION["pts-fidelite"] >= 500){ 

@@ -1,16 +1,19 @@
-<?php session_start();
+<?php 
 
-if (!isset($_SESSION["email"]) or ($_SESSION["role"] != "Client" and $_SESSION["role"] != "admin")){
-    header("Location: connexion.php?error=unauthorized");
+require_once __DIR__."/../api/config.php";
+
+verifier_connexion($role,"Client");
+
+if ($_SESSION["role"] === "admin" && !isset($_GET["id"])){
+    header("Location: profil_admin.php?gt=false");
     exit;
 }
 
-require_once __DIR__."/../serveur.php";
-
-est_banni(); // a appeller sur chaque fichier client
-
 $plats = ["entree" => [], "plats" => [], "dessert" => [], "cafe" => []];
+
 $data = lire_data("../data/plats.json");
+$clients = lire_data("../data/client.json");
+
 foreach ($data as $nom_plat => $plat){
     if ($nom_plat == "Allergenes") continue;
     $cat = $plat["categorie"];
@@ -33,6 +36,26 @@ foreach ($data as $nom_plat => $plat){
 }
 if ($_SESSION["role"] == "Client"){
     $pts = $_SESSION["total-fidelite"] ?? 0;
+
+    if ($pts < 500) {
+        $class = "grade-amethyste";
+        $max = 500;
+        $nom_grade = "Améthyste";
+    }
+    elseif ($pts >= 500 and $pts < 1200) {
+        $class = "grade-rubis";
+        $max = 1200;
+        $nom_grade = "Rubis";
+    }
+    else {
+        $class = "grade-or";
+        $max = 1200;
+        $nom_grade = "Buisson-Or";
+    }
+    $_SESSION["programme-fidelite"] = $nom_grade;
+}
+else if ($_SESSION["role"] == "admin"){
+    $pts = $clients[$_GET["id"]]["total-fidelite"] ?? 0;
 
     if ($pts < 500) {
         $class = "grade-amethyste";
@@ -100,11 +123,10 @@ if ($_SESSION["role"] == "Client"){
 
     <section>
         <?php
-        $clients = lire_data("../data/client.json");
-        if ($_SESSION["role"] == "Client"){
+        if ($_SESSION["role"] === "Client"){
             $client = $_SESSION;
         }
-        else if ($_SESSION["role"] == "admin"){
+        else if ($_SESSION["role"] === "admin"){
             $client = $clients[$_GET["id"]];
             $client["programme-fidelite"] = donner_grade($client["total-fidelite"]);
         }?>
@@ -115,11 +137,11 @@ if ($_SESSION["role"] == "Client"){
             <div class="information">
                 <p>Informations : </p>
                 <ul>
-                    <li>Nom : <?= $clients[$_SESSION["email"]]["nom"] ?></li>
-                    <li>Prénom : <?=$clients[$_SESSION["email"]]["prenom"] ?></li>
-                    <li>Email : <?=$clients[$_SESSION["email"]]["contact"]["adresse email"] ?></li>
-                    <li>Adresse : <?=$clients[$_SESSION["email"]]["contact"]["adresse"]?></li>
-                    <li>Téléphone : <?=$clients[$_SESSION["email"]]["contact"]["téléphone"]?></li>
+                    <li>Nom : <?= $client["nom"] ?></li>
+                    <li>Prénom : <?=$client["prenom"] ?></li>
+                    <li>Email : <?=$client["contact"]["adresse email"] ?></li>
+                    <li>Adresse : <?=$client["contact"]["adresse"]?></li>
+                    <li>Téléphone : <?=$client["contact"]["téléphone"]?></li>
                 </ul>
             </div>
         </div>

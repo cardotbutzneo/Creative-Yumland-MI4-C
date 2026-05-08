@@ -1,14 +1,9 @@
 <?php
 session_start();
 
-require_once __DIR__."/../serveur.php";
+require_once __DIR__."/../api/config.php";
 
-if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "Cuisinier" and $_SESSION["role"] != "admin")){
-    header("Location: connexion.php?error=unauthorized");
-    exit;
-}
-
-$_SESSION["derniere-connexion"] = time();
+verifier_connexion($role,"Cuisinier");
 
 ?>
 <!DOCTYPE html>
@@ -18,11 +13,13 @@ $_SESSION["derniere-connexion"] = time();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/commandes.css">
+    <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
     <script src="../javascript/commande.js" defer></script>
     <title>Commandes - L'oro di Cicerone</title>
 </head>
 <body>
+    <input type="hidden" id="nb-cmd" data-nb_cmd="<?= count(lire_data("../data/commandes.json")) ?>">
     <header>
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
@@ -38,6 +35,18 @@ $_SESSION["derniere-connexion"] = time();
             <input type="submit" name="id_cmd">
         </form>
     </div>
+    <div class="notification" id="notification" style="display : none">
+        <div class="notification-header">
+            <span class="notification-titre">Notification</span>
+            <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
+        </div>
+        <p class="notification-body">
+            Nouvelle commande disponible.
+        </p>
+        <div class="notification-barre">
+            <div class="notification-barre-fill"></div>
+        </div>
+    </div>
 
     <div id="liste-commandes">
         <p>Chargement des commandes...</p>
@@ -45,10 +54,13 @@ $_SESSION["derniere-connexion"] = time();
 
     <script>
         async function chargerCommandes() {
+            let nCmd = document.querySelector("#nb-cmd");
+            let n = nCmd.dataset.nb_cmd;
             try{
                 const reponse = await fetch("../api/get_new_commande.php");
-                const data = await reponse.json();
-                renderCommandes(data);
+                const data =  await reponse.json();
+                console.log("nombre de commande : " + n);
+                renderCommandes(data, n);
             }
             catch (e){
                 console.log("Erreur :" + e);
@@ -57,7 +69,7 @@ $_SESSION["derniere-connexion"] = time();
 
         // chargement des commandes au démarages
         chargerCommandes();
-        setInterval(chargerCommandes(),10000);
+        setInterval(chargerCommandes,10000);
     </script>
 </body>
 </html>

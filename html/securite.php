@@ -1,12 +1,8 @@
 <?php 
-session_start();
 
-require_once __DIR__."/../serveur.php";
+require_once __DIR__."/../api/config.php";
 
-if (!isset($_SESSION["email"])){
-    header("Location: profil_client.php?error=unauthorized");
-    exit;
-}
+verifier_connexion($role,"Client");
 
 $verif = false;
 $verif_mdp = false;

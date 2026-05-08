@@ -1,95 +1,98 @@
-function renderCommandes(data) {
-	const conteneur = document.getElementById("liste-commandes");
+let bouton_courant;
+
+function renderCommandes(data, n) {
+	const conteneurPrincipal = document.getElementById("liste-commandes");
 	const aujourdhui = new Date();
-	conteneur.innerHTML = "";
+	conteneurPrincipal.innerHTML = "";
 
-	const createSection = (titre) => {
-		const det = document.createElement("details");
-		det.open = true;
-		const sum = document.createElement("summary");
-		sum.innerHTML = `<h2>${titre}</h2>`;
-		det.appendChild(sum);
-		return det;
-	};
+	// 1. Création de la barre de navigation (Boutons)
+	const nav = document.createElement("nav");
+	nav.className = "tabs-nav";
 
-	// Fonction utilitaire pour créer une section formatée
-	function creerConteneur() {
-		const sect = document.createElement("section");
-		sect.className = "colonne-commandes";
-		return sect;
-	}
+	const categories = [
+		{ id: "payee", titre: "Payées", color: "#4CAF50" },
+		{ id: "preparation", titre: "En préparation", color: "#FF9800" },
+		{ id: "prete", titre: "Prêtes", color: "#2196F3" },
+		{ id: "differee", titre: "Différées", color: "#9C27B0" },
+	];
 
-	// Création des catégories avec leurs propres sections internes
-	const commandeDifferee = createSection("Commandes différées");
-	const zoneDifferee = creerConteneur();
-	commandeDifferee.appendChild(zoneDifferee);
+	// 2. Création des conteneurs de colonnes
+	const zones = {};
 
-	const commandePayee = createSection("Commandes payées");
-	const zonePayee = creerConteneur();
-	commandePayee.appendChild(zonePayee);
+	categories.forEach((cat) => {
+		// Création du bouton
+		const btn = document.createElement("button");
+		btn.textContent = cat.titre;
+		btn.className = "btn-selector";
+		btn.dataset.statut = cat.id;
+		btn.style.backgroundColor = cat.color;
+		btn.style.opacity = 0.5;
+		btn.onclick = () => afficherCategorie(cat.id);
+		nav.appendChild(btn);
 
-	const commandeEnPreparation = createSection("Commandes en préparation");
-	const zoneEnPrep = creerConteneur();
-	commandeEnPreparation.appendChild(zoneEnPrep);
-
-	const commandePreparee = createSection("Commandes prêtes");
-	const zonePrete = creerConteneur();
-	commandePreparee.appendChild(zonePrete);
-
-	Object.keys(data).forEach((hash) => {
-		const commande = data[hash];
-
-		if (!commande["est-valide"]) return;
-
-		const dateLivraison = commande["date_livraison"]
-			? new Date(commande["date_livraison"])
-			: aujourdhui;
-		let flag = false;
-		if (dateLivraison != aujourdhui) flag = true;
-		if (!dateLivraison) return;
-
-		const diffMs = dateLivraison - aujourdhui;
-		const diffHeures = diffMs / (1000 * 60 * 60);
-		const diffJours = diffHeures / 24;
-
-		const block = document.createElement("div");
-
-		block.className = "block";
-
-		block.innerHTML = `
-                <button class='btn-cmd' onclick="finirCommande('${hash}','${commande.etat}')">Finir la commande</button>
-                <p style='display : ${flag ? "block" : "none"} '>A livrer avant : ${dateLivraison.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</p>
-                <span class='commande'>
-                    <p>ID : ${commande.numero}</p>
-                    <p class='statut' data-stat='${commande.etat}' >Statut : ${commande.etat}</p>
-                </span>
-                <span class='commande'>
-                    <p>Date de livraison : ${dateLivraison.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</p>
-                </span>
-                <div>
-                    <ul>
-                        ${commande.plats.map((p) => `<li>${p.nom} x${p.quantite}</li>`).join("")}
-                    </ul>
-                </div>
-                ${commande.instructions ? `<p id='Complement'>${commande.instructions}</p>` : ""}
-            `;
-		if (commande.etat == "payee") {
-			zonePayee.appendChild(block);
-			block.querySelector(".btn-cmd").textContent =
-				"Accepter la commande";
-		} else if (commande.etat == "en preparation") {
-			zoneEnPrep.appendChild(block);
-		} else if (commande.etat == "preparee") {
-			zonePrete.appendChild(block);
-			block.querySelector(".btn-cmd").style.display = "none";
-		}
-		if (flag) zoneDifferee.appendChild(block);
+		// Création de la zone de contenu
+		const zone = document.createElement("section");
+		zone.id = `zone-${cat.id}`;
+		zone.className = "colonne-commandes";
+		zone.style.display = "none"; // Caché par défaut
+		zones[cat.id] = zone;
 	});
 
-	conteneur.appendChild(commandePayee);
-	conteneur.appendChild(commandeDifferee);
-	conteneur.appendChild(commandeEnPreparation);
-	conteneur.appendChild(commandePreparee);
+	conteneurPrincipal.appendChild(nav);
+	Object.values(zones).forEach((z) => conteneurPrincipal.appendChild(z));
+
+	let i = 0;
+	Object.keys(data).forEach((hash) => {
+		const commande = data[hash];
+		if (!commande["est-valide"]) return;
+
+		const block = document.createElement("div");
+		block.className = "block";
+		let action,
+			affichage = "grid";
+		if (commande.etat == "payee") action = "Accepter la commande";
+		else if (commande.etat == "en preparation")
+			action = "Prendre la commande";
+		else affichage = "none";
+
+		block.innerHTML = `
+            <button class='btn-cmd' onclick="finirCommande('${hash}','${commande.etat}')" style='diplay: ${affichage}'>${action}</button>
+            <span class='commande'><p>ID : ${commande.numero}</p></span>
+            <ul>${commande.plats.map((p) => `<li>${p.nom} x${p.quantite}</li>`).join("")}</ul>
+			${commande.instructions ? `<p id='Complement'>Complement : ${commande.instructions}</p>` : ""}
+        `;
+
+		if (commande.etat === "payee") zones["payee"].appendChild(block);
+		else if (commande.etat === "en preparation")
+			zones["preparation"].appendChild(block);
+		else if (commande.etat === "preparee")
+			zones["prete"].appendChild(block);
+		const dateLivraison = new Date(commande["date_livraison"]);
+		if (dateLivraison > aujourdhui) zones["differee"].appendChild(block);
+		i += 1;
+	});
+	if (i > n) {
+		document.getElementById("notification").style.display = "block";
+	}
+
+	function afficherCategorie(id) {
+		Object.values(zones).forEach((z) => (z.style.display = "none"));
+		zones[id].style.display = "grid";
+		let btns = document.querySelectorAll(".btn-selector");
+		Object.values(btns).forEach((v) => {
+			if (v.dataset.statut == id) {
+				v.style.opacity = 1;
+				bouton_courant = v.dataset.statut;
+			} else v.style.opacity = 0.5;
+		});
+	}
+
+	afficherCategorie(bouton_courant ?? "payee");
+
+	categories.forEach((cat) => {
+		if (zones[cat.id].innerHTML == "")
+			zones[cat.id].innerHTML = "<p>Aucune commande en attente</p>";
+	});
 }
 
 async function finirCommande(hash, etat) {

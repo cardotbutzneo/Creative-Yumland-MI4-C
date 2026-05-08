@@ -92,4 +92,12 @@ function est_banni(){
         exit;
     }
 }
+
+function verifier_connexion(string $role, string $role_autoriser){
+    if ($role != $role_autoriser and $role != "admin"){
+        header("Location: connexion.php?error=unauthorized");
+        exit;
+    }
+}
+
 ?>
