@@ -20,6 +20,7 @@ if (isset($_COOKIE["langue"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/notification.css">
+    <link rel="stylesheet" href="style/chatbot.css">
     <title>L'oro di Cicerone</title>
     
 </head>
@@ -110,6 +111,6 @@ if (isset($_COOKIE["langue"])){
     <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
     <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
 </footer>
-
+<script src="../javascript/chatbot.js"></script>
 </body>
 </html>
