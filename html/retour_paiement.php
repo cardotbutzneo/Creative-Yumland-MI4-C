@@ -16,7 +16,7 @@ function sauvegarder_data(string $chemin, array $data): void {
 function generer_id(array $tab): string {
     do {
         $id = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 8));
-    } while (isset($tab[$id])); 
+    } while (isset($tab[$id]));
     return $id;
 }
 
@@ -32,70 +32,81 @@ $control = $_GET["control"] ?? '';
 $email = $_SESSION["email"];
 $api_key = getAPIKey($vendeur);
 
-$hash = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#accepted#");
-$hash1 = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#refused#");
+$hash_accepted = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#accepted#");
+$hash_refused  = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#refused#");
 
 $paiement_valide = false;
 $statut_reel = "denied";
 
-if ($control === $hash) {
+if ($control === $hash_accepted) {
     $paiement_valide = true;
     $statut_reel = "accepted";
-} elseif ($control === $hash1) {
+} elseif ($control === $hash_refused) {
     $paiement_valide = true;
     $statut_reel = "refused";
 }
 
-if ($paiement_valide) {
-    $paniers = lire_data($chemin_paniers);
-    if (isset($paniers[$email])) {
-        $paniers[$email]["articles"] = [];
-        $paniers[$email]["total"] = 0;
-        sauvegarder_data($chemin_paniers, $paniers);
-    }
+if ($paiement_valide && $statut_reel === "accepted") {
     $commandes = lire_data($chemin_commandes);
     $clients = lire_data($chemin_clients);
-    if ($statut_reel === "accepted") {
-        if (isset($_SESSION["commande_en_attente"])) {
-            $nv_id = generer_id($commandes);
-            $nv = $_SESSION["commande_en_attente"];
-            $nv["est-valide"] = true;
-            $nv["etat"] = "payee";
-            $nv["numero"] = str_pad(count($commandes) + 1, 8, "0", STR_PAD_LEFT);
-            $commandes[$nv_id] = $nv;
+
+    if (strpos($transaction, 'MOD') === 0 && isset($_SESSION["modif_commande"])) {
+        $m = $_SESSION["modif_commande"];
+        $id_cle = $m["id_cle"];
+        if (isset($commandes[$id_cle])) {
+            $commandes[$id_cle]["plats"] = $m["plats"];
+            $commandes[$id_cle]["montant"] = number_format((float)$m["total"], 2, '.', '');
+            $commandes[$id_cle]["deja_modifie"] = true;
+
             sauvegarder_data($chemin_commandes, $commandes);
-            if (isset($clients[$email])) {
-                if (!isset($clients[$email]["dernieres_commandes"])) {
-                    $clients[$email]["dernieres_commandes"] = [];
-                }
-                array_unshift($clients[$email]["dernieres_commandes"], $nv_id);
-                $clients[$email]["dernieres_commandes"] = array_slice($clients[$email]["dernieres_commandes"], 0, 10);
-                $_SESSION["derniers-plats"] = $clients[$email]["dernieres_commandes"]; // on met a jours la session avec les nv plats
-                $nv_pts = calculer_points($commandes[$nv_id]["montant"],$clients[$email]["total-fidelite"]);
-                $_SESSION["total-fidelite"] += $nv_pts;
-                $_SESSION["pts-fidelite"] += $nv_pts;
-                $clients[$email]["total-fidelite"] += $nv_pts;
-                $clients[$email]["pts-fidelite"] += $nv_pts;
-                sauvegarder_data($chemin_clients, $clients);
-            }
-            $id_affichage = $nv["numero"];
-            unset($_SESSION["commande_en_attente"]); 
-        } else {
-            if (isset($clients[$email]["dernieres_commandes"][0])) {
-                $derniere_cle = $clients[$email]["dernieres_commandes"][0];
-                $id_affichage = $commandes[$derniere_cle]["numero"] ?? "Inconnu";
-            } else {
-                $id_affichage = "En cours...";
-            }
+            $id_affichage = $commandes[$id_cle]["numero"];
+            unset($_SESSION["modif_commande"]);
         }
+
+    } elseif (isset($_SESSION["commande_en_attente"])) {
+        $nv_id = generer_id($commandes);
+        $nv = $_SESSION["commande_en_attente"];
+        $nv["est-valide"] = true;
+        $nv["etat"] = "payee";
+        $nv["numero"] = str_pad(count($commandes) + 1, 8, "0", STR_PAD_LEFT);
+
+        $commandes[$nv_id] = $nv;
+        sauvegarder_data($chemin_commandes, $commandes);
+
+        $paniers = lire_data($chemin_paniers);
+        if (isset($paniers[$email])) {
+            $paniers[$email]["articles"] = [];
+            $paniers[$email]["total"] = 0;
+            sauvegarder_data($chemin_paniers, $paniers);
+        }
+
+        if (isset($clients[$email])) {
+            if (!isset($clients[$email]["dernieres_commandes"])) {
+                $clients[$email]["dernieres_commandes"] = [];
+            }
+            array_unshift($clients[$email]["dernieres_commandes"], $nv_id);
+            $clients[$email]["dernieres_commandes"] = array_slice($clients[$email]["dernieres_commandes"], 0, 10);
+
+            if (function_exists('calculer_points')) {
+                $pts = calculer_points($nv["montant"], $clients[$email]["total-fidelite"]);
+                $clients[$email]["total-fidelite"] += $pts;
+                $clients[$email]["pts-fidelite"] += $pts;
+                $_SESSION["total-fidelite"] = $clients[$email]["total-fidelite"];
+                $_SESSION["pts-fidelite"] = $clients[$email]["pts-fidelite"];
+            }
+            sauvegarder_data($chemin_clients, $clients);
+        }
+        $id_affichage = $nv["numero"];
+        unset($_SESSION["commande_en_attente"]);
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Retour paiement - L'oro di Cicerone</title>
+    <title>Retour paiement — L'oro di Cicerone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/retour_paiement.css">
@@ -115,28 +126,31 @@ if ($paiement_valide) {
 
     <main class="status-container">
         <div class="status-card">
-            <?php if (!$paiement_valide) { ?>
+            <?php if (!$paiement_valide || $statut_reel === "denied") { ?>
                 <div class="icon error">✕</div>
-                <h2>Erreur de sécurité</h2>
-                <p>La signature de la transaction est invalide. Vos données n'ont pas pu être vérifiées.</p>
-                <div class="cta">
-                    <a href="panier.php">Retour au panier</a>
-                </div>
-            <?php } elseif ($statut_reel === "accepted") { ?>
-                <div class="icon success">✓</div>
-                <h2>Commande confirmée !</h2>
-                <?php $id_affichage = count($commandes); ?>
-                <p>Merci pour votre confiance. Votre commande n°<strong><?= $id_affichage ?></strong> est désormais en cuisine.</p>
-                <div class="cta">
-                    <a href="profil_client.php">Suivre ma commande</a>
-                </div>
-            <?php } else { ?>
-                <div class="icon refused">!</div>
+                <h2>Erreur</h2>
+                <p>Un problème est survenu lors du traitement de votre paiement.</p>
+                <div class="cta"><a href="panier.php">Retour au panier</a></div>
+
+            <?php } elseif ($statut_reel === "refused") { ?>
+                <div class="icon error">✕</div>
                 <h2>Paiement refusé</h2>
-                <p>La transaction a été déclinée par votre établissement bancaire.</p>
-                <div class="cta">
-                    <a href="panier.php">Réessayer le paiement</a>
-                </div>
+                <p>Votre paiement a été refusé par la banque. Votre commande n'a pas été modifiée.</p>
+                <?php if (isset($_SESSION["modif_commande"])) { ?>
+                    <div class="cta">
+                        <a href="modifier_commande.php?id=<?= htmlspecialchars($_SESSION["modif_commande"]["id_cle"]) ?>">
+                            Réessayer la modification
+                        </a>
+                    </div>
+                <?php } else { ?>
+                    <div class="cta"><a href="panier.php">Retour au panier</a></div>
+                <?php } ?>
+
+            <?php } else { ?>
+                <div class="icon success">✓</div>
+                <h2>Succès !</h2>
+                <p>Transaction validée. Votre commande n°<strong><?= htmlspecialchars($id_affichage ?? 'Inconnue') ?></strong> est enregistrée.</p>
+                <div class="cta"><a href="profil_client.php">Voir mes commandes</a></div>
             <?php } ?>
         </div>
     </main>

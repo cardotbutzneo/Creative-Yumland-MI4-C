@@ -75,6 +75,9 @@ else if ($_SESSION["role"] == "admin"){
     $_SESSION["programme-fidelite"] = $nom_grade;
 }
 
+// Lecture des commandes depuis le JSON pour avoir les montants à jour après modification
+$toutes_commandes = lire_data("../data/commandes.json");
+
 ?>
 
 <!DOCTYPE html>
@@ -147,15 +150,17 @@ else if ($_SESSION["role"] == "admin"){
         </div>
 
         <?php
-        if (!empty($_SESSION["derniers-plats"])){
+        $email_courant   = $_SESSION["email"] ?? '';
+        $historique_ids  = $clients[$email_courant]["dernieres_commandes"] ?? [];
+        if (!empty($historique_ids)){
             echo "<div class='contenent'>";
             echo "<h2>Historique des dernières commandes</h2>";
             echo "<nav>";
-                foreach ($_SESSION["derniers-plats"] as $cmd) {
-                    $cmd_complette = récupérer_commande($cmd);
+                foreach ($historique_ids as $cmd) {
+                    $id_upper = strtoupper($cmd);
+                    $cmd_complette = $toutes_commandes[$id_upper] ?? null;
+                    if (!$cmd_complette) continue;
                     echo "<div class='cmd-bloc'>";
-                    //echo "<p class='numero_cmd'>Commande : ".ltrim( $cmd_complette["numero"],"0")."</p>"; 
-                    
                         foreach ($cmd_complette["plats"] as $cat) {
                             if (isset($cat)) {
                                 echo "<li class='cmd-list'><span>" . htmlspecialchars($cat["nom"]) . " </span>";
@@ -163,8 +168,13 @@ else if ($_SESSION["role"] == "admin"){
                             }
                             echo "<hr>";
                         }
-                            echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";?>
-                            <button onclick="envoyerPanier('<?=strtoupper($cmd)?>')" class='btn-suivi'>Recommander</button>
+                        echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";?>
+                        <button onclick="envoyerPanier('<?=strtoupper($cmd)?>')" class='btn-suivi'>Recommander</button>
+                        <?php if ($cmd_complette["etat"] === "payee" && empty($cmd_complette["deja_modifie"])) { ?>
+                            <a href="modifier_commande.php?id=<?= htmlspecialchars($id_upper) ?>">
+                                <button class='btn-suivi'>Modifier ma commande</button>
+                            </a>
+                        <?php } ?>
                     </div>
                 <?php }
             echo "</nav>";
@@ -260,18 +270,12 @@ function generer_suggestions(array $plats, string $type) : ?array {
 function donner_grade(int $pts) : ?string{
     if ($pts < 0 ) return null;
     if ($pts < 500) {
-    $class = "grade-amethyste";
-    $max = 500;
-    $nom_grade = "Améthyste";
+        $nom_grade = "Améthyste";
     }
     elseif ($pts >= 500 and $pts < 1200) {
-        $class = "grade-rubis";
-        $max = 1200;
         $nom_grade = "Rubis";
     }
     else {
-        $class = "grade-or";
-        $max = 1200;
         $nom_grade = "Buisson-Or";
     }
     return $nom_grade;

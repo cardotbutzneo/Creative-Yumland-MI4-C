@@ -71,20 +71,21 @@
         },
         "role": "Client",
         "dernieres_commandes": [
+            "9EC3085E",
             "4FDBA8E1"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-05 20:46:32",
+            "derniere_connexion": "2026-05-11 19:58:54",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
             "remember_token_expiration": null
         },
-        "pts-fidelite": 176,
-        "total-fidelite": 176,
+        "pts-fidelite": 230,
+        "total-fidelite": 230,
         "livraison": false,
         "tel": "+33 "
     },

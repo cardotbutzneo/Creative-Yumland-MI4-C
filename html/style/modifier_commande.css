@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+/* ---------- Wrapper principal ---------- */
+.mc-wrapper {
+    max-width: 640px;
+    margin: 60px auto 80px;
+    padding: 0 20px;
+    font-family: 'Jost', sans-serif;
+}
+
+/* ---------- En-tête ---------- */
+.mc-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.mc-numero {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(201, 162, 77, 0.6);
+    margin-bottom: 10px;
+}
+
+.mc-numero span {
+    color: #c9a24d;
+}
+
+.mc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    font-style: italic;
+    color: #f5f0e8;
+    margin: 0 0 10px;
+    line-height: 1.1;
+}
+
+.mc-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.4);
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+/* ---------- Barre d'ajout ---------- */
+.mc-add-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+    align-items: stretch;
+}
+
+.mc-select {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(201, 162, 77, 0.25);
+    border-radius: 6px;
+    color: #f5f0e8;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 0 16px;
+    height: 46px;
+    outline: none;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a24d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+}
+
+.mc-select:focus {
+    border-color: rgba(201, 162, 77, 0.6);
+}
+
+.mc-select option {
+    background: #1a1610;
+    color: #f5f0e8;
+}
+
+.mc-btn-add {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #c9a24d;
+    color: #0e0c08;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 20px;
+    height: 46px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.mc-btn-add:hover {
+    background: #d9b25d;
+}
+
+.mc-btn-add:active {
+    transform: scale(0.97);
+}
+
+.mc-btn-add-icon {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1;
+    margin-top: -1px;
+}
+
+/* ---------- Liste des plats ---------- */
+.mc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.mc-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 8px;
+    padding: 16px 18px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.mc-item:hover {
+    border-color: rgba(201, 162, 77, 0.2);
+    background: rgba(201, 162, 77, 0.03);
+}
+
+.mc-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.mc-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #f5f0e8;
+    letter-spacing: 0.01em;
+}
+
+.mc-item-subtotal {
+    font-size: 15px;
+    font-weight: 500;
+    color: #c9a24d;
+    letter-spacing: 0.02em;
+}
+
+.mc-item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mc-qte-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.mc-qte-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid rgba(201, 162, 77, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.mc-qte-controls button {
+    background: transparent;
+    border: none;
+    color: #c9a24d;
+    font-size: 16px;
+    font-weight: 300;
+    width: 32px;
+    height: 30px;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jost', sans-serif;
+}
+
+.mc-qte-controls button:hover {
+    background: rgba(201, 162, 77, 0.12);
+}
+
+.qte-nb {
+    min-width: 28px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: #f5f0e8;
+    border-left: 1px solid rgba(201, 162, 77, 0.2);
+    border-right: 1px solid rgba(201, 162, 77, 0.2);
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    padding: 0 4px;
+}
+
+.mc-unit-hint {
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.3);
+    letter-spacing: 0.02em;
+}
+
+.mc-btn-remove {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: rgba(245, 240, 232, 0.35);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.mc-btn-remove:hover {
+    border-color: rgba(220, 80, 80, 0.5);
+    color: #e05a5a;
+    background: rgba(220, 80, 80, 0.06);
+}
+
+/* ---------- Résumé / Total ---------- */
+.mc-summary {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 22px;
+    margin-bottom: 28px;
+}
+
+.mc-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.mc-summary-main {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.5);
+}
+
+.mc-total-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: #f5f0e8;
+    letter-spacing: 0.02em;
+}
+
+.mc-diff-row {
+    display: flex;
+    padding: 10px 14px;
+    background: rgba(201, 162, 77, 0.07);
+    border: 1px solid rgba(201, 162, 77, 0.2);
+    border-radius: 6px;
+    font-size: 13px;
+    color: rgba(245, 240, 232, 0.6);
+}
+
+.mc-diff-amount {
+    font-weight: 500;
+}
+
+.mc-diff-up {
+    color: #c9a24d;
+}
+
+.mc-info-perdant {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.35);
+    font-style: italic;
+    text-align: center;
+    margin: 8px 0 0;
+    letter-spacing: 0.02em;
+}
+
+/* ---------- Actions ---------- */
+.mc-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.mc-btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 46px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(245, 240, 232, 0.45);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.mc-btn-cancel:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: rgba(245, 240, 232, 0.7);
+}
+
+.mc-btn-confirm {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 28px;
+    height: 46px;
+    border-radius: 6px;
+    border: none;
+    background: #c9a24d;
+    color: #0e0c08;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.mc-btn-confirm:hover {
+    background: #d9b25d;
+}
+
+.mc-btn-confirm:active {
+    transform: scale(0.97);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+    .mc-wrapper {
+        margin-top: 30px;
+    }
+    .mc-title {
+        font-size: 30px;
+    }
+    .mc-add-bar {
+        flex-direction: column;
+    }
+    .mc-btn-add {
+        justify-content: center;
+    }
+    .mc-actions {
+        flex-direction: column;
+    }
+    .mc-btn-cancel,
+    .mc-btn-confirm {
+        justify-content: center;
+        width: 100%;
+    }
+}
