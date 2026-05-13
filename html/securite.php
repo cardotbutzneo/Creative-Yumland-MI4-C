@@ -16,6 +16,7 @@ if (isset($_POST["password"])){
             $verif = true;
             $verif_mdp = true;
             $suppression = true;
+            ?><script>console.log(<?= $suppression ?>)</script><?php
         }
         else {
             echo "<p class='message-erreur'>Mot de passe incorrect.</p>";

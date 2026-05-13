@@ -15,7 +15,7 @@
             document.documentElement.style.setProperty('--global-font-size', taille);
         }
 
-        getFontSize('<?= htmlspecialchars($_COOKIE["taille_pref"]) ?>');
+        getFontSize('<?= htmlspecialchars($_COOKIE["taille_pref"] ?? "16px") ?>');
     </script>
     <p class='title-acc'>Accessibilité</p>
     <div class="forms">

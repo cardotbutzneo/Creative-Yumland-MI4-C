@@ -4,7 +4,7 @@
     --gold-dim: rgba(197, 160, 33, 0.25);
 }
 
-body {
+body *{
     font-size: var(--global-font-size, medium);
 }
 

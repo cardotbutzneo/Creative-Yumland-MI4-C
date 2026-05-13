@@ -20,15 +20,6 @@ if (isset($_POST["nvRole"])){
     $nvRole = $_POST["nvRole"];
     changer_role($user,$nvRole);
 }
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['role'])) {
-    $mail = $_POST['nom_utilisateur'];
-    $nouveauRole = $_POST['role'];  
-
-    changer_role($mail, $nouveauRole);
-}
-
-$recherche = $_GET['recherche'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +34,57 @@ $recherche = $_GET['recherche'] ?? '';
     <title>Profil Admin - L'oro di Cicerone</title>
 </head>
 <body>
+    <script>
+        function chercherUtilisateur(id){
+            if (id.length <= 0) {
+                const rows = document.querySelectorAll(".utilisateur");
+                rows.forEach(row => row.style.display = "");
+                return;
+            }
+            const rows = document.querySelectorAll(".utilisateur");
+            rows.forEach(row => {
+                if (row.dataset.mail === id) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        async function get_id() {
+            try {
+                const reponse = await fetch("../api/get_client.php", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' } // Corrigé : headers avec un 's'
+                });
+                const data = await reponse.json();
+                return data;
+            } catch (e) {
+                console.error("Erreur fetch:", e);
+                return {}; // Retourne un objet vide en cas d'erreur
+            }
+        }
+
+        function afficher_dataListe(dataId) {
+            if (!dataId || Object.keys(dataId).length === 0) return;
+            
+            const dataListe = document.getElementById("data-recherche");
+            dataListe.innerHTML = "";
+
+            Object.keys(dataId).forEach(id => {
+                const option = document.createElement('option');
+                option.value = id;
+                dataListe.appendChild(option);
+            });
+        }
+
+        async function init() {
+            var id_client = await get_id();
+            afficher_dataListe(id_client);
+        }
+        init();
+
+    </script>
     <header>
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
@@ -79,8 +121,11 @@ $recherche = $_GET['recherche'] ?? '';
         <section class="table-utilisateur">
             <h2>Utilisateurs</h2>
             <form action="profil_admin.php" method="get">
-            <input type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un utilisateur" value="<?php echo htmlspecialchars($recherche); ?>">    
-            <button type="submit">Rechercher</button>
+            <input list="data-recherche" type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un utilisateur" onchange="chercherUtilisateur(this.value)">    
+            <datalist id="data-recherche">
+
+            </datalist>
+            <button type="button" onclick="document.getElementById('bar-recherche').value = ''; chercherUtilisateur('')">Effacer</button>
             </form> 
             <table>
                 <tr>
@@ -91,12 +136,10 @@ $recherche = $_GET['recherche'] ?? '';
                     <th>Bloquer</th>
                 </tr>
                 <?php 
-                $recherche1 = strtolower($recherche);
                 $data = lire_data("../data/client.json");
                 foreach ($data as $client => $info){
                     $i = $info["id"];
                     $roleActuel = $info["role"];
-                    if ($recherche1 !== '' && strpos(strtolower($client), $recherche1) === false) continue;
                     if ($roleActuel == "admin") $ref = "profil_admin.php";
                     if ($roleActuel == "Client") $ref = "profil_client.php";
                     if ($roleActuel == "Cuisinier") $ref = "commandes.php";
@@ -104,7 +147,7 @@ $recherche = $_GET['recherche'] ?? '';
                     if ($info["securite"]["est_banni"] == false) $value = 'Bloquer';
                     else if ($info["securite"]["est_banni"] == true) $value = 'Débloquer';
                     ?>
-                        <tr>
+                        <tr class="utilisateur" data-mail="<?=$client?>">
                             <form method='POST'>
                                 <td><input type='hidden' name='nom_utilisateur' value=<?=$client?>><a href=<?=$ref . "?id=" . $client?>><?=$client?></a></td>
                                 <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>

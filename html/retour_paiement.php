@@ -1,13 +1,8 @@
 <?php
-session_start();
-
-if (!isset($_SESSION["connecte"])) {
-    header("Location: connexion.php");
-    exit;
-}
+require_once __DIR__."/../api/config.php";
+verifier_connexion($role,"Client");
 
 require('getapikey.php');
-require_once __DIR__."/../serveur.php";
 
 function sauvegarder_data(string $chemin, array $data): void {
     file_put_contents($chemin, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));

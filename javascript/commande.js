@@ -56,9 +56,13 @@ function renderCommandes(data, n) {
 		else affichage = "none";
 
 		block.innerHTML = `
-            <button class='btn-cmd' onclick="finirCommande('${hash}','${commande.etat}')" style='diplay: ${affichage}'>${action}</button>
+            <button class='btn-cmd' onclick="finirCommande('${hash}','${commande.etat}')" style='display: ${affichage}'>${action}</button>
             <span class='commande'><p>ID : ${commande.numero}</p></span>
-            <ul>${commande.plats.map((p) => `<li>${p.nom} x${p.quantite}</li>`).join("")}</ul>
+            <ul>${Object.values(commande.plats || {})
+				.map(
+					(details) => `<li>${details.nom} x${details.quantite}</li>`,
+				)
+				.join("")}</ul>
 			${commande.instructions ? `<p id='Complement'>Complement : ${commande.instructions}</p>` : ""}
         `;
 

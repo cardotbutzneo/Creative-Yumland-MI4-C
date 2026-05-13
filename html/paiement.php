@@ -1,13 +1,9 @@
 <?php
 require('getapikey.php');
-session_start();
 
-if (!isset($_SESSION["connecte"]) || $_SESSION["role"] !== "Client") {
-    header("Location: connexion.php");
-    exit();
-}
+require_once __DIR__."/../api/config.php";
+verifier_connexion($role,"Client");
 
-require_once __DIR__."/../serveur.php";
 $email = $_SESSION["email"];
 
 function lire_json(string $chemin): array {

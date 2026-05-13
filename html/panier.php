@@ -1,13 +1,8 @@
 <?php
-session_start();
-if(!isset($_SESSION["connecte"])){
-    header("Location: connexion.php?retour=panier.php");
-    exit;
-}
 
-require_once __DIR__."/../serveur.php";
+require_once __DIR__."/../api/config.php";
 
-date_default_timezone_set("Europe/Paris");
+verifier_connexion($role,"Client");
 
 $email = $_SESSION["email"];
 $a = "../data/paniers.json";
@@ -32,10 +27,16 @@ $paniers = lire_data($a);
 if (isset($_GET["id_cmd"])){
     $id_cmd = $_GET["id_cmd"];
     $commande = récupérer_commande($id_cmd);
+
+    if ($commande == null){
+        header("Location: profil_client.php?err=fetchFailed");
+        exit;
+    }
     
     $total_panier = 0;
-    for ($i=0;$i<count($commande["plats"]);$i++){
+    foreach ($commande["plats"] as $i => $plat_cmd) {
         $id_plat = $commande["plats"][$i]["nom"];
+        $plat = $commande["plats"][$i];
         if (isset($paniers[$email]["articles"][$id_plat])) {
             $paniers[$email]["articles"][$id_plat]["quantite"]++;
         } else {
@@ -49,7 +50,7 @@ if (isset($_GET["id_cmd"])){
                 ];
             }
         }
-        $total_panier += $plat["prix"];
+        $total_panier += $plat["prix"] * $plat_cmd["quantite"];
     }
     $paniers[$email]["total"] = $total_panier;
     sauvegarder($a, $paniers);

@@ -1,16 +1,7 @@
 <?php
-session_start();
 
-require_once __DIR__."/../serveur.php";
+require_once __DIR__."/../api/config.php";
 
-$txt = lire_data("../data/langue.json");
-
-$text = $txt[($_COOKIE["langue"]) ?? "fr"];
-
-$isFrench = false;
-if (isset($_COOKIE["langue"])){
-    $isFrench = ($_COOKIE["langue"] == "fr");
-}
 ?>
 
 <!DOCTYPE html>

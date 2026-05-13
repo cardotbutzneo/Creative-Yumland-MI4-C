@@ -117,17 +117,36 @@ $toutes_commandes = lire_data("../data/commandes.json");
             <div class="notification-barre-fill"></div>
         </div>
     </div>
+    <div class="notification" id="erreur" style="display : none">
+        <div class="notification-header">
+            <span class="notification-titre">Notification</span>
+            <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
+        </div>
+        <p class="notification-body">
+            Désolé, nous n'avons pas réussi à charger votre commade.
+        </p>
+        <div class="notification-barre">
+            <div class="notification-barre-fill"></div>
+        </div>
+    </div>
     <?php 
     if (isset($_GET["flag"]) && $_GET["flag"] == "success"){?>
         <script>
             document.getElementById('notification').style.display = "block";
+        </script>
+    <?php }
+    if (isset($_GET["err"]) && $_GET["err"] == "fetchFailed"){
+        ?>
+        <script>
+            document.getElementById('erreur').style.display = "block";
         </script>
     <?php } ?>
 
     <section>
         <?php
         if ($_SESSION["role"] === "Client"){
-            $client = $_SESSION;
+            $client = $clients[$_SESSION["email"]];
+            $client["programme-fidelite"] = donner_grade($client["total-fidelite"]);
         }
         else if ($_SESSION["role"] === "admin"){
             $client = $clients[$_GET["id"]];

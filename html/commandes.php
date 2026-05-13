@@ -15,7 +15,7 @@ verifier_connexion($role,"Cuisinier");
     <link rel="stylesheet" href="style/commandes.css">
     <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
-    <script src="../javascript/commande.js" defer></script>
+    <script src="../javascript/commande.js"></script>
     <title>Commandes - L'oro di Cicerone</title>
 </head>
 <body>
@@ -59,7 +59,6 @@ verifier_connexion($role,"Cuisinier");
             try{
                 const reponse = await fetch("../api/get_new_commande.php");
                 const data =  await reponse.json();
-                console.log("nombre de commande : " + n);
                 renderCommandes(data, n);
             }
             catch (e){

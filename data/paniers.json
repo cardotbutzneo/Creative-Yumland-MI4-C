@@ -4,7 +4,23 @@
         "total": 0
     },
     "client1@gmail.com": {
-        "articles": [],
-        "total": 0
+        "articles": {
+            "Carpaccio": {
+                "nom": "Carpaccio",
+                "prix": 32,
+                "quantite": 2
+            },
+            "Focaccia": {
+                "nom": "Focaccia",
+                "prix": 24,
+                "quantite": 1
+            },
+            "Burrata": {
+                "nom": "Burrata",
+                "prix": 29,
+                "quantite": 1
+            }
+        },
+        "total": 82
     }
 }
