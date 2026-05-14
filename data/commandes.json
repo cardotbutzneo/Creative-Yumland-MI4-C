@@ -187,7 +187,10 @@
         "montant": "85.00",
         "livraison": false,
         "est-valide": true,
-        "etat": "en preparation",
+        "etat": "notee",
+        "note_livraison": "4",
+        "note_produits": "5",
+        "commentaire": "Excellent repas, livraison rapide !",
         "plats": {
             "Carpaccio": {
                 "nom": "Carpaccio",

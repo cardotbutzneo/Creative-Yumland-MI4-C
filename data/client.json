@@ -19,7 +19,7 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-13 21:57:54",
+            "derniere_connexion": "2026-05-14 20:31:44",
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
@@ -47,9 +47,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-13 20:11:43",
+            "derniere_connexion": "2026-05-14 20:52:20",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
