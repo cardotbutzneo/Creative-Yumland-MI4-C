@@ -19,45 +19,58 @@ function sauvegarder(string $fichier, array $data): void {
     file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
-
 $action = $_GET["action"] ?? '';
 $id_plat = $_GET["id"] ?? '';
 $paniers = lire_data($a);
 
-if (isset($_GET["id_cmd"])){
+if (!isset($paniers[$email])) {
+    $paniers[$email] = ["articles" => [], "total" => 0];
+}
+
+if (isset($_GET["id_cmd"])) {
     $id_cmd = $_GET["id_cmd"];
     $commande = récupérer_commande($id_cmd);
 
-    if ($commande == null){
+    if ($commande == null) {
         header("Location: profil_client.php?err=fetchFailed");
         exit;
     }
-    
-    $total_panier = 0;
-    foreach ($commande["plats"] as $i => $plat_cmd) {
-        $id_plat = $commande["plats"][$i]["nom"];
-        $plat = $commande["plats"][$i];
-        if (isset($paniers[$email]["articles"][$id_plat])) {
-            $paniers[$email]["articles"][$id_plat]["quantite"]++;
+
+    $plats_catalogue = lire_data("../data/plats.json");
+    foreach ($commande["plats"] as $plat_cmd) {
+        $id_plat_cmd = $plat_cmd["nom"];
+        if (isset($paniers[$email]["articles"][$id_plat_cmd])) {
+            $paniers[$email]["articles"][$id_plat_cmd]["quantite"] += $plat_cmd["quantite"];
         } else {
-            $plats = lire_data("../data/plats.json");
-            $plat  = $plats[$id_plat] ?? null;
+            $plat = $plats_catalogue[$id_plat_cmd] ?? null;
             if ($plat !== null) {
-                $paniers[$email]["articles"][$id_plat] = [
+                $paniers[$email]["articles"][$id_plat_cmd] = [
                     "nom" => $plat["nom"],
                     "prix" => $plat["prix"],
-                    "quantite" => 1
+                    "quantite" => $plat_cmd["quantite"]
                 ];
             }
         }
-        $total_panier += $plat["prix"] * $plat_cmd["quantite"];
     }
-    $paniers[$email]["total"] = $total_panier;
+    $paniers[$email]["total"] = calcul($paniers[$email]["articles"]);
     sauvegarder($a, $paniers);
+    header("Location: panier.php");
+    exit;
 }
 
-if (!isset($paniers[$email])) {
-    $paniers[$email] = ["articles" => [], "total" => 0];
+if ($action === "set_qte" && $id_plat !== '' && isset($_GET["qte"])) {
+    $qte = (int)$_GET["qte"];
+    if (isset($paniers[$email]["articles"][$id_plat])) {
+        if ($qte > 0) {
+            $paniers[$email]["articles"][$id_plat]["quantite"] = $qte;
+        } else {
+            unset($paniers[$email]["articles"][$id_plat]);
+        }
+        $paniers[$email]["total"] = calcul($paniers[$email]["articles"]);
+        sauvegarder($a, $paniers);
+    }
+    http_response_code(200);
+    exit;
 }
 
 if ($action === "ajouter") {
@@ -65,7 +78,7 @@ if ($action === "ajouter") {
         $paniers[$email]["articles"][$id_plat]["quantite"]++;
     } else {
         $plats = lire_data("../data/plats.json");
-        $plat  = $plats[$id_plat] ?? null;
+        $plat = $plats[$id_plat] ?? null;
         if ($plat !== null) {
             $paniers[$email]["articles"][$id_plat] = [
                 "nom" => $plat["nom"],
@@ -89,18 +102,19 @@ if ($action === "supprimer") {
     unset($paniers[$email]["articles"][$id_plat]);
 }
 
-if ($action !== '') {
+if ($action !== '' && $action !== 'set_qte') {
     $pts = $_SESSION["total-fidelite"] ?? 0;
     $total_brut = calcul($paniers[$email]["articles"]);
     $nv_total = $total_brut;
-    
+
     if ($pts >= 500 && $pts < 1200) {
         $reduc = 0.15;
-        $nv_total = ceil($total_brut*(1-$reduc));
+        $nv_total = ceil($total_brut * (1 - $reduc));
     } elseif ($pts >= 1200) {
-        $reduc = 0.3;
-        $nv_total = ceil($total_brut*(1-$reduc));
+        $reduc = 0.30;
+        $nv_total = ceil($total_brut * (1 - $reduc));
     }
+
     $paniers[$email]["total"] = $nv_total;
     sauvegarder($a, $paniers);
     header("Location: panier.php");
@@ -109,16 +123,15 @@ if ($action !== '') {
 
 $articles = $paniers[$email]["articles"];
 $total_brut = calcul($articles);
-
 $pts = $_SESSION["total-fidelite"] ?? 0;
 $nv_total = $total_brut;
 
 if ($pts >= 500 && $pts < 1200) {
     $reduc = 0.15;
-    $nv_total = ceil($total_brut*(1-$reduc));
+    $nv_total = ceil($total_brut * (1 - $reduc));
 } elseif ($pts >= 1200) {
-    $reduc = 0.3;
-    $nv_total = ceil($total_brut*(1-$reduc));
+    $reduc = 0.30;
+    $nv_total = ceil($total_brut * (1 - $reduc));
 }
 
 $minDateTime = date("Y-m-d\TH:i");
@@ -131,6 +144,7 @@ $minDateTime = date("Y-m-d\TH:i");
     <title>Mon panier - L'oro di Cicerone</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/panier.css">
+    <script src="../javascript/panier.js" defer></script>
 </head>
 <body>
     <header>
@@ -145,70 +159,78 @@ $minDateTime = date("Y-m-d\TH:i");
     </header>
     <main>
         <h2>Mon panier</h2>
-        <?php
-        if (count($articles) === 0) {
-            echo "<p>Votre panier est vide.</p>";
-            echo "<a href='presentation.php'>Voir la carte</a>";
-        } else {
-            echo "<section class='rectangle'>";
-            echo "<ul>";
-            foreach ($articles as $cle => $article) {
-                echo "<li>";
-                echo "<div class='ligne'>";
-                echo "<span class='nom'>" . $article["nom"] . "</span>";
-                echo "<span class='prix'>" . ($article["prix"] * $article["quantite"]) . "€</span>";
-                echo "</div>";
-                echo "<div class='quantite'>";
-                echo "<a href='panier.php?action=retirer&id=$cle'>-</a>";
-                echo "<span>" . $article["quantite"] . "</span>";
-                echo "<a href='panier.php?action=ajouter&id=$cle'>+</a>";
-                echo "<span class='unitaire'>" . $article["prix"] . "€ / unité</span>";
-                echo "<a class='btn-supp' href='panier.php?action=supprimer&id=$cle'>Supprimer</a>";
-                echo "</div>";
-                echo "</li>";
-            }
-            echo "</ul>";
-            echo "</section>";
-
-            echo "<div class='total'>";
-            echo "<span>Total</span>";
-            echo "<span>" . $total_brut . "€</span>";
-            echo "</div>";
-
-            if ($total_brut == $nv_total) {
-                echo "<p>Pas de réduction disponible</p>";
-            } else {
-                echo "<div style='text-align : right'>";
-                echo "<span>Remise immédiate : </span>";
-                echo "<span> " . ($reduc*100) . "%</span>";
-                echo "</div>";
-                echo "<div class='total'>";
-                echo "<span>Total après réductions</span>";
-                echo "<span>" . $nv_total . "€</span>";
-                echo "</div>";
-            }
-            echo "<form method='POST' action='paiement.php'>";
-            echo "<div class='form-groupe'>";
-            echo "<label for='instructions'>Instructions spéciales :</label>";
-            echo "<textarea name='instructions' id='instructions' placeholder='Ex : pizza sans olives, allergie aux noix...'>" . htmlspecialchars($_POST["instructions"] ?? "") . "</textarea>";
-            echo "</div>";
-            echo "<div class='form-groupe'>";
-            echo "<label>Type de commande :</label>";
-            echo "<div class='radio-groupe'>";
-            echo "<label class='radio-label'><input type='radio' name='type_commande' value='sur_place' checked> Sur place</label>";
-            echo "<label class='radio-label'><input type='radio' name='type_commande' value='livraison'> Livraison</label>";
-            echo "</div>";
-            echo "</div>";
-            echo "<div class='form-groupe'>";
-            echo "<label for='date_livraison'>Date et heure de livraison <span class='label-hint'>(laisser vide pour une livraison immédiate)</span></label>";
-            echo "<input type='datetime-local' name='date_livraison' id='date_livraison' min='".$minDateTime."'>";            echo "</div>";
-            echo "<div class='action'>";
-            echo "<a href='presentation.php'>Continuer mes achats</a>";
-            echo "<button type='submit'>Valider mon panier</button>";
-            echo "</div>";
-            echo "</form>";
-        }
-        ?>
+        <?php if (count($articles) === 0){ ?>
+            <p>Votre panier est vide.</p>
+            <a href="presentation.php">Voir la carte</a>
+        <?php } else { ?>
+            <section class="rectangle">
+                <ul>
+                    <?php foreach ($articles as $cle => $article){ ?>
+                    <li class="mc-item"
+                        data-prix="<?= (int)$article["prix"] ?>"
+                        data-cle="<?= htmlspecialchars($cle) ?>">
+                        <div class="ligne">
+                            <span class="nom"><?= htmlspecialchars($article["nom"]) ?></span>
+                            <span class="prix mc-item-subtotal"><?= $article["prix"] * $article["quantite"] ?>€</span>
+                        </div>
+                        <div class="quantite">
+                            <button type="button" class="btn-qte" onclick="modifierQte(this, -1)">−</button>
+                            <span class="qte-nb"><?= $article["quantite"] ?></span>
+                            <button type="button" class="btn-qte" onclick="modifierQte(this, 1)">+</button>
+                            <span class="unitaire"><?= $article["prix"] ?>€ / unité</span>
+                            <a class="btn-supp" href="panier.php?action=supprimer&id=<?= urlencode($cle) ?>">Supprimer</a>
+                        </div>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </section>
+            <div class="total" id="bloc-total" data-reduc="<?= isset($reduc) ? $reduc : 0 ?>">
+                <span>Total</span>
+                <span id="display-total"><?= $total_brut ?>€</span>
+            </div>
+            <?php if ($total_brut == $nv_total){ ?>
+                <p id="p-pas-reduc">Pas de réduction disponible</p>
+            <?php } else { ?>
+                <div id="bloc-remise" style="text-align:right">
+                    <span>Remise immédiate : </span>
+                    <span><?= $reduc * 100 ?>%</span>
+                </div>
+                <div class="total" id="bloc-total-reduit">
+                    <span>Total après réductions</span>
+                    <span id="display-total-reduit"><?= $nv_total ?>€</span>
+                </div>
+            <?php } ?>
+            <form method="POST" action="paiement.php">
+                <div class="form-groupe">
+                    <label for="instructions">Instructions spéciales :</label>
+                    <textarea name="instructions" id="instructions" maxlength="500"
+                        placeholder="Ex : pizza sans olives, ..."><?= htmlspecialchars($_POST["instructions"] ?? "") ?></textarea>
+                    <span id="compteur-instructions"
+                          style="font-size:11px; color:rgba(255,255,255,0.4); float:right;">0 / 500</span>
+                </div>
+                <div class="form-groupe">
+                    <label>Type de commande :</label>
+                    <div class="radio-groupe">
+                        <label class="radio-label">
+                            <input type="radio" name="type_commande" value="sur_place" checked> Sur place
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="type_commande" value="livraison"> Livraison
+                        </label>
+                    </div>
+                </div>
+                <div class="form-groupe">
+                    <label for="date_livraison"> Date et heure de livraison
+                        <span class="label-hint">(laisser vide pour une livraison immédiate)</span>
+                    </label>
+                    <input type="datetime-local" name="date_livraison" id="date_livraison" min="<?= $minDateTime ?>">
+                </div>
+                <div class="action">
+                    <a href="presentation.php">Continuer mes achats</a>
+                    <button type="submit">Valider mon panier</button>
+                </div>
+            </form>
+        <?php } ?>
     </main>
     <footer>
         <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>

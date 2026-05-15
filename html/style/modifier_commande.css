@@ -1,20 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
 
-/* ---------- Wrapper principal ---------- */
-.mc-wrapper {
+.conteneur {
     max-width: 640px;
     margin: 60px auto 80px;
     padding: 0 20px;
     font-family: 'Jost', sans-serif;
 }
 
-/* ---------- En-tête ---------- */
-.mc-header {
+.en-tete {
     margin-bottom: 40px;
     text-align: center;
 }
 
-.mc-numero {
+.numero-commande {
     font-family: 'Jost', sans-serif;
     font-size: 11px;
     font-weight: 500;
@@ -24,11 +22,11 @@
     margin-bottom: 10px;
 }
 
-.mc-numero span {
+.numero-commande span {
     color: #c9a24d;
 }
 
-.mc-title {
+.titre {
     font-family: 'Cormorant Garamond', serif;
     font-size: 38px;
     font-weight: 300;
@@ -38,7 +36,7 @@
     line-height: 1.1;
 }
 
-.mc-subtitle {
+.sous-titre {
     font-size: 13px;
     font-weight: 300;
     color: rgba(245, 240, 232, 0.4);
@@ -46,15 +44,14 @@
     letter-spacing: 0.03em;
 }
 
-/* ---------- Barre d'ajout ---------- */
-.mc-add-bar {
+.barre-ajout {
     display: flex;
     gap: 10px;
     margin-bottom: 28px;
     align-items: stretch;
 }
 
-.mc-select {
+.select-plat-style {
     flex: 1;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(201, 162, 77, 0.25);
@@ -75,16 +72,16 @@
     padding-right: 38px;
 }
 
-.mc-select:focus {
+.select-plat-style:focus {
     border-color: rgba(201, 162, 77, 0.6);
 }
 
-.mc-select option {
+.select-plat-style option {
     background: #1a1610;
     color: #f5f0e8;
 }
 
-.mc-btn-add {
+.btn-ajouter {
     display: flex;
     align-items: center;
     gap: 7px;
@@ -104,30 +101,29 @@
     white-space: nowrap;
 }
 
-.mc-btn-add:hover {
+.btn-ajouter:hover {
     background: #d9b25d;
 }
 
-.mc-btn-add:active {
+.btn-ajouter:active {
     transform: scale(0.97);
 }
 
-.mc-btn-add-icon {
+.icone-ajout {
     font-size: 18px;
     font-weight: 300;
     line-height: 1;
     margin-top: -1px;
 }
 
-/* ---------- Liste des plats ---------- */
-.mc-list {
+.liste-plats {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 28px;
 }
 
-.mc-item {
+.plat-ligne {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 8px;
@@ -135,19 +131,19 @@
     transition: border-color 0.2s, background 0.2s;
 }
 
-.mc-item:hover {
+.plat-ligne:hover {
     border-color: rgba(201, 162, 77, 0.2);
     background: rgba(201, 162, 77, 0.03);
 }
 
-.mc-item-top {
+.plat-haut {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 12px;
 }
 
-.mc-item-name {
+.plat-nom {
     font-family: 'Cormorant Garamond', serif;
     font-size: 18px;
     font-weight: 400;
@@ -155,26 +151,26 @@
     letter-spacing: 0.01em;
 }
 
-.mc-item-subtotal {
+.plat-sous-total {
     font-size: 15px;
     font-weight: 500;
     color: #c9a24d;
     letter-spacing: 0.02em;
 }
 
-.mc-item-bottom {
+.plat-bas {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.mc-qte-group {
+.groupe-qte {
     display: flex;
     align-items: center;
     gap: 14px;
 }
 
-.mc-qte-controls {
+.controles-qte {
     display: flex;
     align-items: center;
     gap: 0;
@@ -183,7 +179,7 @@
     overflow: hidden;
 }
 
-.mc-qte-controls button {
+.controles-qte button {
     background: transparent;
     border: none;
     color: #c9a24d;
@@ -199,7 +195,7 @@
     font-family: 'Jost', sans-serif;
 }
 
-.mc-qte-controls button:hover {
+.controles-qte button:hover {
     background: rgba(201, 162, 77, 0.12);
 }
 
@@ -217,14 +213,14 @@
     padding: 0 4px;
 }
 
-.mc-unit-hint {
+.hint-unite {
     font-size: 11px;
     font-weight: 300;
     color: rgba(245, 240, 232, 0.3);
     letter-spacing: 0.02em;
 }
 
-.mc-btn-remove {
+.btn-retirer {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -241,27 +237,26 @@
     transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
-.mc-btn-remove:hover {
+.btn-retirer:hover {
     border-color: rgba(220, 80, 80, 0.5);
     color: #e05a5a;
     background: rgba(220, 80, 80, 0.06);
 }
 
-/* ---------- Résumé / Total ---------- */
-.mc-summary {
+.recapitulatif {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 22px;
     margin-bottom: 28px;
 }
 
-.mc-summary-row {
+.recap-ligne {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.mc-summary-main {
+.recap-total {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: 0.05em;
@@ -269,7 +264,7 @@
     color: rgba(245, 240, 232, 0.5);
 }
 
-.mc-total-amount {
+.total-montant {
     font-family: 'Cormorant Garamond', serif;
     font-size: 28px;
     font-weight: 300;
@@ -277,7 +272,7 @@
     letter-spacing: 0.02em;
 }
 
-.mc-diff-row {
+.recap-diff {
     display: flex;
     padding: 10px 14px;
     background: rgba(201, 162, 77, 0.07);
@@ -287,15 +282,15 @@
     color: rgba(245, 240, 232, 0.6);
 }
 
-.mc-diff-amount {
+.diff-montant {
     font-weight: 500;
 }
 
-.mc-diff-up {
+.diff-hausse {
     color: #c9a24d;
 }
 
-.mc-info-perdant {
+.info-perdant {
     font-size: 12px;
     font-weight: 300;
     color: rgba(245, 240, 232, 0.35);
@@ -305,14 +300,13 @@
     letter-spacing: 0.02em;
 }
 
-/* ---------- Actions ---------- */
-.mc-actions {
+.actions {
     display: flex;
     gap: 12px;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
-.mc-btn-cancel {
+.btn-annuler {
     display: inline-flex;
     align-items: center;
     padding: 0 24px;
@@ -329,12 +323,12 @@
     transition: border-color 0.2s, color 0.2s;
 }
 
-.mc-btn-cancel:hover {
+.btn-annuler:hover {
     border-color: rgba(255, 255, 255, 0.25);
     color: rgba(245, 240, 232, 0.7);
 }
 
-.mc-btn-confirm {
+.btn-valider {
     display: inline-flex;
     align-items: center;
     padding: 0 28px;
@@ -352,33 +346,32 @@
     transition: background 0.2s, transform 0.1s;
 }
 
-.mc-btn-confirm:hover {
+.btn-valider:hover {
     background: #d9b25d;
 }
 
-.mc-btn-confirm:active {
+.btn-valider:active {
     transform: scale(0.97);
 }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 480px) {
-    .mc-wrapper {
+    .conteneur {
         margin-top: 30px;
     }
-    .mc-title {
+    .titre {
         font-size: 30px;
     }
-    .mc-add-bar {
+    .barre-ajout {
         flex-direction: column;
     }
-    .mc-btn-add {
+    .btn-ajouter {
         justify-content: center;
     }
-    .mc-actions {
+    .actions {
         flex-direction: column;
     }
-    .mc-btn-cancel,
-    .mc-btn-confirm {
+    .btn-annuler,
+    .btn-valider {
         justify-content: center;
         width: 100%;
     }

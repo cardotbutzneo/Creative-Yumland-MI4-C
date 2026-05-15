@@ -242,3 +242,42 @@ main h2 {
         gap: 12px;
     }
 }
+/* Boutons +/- en JS : même apparence que les anciens liens */
+.quantite .btn-qte {
+    text-decoration: none;
+    color: #c9a24d;
+    border: 1px solid #c9a24d;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.quantite .btn-qte:hover {
+    background: #c9a24d;
+    color: #0f0f0f;
+}
+
+.quantite button.btn-supp {
+    font-size: 12px;
+    color: red;
+    background: none;
+    border: 1px solid red;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-left: auto;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.quantite button.btn-supp:hover {
+    background: red;
+    color: #0f0f0f;
+}
