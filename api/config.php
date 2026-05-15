@@ -2,13 +2,16 @@
 
 require_once __DIR__."/../serveur.php";
 
+$chemin_valide = ["index.php", "restaurant.php", "chef.php", "presentation.php", "connexion.php"];
+
 // Vérification de la session et du rôle de l'utilisateur
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
 // Si la session n'existe pas ou si le rôle n'est pas défini, rediriger vers la page de connexion
-if (empty($_SESSION) || !isset($_SESSION["role"])) {
+if (empty($_SESSION) || !isset($_SESSION["role"]) and !in_array(basename($_SERVER["PHP_SELF"]), $chemin_valide)) {
+    ecrire_log("Accès non autorisé à " . basename($_SERVER["PHP_SELF"]));
     header("Location: connexion.php?error=unauthorized");
     exit;
 }
