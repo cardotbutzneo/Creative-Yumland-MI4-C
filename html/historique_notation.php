@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-require_once __DIR__ . "/../serveur.php";
-
-if (!isset($_SESSION["connecte"]) || $_SESSION["connecte"] !== true) {
-    header("Location: connexion.php?error=unauthorized");
-    exit;
-}
+require_once __DIR__."/../api/config.php";
 
 verifier_connexion($_SESSION["role"], "Cuisinier");
 
