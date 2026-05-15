@@ -12,7 +12,7 @@ if (!isset($_SESSION["email"])) {
 
 $data = lire_data(__DIR__ . "/../data/client.json");
 $username = $_SESSION["email"];
-if (isset($data[$username])) {
+if (isset($data[$username])) { // si on trouve l'utilisateur dans la base de données, on vérifie s'il est banni ou pas
     $isBanned = $data[$username]['securite']['est_banni'];
     $reason = $data[$username]['securite']['raison_ban'] ?? "";
 
@@ -22,7 +22,7 @@ if (isset($data[$username])) {
         $email = $_SESSION["email"];
 
         if (!empty($bdd_actuelle[$email]["dernieres_commandes"])) {
-            
+            // on supprime la dernière commande de l'utilisateur si banni
             $idCommande = $bdd_actuelle[$email]["dernieres_commandes"][0];
 
             if (isset($commandes_actuelles[$idCommande])) {
@@ -39,6 +39,7 @@ if (isset($data[$username])) {
         session_destroy();
         ecrire_log("L'utilisateur" . $_SESSION["prenom"] . $_SESSION["nom"] . "est banni", "info");
 
+        // code de retour pour le js
         echo json_encode([
         'banned' => $isBanned,
         'reason' => $reason

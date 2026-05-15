@@ -1,5 +1,14 @@
 <?php 
 
+/**
+ * Fichier de l'API pour mettre à jour le statut d'une commande.
+ * - Reçoit une requête POST avec les paramètres "hash" (identifiant de la commande) et "nouvelEtat" (nouveau statut de la commande).
+ * - Met à jour le statut de la commande correspondante dans le fichier JSON des commandes.
+ * - Retourne une réponse JSON indiquant si la mise à jour a été effectuée avec succès ou non.
+ * 
+ * @require serveur.php pour les fonctions de lecture et d'écriture des données JSON.
+ */
+
 require_once __DIR__."/../serveur.php";
 header('Content-Type: application/json');
 

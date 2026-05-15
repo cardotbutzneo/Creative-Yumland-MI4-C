@@ -9,12 +9,11 @@ if ($_SESSION["role"] === "admin" && !isset($_GET["id"])){
     exit;
 }
 
+// Séparation des plats par catégorie pour les suggestions
 $plats = ["entree" => [], "plats" => [], "dessert" => [], "cafe" => []];
 
-$data = lire_data("../data/plats.json");
-$clients = lire_data("../data/client.json");
-
-foreach ($data as $nom_plat => $plat){
+// On parcourt les plats pour les classer par catégorie
+foreach ($data_plats as $nom_plat => $plat){
     if ($nom_plat == "Allergenes") continue;
     $cat = $plat["categorie"];
     switch ($cat) {
@@ -34,6 +33,8 @@ foreach ($data as $nom_plat => $plat){
             break;
     }
 }
+
+//
 if ($_SESSION["role"] == "Client"){
     $pts = $_SESSION["total-fidelite"] ?? 0;
 
@@ -55,7 +56,7 @@ if ($_SESSION["role"] == "Client"){
     $_SESSION["programme-fidelite"] = $nom_grade;
 }
 else if ($_SESSION["role"] == "admin"){
-    $pts = $clients[$_GET["id"]]["total-fidelite"] ?? 0;
+    $pts = $data_client[$_GET["id"]]["total-fidelite"] ?? 0;
 
     if ($pts < 500) {
         $class = "grade-amethyste";
@@ -74,9 +75,6 @@ else if ($_SESSION["role"] == "admin"){
     }
     $_SESSION["programme-fidelite"] = $nom_grade;
 }
-
-// Lecture des commandes depuis le JSON pour avoir les montants à jour après modification
-$toutes_commandes = lire_data("../data/commandes.json");
 
 ?>
 
@@ -145,11 +143,11 @@ $toutes_commandes = lire_data("../data/commandes.json");
     <section>
         <?php
         if ($_SESSION["role"] === "Client"){
-            $client = $clients[$_SESSION["email"]];
+            $client = $data_client[$_SESSION["email"]];
             $client["programme-fidelite"] = donner_grade($client["total-fidelite"]);
         }
         else if ($_SESSION["role"] === "admin"){
-            $client = $clients[$_GET["id"]];
+            $client = $data_client[$_GET["id"]];
             $client["programme-fidelite"] = donner_grade($client["total-fidelite"]);
         }?>
 
@@ -170,14 +168,14 @@ $toutes_commandes = lire_data("../data/commandes.json");
 
         <?php
         $email_courant   = $_SESSION["email"] ?? '';
-        $historique_ids  = $clients[$email_courant]["dernieres_commandes"] ?? [];
+        $historique_ids  = $data_client[$email_courant]["dernieres_commandes"] ?? [];
         if (!empty($historique_ids)){
             echo "<div class='contenent'>";
             echo "<h2>Historique des dernières commandes</h2>";
             echo "<nav>";
                 foreach ($historique_ids as $cmd) {
                     $id_upper = strtoupper($cmd);
-                    $cmd_complette = $toutes_commandes[$id_upper] ?? null;
+                    $cmd_complette = $data_commandes[$id_upper] ?? null;
                     if (!$cmd_complette) continue;
                     echo "<div class='cmd-bloc'>";
                         foreach ($cmd_complette["plats"] as $cat) {

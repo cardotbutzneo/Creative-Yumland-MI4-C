@@ -1,3 +1,15 @@
+<?php 
+
+/**
+ * Fichier implémentant la fonctionnalité d'accessibilité pour le site web.
+ * Permet aux utilisateurs de personnaliser la taille de la police, la langue et le thème
+ * - La taille de la police peut être réglée sur petite (12px), moyenne (16px) ou grande (24px), les polices sont sauvegarder dans un cookie.
+ * - La langue peut être choisie entre français et anglais, et est mémorisée dans un cookie pour les visites futures.
+ * - Un thème spécial "psychedelique" peut être activé pour une expérience visuelle unique.
+ */
+
+?>
+
 <link rel='stylesheet' href='style/graphique.css'>
 <script src="../script.js" defer></script>
 <button><img alt="Logo d'accessibilité" src='style/img/accessibilite.png' class='img-accessibilite' onclick='togleAcc()'></button>
@@ -47,13 +59,16 @@
 </div>
 
 <script>
+    /**Affiche le menu */
     function togleAcc(){
         let doc = document.getElementById('div-accessibilite');
         (doc.style.display == 'none') ? doc.style.display = 'grid' : doc.style.display = 'none';
     }
+    /**Change le theme */
     function changerTheme(){
         document.body.classList.toggle('psychedelique');
     }
+    /**Change la langue */
     function changerLangue(){
         let langue = document.querySelector("input[name='langue']:checked").id;
         setCookie("langue",langue,30);

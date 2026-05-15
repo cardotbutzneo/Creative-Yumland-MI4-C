@@ -1,6 +1,22 @@
 <?php
+
+/**
+ * Fichier contenant les fonctions utilitaires communes à tous les fichiers php
+ * - lire_data : lit les données à partir d'un fichier JSON
+ * - ecrire_data : écrit les données dans un fichier JSON
+ * - récupérer_commande : récupère une commande spécifique à partir de son numéro
+ * - calculer_points : calcule le nombre de points gagnés en fonction du montant total et du rang du client
+ * - ecrire_log : écrit un message dans le fichier de log avec un type (info, warning, critical)
+ * - verifier_connexion : vérifie que l'utilisateur est connecté avec le bon rôle et redirige vers la page de connexion si nécessaire
+ */
+
 date_default_timezone_set('Europe/Paris');
 
+/** Lit les données à partir d'un fichier JSON. 
+ * @param string $chemin - Le chemin du fichier JSON à lire.
+ * @param string $nom_utilisateur - (optionnel) Le nom d'utilisateur pour filtrer les données. Si fourni, seules les données associées à ce nom d'utilisateur seront retournées.
+ * @return array - Un tableau associatif contenant les données lues du fichier JSON. Si le fichier n'existe pas ou est vide, un tableau vide sera retourné. Si $nom_utilisateur est fourni mais n'existe pas dans les données, un tableau vide sera également retourné.
+*/
 function lire_data(string $chemin, string $nom_utilisateur = "") : array{
     if (!file_exists($chemin)) return [];
     $data = json_decode(file_get_contents($chemin),true);
@@ -11,6 +27,11 @@ function lire_data(string $chemin, string $nom_utilisateur = "") : array{
     return $data;
 }
 
+/** Écrit les données dans un fichier JSON. 
+ * @param string $chemin - Le chemin du fichier JSON dans lequel écrire les données.
+ * @param array $data - Un tableau associatif contenant les données à écrire dans le fichier JSON.
+ * @return bool - Retourne true si les données ont été écrites avec succès, sinon false.
+*/
 function ecrire_data(string $chemin, array $data) : bool {
     $json_contenu = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     if (file_put_contents($chemin, $json_contenu) !== false) {
@@ -20,25 +41,10 @@ function ecrire_data(string $chemin, array $data) : bool {
     return false;
 }
 
-/**
- * Calcule la différence entre deux dates.
- * Par défaut, $date2 est la date actuelle.
+/** Récupère une commande spécifique à partir de son numéro.
+ * @param string $numéro - Le numéro de la commande à récupérer.
+ * @return array|null - Un tableau associatif contenant les détails de la commande si elle existe
  */
-function difference_date(string $date1): bool {
-    $debut = new DateTime($date1);
-    $fin = new DateTime();
-    $intervalle = $debut->diff($fin);
-    if ($intervalle->days >= 1) {
-        return false;
-    } else {
-        if ($intervalle->h < 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
 function récupérer_commande(string $numéro) : ?array{
     if (!isset($numéro)) return null;
     $data = lire_data("../data/commandes.json");
@@ -47,9 +53,10 @@ function récupérer_commande(string $numéro) : ?array{
     return $data[$numéro];
 }
 
+/**Renvoie le nombre de point du client apres achat
+*Exemple : si on dépense 200€ en étant membre or on gagne : (200*200*1.5)/1000 = 60pts 
+*/
 function calculer_points(int $montant_total, string $pts) : int{
-    /**Renvoie le nombre de point du client apres achat */
-    /**Exemple : si on dépense 200€ en étant membre or on gagne : (200*200*1.5)/1000 = 60pts */
     if (!isset($montant_total) or !isset($pts)) return -1;
     if ($montant_total <= 0) return -1;
     if ($pts < 500) {$rang = "Amethyste"; $coeff = 1;}
@@ -60,6 +67,12 @@ function calculer_points(int $montant_total, string $pts) : int{
     return $pts;
 }
 
+/** Écrit un message dans le fichier de log. 
+ * Types de messages : "info", "warning", "critical". Par défaut, le type est "warning".
+ * @param string $msg - Le message à écrire dans le log.
+ * @param string $type - Le type de message (info, warning, critical).
+ * 
+*/
 function ecrire_log(string $msg, string $type = "warning") : void {
     if (empty($msg)) return;
 
@@ -79,22 +92,17 @@ function ecrire_log(string $msg, string $type = "warning") : void {
     error_log($format, 3, "../securite.log");
 }
 
-function est_banni(){
-    $bdd_actuelle = lire_data("../data/client.json");
-    if (isset($_POST["est_banni"]) && $_POST["est_banni"] == true){
-        $bdd_actuelle[$email]["securite"]["est_en_ligne"] = false;
-        $bdd_actuelle[$email]["securite"]["remember_token"] = null;
-        $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = null;
-        ecrire_data("../data/client.json", $bdd_actuelle);
-        session_unset();
-        session_destroy();
-        header("Location: connexion.php");
-        exit;
-    }
-}
-
-function verifier_connexion(string $role, string $role_autoriser){
-    if ($role != $role_autoriser and $role != "admin"){
+/**vérifie que l'utilisateur est connecté avec le bon rôle
+ * @param string $role - Le rôle actuel de l'utilisateur (ex: "Client", "admin", etc.)
+ * @param array | string $roles_autorisés - Les rôles autorisés à accéder à la page (par défaut: ["Client"]). Si un seul rôle est passé, un string est accepté
+ * @param bool $inclure_admin - Indique si les utilisateurs avec le rôle "admin" sont également autorisés à accéder à la page (par défaut: true)
+ * @return void - Si erreur, redirige vers la page de connexion avec un message d'erreur
+ */
+function verifier_connexion(string $role, array | string $roles_autorisés = ["Client"], bool $inclure_admin = true) : void {
+    if (empty($roles_autorisés) || $roles_autorisés == "") return; // Si aucun rôle n'est spécifié, on considère que tous les rôles sont autorisés
+    if (is_string($roles_autorisés)) $roles_autorisés = [$roles_autorisés]; // Si un seul rôle est fourni sous forme de chaîne, on le convertit en tableau
+    if ($role == "admin" && $inclure_admin) return; // Si l'utilisateur est un admin et que les admins sont inclus, on autorise l'accès
+    if (!in_array($role, $roles_autorisés)){
         header("Location: connexion.php?error=unauthorized");
         exit;
     }

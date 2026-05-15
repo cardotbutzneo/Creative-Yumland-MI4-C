@@ -4,6 +4,9 @@ require_once __DIR__."/../api/config.php";
 
 verifier_connexion($role,"Client");
 
+$target = "chauffeur"; // par defaut
+$cout = 500; // par defaut
+
 if (!empty($_POST)){
     if (isset($_POST["chauffeur"]) && $_SESSION["pts-fidelite"] >= 500){ 
         $target = "chauffeur";
@@ -54,7 +57,7 @@ $_GET["sub-date"] = "";
 </head>
 <body>
     <header>
-        <a href="index.php"><h1>L’oro di Cicerone</h1></a>
+        <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
                 <li><a href="index.php">Accueil</a></li>

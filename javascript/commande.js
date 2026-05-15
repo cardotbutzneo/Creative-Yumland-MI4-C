@@ -1,5 +1,13 @@
+/**
+ * Gestion et affichage des commandes dans l'interface de la cuisine
+ */
+
 let bouton_courant;
 
+/** Affiche les commandes dans les différentes catégories
+ * @param {Object} data - Les données des commandes
+ * @param {number} n - Le nombre de commandes affichées
+ */
 function renderCommandes(data, n) {
 	const conteneurPrincipal = document.getElementById("liste-commandes");
 	const aujourdhui = new Date();
@@ -41,6 +49,7 @@ function renderCommandes(data, n) {
 	conteneurPrincipal.appendChild(nav);
 	Object.values(zones).forEach((z) => conteneurPrincipal.appendChild(z));
 
+	// 3. remplissage des conteneurs
 	let i = 0;
 	Object.keys(data).forEach((hash) => {
 		const commande = data[hash];
@@ -76,9 +85,14 @@ function renderCommandes(data, n) {
 		i += 1;
 	});
 	if (i > n) {
+		// si on detecte une nouvelle commande, on affiche la notification
 		document.getElementById("notification").style.display = "block";
 	}
 
+	/**
+	 * Affiche la catégorie de commandes sélectionnée et met à jour l'apparence des boutons de navigation
+	 * @param {string} id - L'identifiant de la catégorie à afficher (payee, preparation, prete, differee)
+	 */
 	function afficherCategorie(id) {
 		Object.values(zones).forEach((z) => (z.style.display = "none"));
 		zones[id].style.display = "grid";
@@ -91,7 +105,7 @@ function renderCommandes(data, n) {
 		});
 	}
 
-	afficherCategorie(bouton_courant ?? "payee");
+	afficherCategorie(bouton_courant ?? "payee"); // par défaut, on affiche les commandes payées sinon on affiche la catégorie courante
 
 	categories.forEach((cat) => {
 		if (zones[cat.id].innerHTML == "")
@@ -99,6 +113,10 @@ function renderCommandes(data, n) {
 	});
 }
 
+/** Met à jour le statut d'une commande
+ * @param {string} hash - Le hash de la commande à mettre à jour
+ * @param {string} etat - L'état actuel de la commande (payee ou en preparation)
+ */
 async function finirCommande(hash, etat) {
 	if (!hash) return;
 	try {

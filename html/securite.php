@@ -10,7 +10,6 @@ $suppression = false;
 
 if (isset($_POST["password"])){
     $email = $_SESSION["email"];
-    $data_client = lire_data("../data/client.json",$email);
     if (password_verify($_POST["password"],$data_client["mot de passe"])){
         if (supprimer_compte($email)){
             $verif = true;

@@ -1,5 +1,16 @@
 <?php 
 
+/**
+ * Fichier exécuter au lancement du serveur.
+ * Vérifie la session de l'utilisateur et redirige vers la page de connexion si nécessaire.
+ * Définit les constantes de configuration des variables d'environnement et de la langue.
+ * 
+ * @see data/client.json, data/commandes.json, data/panier.json, data/plats.json, data/langue.json
+ * @see serveur.php
+ * 
+ * @summary Configuration et gestion de la session utilisateur
+ */
+
 require_once __DIR__."/../serveur.php";
 
 $chemin_valide = ["index.php", "restaurant.php", "chef.php", "presentation.php", "connexion.php"];
@@ -16,14 +27,18 @@ if (empty($_SESSION) || !isset($_SESSION["role"]) and !in_array(basename($_SERVE
     exit;
 }
 
+// Définition des constantes de configuration des variables d'environnement
+$data_client = lire_data("../data/client.json");
+$data_commandes = lire_data("../data/commandes.json");
+$data_panier = lire_data("../data/panier.json");
+$data_plats = lire_data("../data/plats.json");
+$data_langue = lire_data("../data/langue.json");    
+
 // Récupération du rôle de l'utilisateur
 $role = $_SESSION["role"];
 $_SESSION["derniere-connexion"] = time();
 
-// lecture du fichier de langue
-$txt = lire_data("../data/langue.json");
-$text = $txt[($_COOKIE["langue"]) ?? "fr"];
-
+// Récupération de la langue (fr par défaul)
 $isFrench = false;
 if (isset($_COOKIE["langue"])){
     $isFrench = ($_COOKIE["langue"] == "fr");
@@ -34,4 +49,6 @@ date_default_timezone_set("Europe/Paris");
 $aujourdhui = date("Y-m-d");
 $demain = date("Y-m-d",strtotime("+1 day"));
 
+// lecture du fichier de langue
+$text = $data_langue[($_COOKIE["langue"]) ?? "fr"];
 ?>

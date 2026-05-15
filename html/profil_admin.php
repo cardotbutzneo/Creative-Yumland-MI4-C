@@ -3,8 +3,6 @@ require_once __DIR__."/../api/config.php";
 
 verifier_connexion($role, "admin");
 
-$data = lire_data("../data/client.json");
-
 if (isset($_POST["banni"])) {
     $user = $_POST["mail"];
     $raison = $_POST["raison"] ?? "";
@@ -16,7 +14,7 @@ if (isset($_POST["banni"])) {
 }
 
 if (isset($_POST["nvRole"])){
-    $user = $_POST["mail"];
+    $user = $_POST["mail"];     
     $nvRole = $_POST["nvRole"];
     changer_role($user,$nvRole);
 }
@@ -136,8 +134,7 @@ if (isset($_POST["nvRole"])){
                     <th>Bloquer</th>
                 </tr>
                 <?php 
-                $data = lire_data("../data/client.json");
-                foreach ($data as $client => $info){
+                foreach ($data_client as $client => $info){
                     $i = $info["id"];
                     $roleActuel = $info["role"];
                     if ($roleActuel == "admin") $ref = "profil_admin.php";
@@ -188,13 +185,13 @@ function changer_role(string $mail_utilisateur, string $nouveau_role) : bool{
 
     if (empty($mail_utilisateur) or empty($nouveau_role)) return false;
     if (!isset($_SESSION) or $_SESSION["role"] !== "admin") return false;
-    $data = lire_data("../data/client.json");
-    if (!isset($data[$mail_utilisateur])) return false; // on retourne rien si l'utilisateur n'est pas trouvé
+    $data_client = lire_data("../data/client.json");
+    if (!isset($data_client[$mail_utilisateur])) return false; // on retourne rien si l'utilisateur n'est pas trouvé
 
-    if (isset($data[$mail_utilisateur]["parametre"]["est_modifiable"]) and $data[$mail_utilisateur]["parametre"]["est_modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
-    $data[$mail_utilisateur]["role"] = $nouveau_role; // on change le role de l'utilisateur
+    if (isset($data_client[$mail_utilisateur]["parametre"]["est_modifiable"]) and $data_client[$mail_utilisateur]["parametre"]["est_modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
+    $data_client[$mail_utilisateur]["role"] = $nouveau_role; // on change le role de l'utilisateur
 
-    $nouvelle_data = json_encode($data, JSON_PRETTY_PRINT);
+    $nouvelle_data = json_encode($data_client, JSON_PRETTY_PRINT);
     file_put_contents("../data/client.json",$nouvelle_data);
     return true;
 }
@@ -209,6 +206,11 @@ function afficher_info(string $mail_utilisateur) : void{
     echo "role : ".$utilisateur["role"]."<br>";
 }
 
+/**bloque un utilisateur
+ * @param string $mail : l'identifiant de l'utilisateur à bloquer
+ * @param string $raison : la raison du blocage (facultatif)
+ * @param bool $banir : true pour bloquer, false pour débloquer (
+ */
 function bloquer(string $mail, string $raison, bool $banir = true) : bool {
     if (empty($mail)) return false;
     $path = "../data/client.json";

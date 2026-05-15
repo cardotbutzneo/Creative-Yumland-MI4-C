@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once __DIR__."/../api/config.php";
 
@@ -19,7 +18,7 @@ verifier_connexion($role,"Cuisinier");
     <title>Commandes - L'oro di Cicerone</title>
 </head>
 <body>
-    <input type="hidden" id="nb-cmd" data-nb_cmd="<?= count(lire_data("../data/commandes.json")) ?>">
+    <input type="hidden" id="nb-cmd" data-nb_cmd="<?= count($data_commandes) ?>">
     <header>
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
