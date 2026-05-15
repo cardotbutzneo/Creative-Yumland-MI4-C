@@ -1,0 +1,200 @@
+.page-notations {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px 60px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.page-notations h1 {
+    color: #f5f5f5;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    text-align: center;
+    letter-spacing: 0.04em;
+}
+
+.moyennes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.moyenne-card {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.moyenne-label {
+    font-size: 0.75rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 8px;
+}
+
+.moyenne-note {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #c9a24d;
+    line-height: 1;
+}
+
+.moyenne-etoiles {
+    font-size: 1rem;
+    color: #c9a24d;
+    margin-top: 6px;
+    letter-spacing: 2px;
+}
+
+.moyenne-etoiles .vide {
+    color: #444;
+}
+
+.nb-avis {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 6px;
+}
+
+.avis-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.avis-card {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px 24px;
+}
+
+.avis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #222;
+}
+
+.avis-meta {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.avis-meta .numero {
+    font-weight: 600;
+    color: #f5f5f5;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.avis-date {
+    font-size: 0.78rem;
+    color: #666;
+}
+
+.avis-email {
+    font-size: 0.78rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+.avis-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.note-ligne {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.note-intitule {
+    font-size: 0.82rem;
+    color: #aaa;
+    min-width: 150px;
+}
+
+.note-etoiles {
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+}
+
+.note-etoiles .plein {
+    color: #c9a24d;
+}
+
+.note-etoiles .vide {
+    color: #444;
+}
+
+.avis-commentaire {
+    background: #0b0b0b;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.6;
+    font-style: italic;
+    margin-top: 12px;
+}
+
+.avis-commentaire::before {
+    content: "« ";
+    color: #c9a24d;
+    font-style: normal;
+}
+
+.avis-commentaire::after {
+    content: " »";
+    color: #c9a24d;
+    font-style: normal;
+}
+
+.aucun-avis {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    padding: 60px 0;
+}
+
+.filtres {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filtres label {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.filtres select {
+    background: #111;
+    color: #f5f5f5;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.filtres select:focus {
+    outline: none;
+    border-color: #c9a24d;
+}

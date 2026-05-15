@@ -8,7 +8,6 @@ if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "Client")){
     exit;
 }
 
-
 $email_client = $_SESSION["email"];
 $bdd_client = lire_data("../data/client.json", $email_client);
 
@@ -28,8 +27,23 @@ if (isset($_POST["valider"])) {
     $bdd_cmd[$derniere_cmd]["etat"] = "notee";
 
     ecrire_data("../data/commandes.json", $bdd_cmd);
-}    
+}
 
+// Normaliser les plats (gestion des deux formats : tableau ou objet associatif)
+$plats = $bdd_cmd[$derniere_cmd]["plats"];
+$plats_liste = [];
+if (array_is_list($plats)) {
+    foreach ($plats as $plat) {
+        $plats_liste[] = ["nom" => $plat["nom"], "quantite" => $plat["quantite"]];
+    }
+} else {
+    foreach ($plats as $plat) {
+        $plats_liste[] = ["nom" => $plat["nom"], "quantite" => $plat["quantite"]];
+    }
+}
+$montant = $bdd_cmd[$derniere_cmd]["montant"];
+$date_cmd = $bdd_cmd[$derniere_cmd]["date"];
+$numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -48,9 +62,30 @@ if (isset($_POST["valider"])) {
     </header>
     
     <main>
-        <?php if($bdd_cmd[$derniere_cmd]["etat"] === "livree") {?>
+        <?php if($bdd_cmd[$derniere_cmd]["etat"] === "livree") { ?>
             <div class="bulle">
                 <h1>Évaluer votre expérience</h1>
+
+                <div class="recap-commande">
+                    <h2>Votre commande</h2>
+                    <div class="recap-meta">
+                        <span>Commande n° <?= htmlspecialchars($numero) ?></span>
+                        <span><?= htmlspecialchars(date("d/m/Y", strtotime($date_cmd))) ?></span>
+                    </div>
+                    <ul class="recap-plats">
+                        <?php foreach ($plats_liste as $plat){ ?>
+                            <li>
+                                <span class="plat-nom"><?= htmlspecialchars($plat["nom"]) ?></span>
+                                <span class="plat-qte">x <?= (int)$plat["quantite"] ?></span>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="recap-total">
+                        <span>Total</span>
+                        <span><?= number_format((float)$montant, 2, ',', ' ') ?> €</span>
+                    </div>
+                </div>
+
                 <form action="notation.php" method="POST">
                     <div class="ligne">
                         <span class="intitule">Note de la livraison :</span>
@@ -97,13 +132,11 @@ if (isset($_POST["valider"])) {
             <footer>
                 <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
             </footer>
-        <?php } elseif ($bdd_cmd[$derniere_cmd]["etat"] === "notee"){
+        <?php } elseif ($bdd_cmd[$derniere_cmd]["etat"] === "notee") {
             header("Location: remerciement.php");
-        }
-        else{
+        } else {
             header("Location: index.php?error=unauthorized");
-        }
-        ?>
+        } ?>
     </main>
 </body>
 </html>

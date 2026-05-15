@@ -25,6 +25,7 @@ verifier_connexion($role,"Cuisinier");
     <nav>
         <ul>
             <li><a href="index.php">Accueil</a></li>
+            <li><a href="historique_notation.php">Notes et avis</a></li>
             <li><a href="deconnexion.php">se déconnecter</a></li>
         </ul>
     </nav>
