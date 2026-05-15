@@ -43,8 +43,12 @@ $bdd_cmd = lire_data("../data/commandes.json");
     <main>
         <div class="bulle">
             <h1>Suivi de ma commande</h1>
-
-            <?php if($bdd_cmd[$derniere_cmd]["etat"] === "en preparation") { ?>
+            <?php if($bdd_cmd[$derniere_cmd]["etat"] === "payee") { ?>
+                <div class="statut-commande">
+                    <p>Votre commande est prise en compte.</p>
+                    <p>Notre équipe fait actuellement de son mieux pour que vous receviez votre commande dans les plus brefs délais.</p>
+                </div>
+            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "en preparation") { ?>
                 <div class="statut-commande">
                     <p>Votre commande est en cours de préparation.</p>
                     <p>Notre équipe fait actuellement de son mieux pour préparer le plus rapidement votre commande.</p>
