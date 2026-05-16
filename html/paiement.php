@@ -59,7 +59,7 @@ if ($is_modification) {
     $_SESSION["commande_en_attente"] = [
         "email" => $email,
         "date" => date("Y-m-d H:i:s"),
-        "montant" => $montant,
+        "montant" => number_format((float)$montant, 2, '.', ''),
         "livraison" => ($type_raw === "livraison"),
         "est-valide" => false,
         "etat" => "en_attente",
