@@ -22,6 +22,7 @@ function renderCommandes(data, n) {
 		{ id: "preparation", titre: "En préparation", color: "#FF9800" },
 		{ id: "prete", titre: "Prêtes", color: "#2196F3" },
 		{ id: "differee", titre: "Différées", color: "#9C27B0" },
+		{ id: "livree", titre: "Livrées", color: "#607D8B" },
 	];
 
 	// 2. Création des conteneurs de colonnes
@@ -57,16 +58,30 @@ function renderCommandes(data, n) {
 
 		const block = document.createElement("div");
 		block.className = "block";
+
+		const dateLivraison = new Date(commande["date_livraison"]);
+		
+		let isDifferee = (dateLivraison > aujourdhui);
 		let action,
-			affichage = "grid";
+			affichage = "grid",
+			contenu = "",
+			affichage_date = "none";
 		if (commande.etat == "payee") action = "Accepter la commande";
-		else if (commande.etat == "en preparation")
+		else if (
+			commande.etat == "en preparation" &&
+			!isDifferee
+		) {
 			action = "Prendre la commande";
-		else affichage = "none";
+		} else if (commande.etat == "en preparation" && isDifferee) {
+			contenu = new Date(commande.date_livraison).toLocaleString();
+			affichage_date = "block";
+			affichage = "none"
+		} else affichage = "none";
 
 		block.innerHTML = `
             <button class='btn-cmd' onclick="finirCommande('${hash}','${commande.etat}')" style='display: ${affichage}'>${action}</button>
             <span class='commande'><p>ID : ${commande.numero}</p></span>
+			<p style='display : ${affichage_date}' class='commande'>Date de livraison : ${contenu}</p>
             <ul>${Object.values(commande.plats || {})
 				.map(
 					(details) => `<li>${details.nom} x${details.quantite}</li>`,
@@ -80,7 +95,8 @@ function renderCommandes(data, n) {
 			zones["preparation"].appendChild(block);
 		else if (commande.etat === "preparee")
 			zones["prete"].appendChild(block);
-		const dateLivraison = new Date(commande["date_livraison"]);
+		else if (commande.etat === "livree") zones["livree"].appendChild(block);
+		
 		if (dateLivraison > aujourdhui) zones["differee"].appendChild(block);
 		i += 1;
 	});

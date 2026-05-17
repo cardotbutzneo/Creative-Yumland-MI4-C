@@ -8,7 +8,7 @@
  * @see data/client.json, data/commandes.json, data/panier.json, data/plats.json, data/langue.json
  * @see serveur.php
  * 
- * @summary Configuration et gestion de la session utilisateur
+ * @summary Configuration et gestion de la session utilisateur et données communes.
  */
 
 require_once __DIR__."/../serveur.php";
@@ -38,8 +38,8 @@ $data_langue = lire_data("../data/langue.json");
 $role = $_SESSION["role"];
 $_SESSION["derniere-connexion"] = time();
 
-// Récupération de la langue (fr par défaul)
-$isFrench = false;
+// Récupération de la langue (fr par défaut)
+$isFrench = true;
 if (isset($_COOKIE["langue"])){
     $isFrench = ($_COOKIE["langue"] == "fr");
 }
