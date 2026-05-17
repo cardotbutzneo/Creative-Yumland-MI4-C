@@ -132,9 +132,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-19",
-            "derniere_connexion": "2026-05-17 11:44:17",
+            "derniere_connexion": "2026-05-17 16:09:24",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,

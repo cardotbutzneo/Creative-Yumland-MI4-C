@@ -76,7 +76,6 @@ if (isset($_POST["connexion"])) {
                 $bdd_actuelle[$email]["securite"]["est_en_ligne"] = true;
                 $bdd_actuelle[$email]["securite"]["tentative_echec"] = 0;
 
-                
                 if (isset($_POST["remember_me"])) {
                     $token = bin2hex(random_bytes(32));
                     $expiration = time() + (24 * 60 * 60);
@@ -167,5 +166,11 @@ if (isset($_POST["connexion"])) {
         </form>
     </section>
 </main>
+
+<script src="script/connexion.js"></script>
+<script>
+    document.querySelector("form").addEventListener("submit", validerConnexion);
+</script>
+
 </body>
 </html>

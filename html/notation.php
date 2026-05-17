@@ -54,7 +54,7 @@ $numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/notation.css">
-    <script src="../javascript/formulaire.js" defer></script>
+    <script src="../javascript/inscription.js" defer></script>
 </head>
 <body>
     <header>

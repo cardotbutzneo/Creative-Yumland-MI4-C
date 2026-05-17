@@ -33,7 +33,7 @@ if (isset($_POST["password"])){
     <?php if ($suppression) echo '<meta http-equiv="refresh" content="5; URL=index.php">'?>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
-    <script src="../javascript/formulaire.js" defer></script>
+    <script src="../javascript/inscription.js" defer></script>
     <script src="../script.js" defer></script>
     <title>Sécurité</title>
 </head>

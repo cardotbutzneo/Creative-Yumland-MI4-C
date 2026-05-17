@@ -72,7 +72,7 @@ if (isset($_POST["inscription"])) {
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
     <link rel="stylesheet" href="style/notification.css">
-    <script src="../javascript/formulaire.js" defer></script>
+    <script src="../javascript/inscription.js" defer></script>
     <title>Inscription - L'oro di Cicerone</title>
 </head>
 <body>

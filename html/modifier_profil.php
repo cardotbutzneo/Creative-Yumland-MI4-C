@@ -16,7 +16,7 @@ $erreur = "";
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
     <script src="../script.js" defer></script>
-    <script src="../javascript/formulaire.js" defer></script>
+    <script src="../javascript/inscription.js" defer></script>
 </head>
 <body>
     <header>

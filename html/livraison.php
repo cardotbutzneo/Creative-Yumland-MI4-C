@@ -225,6 +225,17 @@ if (!$num_cmd_actif) {
     <?php } ?>
 
 </main>
+<?php if (empty($commandes_disponibles) && !$commande_actuelle) { ?>
+<script>
+    setInterval(async () => {
+        const res = await fetch("../api/commandes_disponibles.php");
+        const data = await res.json();
+        if (data.disponible) location.reload();
+    }, 10000);
+</script>
+<?php } ?>
 
+</body>
+</html>
 </body>
 </html>
