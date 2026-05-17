@@ -92,6 +92,7 @@ function ecrire_log(string $msg, string $type = "warning") : void {
     error_log($format, 3, "../securite.log");
 }
 
+
 /**vérifie que l'utilisateur est connecté avec le bon rôle
  * @param string $role - Le rôle actuel de l'utilisateur (ex: "Client", "admin", etc.)
  * @param array | string $roles_autorisés - Les rôles autorisés à accéder à la page (par défaut: ["Client"]). Si un seul rôle est passé, un string est accepté
@@ -103,6 +104,7 @@ function verifier_connexion(string $role, array | string $roles_autorisés = ["C
     if (is_string($roles_autorisés)) $roles_autorisés = [$roles_autorisés]; // Si un seul rôle est fourni sous forme de chaîne, on le convertit en tableau
     if ($role == "admin" && $inclure_admin) return; // Si l'utilisateur est un admin et que les admins sont inclus, on autorise l'accès
     if (!in_array($role, $roles_autorisés)){
+        ecrire_log("Accès non autorisé à " . basename($_SERVER["PHP_SELF"]) . " par " . $_SESSION["prenom"] . " " . $_SESSION["nom"] . " avec le rôle " . $role);
         header("Location: connexion.php?error=unauthorized");
         exit;
     }

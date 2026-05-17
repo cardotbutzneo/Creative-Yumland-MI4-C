@@ -1,12 +1,7 @@
 <?php
-session_start();
 
-require_once __DIR__."/../serveur.php";
-
-if(!isset($_SESSION["connecte"]) or ($_SESSION["role"] != "Client")){
-    header("Location: index.php?error=unauthorized");
-    exit;
-}
+require_once __DIR__."/../api/config.php";
+verifier_connexion($role,"Client",false);
 
 $email_client = $_SESSION["email"];
 $bdd_client = lire_data("../data/client.json", $email_client);

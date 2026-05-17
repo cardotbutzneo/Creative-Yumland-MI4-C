@@ -1,1 +1,6 @@
-[33mINFO[0m [2026-05-05 21:05:27]: L'utilisateur BillGates est débanni
+[38;5;208mWARNING[0m [2026-05-17 15:49:44]: Accès non autorisé à notation.php par Bill Gatesavec le rôle admin
+[33mINFO[0m [2026-05-17 15:49:51]: L'utilisateur Federico Costanzo est banni
+[33mINFO[0m [2026-05-17 15:49:56]: L'utilisateur Federico Costanzo est débanni
+[31mCRITICAL[0m [2026-05-17 15:50:49]: Accès non autorisé à notation.php par Bill Gatesavec le rôle admin
+[38;5;208mWARNING[0m [2026-05-17 15:51:05]: Accès non autorisé à notation.php par Bill Gatesavec le rôle admin
+[38;5;208mWARNING[0m [2026-05-17 17:48:32]: Accès non autorisé à securite.php

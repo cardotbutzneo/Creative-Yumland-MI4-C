@@ -10,7 +10,7 @@ if (isset($_POST["banni"])) {
     $estBanni = ($_POST['action_type'] === 'Bloquer'); 
     
     bloquer($user, $raison, $estBanni);
-    ecrire_log("L'utilisateur " . $_SESSION["prenom"] . $_SESSION["nom"] . (($estBanni) ? " est banni" : " est débanni"), "info");
+    ecrire_log("L'utilisateur " . $data_client[$user]["prenom"] . " " . $data_client[$user]["nom"] . (($estBanni) ? " est banni" : " est débanni"), "info");
 }
 
 if (isset($_POST["nvRole"])){
@@ -53,7 +53,7 @@ if (isset($_POST["nvRole"])){
             try {
                 const reponse = await fetch("../api/get_client.php", {
                     method: "POST",
-                    headers: { 'Content-Type': 'application/json' } // Corrigé : headers avec un 's'
+                    headers: { 'Content-Type': 'application/json' }
                 });
                 const data = await reponse.json();
                 return data;
