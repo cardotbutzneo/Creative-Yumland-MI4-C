@@ -19,16 +19,16 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-14 20:31:44",
+            "derniere_connexion": "2026-05-17 17:22:10",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
             "remember_token_expiration": null
         },
-        "pts-fidelite": 3093,
-        "total-fidelite": 6093,
+        "pts-fidelite": 3095,
+        "total-fidelite": 6095,
         "livraison": false,
         "tel": "+33 "
     },
@@ -77,9 +77,9 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-11 19:58:54",
+            "derniere_connexion": "2026-05-17 17:21:15",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "remember_token": null,
@@ -191,35 +191,6 @@
         },
         "pts-fidelite": 0,
         "total-fidelite": 0,
-        "livraison": false
-    },
-    "leonmarchand@gmail.com": {
-        "id": "00000008",
-        "nom": "Marchand",
-        "prenom": "Léon",
-        "mot de passe": "$2y$10$SQqSwJ0Vy3FeZm62ZKFdH.YytON84viucSqfcXP8tDOCsx61YT3Cu",
-        "contact": {
-            "adresse": "24 Rte de la Celle Saint-Cloud, 78380 Bougival",
-            "complément d'adresse": "",
-            "téléphone": "0612345678",
-            "adresse email": "leonmarchand@gmail.com"
-        },
-        "role": "Client",
-        "dernieres_commandes": [
-            "29FA0447"
-        ],
-        "securite": {
-            "date_creation": "2026-05-17",
-            "derniere_connexion": "2026-05-17 11:44:40",
-            "est_banni": false,
-            "est_en_ligne": true,
-            "est_modifiable": true,
-            "tentative_echec": 0,
-            "remember_token": null,
-            "remember_token_expiration": null
-        },
-        "pts-fidelite": 106,
-        "total-fidelite": 106,
         "livraison": false
     }
 }

@@ -210,47 +210,5 @@
         },
         "instructions": "sans olives",
         "numero": "00000006"
-    },
-    "29FA0447": {
-        "email": "leonmarchand@gmail.com",
-        "date": "2026-05-17 11:39:01",
-        "montant": "326.00",
-        "livraison": false,
-        "est-valide": true,
-        "etat": "livree",
-        "plats": [
-            {
-                "nom": "Carpaccio",
-                "quantite": 1
-            },
-            {
-                "nom": "Lasagne dorée",
-                "quantite": 1
-            },
-            {
-                "nom": "Pizza Truffe",
-                "quantite": 1
-            },
-            {
-                "nom": "Panna cotta",
-                "quantite": 1
-            },
-            {
-                "nom": "Etto Germano",
-                "quantite": 1
-            },
-            {
-                "nom": "Burrata",
-                "quantite": 1
-            },
-            {
-                "nom": "Tiramisu",
-                "quantite": 1
-            }
-        ],
-        "instructions": "Pizza sans olives",
-        "numero": "00000007",
-        "deja_modifie": true,
-        "livreur": "livreur1@gmail.com"
     }
 }

@@ -69,8 +69,7 @@ if ($action === "set_qte" && $id_plat !== '' && isset($_GET["qte"])) {
         $paniers[$email]["total"] = calcul($paniers[$email]["articles"]);
         sauvegarder($a, $paniers);
     }
-    http_response_code(200);
-    exit;
+    exit; 
 }
 
 if ($action === "ajouter") {
@@ -174,7 +173,7 @@ $minDateTime = date("Y-m-d\TH:i");
                             <span class="prix mc-item-subtotal"><?= $article["prix"] * $article["quantite"] ?>€</span>
                         </div>
                         <div class="quantite">
-                            <button type="button" class="btn-qte" onclick="modifierQte(this, -1)">−</button>
+                            <button type="button" class="btn-qte" onclick="modifierQte(this, -1)">-</button>
                             <span class="qte-nb"><?= $article["quantite"] ?></span>
                             <button type="button" class="btn-qte" onclick="modifierQte(this, 1)">+</button>
                             <span class="unitaire"><?= $article["prix"] ?>€ / unité</span>
