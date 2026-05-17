@@ -58,7 +58,7 @@ $bdd_cmd = lire_data("../data/commandes.json");
                     <p>Votre commande attend actuellement d'être livrée.</p>
                     <p>Nous attendons qu'un livreur vienne chercher votre commande.</p>
                 </div>
-            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "en livraison") { ?>
+            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "livraison") { ?>
                 <div class="statut-commande">
                     <p>Votre commande est en cours de livraison.</p>
                     <p>Soyez réactif, le livreur arrivera bientôt !</p>
