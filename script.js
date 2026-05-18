@@ -4,7 +4,7 @@
  * - Permet de bannir ou débannir un utilisateur avec une raison
  * - Permet de changer le rôle d'un utilisateur
  * - Gère les cookies pour la session utilisateur
-*/
+ */
 
 /**
  * Vérifie régulièrement si l'utilisateur est banni et redirige vers la page de connexion si nécessaire
@@ -26,9 +26,10 @@ setInterval(async () => {
  * @param {HTMLButtonElement} elementBouton - Le bouton qui a déclenché l'action, utilisé pour mettre à jour son texte
  */
 async function bannir(mail, action, elementBouton) {
-	const raison = prompt("Raison du bannissement : ");
-	if (raison === null) return;
-
+	let raison = "";
+	if (action === "Bloquer") {
+		raison = prompt("Veuillez entrer la raison du bannissement :");
+	}
 	const formData = new FormData();
 	formData.append("raison", raison);
 	formData.append("banni", "true");
@@ -89,4 +90,21 @@ function setCookie(name, value, days) {
 	}
 	// path=/ permet au cookie d'être disponible sur tout ton site
 	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+async function verfierURL(url) {
+	if (url === "") return;
+	try {
+		const response = await fetch("api/serveur_errors.php", {
+			headers: { "Content-Type": "application/json" },
+			method: "POST",
+			body: JSON.stringify({ url: url }),
+		});
+		if (response.ok) {
+			const message = response.message;
+			console.log("[URL " + url + "]" + message);
+		}
+	} catch (error) {
+		console.error("Erreur : " + error);
+	}
 }

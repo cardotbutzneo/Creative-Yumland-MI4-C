@@ -34,10 +34,11 @@ if (isset($data[$username])) { // si on trouve l'utilisateur dans la base de don
 
         ecrire_data("../data/client.json", $bdd_actuelle);
         ecrire_data("../data/commandes.json", $commandes_actuelles);
+        ecrire_log("L'utilisateur" . $_SESSION["prenom"] . $_SESSION["nom"] . " est banni [raison : ". $reason . "]", "info");
 
         session_unset();
         session_destroy();
-        ecrire_log("L'utilisateur" . $_SESSION["prenom"] . $_SESSION["nom"] . "est banni", "info");
+        
 
         // code de retour pour le js
         echo json_encode([

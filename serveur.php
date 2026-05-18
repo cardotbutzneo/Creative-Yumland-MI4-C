@@ -75,7 +75,9 @@ function calculer_points(int $montant_total, string $pts) : int{
 */
 function ecrire_log(string $msg, string $type = "warning") : void {
     if (empty($msg)) return;
+    if ($type == "") $type = "warning";
 
+    $date = date("Y-m-d H:i:s");
     $colors = [
         "info"     => "\033[33m",
         "warning"  => "\033[38;5;208m",
@@ -83,11 +85,15 @@ function ecrire_log(string $msg, string $type = "warning") : void {
         "reset"    => "\033[0m"
     ];
 
+    $max_len = 0;
+    foreach (array_keys($colors) as $color){
+        $max_len = max($max_len,strlen($color));
+    }
     $type = strtolower($type);
     $color = $colors[$type] ?? $colors['reset'];
     
     $date = date("Y-m-d H:i:s");
-    $format = $color . strtoupper($type) . $colors['reset'] . " [" . $date . "]: " . $msg . PHP_EOL;
+    $format = $color . str_pad(strtoupper($type), 8," ",STR_PAD_RIGHT) . $colors['reset'] . " [" . $date . "]: " . $msg . PHP_EOL;
 
     error_log($format, 3, "../securite.log");
 }
@@ -104,7 +110,9 @@ function verifier_connexion(string $role, array | string $roles_autorisés = ["C
     if (is_string($roles_autorisés)) $roles_autorisés = [$roles_autorisés]; // Si un seul rôle est fourni sous forme de chaîne, on le convertit en tableau
     if ($role == "admin" && $inclure_admin) return; // Si l'utilisateur est un admin et que les admins sont inclus, on autorise l'accès
     if (!in_array($role, $roles_autorisés)){
-        ecrire_log("Accès non autorisé à " . basename($_SERVER["PHP_SELF"]) . " par " . $_SESSION["prenom"] . " " . $_SESSION["nom"] . " avec le rôle " . $role);
+        $type_log = "";
+        if (in_array("admin",$roles_autorisés)) $type_log = "critical";
+        ecrire_log("Accès non autorisé à " . basename($_SERVER["PHP_SELF"]) . " par " . $_SESSION["prenom"] . " " . $_SESSION["nom"] . " avec le rôle " . $role, $type_log);
         header("Location: connexion.php?error=unauthorized");
         exit;
     }
