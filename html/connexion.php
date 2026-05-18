@@ -167,7 +167,7 @@ if (isset($_POST["connexion"])) {
     </section>
 </main>
 
-<script src="script/connexion.js"></script>
+<script src="../javascript/connexion.js"></script>
 <script>
     document.querySelector("form").addEventListener("submit", validerConnexion);
 </script>
