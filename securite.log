@@ -1,8 +1,5 @@
-[33mINFO    [0m [2026-05-17 21:11:38]: L'utilisateur Bill Gates est banni
-[33mINFO    [0m [2026-05-17 21:11:48]: L'utilisateurest banni
-[33mINFO    [0m [2026-05-17 21:13:54]: L'utilisateur Timothée Chalamet est banni
-[33mINFO    [0m [2026-05-17 21:15:44]: L'utilisateur Timothée Chalamet est débanni
-[31mCRITICAL[0m [2026-05-18 15:38:02]: Accès non autorisé à profil_admin.php par Timothée Chalamet avec le rôle Client
-[33mINFO    [0m [2026-05-19 15:22:20]: Connexion : Mot de passe incorrect de client1@gmail.com
-[38;5;208mWARNING [0m [2026-05-19 15:48:03]: Tentative d'accès aux base de données
-[38;5;208mWARNING [0m [2026-05-19 16:49:43]: Accès non autorisé à commandes.php
+[38;5;208mWARNING [0m [2026-05-19 17:15:39] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 17:16:01] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 17:16:10] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 17:16:28] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 18:59:47] -- Accès non autorisé à profil_client.php

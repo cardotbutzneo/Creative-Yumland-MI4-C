@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__."/../serveur.php";
+session_start();
 
 // 1. On récupère l'URL demandée par le navigateur (ex: /html/index.php ou /html/style/main.css)
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
@@ -11,6 +12,11 @@ $racine_projet = dirname(__DIR__);
 // 3. On construit le chemin absolu vers le fichier demandé sur le disque
 $fichier = $racine_projet . urldecode($url);
 
+$profil = "";
+if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION["role"]) && isset($_SESSION["nom"])){
+    $profil = " par" . $_SESSION["nom"] . " avec le rôle " . $_SESSION["role"];
+}
+
 // 4. Si l'utilisateur tape juste l'adresse de base (localhost:8000/)
 if ($url === '/' || $url === '/html/') {
     header("Location: /html/index.php");
@@ -18,8 +24,13 @@ if ($url === '/' || $url === '/html/') {
 }
 
 if (preg_match('/data\//', $url)){
-    echo 'test';
-    ecrire_log("Tentative d'accès aux base de données");
+    ecrire_log("Securite : Tentative d'accès aux base de données" . $profil);
+    include "api/404_error.php";
+    exit;
+}
+
+if (preg_match('/securite.log/',$url)){
+    ecrire_log("Securite : Tentative d'accès au fichier de log" . $profil);
     include "api/404_error.php";
     exit;
 }

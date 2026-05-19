@@ -76,11 +76,103 @@ if (isset($_POST["nvRole"])){
             });
         }
 
+        async function getLog(){
+            try {
+                const response = await fetch("../api/get_log.php", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    console.error(`Erreur serveur : Statut ${response.status}`);
+                    return null;
+                }
+
+                const json = await response.json();
+                
+                if (json.success === true){    
+                    return json.data; // Renvoie directement le tableau de lignes
+                }
+                return null;
+            }
+            catch (e){
+                console.error("Erreur lors de la récupération des logs : " + e);
+                return null;
+            }
+        }
+
+        function ansiToHtml(input) {
+            let text = input
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            text = text.replace(/\x1b\[0m/g, '</span>');
+
+            text = text.replace(/\x1b\[38;5;208m/g, '<span style="color: #ff8700; font-weight: bold;">');
+
+            text = text.replace(/\x1b\[33m/g, '<span style="color: #ffcc00; font-weight: bold;">');
+
+            text = text.replace(/\x1b\[31m/g, '<span style="color: #ff4d4d; font-weight: bold;">');
+            return text;
+        }
+
+        function creerLog(logs){
+            if (logs === null || !Array.isArray(logs)){
+                console.error('Impossible de charger les logs ou format invalide');
+                return;
+            }
+            
+            const conteneur = document.getElementById("logs-display");
+            if (conteneur === null){
+                console.error("Erreur : Le conteneur #logs-display n'existe pas dans le DOM");
+                return;
+            }
+            
+            conteneur.innerHTML = ""; // On vide le conteneur 
+            
+            logs.forEach(message => {
+                const p = document.createElement("p");
+                p.innerHTML = ansiToHtml(message);
+                conteneur.appendChild(p);
+            });
+        }
+        
+        function afficher(id, button){
+            if (id === "") return;
+            const userElement = document.getElementById("user-display");
+            const logElement = document.getElementById("logs-display");
+
+            const btnUser = document.getElementById("user");
+            const btnLogs = document.getElementById("logs");
+
+            if (id === "user-display") { // gestion de l'affichage de la selection
+                userElement.style.display = "block";
+                logElement.style.display = "none";
+            }
+            else {
+                logElement.style.display = "block";
+                userElement.style.display = "none";
+            }
+            btnUser.classList.remove("check-button");
+            btnLogs.classList.remove("check-button");
+
+            // On l'ajoute uniquement sur le bouton qui vient d'être cliqué
+            button.classList.add("check-button");
+        }
+
         async function init() {
             var id_client = await get_id();
             afficher_dataListe(id_client);
         }
+
+        async function init_logs(){
+            var log = await getLog();
+            creerLog(log);
+        }
+
         init();
+        init_logs();
+        setInterval(init_logs,10000); // on vérifie les nouveaux logs tous les 10s
 
     </script>
     <header>
@@ -111,12 +203,12 @@ if (isset($_POST["nvRole"])){
         </script>
     <?php } ?>
     <h1>Page d'administration</h1>
-    <div class="grid">
-        <section class="graphique">
-            <h2>Graphique</h2>
-            <p>In progress, Brick by Boring Brick. Awaiting the JS...</p>
-        </section>
-        <section class="table-utilisateur">
+    <div id="button-display">
+        <button id="user" onclick="afficher('user-display', this)">Utilisateurs</button>
+        <button id="logs" onclick="afficher('logs-display', this)">Logs</button>
+    </div>
+    <div class="box">
+        <section class="table-utilisateur" id="user-display">
             <h2>Utilisateurs</h2>
             <form action="profil_admin.php" method="get">
             <input list="data-recherche" type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un utilisateur" onchange="chercherUtilisateur(this.value)">    
@@ -169,6 +261,13 @@ if (isset($_POST["nvRole"])){
                 }
                 ?>
             </table>
+        </section>
+
+        <section id="logs-display" style="display: none;">
+            <h2>Logs</h2>
+            <div id="log-table">
+                <p>Chargement des logs...</p>
+            </div>
         </section>
     </div>
 </body>

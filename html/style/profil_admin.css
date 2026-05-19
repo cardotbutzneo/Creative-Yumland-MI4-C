@@ -57,9 +57,36 @@ section{
     padding: 10px;
 }
 
-.grid{
-    display: grid;
-    grid-template-columns: auto 1fr;
+#button-display{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+    gap: 20px;
+}
+
+.check-button{
+    background-color: var(--color);
+    color: black;
+}
+
+#logs-display {
+    font-size: 20px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px;
+    border-radius: 5px;
+    line-height: 1.5;
+}
+
+#logs-display p {
+    margin: 4px 0;
+    border-bottom: 1px solid #2d2d2d;
+    padding-bottom: 4px;
+}
+
+.box{
     gap: 1rem;
     margin: 1rem;
 }
@@ -146,7 +173,7 @@ tr:not(:last-child) th {
 
 @media screen and (max-width : 600px){
 
-    .grid{
+    .box{
         display: flex;
     }
 }

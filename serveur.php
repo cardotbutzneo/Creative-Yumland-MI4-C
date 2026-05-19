@@ -94,7 +94,7 @@ function ecrire_log(string $msg, string $type = "warning") : void {
     $color = $colors[$type] ?? $colors['reset'];
     
     $date = date("Y-m-d H:i:s");
-    $format = $color . str_pad(strtoupper($type), 8," ",STR_PAD_RIGHT) . $colors['reset'] . " [" . $date . "]: " . $msg . PHP_EOL;
+    $format = $color . str_pad(strtoupper($type), 8," ",STR_PAD_RIGHT) . $colors['reset'] . " [" . $date . "] -- " . $msg . PHP_EOL;
 
     error_log($format, 3 , ROOT_PATH ."securite.log");
 }
@@ -118,5 +118,4 @@ function verifier_connexion(string $role, array | string $roles_autorisés = ["C
         exit;
     }
 }
-
 ?>
