@@ -5,8 +5,8 @@ require_once __DIR__."/../api/config.php";
 verifier_connexion($role,"livreur");
 
 $email_livreur = $_SESSION["email"];
-$bdd_client = lire_data("../data/client.json");
-$bdd_cmd = lire_data("../data/commandes.json");
+$bdd_client = $data_client;
+$bdd_cmd = $data_commandes;
 
 
 if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {

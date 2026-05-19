@@ -1,9 +1,9 @@
 <?php
-session_start();
+require_once __DIR__."/../api/config.php";
 
 if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
     require_once __DIR__ . "/../serveur.php";
-    $bdd = lire_data("../data/client.json");
+    $bdd = $data_client;
     $token_recu = $_COOKIE["remember_token"];
 
     foreach ($bdd as $email => $utilisateur) {
@@ -46,7 +46,7 @@ require_once __DIR__ . "/../serveur.php";
 $erreur = "";
 
 if (isset($_POST["connexion"])) {
-    $bdd_actuelle = lire_data("../data/client.json");
+    $bdd_actuelle = $data_client;
     $email = $_POST["email"];
     $mdp = $_POST["password"];
 

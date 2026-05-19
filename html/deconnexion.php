@@ -8,7 +8,7 @@ if(!isset($_SESSION["connecte"])){
 }
 
 if(isset($_POST["deconnexion"])){
-    $bdd_actuelle = lire_data("../data/client.json");
+    $bdd_actuelle = $data_client;
     $email = $_SESSION["email"];
 
     if(isset($bdd_actuelle[$email])){

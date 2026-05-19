@@ -5,7 +5,7 @@ require_once __DIR__."/../api/config.php";
 
 verifier_connexion($_SESSION["role"], "Cuisinier");
 
-$bdd_cmd = lire_data("../data/commandes.json");
+$bdd_cmd = $data_commandes;
 
 // Filtrer uniquement les commandes notées
 $commandes_notees = array_filter($bdd_cmd, fn($cmd) => $cmd["etat"] === "notee");

@@ -49,7 +49,7 @@ if (isset($_POST["inscription"])) {
     if ($password !== $confirmer_password) {
         $erreur = "Les mots de passe sont différents.";
     } else {
-        $bdd_actuelle = lire_data("../data/client.json");
+        $bdd_actuelle = $data_client;
         if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
 
         if (isset($bdd_actuelle[$email])) {
