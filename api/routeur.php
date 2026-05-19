@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__."/../serveur.php";
+
 // 1. On récupère l'URL demandée par le navigateur (ex: /html/index.php ou /html/style/main.css)
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
@@ -11,6 +14,13 @@ $fichier = $racine_projet . urldecode($url);
 // 4. Si l'utilisateur tape juste l'adresse de base (localhost:8000/)
 if ($url === '/' || $url === '/html/') {
     header("Location: /html/index.php");
+    exit;
+}
+
+if (preg_match('/data\//', $url)){
+    echo 'test';
+    ecrire_log("Tentative d'accès aux base de données");
+    include "api/404_error.php";
     exit;
 }
 

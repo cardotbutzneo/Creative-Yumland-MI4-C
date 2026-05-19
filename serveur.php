@@ -10,6 +10,7 @@
  * - verifier_connexion : vérifie que l'utilisateur est connecté avec le bon rôle et redirige vers la page de connexion si nécessaire
  */
 
+define('ROOT_PATH', __DIR__ . '/'); // on définie la racine du projet
 date_default_timezone_set('Europe/Paris');
 
 /** Lit les données à partir d'un fichier JSON. 
@@ -75,7 +76,6 @@ function calculer_points(int $montant_total, string $pts) : int{
 */
 function ecrire_log(string $msg, string $type = "warning") : void {
     if (empty($msg)) return;
-    if ($type == "") $type = "warning";
 
     $date = date("Y-m-d H:i:s");
     $colors = [
@@ -84,6 +84,7 @@ function ecrire_log(string $msg, string $type = "warning") : void {
         "critical" => "\033[31m",
         "reset"    => "\033[0m"
     ];
+    if (!in_array($type, array_keys($colors))) $type = "warning"; // si type pas reconnu on le met à la valeur par défaut
 
     $max_len = 0;
     foreach (array_keys($colors) as $color){
@@ -95,7 +96,7 @@ function ecrire_log(string $msg, string $type = "warning") : void {
     $date = date("Y-m-d H:i:s");
     $format = $color . str_pad(strtoupper($type), 8," ",STR_PAD_RIGHT) . $colors['reset'] . " [" . $date . "]: " . $msg . PHP_EOL;
 
-    error_log($format, 3, "../securite.log");
+    error_log($format, 3 , ROOT_PATH ."securite.log");
 }
 
 
