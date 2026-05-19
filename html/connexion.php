@@ -57,7 +57,7 @@ if (isset($_POST["connexion"])) {
 
         if ($utilisateur["securite"]["est_banni"]) {
             $erreur = "Votre compte est banni.";
-        } elseif ($utilisateur["securite"]["tentative_echec"] >= 10) {
+        } elseif ($utilisateur["securite"]["tentative_echec"] >= 5) {
             $erreur = "Trop de tentatives échouées. Compte bloqué.";
         } else {
             $hash = $utilisateur["mot de passe"];
@@ -110,6 +110,7 @@ if (isset($_POST["connexion"])) {
                 $bdd_actuelle[$email]["securite"]["tentative_echec"]++;
                 ecrire_data("../data/client.json", $bdd_actuelle);
                 $erreur = "Adresse email ou mot de passe incorrect";
+                ecrire_log("Connexion : Mot de passe incorrect de " . $_POST["email"] , "info");
             }
         }
     }
