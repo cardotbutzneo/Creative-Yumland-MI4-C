@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__."/../serveur.php"; // Pour lire_data()
 
+/**
+ * Revoie l'état de banissement d'un utilisateur.
+ * Le js fetch le fichier pour savoir si le client est bani ou non
+ */
+
 header('Content-Type: application/json');
 
 // Si l'utilisateur n'est même pas connecté, on arrête
@@ -31,6 +36,7 @@ if (isset($data[$username])) { // si on trouve l'utilisateur dans la base de don
             array_shift($bdd_actuelle[$email]["dernieres_commandes"]);
         }
 
+        // on sauvegarde les données
         ecrire_data("../data/client.json", $bdd_actuelle);
         ecrire_data("../data/commandes.json", $commandes_actuelles);
         ecrire_log("L'utilisateur" . $_SESSION["prenom"] . $_SESSION["nom"] . " est banni [raison : ". $reason . "]", "info");

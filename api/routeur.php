@@ -14,7 +14,7 @@ $fichier = $racine_projet . urldecode($url);
 
 $profil = "";
 if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION["role"]) && isset($_SESSION["nom"])){
-    $profil = " par" . $_SESSION["nom"] . " avec le rôle " . $_SESSION["role"];
+    $profil = " par " . $_SESSION["nom"] . " " . $_SESSION["prenom"] . " avec le rôle " . $_SESSION["role"];
 }
 
 // 4. Si l'utilisateur tape juste l'adresse de base (localhost:8000/)
@@ -29,8 +29,8 @@ if (preg_match('/data\//', $url)){
     exit;
 }
 
-if (preg_match('/securite.log/',$url)){
-    ecrire_log("Securite : Tentative d'accès au fichier de log" . $profil);
+if (preg_match('/securite.log/',$url) || preg_match_all('/archive_log\//',$url)){
+    ecrire_log("Securite : Tentative d'accès aux fichiers de log" . $profil, "critical");
     include "api/404_error.php";
     exit;
 }

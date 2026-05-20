@@ -23,8 +23,8 @@
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
-            "tentative_echec": 5,
-            "derniere_tentative": "2026-05-20 10:45:21",
+            "tentative_echec": 1,
+            "derniere_tentative": "2026-05-20 20:31:51",
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -108,7 +108,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-20 10:47:31",
+            "derniere_connexion": "2026-05-20 20:29:04",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,

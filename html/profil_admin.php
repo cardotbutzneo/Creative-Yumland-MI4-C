@@ -3,6 +3,7 @@ require_once __DIR__."/../api/config.php";
 
 verifier_connexion($role, "admin");
 
+// détecte un banissement via POST et modifier la base de données
 if (isset($_POST["banni"])) {
     $user = $_POST["mail"];
     $raison = $_POST["raison"] ?? "";
@@ -13,6 +14,7 @@ if (isset($_POST["banni"])) {
     ecrire_log("L'utilisateur " . $data_client[$user]["prenom"] . " " . $data_client[$user]["nom"] . (($estBanni) ? " est banni" : " est débanni"), "info");
 }
 
+//  identifie un changement de rôle via POST et modifier la base de données
 if (isset($_POST["nvRole"])){
     $user = $_POST["mail"];     
     $nvRole = $_POST["nvRole"];
@@ -29,152 +31,10 @@ if (isset($_POST["nvRole"])){
     <link rel="stylesheet" href="style/profil_admin.css">
     <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
+    <script src="../javascript/admin.js" defer></script>
     <title>Profil Admin - L'oro di Cicerone</title>
 </head>
 <body>
-    <script>
-        function chercherUtilisateur(id){
-            if (id.length <= 0) {
-                const rows = document.querySelectorAll(".utilisateur");
-                rows.forEach(row => row.style.display = "");
-                return;
-            }
-            const rows = document.querySelectorAll(".utilisateur");
-            rows.forEach(row => {
-                if (row.dataset.mail === id) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        }
-
-        async function get_id() {
-            try {
-                const reponse = await fetch("../api/get_client.php", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const data = await reponse.json();
-                return data;
-            } catch (e) {
-                console.error("Erreur fetch:", e);
-                return {}; // Retourne un objet vide en cas d'erreur
-            }
-        }
-
-        function afficher_dataListe(dataId) {
-            if (!dataId || Object.keys(dataId).length === 0) return;
-            
-            const dataListe = document.getElementById("data-recherche");
-            dataListe.innerHTML = "";
-
-            Object.keys(dataId).forEach(id => {
-                const option = document.createElement('option');
-                option.value = id;
-                dataListe.appendChild(option);
-            });
-        }
-
-        async function getLog(){
-            try {
-                const response = await fetch("../api/get_log.php", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
-                if (!response.ok) {
-                    console.error(`Erreur serveur : Statut ${response.status}`);
-                    return null;
-                }
-
-                const json = await response.json();
-                
-                if (json.success === true){    
-                    return json.data; // Renvoie directement le tableau de lignes
-                }
-                return null;
-            }
-            catch (e){
-                console.error("Erreur lors de la récupération des logs : " + e);
-                return null;
-            }
-        }
-
-        function ansiToHtml(input) {
-            let text = input
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
-            text = text.replace(/\x1b\[0m/g, '</span>');
-
-            text = text.replace(/\x1b\[38;5;208m/g, '<span style="color: #ff8700; font-weight: bold;">');
-
-            text = text.replace(/\x1b\[33m/g, '<span style="color: #ffcc00; font-weight: bold;">');
-
-            text = text.replace(/\x1b\[31m/g, '<span style="color: #ff4d4d; font-weight: bold;">');
-            return text;
-        }
-
-        function creerLog(logs){
-            if (logs === null || !Array.isArray(logs)){
-                console.error('Impossible de charger les logs ou format invalide');
-                return;
-            }
-            
-            const conteneur = document.getElementById("logs-display");
-            if (conteneur === null){
-                console.error("Erreur : Le conteneur #logs-display n'existe pas dans le DOM");
-                return;
-            }
-            
-            conteneur.innerHTML = ""; // On vide le conteneur 
-            
-            logs.forEach(message => {
-                const p = document.createElement("p");
-                p.innerHTML = ansiToHtml(message);
-                conteneur.appendChild(p);
-            });
-        }
-        
-        function afficher(id, button){
-            if (id === "") return;
-            const userElement = document.getElementById("user-display");
-            const logElement = document.getElementById("logs-display");
-
-            const btnUser = document.getElementById("user");
-            const btnLogs = document.getElementById("logs");
-
-            if (id === "user-display") { // gestion de l'affichage de la selection
-                userElement.style.display = "block";
-                logElement.style.display = "none";
-            }
-            else {
-                logElement.style.display = "block";
-                userElement.style.display = "none";
-            }
-            btnUser.classList.remove("check-button");
-            btnLogs.classList.remove("check-button");
-
-            // On l'ajoute uniquement sur le bouton qui vient d'être cliqué
-            button.classList.add("check-button");
-        }
-
-        async function init() {
-            var id_client = await get_id();
-            afficher_dataListe(id_client);
-        }
-
-        async function init_logs(){
-            var log = await getLog();
-            creerLog(log);
-        }
-
-        init();
-        init_logs();
-        setInterval(init_logs,10000); // on vérifie les nouveaux logs tous les 10s
-
-    </script>
     <header>
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
@@ -204,8 +64,19 @@ if (isset($_POST["nvRole"])){
     <?php } ?>
     <h1>Page d'administration</h1>
     <div id="button-display">
-        <button id="user" onclick="afficher('user-display', this)">Utilisateurs</button>
-        <button id="logs" onclick="afficher('logs-display', this)">Logs</button>
+        <div id="btn">
+            <button id="user" onclick="afficher('user-display', this)">Utilisateurs</button>
+            <button id="logs" onclick="afficher('logs-display', this)">Logs</button>
+        </div>
+        <div id="log-container" style="display: none;"> 
+            <select id="choix-log" class="bar-recherche" placeholder="Trie des logs" onchange="trieLog()">
+                <option value="all">Tous les logs</option>
+                <option value="info">Informations (INFO)</option>
+                <option value="warning">Avertissements (WARNING)</option>
+                <option value="critical">Critique (CRITICAL)</option>
+            </select>
+            <button onclick="document.getElementById('choix-log').value = 'all'; trieLog()">Supprimer</button>
+        </div>
     </div>
     <div class="box">
         <section class="table-utilisateur" id="user-display">
@@ -288,9 +159,11 @@ function changer_role(string $mail_utilisateur, string $nouveau_role) : bool{
     if (!isset($data_client[$mail_utilisateur])) return false; // on retourne rien si l'utilisateur n'est pas trouvé
 
     if (isset($data_client[$mail_utilisateur]["parametre"]["est_modifiable"]) and $data_client[$mail_utilisateur]["parametre"]["est_modifiable"] == false) return false; // si le profil n'est pas modifiable (profil de secours) on ne modifie rien
+    ecrire_log("Administration : Changement de rôle de" . $data_client[$mail_utilisateur]["nom"] . " " . $data_client[$mail_utilisateur]["nom"] . " " . "de" .  $data_client[$mail_utilisateur]["role"] . "a" . $nouveau_role);
     $data_client[$mail_utilisateur]["role"] = $nouveau_role; // on change le role de l'utilisateur
 
     $nouvelle_data = json_encode($data_client, JSON_PRETTY_PRINT);
+    
     file_put_contents("../data/client.json",$nouvelle_data);
     return true;
 }

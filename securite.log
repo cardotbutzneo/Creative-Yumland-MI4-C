@@ -2,15 +2,7 @@
 [38;5;208mWARNING [0m [2026-05-19 17:16:01] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
 [38;5;208mWARNING [0m [2026-05-19 17:16:10] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
 [38;5;208mWARNING [0m [2026-05-19 17:16:28] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
-[38;5;208mWARNING [0m [2026-05-19 18:59:47] -- Accès non autorisé à profil_client.php
-[33mINFO    [0m [2026-05-20 10:25:54] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:26:14] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:27:14] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:27:23] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:27:30] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:44:57] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:45:06] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:45:10] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:45:17] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[33mINFO    [0m [2026-05-20 10:45:21] -- Connexion : Mot de passe incorrect de client1@gmail.com
-[38;5;208mWARNING [0m [2026-05-20 10:45:21] -- Connexion : 5 tentatives échouées de client1@gmail.com. Compte temporairement bloqué
+[31mCRITICAL[0m [2026-05-20 20:27:24] -- Securite : Tentative d'accès au fichier de log
+[31mCRITICAL[0m [2026-05-20 20:28:44] -- Securite : Tentative d'accès au fichier de log
+[31mCRITICAL[0m [2026-05-20 20:28:56] -- Securite : Tentative d'accès aux fichiers de log
+[31mCRITICAL[0m [2026-05-20 20:30:21] -- Securite : Tentative d'accès aux fichiers de log par Gates Bill avec le rôle admin

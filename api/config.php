@@ -27,7 +27,7 @@ if (empty($_SESSION) || !isset($_SESSION["role"]) and !in_array(basename($_SERVE
     exit;
 }
 
-// Définition des constantes de configuration des variables d'environnement
+// Définition des constantes de configuration des variables
 $data_client = lire_data("../data/client.json");
 $data_commandes = lire_data("../data/commandes.json");
 $data_panier = lire_data("../data/panier.json");
