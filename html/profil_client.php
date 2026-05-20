@@ -37,7 +37,6 @@ foreach ($data_plats as $nom_plat => $plat){
 //
 if ($_SESSION["role"] == "Client"){
     $pts = $_SESSION["total-fidelite"] ?? 0;
-
     if ($pts < 500) {
         $class = "grade-amethyste";
         $max = 500;
@@ -298,4 +297,4 @@ function donner_grade(int $pts) : ?string{
     return $nom_grade;
 }
 
-?>
+?>S

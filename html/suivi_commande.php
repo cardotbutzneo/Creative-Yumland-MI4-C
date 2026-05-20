@@ -13,7 +13,7 @@ if (empty($bdd_client["dernieres_commandes"])) {
 }
 
 $derniere_cmd = $bdd_client["dernieres_commandes"][0];
-$bdd_cmd = lire_data("../data/commandes.json");
+$bdd_cmd = $data_commandes;
 
 ?>
 
@@ -74,7 +74,6 @@ $bdd_cmd = lire_data("../data/commandes.json");
             } ?>
         </div>
     </main>
-
     <footer>
         <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
     </footer>

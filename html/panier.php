@@ -101,6 +101,10 @@ if ($action === "supprimer") {
     unset($paniers[$email]["articles"][$id_plat]);
 }
 
+if($action === "tous_supprimer") {
+    $paniers[$email]["articles"] = [];
+}
+
 if ($action !== '' && $action !== 'set_qte') {
     $pts = $_SESSION["total-fidelite"] ?? 0;
     $total_brut = calcul($paniers[$email]["articles"]);
@@ -182,6 +186,9 @@ $minDateTime = date("Y-m-d\TH:i");
                     </li>
                     <?php } ?>
                 </ul>
+                <div class="container-ts-supp">
+                    <a class="btn-ts-supp" href="panier.php?action=tous_supprimer">Tout supprimer</a>
+                </div>
             </section>
             <div class="total" id="bloc-total" data-reduc="<?= isset($reduc) ? $reduc : 0 ?>">
                 <span>Total</span>

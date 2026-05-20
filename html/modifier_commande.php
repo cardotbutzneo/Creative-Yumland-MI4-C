@@ -9,8 +9,8 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] !== "Client") {
 
 $email = $_SESSION["email"];
 $id_cle = $_GET["id"] ?? '';
-$commandes = $data_commandes;
-$tous_les_plats = $data_plats;
+$commandes = lire_data("../data/commandes.json");
+$tous_les_plats = lire_data("../data/plats.json");
 
 if (!isset($commandes[$id_cle])) {
     header("Location: profil_client.php");

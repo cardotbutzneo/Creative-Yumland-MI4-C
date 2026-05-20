@@ -1,32 +1,23 @@
 <?php
-session_start();
-
-function lire_data(string $chemin, string $nom_utilisateur = ""): array {
-    if (!file_exists($chemin)) return [];
-    $data = json_decode(file_get_contents($chemin), true);
-    if ($data === null) return [];
-    if ($nom_utilisateur !== "") {
-        return $data[$nom_utilisateur] ?? [];
-    }
-    return $data;
-}
+require_once __DIR__."/../api/config.php";
 
 $est_client = false;
+
 if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true && $_SESSION["role"] === "Client") {
     $est_client = true;
 }
 
 $categories = [
-    "entrees"  => "Entrées",
-    "plats"    => "Plats",
+    "entrees" => "Entrées",
+    "plats" => "Plats",
     "desserts" => "Desserts",
-    "vins"     => "Vins",
-    "cafes"    => "Cafés",
+    "vins" => "Vins",
+    "cafes" => "Cafés",
 ];
 
 if (isset($_GET['ajax'])) {
     header('Content-Type: application/json');
-    $data = lire_data("../data/plats.json");
+    $data = $data_plats;
     $categorie = $_GET['categorie'] ?? '';
     $regime = $_GET['regime'] ?? '';
     $allergene = $_GET['allergene'] ?? '';
@@ -45,13 +36,13 @@ if (isset($_GET['ajax'])) {
     exit;
 }
 
-$data = lire_data("../data/plats.json");
+$data = $data_plats;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>La Carte – L'oro di Cicerone</title>
+    <title>La Carte - L'oro di Cicerone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/presentation.css">

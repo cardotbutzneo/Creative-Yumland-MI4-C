@@ -42,8 +42,8 @@ if ($control === $hash_accepted) {
 }
 
 if ($paiement_valide && $statut_reel === "accepted") {
-    $commandes = lire_data($chemin_commandes);
-    $clients = lire_data($chemin_clients);
+    $commandes = $data_commandes;
+    $clients = $data_client;
 
     if (strpos($transaction, 'MOD') === 0 && isset($_SESSION["modif_commande"])) {
         $m = $_SESSION["modif_commande"];
@@ -68,7 +68,7 @@ if ($paiement_valide && $statut_reel === "accepted") {
         $commandes[$nv_id] = $nv;
         sauvegarder_data($chemin_commandes, $commandes);
 
-        $paniers = lire_data($chemin_paniers);
+        $paniers = $data_panier;
         if (isset($paniers[$email])) {
             $paniers[$email]["articles"] = [];
             $paniers[$email]["total"] = 0;

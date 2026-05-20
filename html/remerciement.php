@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__."/../api/config.php";
 
 if(!isset($_SESSION["connecte"])){
     header("Location: connexion.php");

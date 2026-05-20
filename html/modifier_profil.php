@@ -111,7 +111,7 @@ $afficher_confirmation = false;
 
 function modifier_infos() : void {
     /** Modifie les infos de l'utilisateur */
-    $toute_la_data = lire_data("../data/client.json");
+    $toute_la_data = $data_client;
     $email = $_SESSION["email"];
 
     if (!isset($toute_la_data[$email])) return;

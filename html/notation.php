@@ -7,7 +7,7 @@ $email_client = $_SESSION["email"];
 $bdd_client = lire_data("../data/client.json", $email_client);
 
 $derniere_cmd = $bdd_client["dernieres_commandes"][0];
-$bdd_cmd = lire_data("../data/commandes.json");
+$bdd_cmd = $data_commandes;
 
 if (isset($_POST["valider"])) {
     $note_livraison = $_POST["note_livraison"];

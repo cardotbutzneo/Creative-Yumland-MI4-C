@@ -1,6 +1,7 @@
 <?php
-session_start();
+require_once __DIR__."/../api/config.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
