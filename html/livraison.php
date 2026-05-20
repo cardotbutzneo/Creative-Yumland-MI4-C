@@ -8,7 +8,7 @@ $email_livreur = $_SESSION["email"];
 $bdd_client = $data_client;
 $bdd_cmd = $data_commandes;
 
-
+//le livreur choisi une commande
 if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {
 
     $num_cmd = $_POST["numero_cmd"] ?? null;
@@ -17,7 +17,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {
         $cmd = $bdd_cmd[$num_cmd];
 
         if ($cmd["livraison"] === true && $cmd["etat"] === "preparee") {
-
+            //mise à jour des données dans la base de données
             $bdd_cmd[$num_cmd]["etat"] = "livraison";
             $bdd_cmd[$num_cmd]["livreur"] = $email_livreur;
             $bdd_client[$email_livreur]["livraison"] = $num_cmd;
@@ -30,10 +30,12 @@ if (isset($_POST["action"]) && $_POST["action"] === "prendre_commande") {
     exit;
 }
 
+//le livreur termine sa livraison
 if (isset($_POST["action"]) && $_POST["action"] === "terminer_livraison") {
 
     $num_cmd = $_POST["numero_cmd"] ?? null;
     if ($num_cmd && isset($bdd_cmd[$num_cmd])) {
+        //mise a jour des données dans la base de données
         $email_client = $bdd_cmd[$num_cmd]["email"] ?? null;
         $bdd_cmd[$num_cmd]["etat"] = "livree";
         $bdd_cmd[$num_cmd]["livraison"] = false;
@@ -49,10 +51,12 @@ if (isset($_POST["action"]) && $_POST["action"] === "terminer_livraison") {
     exit;
 }
 
+//le livreur abandonne sa livraison
 if (isset($_POST["action"]) && $_POST["action"] === "abandonner_livraison") {
 
     $num_cmd = $_POST["numero_cmd"] ?? null;
     if ($num_cmd && isset($bdd_cmd[$num_cmd])) {
+        //mise a jour des données dans la base de données
         $bdd_cmd[$num_cmd]["etat"] = "preparee";
         $bdd_cmd[$num_cmd]["livreur"] = null;
         $bdd_client[$email_livreur]["livraison"] = false;
@@ -70,6 +74,7 @@ $num_cmd_actif = $livreur_data["livraison"] ?? false;
 $commande_actuelle = null;
 $client_data = null;
 
+//récupèrer information du client de la commande choisie
 if ($num_cmd_actif && isset($bdd_cmd[$num_cmd_actif])) {
     $commande_actuelle = $bdd_cmd[$num_cmd_actif];
     $email_client = $commande_actuelle["email"] ?? null;
@@ -81,6 +86,7 @@ if ($num_cmd_actif && isset($bdd_cmd[$num_cmd_actif])) {
 $commandes_disponibles = [];
 
 if (!$num_cmd_actif) {
+    //parcours des commandes disponibles à prendre à afficher
     foreach ($bdd_cmd as $num => $cmd) {
         if (isset($cmd["livraison"], $cmd["etat"]) && $cmd["livraison"] === true && $cmd["etat"] === "preparee") {
             $commandes_disponibles[$num] = $cmd;

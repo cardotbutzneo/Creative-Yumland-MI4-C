@@ -7,10 +7,10 @@ verifier_connexion($_SESSION["role"], "Cuisinier");
 
 $bdd_cmd = $data_commandes;
 
-// Filtrer uniquement les commandes notées
+//filtrer uniquement les commandes notées
 $commandes_notees = array_filter($bdd_cmd, fn($cmd) => $cmd["etat"] === "notee");
 
-// Calculer les moyennes globales
+//calculer les moyennes globales
 $total_livraison = 0;
 $total_produits = 0;
 $nb = count($commandes_notees);
@@ -23,7 +23,7 @@ foreach ($commandes_notees as $cmd) {
 $moy_livraison = $nb > 0 ? round($total_livraison / $nb, 1) : null;
 $moy_produits  = $nb > 0 ? round($total_produits  / $nb, 1) : null;
 
-// Trier par date décroissante
+//trier par date décroissante
 uasort($commandes_notees, fn($a, $b) => strtotime($b["date"]) - strtotime($a["date"]));
 
 function etoiles(int $note): string {

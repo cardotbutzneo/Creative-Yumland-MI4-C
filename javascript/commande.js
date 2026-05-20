@@ -95,7 +95,7 @@ function renderCommandes(data, n) {
 			zones["preparation"].appendChild(block);
 		else if (commande.etat === "preparee")
 			zones["prete"].appendChild(block);
-		else if (commande.etat === "livree") zones["livree"].appendChild(block);
+		else if (commande.etat === "livree" || commande.etat === "notee") zones["livree"].appendChild(block);
 		
 		if (dateLivraison > aujourdhui) zones["differee"].appendChild(block);
 		i += 1;

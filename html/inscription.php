@@ -10,6 +10,7 @@ require_once __DIR__."/../serveur.php";
 
 $erreur = "";
 
+//creer et initialise les champs de l'utilisateur
 function creer_client(array $donnee) : array {
     $nouveau_nombre = count($donnee) + 1;
     $id = str_pad($nouveau_nombre, 8, "0", STR_PAD_LEFT);

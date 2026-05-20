@@ -23,8 +23,8 @@
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
-            "tentative_echec": 0,
-            "derniere_tentative": null,
+            "tentative_echec": 5,
+            "derniere_tentative": "2026-05-20 10:45:21",
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -48,9 +48,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-17 11:40:35",
+            "derniere_connexion": "2026-05-20 11:14:30",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "derniere_tentative": null,
@@ -79,9 +79,9 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-17 17:21:15",
+            "derniere_connexion": "2026-05-20 10:54:50",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "derniere_tentative": null,
@@ -108,7 +108,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-02 17:36:13",
+            "derniere_connexion": "2026-05-20 10:47:31",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,

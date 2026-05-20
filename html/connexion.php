@@ -3,6 +3,7 @@ require_once __DIR__."/../api/config.php";
 
 $delai_reset = 15 * 60; // 15 minutes
 
+//récuperation données de la base de données des utilisateurs
 if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
     require_once __DIR__ . "/../serveur.php";
     $bdd = $data_client;
@@ -27,6 +28,7 @@ if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
     }
 }
 
+//redirection de l'utilisateur s'il déjà est connecté
 if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true) {
     if ($_SESSION["role"] == "Client") {
         header("Location: profil_client.php");
@@ -71,6 +73,7 @@ if (isset($_POST["connexion"])) {
         } elseif ($utilisateur["securite"]["tentative_echec"] >= 5) {
             $erreur = "Trop de tentatives échouées. Réessayez plus tard.";
         } else {
+            //mise à jour des données de l'utilisateur vers la base de données
             $hash = $utilisateur["mot de passe"];
             if (password_verify($mdp, $hash)) {
                 $_SESSION["email"] = $email;
@@ -105,6 +108,7 @@ if (isset($_POST["connexion"])) {
 
                 ecrire_data("../data/client.json", $bdd_actuelle);
 
+                //redirection de l'utilisateur venant de se connecté en fonction de son rôle
                 if ($_SESSION["role"] == "Client") {
                     header("Location: profil_client.php");
                     exit;
@@ -119,11 +123,15 @@ if (isset($_POST["connexion"])) {
                     exit;
                 }
             } else {
+                //mot de passe incorrect
                 $bdd_actuelle[$email]["securite"]["tentative_echec"]++;
                 $bdd_actuelle[$email]["securite"]["derniere_tentative"] = date("Y-m-d H:i:s");
                 ecrire_data("../data/client.json", $bdd_actuelle);
                 $erreur = "Adresse email ou mot de passe incorrect";
                 ecrire_log("Connexion : Mot de passe incorrect de " . $_POST["email"], "info");
+                if($bdd_actuelle[$email]["securite"]["tentative_echec"] == 5){
+                    ecrire_log("Connexion : 5 tentatives échouées de " . $_POST["email"] . ". Compte temporairement bloqué", "warning");
+                }
             }
         }
     }
