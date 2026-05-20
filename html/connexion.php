@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__."/../api/config.php";
 
+$delai_reset = 15 * 60; // 15 minutes
+
 if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
     require_once __DIR__ . "/../serveur.php";
     $bdd = $data_client;
@@ -13,12 +15,12 @@ if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
         if ($token_stocke && hash_equals($token_stocke, hash("sha256", $token_recu)) && $token_expiration > time() && !$utilisateur["securite"]["est_banni"]) {
             $_SESSION["email"] = $email;
             $_SESSION["connecte"] = true;
-            $_SESSION["role"] = $bdd_actuelle[$email]["role"];
-            $_SESSION["nom"] = $bdd_actuelle[$email]["nom"];
-            $_SESSION["prenom"] = $bdd_actuelle[$email]["prenom"];
-            $_SESSION["pts-fidelite"] = $bdd_actuelle[$email]["pts-fidelite"];
-            $_SESSION["total-fidelite"] = $bdd_actuelle[$email]["total-fidelite"];
-            $_SESSION["derniers-plats"] = $bdd_actuelle[$email]["dernieres_commandes"] ?? [];
+            $_SESSION["role"] = $bdd[$email]["role"];
+            $_SESSION["nom"] = $bdd[$email]["nom"];
+            $_SESSION["prenom"] = $bdd[$email]["prenom"];
+            $_SESSION["pts-fidelite"] = $bdd[$email]["pts-fidelite"];
+            $_SESSION["total-fidelite"] = $bdd[$email]["total-fidelite"];
+            $_SESSION["derniers-plats"] = $bdd[$email]["dernieres_commandes"] ?? [];
             $_SESSION["derniere-connexion"] = time();
             break;
         }
@@ -55,10 +57,19 @@ if (isset($_POST["connexion"])) {
     } else {
         $utilisateur = $bdd_actuelle[$email];
 
+        // reinitialisation automatique des tentatives si le délai est écoulé
+        $derniere_tentative = $utilisateur["securite"]["derniere_tentative"] ?? null;
+        if ($derniere_tentative !== null && (time() - strtotime($derniere_tentative)) > $delai_reset) {
+            $bdd_actuelle[$email]["securite"]["tentative_echec"] = 0;
+            $bdd_actuelle[$email]["securite"]["derniere_tentative"] = null;
+            $utilisateur = $bdd_actuelle[$email];
+            ecrire_data("../data/client.json", $bdd_actuelle);
+        }
+
         if ($utilisateur["securite"]["est_banni"]) {
             $erreur = "Votre compte est banni.";
         } elseif ($utilisateur["securite"]["tentative_echec"] >= 5) {
-            $erreur = "Trop de tentatives échouées. Compte bloqué.";
+            $erreur = "Trop de tentatives échouées. Réessayez plus tard.";
         } else {
             $hash = $utilisateur["mot de passe"];
             if (password_verify($mdp, $hash)) {
@@ -75,6 +86,7 @@ if (isset($_POST["connexion"])) {
                 $bdd_actuelle[$email]["securite"]["derniere_connexion"] = date("Y-m-d H:i:s");
                 $bdd_actuelle[$email]["securite"]["est_en_ligne"] = true;
                 $bdd_actuelle[$email]["securite"]["tentative_echec"] = 0;
+                $bdd_actuelle[$email]["securite"]["derniere_tentative"] = null;
 
                 if (isset($_POST["remember_me"])) {
                     $token = bin2hex(random_bytes(32));
@@ -108,9 +120,10 @@ if (isset($_POST["connexion"])) {
                 }
             } else {
                 $bdd_actuelle[$email]["securite"]["tentative_echec"]++;
+                $bdd_actuelle[$email]["securite"]["derniere_tentative"] = date("Y-m-d H:i:s");
                 ecrire_data("../data/client.json", $bdd_actuelle);
                 $erreur = "Adresse email ou mot de passe incorrect";
-                ecrire_log("Connexion : Mot de passe incorrect de " . $_POST["email"] , "info");
+                ecrire_log("Connexion : Mot de passe incorrect de " . $_POST["email"], "info");
             }
         }
     }

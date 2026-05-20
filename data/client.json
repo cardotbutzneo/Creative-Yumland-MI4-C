@@ -19,11 +19,12 @@
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-18 15:37:50",
+            "derniere_connexion": "2026-05-20 10:28:13",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
-            "tentative_echec": 1,
+            "tentative_echec": 0,
+            "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -52,6 +53,7 @@
             "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
+            "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -82,6 +84,7 @@
             "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
+            "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -110,6 +113,7 @@
             "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
+            "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -137,6 +141,7 @@
             "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
+            "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -162,7 +167,8 @@
             "est_banni": false,
             "est_en_ligne": false,
             "est_modifiable": true,
-            "tentative_echec": 0
+            "tentative_echec": 0,
+            "derniere_tentative": null
         },
         "pts-fidelite": 0,
         "total-fidelite": 0,
@@ -187,7 +193,8 @@
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
-            "tentative_echec": 0
+            "tentative_echec": 0,
+            "derniere_tentative": null
         },
         "pts-fidelite": 0,
         "total-fidelite": 0,

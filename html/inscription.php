@@ -33,7 +33,8 @@ function creer_client(array $donnee) : array {
             "est_banni" => false,
             "est_en_ligne" => false,
             "est_modifiable" => true,
-            "tentative_echec" => 0
+            "tentative_echec" => 0,
+            "derniere_tentative" => null
         ],
         "pts-fidelite" => 0,
         "total-fidelite" => 0,
