@@ -1,3 +1,17 @@
+/*
+Fonctionnement général :
+Un arbre de décision (FLOW) définit le parcours de l'utilisateur : chaque nœud
+contient une question, des options cliquables, et éventuellement une fonction
+resolve() qui calcule la recommandation finale à partir des choix accumulés.
+Les choix de l'utilisateur sont concaténés lettre par lettre dans la variable
+"answers" (ex. "bac"), qui sert de clé dans les tables de correspondance des
+nœuds resolve() pour retourner le plat ou la boisson recommandé.
+L'interface est injectée dynamiquement dans le DOM via injectHTML(), puis pilotée
+par des fonctions qui créent et insèrent des bulles de chat (bot et utilisateur),
+simulent une frappe (showTyping), et affichent une carte résultat finale.
+Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
+« Choisir autre chose » réinitialise entièrement la conversation.
+ */
 (function () {
   //arbre de décision
   const FLOW = {
@@ -30,7 +44,7 @@
       // ans = concaténation des val choisies à chaque étape (ex: "ab" = végétarien + consistant)
       // la map associe chaque combinaison de lettres à un plat recommandé
       resolve: function (ans) {
-        var map = {
+        let map = {
           aa: "Burrata", ab: "Focaccia", ac: "Burrata",
           ba: "Carpaccio", bb: "Focaccia", bc: "Carpaccio",
           ca: "Carpaccio", cb: "Focaccia", cc: "Burrata"
@@ -67,7 +81,7 @@
       // ans = clé à 3 lettres
       // la map couvre toutes les combinaisons possibles
       resolve: function (ans) {
-        var map = {
+        let map = {
           aaa: "Pâtes au pesto", aab: "Risotto", aac: "Pâtes au pesto",
           aba: "Pizza Burrata", abb: "Pizza Burrata", abc: "Pizza Burrata",
           aca: "Pâtes au pesto", acb: "Risotto", acc: "Risotto",
@@ -99,7 +113,7 @@
         { label: "Sans préférence", val: "c" }
       ],
       resolve: function (ans) {
-        var map = {
+        let map = {
           aa: "Affogato", ab: "Tiramisu", ac: "Tiramisu",
           ba: "Panna cotta", bb: "Panna cotta", bc: "Panna cotta",
           ca: "Affogato", cb: "Tiramisu", cc: "Panna cotta"
@@ -126,8 +140,8 @@
       ],
       //ans.slice(-1) récupère uniquement la dernière lettre accumulée car seul le dernier choix détermine le résultat ici
       resolve: function (ans) {
-        var last = ans.slice(-1);
-        var map = { a: "Etto Germano (Rosé)", b: "Giacomo Boveri (Rouge)", c: "Albino Rocca (Blanc)" };
+        let last = ans.slice(-1);
+        let map = { a: "Etto Germano (Rosé)", b: "Giacomo Boveri (Rouge)", c: "Albino Rocca (Blanc)" };
         return { dish: map[last], cat: "Boisson · Vin" };
       }
     },
@@ -140,8 +154,8 @@
       ],
       // même logique que boisson_vin -> seule la dernière lettre compte pour le café
       resolve: function (ans) {
-        var last = ans.slice(-1);
-        var map = { a: "Espresso", b: "Latte macchiato", c: "Latte macchiato" };
+        let last = ans.slice(-1);
+        let map = { a: "Espresso", b: "Latte macchiato", c: "Latte macchiato" };
         return { dish: map[last], cat: "Boisson · Café" };
       }
     }
@@ -149,11 +163,11 @@
 
   //stocke la suite de lettres représentant les choix de l'utilisateur (ex: "bac")
   //réinitialisée à "" à chaque redémarrage du chatbot
-  var answers = "";
+  let answers = "";
 
   // Références aux éléments du DOM créés dynamiquement par injectHTML()
   // déclarées ici pour être accessibles dans toutes les fonctions
-  var toggleBtn, chatWindow, messagesEl;
+  let toggleBtn, chatWindow, messagesEl;
 
   //Initialisation
   function init() {
@@ -168,7 +182,7 @@
 
   function injectHTML() {
     //créer un div temporaire pour y insérer le HTML via innerHTML
-    var el = document.createElement("div");
+    let el = document.createElement("div");
     el.innerHTML = [
       '<button id="chatbot-toggle" aria-label="Ouvrir le conseiller de table">',
         '<svg class="icon-chat" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">',
@@ -193,7 +207,7 @@
   //Toggle ouverture/fermeture
   function toggleChat() {
     // vérifie si la fenêtre est actuellement ouverte via la classe CSS "visible"
-    var isOpen = chatWindow.classList.contains("visible");
+    let isOpen = chatWindow.classList.contains("visible");
     if (isOpen) {
       chatWindow.classList.remove("visible");
       toggleBtn.classList.remove("open");
@@ -206,17 +220,17 @@
 
   //Affichage d'une étape
   function showStep(key) {
-    var node = FLOW[key]; // récupère le nœud correspondant à l'étape dans l'arbre flow
+    let node = FLOW[key]; // récupère le nœud correspondant à l'étape dans l'arbre flow
     if (!node) return; //stop si la clé n'existe pas dans flow
 
     //affiche l'indicateur de frappe puis execute le callback une fois le délai écoulé
     showTyping(function () {
-      var row = addBotBubble(node.q); //affiche la question du bot et retourne l'élément DOM créé
-      var grid = document.createElement("div");
+      let row = addBotBubble(node.q); //affiche la question du bot et retourne l'élément DOM créé
+      let grid = document.createElement("div");
       grid.className = "cb-btn-grid"; //conteneur flex pour aligner les boutons de choix
       //créer un bouton pour chaque option du nœud courant
       node.opts.forEach(function (opt) {
-        var btn = document.createElement("button");
+        let btn = document.createElement("button");
         btn.className = "cb-choice-btn";
         btn.textContent = opt.label;
         // passe opt, node et grid à handleChoice pour qu'elle puisse accumuler la valeur, désactiver les boutons et naviguer vers l'étape suivante
@@ -243,11 +257,11 @@
     if (node.resolve) {
       // si le nœud possède une fonction resolve, c'est la dernière question de la branche :
       // on calcule le résultat final et on affiche la carte de recommandation
-      var result = node.resolve(answers);
+      let result = node.resolve(answers);
       showResult(result);
     } else {
       // sinon on passe à l'étape suivante indiquée par opt.next
-      var nextKey = opt.next;
+      let nextKey = opt.next;
       showStep(nextKey);
     }
   }
@@ -258,15 +272,15 @@
     showTyping(function () {
       // construit la structure DOM de la carte résultat manuellement
       // pour avoir un contrôle précis sur chaque élément
-      var row = document.createElement("div");
+      let row = document.createElement("div");
       row.className = "cb-bot-row"; // aligne l'avatar et la bulle horizontalement via flexbox CSS
-      var avatarEl = document.createElement("div");
+      let avatarEl = document.createElement("div");
       avatarEl.className = "cb-avatar";
       avatarEl.textContent = "L"; // initiale du restaurant
-      var msgEl = document.createElement("div");
+      let msgEl = document.createElement("div");
       msgEl.className = "cb-msg bot";
       msgEl.style.maxWidth = "95%"; // élargi pour que la carte résultat ait plus d'espace
-      var card = document.createElement("div");
+      let card = document.createElement("div");
       card.className = "cb-result-card";
       // esc() protège contre l'injection HTML en cas de données inattendues dans result
       card.innerHTML = [
@@ -297,14 +311,14 @@
 
   function addBotBubble(text) {
     // créer la rangée avatar + bulle pour un message du bot
-    var row = document.createElement("div");
+    let row = document.createElement("div");
     row.className = "cb-bot-row";
-    var avatarEl = document.createElement("div");
+    let avatarEl = document.createElement("div");
     avatarEl.className = "cb-avatar";
     avatarEl.textContent = "L";
-    var msgEl = document.createElement("div");
+    let msgEl = document.createElement("div");
     msgEl.className = "cb-msg bot";
-    var bubble = document.createElement("div");
+    let bubble = document.createElement("div");
     bubble.className = "cb-bubble";
     bubble.textContent = text; // textContent -> pas de risque d'injection
     msgEl.appendChild(bubble);
@@ -317,9 +331,9 @@
 
   function addUserBubble(text) {
     // bulle alignée à droite
-    var msgEl = document.createElement("div");
+    let msgEl = document.createElement("div");
     msgEl.className = "cb-msg user";
-    var bubble = document.createElement("div");
+    let bubble = document.createElement("div");
     bubble.className = "cb-bubble";
     bubble.textContent = text;
     msgEl.appendChild(bubble);
@@ -329,14 +343,14 @@
 
   function showTyping(cb) {
     // affiche temporairement trois points animés pour simuler la "frappe" du bot
-    var row = document.createElement("div");
+    let row = document.createElement("div");
     row.className = "cb-bot-row";
-    var avatarEl = document.createElement("div");
+    let avatarEl = document.createElement("div");
     avatarEl.className = "cb-avatar";
     avatarEl.textContent = "L";
-    var msgEl = document.createElement("div");
+    let msgEl = document.createElement("div");
     msgEl.className = "cb-msg bot";
-    var bubble = document.createElement("div");
+    let bubble = document.createElement("div");
     bubble.className = "cb-bubble cb-typing"; // cb-typing déclenche l'animation CSS des points
     bubble.innerHTML = '<div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div>';
     msgEl.appendChild(bubble);
