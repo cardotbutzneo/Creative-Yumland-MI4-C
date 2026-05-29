@@ -2,6 +2,12 @@
  * Recherche un utilisateur dans la liste et affiche uniquement celui dont l'e-mail correspond à l'identifiant recherché.
  * @param {string} id - L'identifiant (adresse e-mail) à rechercher.
  */
+
+/**
+ * To do : 
+ * - régler le bug de double affichage des erreurs de logs lors du tri
+ */
+
 function chercherUtilisateur(id) {
 	// Si le champ de recherche est vide, on affiche tous les utilisateurs
 	if (id.length <= 0) {
@@ -175,6 +181,7 @@ function afficher(id, button) {
 	} else {
 		// Affiche la vue logs et masque la vue utilisateur
 		logElement.style.display = "block";
+		document.querySelector("#erreur")?.remove(); // Supprime le message d'erreur s'il existe
 		userElement.style.display = "none";
 		document.getElementById("log-container").style.display = "block";
 	}
@@ -207,6 +214,7 @@ async function init_logs() {
 function trieLog() {
 	const choix = document.getElementById("choix-log").value; // Type de logs choisi
 	const tousLesLogs = document.querySelectorAll("#logs-display p");
+	document.querySelector("#erreur")?.remove(); // supprime le message d'erreur s'il existe
 	let flag = true; // Indique si aucun log n'a été trouvé pour le filtre
 
 	tousLesLogs.forEach((log) => {
@@ -222,8 +230,6 @@ function trieLog() {
 
 	if (flag) {
 		// Si aucun log n'a été trouvé pour le filtre, on affiche un message d'erreur
-		const test = document.getElementById("erreur");
-		console.log(test);
 		const e = document.createElement("p");
 		e.id = "erreur";
 		e.textContent = "Pas de log de ce type trouvée";

@@ -75,32 +75,6 @@
         "livreur": null,
         "transaction": "69cf73505ee1f"
     },
-    "4FB75A00": {
-        "email": "client1@gmail.com",
-        "date": "2026-04-03 16:32:08",
-        "montant": "117.00",
-        "numero": "00000003",
-        "livraison": false,
-        "est-valide": true,
-        "etat": "en preparation",
-        "plats": [
-            {
-                "nom": "Carpaccio",
-                "quantite": 2
-            },
-            {
-                "nom": "Focaccia",
-                "quantite": 1
-            },
-            {
-                "nom": "Burrata",
-                "quantite": 1
-            }
-        ],
-        "instructions": "",
-        "livreur": null,
-        "transaction": "69cfeb88e0e67"
-    },
     "4FDBA8E1": {
         "email": "client2@gmail.com",
         "date": "2026-04-05 17:11:27",
@@ -180,35 +154,5 @@
         "instructions": "",
         "numero": "00000005",
         "deja_modifie": true
-    },
-    "258C4C48": {
-        "email": "client1@gmail.com",
-        "date": "2026-05-12 17:21:55",
-        "montant": "85.00",
-        "livraison": false,
-        "est-valide": true,
-        "etat": "notee",
-        "note_livraison": "4",
-        "note_produits": "5",
-        "commentaire": "Excellent repas, livraison rapide !",
-        "plats": {
-            "Carpaccio": {
-                "nom": "Carpaccio",
-                "prix": 32,
-                "quantite": 1
-            },
-            "Focaccia": {
-                "nom": "Focaccia",
-                "prix": 24,
-                "quantite": 1
-            },
-            "Burrata": {
-                "nom": "Burrata",
-                "prix": 29,
-                "quantite": 1
-            }
-        },
-        "instructions": "sans olives",
-        "numero": "00000006"
     }
 }

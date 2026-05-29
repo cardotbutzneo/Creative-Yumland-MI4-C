@@ -12,19 +12,17 @@
         },
         "role": "Client",
         "dernieres_commandes": [
-            "258C4C48",
-            "4FB75A00",
             "D731931F",
             "CFBC2D7D"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-20 10:28:13",
+            "derniere_connexion": "2026-05-21 14:29:47",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
-            "tentative_echec": 1,
-            "derniere_tentative": "2026-05-20 20:31:51",
+            "tentative_echec": 0,
+            "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
@@ -48,7 +46,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-20 11:14:30",
+            "derniere_connexion": "2026-05-20 20:49:31",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
@@ -108,7 +106,7 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-05-20 20:29:04",
+            "derniere_connexion": "2026-05-29 09:39:32",
             "est_banni": false,
             "est_en_ligne": true,
             "est_modifiable": true,
