@@ -5,16 +5,16 @@ require_once __DIR__."/../api/config.php";
 verifier_connexion($role, "Client");
 $email = $_SESSION["email"];
 
-function lire_json(string $chemin): array {
+function lire_json(string $chemin): array { // Fonction pour lire un fichier JSON et retourner son contenu sous forme de tableau associatif
     if (!file_exists($chemin)) return [];
     return json_decode(file_get_contents($chemin), true) ?? [];
 }
 
 $catalogue_plats = lire_json("../data/plats.json");
 
-$is_modification = (isset($_GET['action']) && $_GET['action'] === 'modification' && isset($_SESSION['modif_commande']));
+$is_modification = (isset($_GET['action']) && $_GET['action'] === 'modification' && isset($_SESSION['modif_commande'])); // Vérifie si l'utilisateur arrive sur cette page dans le cadre d'une modification de commande (après avoir cliqué sur "Confirmer les modifications" dans modifier_commande.php) ou s'il s'agit d'un paiement classique depuis le panier
 
-if ($is_modification) {
+if ($is_modification) { // Cas d'une modification de commande : les données à afficher sont récupérées depuis la session (stockées temporairement par modifier_commande.php)
     $data_modif = $_SESSION['modif_commande'];
     $id_cmd = $data_modif["id_cle"];
     $montant = $data_modif["reste_a_payer"];
@@ -22,28 +22,27 @@ if ($is_modification) {
     $type_label = "Modification (Supplément)";
     $articles_a_afficher = $data_modif["plats"];
     $id_retour = $id_cmd;
-
-} else {
+} else { // Cas d'un paiement classique depuis le panier : les données à afficher sont récupérées depuis le panier du client
     $tous_paniers = lire_json("../data/paniers.json");
     $panier = $tous_paniers[$email] ?? ["articles" => [], "total" => 0];
 
-    if (count($panier["articles"]) === 0) {
+    if (count($panier["articles"]) === 0) { // Si le panier est vide, on redirige vers la page du panier
         header("Location: panier.php");
         exit();
     }
 
-    $form_data = $_SESSION["panier_form"] ?? [];
+    $form_data = $_SESSION["panier_form"] ?? []; // Récupère les données du formulaire de commande (type de commande, instructions) depuis la session, si elles existent (stockées temporairement par panier.php)
     unset($_SESSION["panier_form"]);
     $type_raw = $_POST["type_commande"] ?? $form_data["type_commande"] ?? "sur_place";
     $type_label = ucfirst(str_replace('_', ' ', $type_raw));
 
     $total_brut_panier = 0;
-    foreach ($panier["articles"] as $art) {
+    foreach ($panier["articles"] as $art) { // Calcule le total brut du panier
         $total_brut_panier += $art["prix"] * $art["quantite"];
     }
 
-    $pts_client = $_SESSION["total-fidelite"] ?? 0;
-    if ($pts_client >= 1200){
+    $pts_client = $_SESSION["total-fidelite"] ?? 0; // Récupère le nombre de points de fidélité du client pour appliquer une éventuelle réduction
+    if ($pts_client >= 1200){ 
         $montant = ceil($total_brut_panier * 0.70);
     }
     elseif ($pts_client >= 500) { 
@@ -53,10 +52,9 @@ if ($is_modification) {
         $montant = $total_brut_panier;
     } 
 
-    $transaction = substr(bin2hex(random_bytes(10)), 0, 15);
-    $articles_a_afficher = $panier["articles"];
-
-    $_SESSION["commande_en_attente"] = [
+    $transaction = substr(bin2hex(random_bytes(10)), 0, 15); // Génère un identifiant de transaction unique pour le paiement
+    $articles_a_afficher = $panier["articles"]; // Articles qui seront affichés dans le récapitulatif
+    $_SESSION["commande_en_attente"] = [ // Stocke temporairement les données de la commande en session pour les récupérer après le paiement dans retour_paiement.php
         "email" => $email,
         "date" => date("Y-m-d H:i:s"),
         "montant" => number_format((float)$montant, 2, '.', ''),
@@ -72,7 +70,7 @@ $vendeur = "MI-4_C";
 $api_key = getAPIKey($vendeur);
 $retour = "http://" . $_SERVER["HTTP_HOST"] . "/html/retour_paiement.php";
 $montant_fmt = number_format((float)$montant, 2, '.', '');
-$control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vendeur . "#" . $retour . "#");
+$control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vendeur . "#" . $retour . "#"); 
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -98,7 +96,7 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($articles_a_afficher)) {
+                    <?php if (!empty($articles_a_afficher)) { // Affiche les articles du panier ou de la commande modifiée
                         foreach ($articles_a_afficher as $art) {
                             $nom = $art["nom"];
                             $qte = $art["quantite"];
@@ -140,8 +138,10 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
             </div>
         </form>
     </main>
-    <footer style="padding:20px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.05);margin-top:50px;">
-        <p style="color:rgba(245,245,245,0.3);font-size:13px;">© 2026 L'oro di Cicerone — Tous droits réservés</p>
+    <footer>
+        <p><?= $text["index"]["footer_rights"] ?></p>
+        <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
+        <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
     </footer>
 </body>
 </html>

@@ -163,7 +163,9 @@ if ($paiement_valide && $statut_reel === "accepted") {
         </div>
     </main>
     <footer>
-        <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
+        <p><?= $text["index"]["footer_rights"] ?></p>
+        <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
+        <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
     </footer>
 </body>
 </html>

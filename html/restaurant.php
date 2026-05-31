@@ -52,8 +52,9 @@ require_once __DIR__."/../api/config.php";
         </p>
     </section>
     <footer>
-    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
-    <a href="contact.php">Nous contacter</a>
-</footer>
+        <p><?= $text["index"]["footer_rights"] ?></p>
+        <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
+        <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
+    </footer>
 </body>
 </html>

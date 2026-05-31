@@ -7,7 +7,7 @@ if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true && $_SESSION[
     $est_client = true;
 }
 
-$categories = [
+$categories = [ // Labels des catégories de plats pour l'affichage
     "entrees" => "Entrées",
     "plats" => "Plats",
     "desserts" => "Desserts",
@@ -15,15 +15,16 @@ $categories = [
     "cafes" => "Cafés",
 ];
 
-if (isset($_GET['ajax'])) {
+if (isset($_GET['ajax'])) {  // Traite la requête AJAX pour le filtrage de la carte
     header('Content-Type: application/json');
     $data = $data_plats;
+    // Récupération des filtres envoyés par JavaScript
     $categorie = $_GET['categorie'] ?? '';
     $regime = $_GET['regime'] ?? '';
     $allergene = $_GET['allergene'] ?? '';
     $recherche = strtolower($_GET['recherche'] ?? '');
     $tab = [];
-    foreach ($data as $cle => $plat) {
+    foreach ($data as $cle => $plat) { // Application des filtres : on vérifie pour chaque plat s'il correspond aux critères sélectionnés (catégorie, régime, allergène, recherche textuelle) et on ne l'ajoute au résultat que s'il les respecte tous
         if ($cle === "Allergenes") continue;
         if ($categorie !== '' && $plat['categorie'] !== $categorie) continue;
         if ($regime === 'vege' && empty($plat['est_vegetarien'])) continue;
@@ -32,7 +33,7 @@ if (isset($_GET['ajax'])) {
         if ($recherche !== '' && strpos(strtolower($plat['nom']), $recherche) === false) continue;
         $tab[$cle] = $plat;
     }
-    echo json_encode($tab, JSON_UNESCAPED_UNICODE);
+    echo json_encode($tab, JSON_UNESCAPED_UNICODE); // Retourne les résultats filtrés au format JSON
     exit;
 }
 
@@ -98,18 +99,18 @@ $data = $data_plats;
     </div>
     <div id="liste-plats">
     <?php
-    foreach ($categories as $id => $label) {
+    foreach ($categories as $id => $label) { // Affichage de la carte
         $platscat = [];
-        foreach ($data as $cle => $plat) {
+        foreach ($data as $cle => $plat) { // Sélectionne uniquement les plats appartenant à la catégorie courante
             if ($cle === "Allergenes") continue;
             if ($plat["categorie"] === $id) {
                 $platscat[$cle] = $plat;
             }
         }
-        if (empty($platscat)) continue;
+        if (empty($platscat)) continue; // Si aucun plat dans cette catégorie, on affiche rien
         echo "<section class='rectangle'>";
         echo "<h2>$label</h2><ul>";
-        foreach ($platscat as $cle => $plat) {
+        foreach ($platscat as $cle => $plat) { // Affiche les plats de la catégorie courante
             echo "<li>";
             echo "<div class='ligne'>";
             echo "<span class='nom'>{$plat['nom']}</span>";
@@ -127,8 +128,9 @@ $data = $data_plats;
     </div>
 </main>
 <footer>
-    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
-    <a href="contact.php">Nous contacter</a>
+    <p><?= $text["index"]["footer_rights"] ?></p>
+    <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
+    <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
 </footer>
 </body>
 </html>

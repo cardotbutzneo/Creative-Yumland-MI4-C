@@ -18,7 +18,7 @@
         ],
         "disponible": true,
         "ordre_affichage": 1,
-        "nb_commandee": 5
+        "nb_commandee": 7
     },
     "Carpaccio": {
         "id": 2,
@@ -93,7 +93,7 @@
         ],
         "disponible": true,
         "ordre_affichage": 3,
-        "nb_commandee": 2
+        "nb_commandee": 3
     },
     "Pizza Burrata": {
         "id": 7,
@@ -138,7 +138,7 @@
         ],
         "disponible": true,
         "ordre_affichage": 6,
-        "nb_commandee": 0
+        "nb_commandee": 1
     },
     "Risotto": {
         "id": 10,
@@ -197,7 +197,6 @@
         "disponible": true,
         "ordre_affichage": 3,
         "nb_commandee": 3
-
     },
     "Giacomo Boveri": {
         "id": 14,

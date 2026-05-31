@@ -12,58 +12,58 @@ $id_cle = $_GET["id"] ?? '';
 $commandes = lire_data("../data/commandes.json");
 $tous_les_plats = lire_data("../data/plats.json");
 
-if (!isset($commandes[$id_cle])) {
+if (!isset($commandes[$id_cle])) { // Vérifie que la commande existe
     header("Location: profil_client.php");
     exit;
 }
 
 $cmd = $commandes[$id_cle];
 
-if ($cmd["etat"] !== "payee") {
+if ($cmd["etat"] !== "payee") { // Seules les commandes payées sont modifiables
     header("Location: profil_client.php?error=non_modifiable");
     exit;
 }
 
-if (!empty($cmd["deja_modifie"])) {
+if (!empty($cmd["deja_modifie"])) { // Empêche les modifications multiples
     header("Location: profil_client.php?error=deja_modifie");
     exit;
 }
 
-$total_brut_original = 0;
+$total_brut_original = 0; // Calcule le total brut de la commande originale 
 foreach ($cmd["plats"] as $p) {
     $prix_u = $tous_les_plats[$p["nom"]]["prix"] ?? 0;
     $total_brut_original += $prix_u * $p["quantite"];
 }
 
-$montant_paye = (float)$cmd["montant"];
+$montant_paye = (float)$cmd["montant"]; // Montant déjà payé par le client
 
 if (isset($_POST['json_plats'])) {
-    $nouveaux_plats = json_decode($_POST["json_plats"], true);
+    $nouveaux_plats = json_decode($_POST["json_plats"], true); 
 
-    if (empty($nouveaux_plats)) {
+    if (empty($nouveaux_plats)) { // Si la commande est vide après modification, on la supprime
         unset($commandes[$id_cle]);
         file_put_contents("../data/commandes.json", json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         header("Location: profil_client.php?info=deleted");
         exit;
     }
 
-    $nouveau_total_brut = (float)$_POST["nouveau_total"];
-    $diff = round($nouveau_total_brut - $total_brut_original, 2);
-    $nouveau_montant = max(0, round($montant_paye + $diff, 2));
+    $nouveau_total_brut = (float)$_POST["nouveau_total"]; // Calcule le nouveau total de la commande modifiée
+    $diff = round($nouveau_total_brut - $total_brut_original, 2); // Différence entre le nouveau total et l'ancien total
+    $nouveau_montant = max(0, round($montant_paye + $diff, 2)); // Nouveau montant total à enregistrer
 
-    if ($diff > 0) {
-        $_SESSION["modif_commande"] = [
+    if ($diff > 0) { // Si la commande modifiée est plus chère, on redirige vers la page de paiement pour régler le supplément
+        $_SESSION["modif_commande"] = [ // Sauvegarde temporaire des modifications dans la session
             "id_cle" => $id_cle,
             "reste_a_payer" => number_format($diff, 2, '.', ''),
             "total" => number_format($nouveau_montant, 2, '.', ''),
             "plats" => $nouveaux_plats,
         ];
         header("Location: paiement.php?action=modification");
-    } else {
-        $commandes[$id_cle]["plats"] = $nouveaux_plats;
+    } else { // Si la commande modifiée est moins chère ou du même prix, on enregistre directement les modifications sans passer par le paiement
+        $commandes[$id_cle]["plats"] = $nouveaux_plats; 
         $commandes[$id_cle]["montant"] = number_format($nouveau_montant, 2, '.', '');
-        $commandes[$id_cle]["deja_modifie"] = true;
-        file_put_contents("../data/commandes.json", json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $commandes[$id_cle]["deja_modifie"] = true; // Marque la commande comme déjà modifiée
+        file_put_contents("../data/commandes.json", json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)); // Sauvegarde des modifications
         header("Location: profil_client.php?flag=success");
     }
     exit;
@@ -79,7 +79,7 @@ if (isset($_POST['json_plats'])) {
     <script>
         const TOTAL_BRUT_ORIGINAL = <?= $total_brut_original ?>;
         const MONTANT_PAYE = <?= $montant_paye ?>;
-        window.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener("DOMContentLoaded", function() { // Avertissement affiché au chargement de la page
             alert("Attention : la commande n'est modifiable qu'une seule fois.");
         });
     </script>
@@ -103,7 +103,7 @@ if (isset($_POST['json_plats'])) {
                     <?php foreach ($tous_les_plats as $nom => $p) {
                         if ($nom !== "Allergenes") { ?>
                         <option value="<?= htmlspecialchars($nom) ?>" data-prix="<?= $p['prix'] ?>">
-                            <?= htmlspecialchars($nom) ?> — <?= $p['prix'] ?>€
+                            <?= htmlspecialchars($nom) ?> - <?= $p['prix'] ?>€
                         </option>
                     <?php } } ?>
                 </select>
@@ -125,7 +125,7 @@ if (isset($_POST['json_plats'])) {
                         <div class="plat-bas">
                             <div class="groupe-qte">
                                 <div class="controles-qte">
-                                    <button type="button" onclick="modifierQte(this, -1)">−</button>
+                                    <button type="button" onclick="modifierQte(this, -1)">-</button>
                                     <span class="qte-nb"><?= $p_cmd['quantite'] ?></span>
                                     <button type="button" onclick="modifierQte(this, 1)">+</button>
                                 </div>
