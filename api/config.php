@@ -13,7 +13,7 @@
 
 require_once __DIR__."/../serveur.php";
 
-$chemin_valide = ["index.php", "restaurant.php", "chef.php", "presentation.php", "connexion.php"];
+$chemin_valide = ["index.php", "restaurant.php", "chef.php", "presentation.php", "connexion.php", "inscription.php"];
 
 // Vérification de la session et du rôle de l'utilisateur
 if (session_status() !== PHP_SESSION_ACTIVE) {

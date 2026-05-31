@@ -1,12 +1,6 @@
 <?php
-session_start();
 
-if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true) {
-    header("Location: profil_client.php?error=unauthorized");
-    exit;
-}
-
-require_once __DIR__."/../serveur.php";
+require_once __DIR__."/../api/config.php";
 
 $erreur = "";
 
