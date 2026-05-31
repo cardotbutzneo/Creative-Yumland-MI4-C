@@ -153,3 +153,15 @@ async function finirCommande(hash, etat) {
 		console.error("Erreur serveur :", error);
 	}
 }
+async function chargerCommandes() {
+	let nCmd = document.querySelector("#nb-cmd");
+	let n = nCmd.dataset.nb_cmd;
+	try{
+		const reponse = await fetch("../api/get_new_commande.php");
+		const data =  await reponse.json();
+		renderCommandes(data, n);
+	}
+	catch (e){
+		console.log("Erreur :" + e);
+	}
+}

@@ -1,207 +1,262 @@
 {
     "Allergenes": {
-        "50":  "Gluten",
-        "51":  "Crustacés",
-        "52":  "Oeufs",
-        "53":  "Lactose",
-        "54":  "Fruits à coque"
+        "50": "Gluten",
+        "51": "Crustacés",
+        "52": "Oeufs",
+        "53": "Lactose",
+        "54": "Fruits à coque"
     },
-    "Burrata" : {
-            "id": 1,
-            "nom": "Burrata",
-            "description": "Fromage frais crémeux servi avec tomates cerises et basilic.",
-            "prix": 29,
-            "categorie": "entrees",
-            "est_vegetarien": true,
-            "allergene_id": [53],
-            "disponible": true,
-            "ordre_affichage": 1
-        },
-    "Carpaccio" : {
-            "id": 2,
-            "nom": "Carpaccio",
-            "description": "Fines tranches de bœuf marinées, servies avec roquette et parmesan.",
-            "prix": 32,
-            "categorie": "entrees",
-            "est_vegetarien": false,
-            "allergene_id": [53],
-            "disponible": true,
-            "ordre_affichage": 2
-        },
-    "Focaccia" : {
-            "id": 3,
-            "nom": "Focaccia",
-            "description": "Pain italien moelleux garni d'huile d'olive, romarin et sel de mer.",
-            "prix": 24,
-            "categorie": "entrees",
-            "est_vegetarien": true,
-            "allergene_id": [50],
-            "disponible": true,
-            "ordre_affichage": 3
-        },
-    "Lasagne dorée" : {
-            "id": 4,
-            "nom": "Lasagne dorée",
-            "description": "Lasagne traditionnelle garnie de feuilles d'or comestibles.",
-            "prix": 95,
-            "categorie": "plats",
-            "est_vegetarien": false,
-            "allergene_id": [50, 52, 53],
-            "disponible": true,
-            "ordre_affichage": 1
-        },
-    "Pâtes au pesto" :  {
-            "id": 5,
-            "nom": "Pâtes au pesto",
-            "description": "Pâtes fraîches servies avec une sauce pesto maison.",
-            "prix": 38,
-            "categorie": "plats",
-            "est_vegetarien": true,
-            "allergene_id": [50, 53, 54],
-            "disponible": true,
-            "ordre_affichage": 2
-        },
-    "Pâtes aux gambas" : {
-            "id": 6,
-            "nom": "Pâtes aux gambas",
-            "description": "Pâtes fraîches accompagnées de gambas sautées à l'ail et au piment.",
-            "prix": 56,
-            "categorie": "plats",
-            "est_vegetarien": false,
-            "allergene_id": [50, 51],
-            "disponible": true,
-            "ordre_affichage": 3
-        },
-    "Pizza Burrata" : {
-            "id": 7,
-            "nom": "Pizza Burrata",
-            "description": "Pizza garnie de burrata crémeuse, tomates fraîches et basilic.",
-            "prix": 42,
-            "categorie": "plats",
-            "est_vegetarien": true,
-            "allergene_id": [50, 53],
-            "disponible": true,
-            "ordre_affichage": 4
-        },
-    "Pizza Cicerone" : {
-            "id": 8,
-            "nom": "Pizza Cicerone",
-            "description": "Pizza gastronomique avec foie gras, truffes noires et mozzarella di bufala.",
-            "prix": 82,
-            "categorie": "plats",
-            "est_vegetarien": false,
-            "allergene_id": [50, 53],
-            "disponible": true,
-            "ordre_affichage": 5
-        },
-    "Pizza Truffe" : {
-            "id": 9,
-            "nom": "Pizza Truffe",
-            "description": "Pizza artisanale garnie de truffe blanche d'Alba, jambon sec et mozzarella.",
-            "prix": 68,
-            "categorie": "plats",
-            "est_vegetarien": false,
-            "allergene_id": [50, 53],
-            "disponible": true,
-            "ordre_affichage": 6
-        },
-    "Risotto" :  {
-            "id": 10,
-            "nom": "Risotto",
-            "description": "Risotto crémeux à la truffe blanche d'Alba, préparé avec du parmesan affiné.",
-            "prix": 57,
-            "categorie": "plats",
-            "est_vegetarien": true,
-            "allergene_id": [53],
-            "disponible": true,
-            "ordre_affichage": 7
-        },
-    "Affogato" : {
-            "id": 11,
-            "nom": "Affogato",
-            "description": "Sphère de glace vanille servie avec un espresso chaud versé dessus.",
-            "prix": 18,
-            "categorie": "desserts",
-            "est_vegetarien": true,
-            "allergene_id": [53],
-            "disponible": true,
-            "ordre_affichage": 1
-        },
-    "Panna cotta" : {
-            "id": 12,
-            "nom": "Panna cotta",
-            "description": "Crème cuite à la vanille servie avec un coulis de fruits rouges.",
-            "prix": 20,
-            "categorie": "desserts",
-            "est_vegetarien": true,
-            "allergene_id": [53],
-            "disponible": true,
-            "ordre_affichage": 2
-        },
-    "Tiramisu" : {
-            "id": 13,
-            "nom": "Tiramisu",
-            "description": "Dessert italien traditionnel à base de mascarpone, café et cacao.",
-            "prix": 22,
-            "categorie": "desserts",
-            "est_vegetarien": true,
-            "allergene_id": [50, 52, 53],
-            "disponible": true,
-            "ordre_affichage": 3
-        },
-    "Giacomo Boveri" : {
-            "id": 14,
-            "nom": "Giacomo Boveri",
-            "description": "Vin rouge italien corsé aux arômes de fruits rouges et d'épices.",
-            "prix": 45,
-            "categorie": "vins",
-            "est_vegetarien": true,
-            "allergene_id": [],
-            "disponible": true,
-            "ordre_affichage": 1
-        },
-    "Albino Rocca" : {
-            "id": 15,
-            "nom": "Albino Rocca",
-            "description": "Vin blanc italien frais avec des notes d'agrumes et de fleurs blanches.",
-            "prix": 50,
-            "categorie": "vins",
-            "est_vegetarien": true,
-            "allergene_id": [],
-            "disponible": true,
-            "ordre_affichage": 2
-        },
-    "Etto Germano" : {
-            "id": 16,
-            "nom": "Etto Germano",
-            "description": "Vin rosé italien léger et fruité, parfait pour accompagner les plats d'été.",
-            "prix": 60,
-            "categorie": "vins",
-            "est_vegetarien": true,
-            "allergene_id": [],
-            "disponible": true,
-            "ordre_affichage": 3
-        },
-    "Espresso" : {
-            "id": 17,
-            "nom": "Espresso",
-            "description": "Café italien fort et concentré, servi dans une petite tasse.",
-            "prix": 7,
-            "categorie": "cafes",
-            "est_vegetarien": true,
-            "allergene_id": [],
-            "disponible": true,
-            "ordre_affichage": 1
-        },
-    "Latte macchiato" : {
-            "id": 18,
-            "nom": "Latte macchiato",
-            "description": "Boisson à base de lait chaud avec un espresso versé dessus.",
-            "prix": 10,
-            "categorie": "cafes",
-            "est_vegetarien": true,
-            "allergene_id": [53],
-            "disponible": true,
-            "ordre_affichage": 2
-        }
+    "Burrata": {
+        "id": 1,
+        "nom": "Burrata",
+        "description": "Fromage frais crémeux servi avec tomates cerises et basilic.",
+        "prix": 29,
+        "categorie": "entrees",
+        "est_vegetarien": true,
+        "allergene_id": [
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 1,
+        "nb_commandee": 5
+    },
+    "Carpaccio": {
+        "id": 2,
+        "nom": "Carpaccio",
+        "description": "Fines tranches de bœuf marinées, servies avec roquette et parmesan.",
+        "prix": 32,
+        "categorie": "entrees",
+        "est_vegetarien": false,
+        "allergene_id": [
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 2,
+        "nb_commandee": 2
+    },
+    "Focaccia": {
+        "id": 3,
+        "nom": "Focaccia",
+        "description": "Pain italien moelleux garni d'huile d'olive, romarin et sel de mer.",
+        "prix": 24,
+        "categorie": "entrees",
+        "est_vegetarien": true,
+        "allergene_id": [
+            50
+        ],
+        "disponible": true,
+        "ordre_affichage": 3,
+        "nb_commandee": 2
+    },
+    "Lasagne dorée": {
+        "id": 4,
+        "nom": "Lasagne dorée",
+        "description": "Lasagne traditionnelle garnie de feuilles d'or comestibles.",
+        "prix": 95,
+        "categorie": "plats",
+        "est_vegetarien": false,
+        "allergene_id": [
+            50,
+            52,
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 1,
+        "nb_commandee": 2
+    },
+    "Pâtes au pesto": {
+        "id": 5,
+        "nom": "Pâtes au pesto",
+        "description": "Pâtes fraîches servies avec une sauce pesto maison.",
+        "prix": 38,
+        "categorie": "plats",
+        "est_vegetarien": true,
+        "allergene_id": [
+            50,
+            53,
+            54
+        ],
+        "disponible": true,
+        "ordre_affichage": 2,
+        "nb_commandee": 2
+    },
+    "Pâtes aux gambas": {
+        "id": 6,
+        "nom": "Pâtes aux gambas",
+        "description": "Pâtes fraîches accompagnées de gambas sautées à l'ail et au piment.",
+        "prix": 56,
+        "categorie": "plats",
+        "est_vegetarien": false,
+        "allergene_id": [
+            50,
+            51
+        ],
+        "disponible": true,
+        "ordre_affichage": 3,
+        "nb_commandee": 2
+    },
+    "Pizza Burrata": {
+        "id": 7,
+        "nom": "Pizza Burrata",
+        "description": "Pizza garnie de burrata crémeuse, tomates fraîches et basilic.",
+        "prix": 42,
+        "categorie": "plats",
+        "est_vegetarien": true,
+        "allergene_id": [
+            50,
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 4,
+        "nb_commandee": 5
+    },
+    "Pizza Cicerone": {
+        "id": 8,
+        "nom": "Pizza Cicerone",
+        "description": "Pizza gastronomique avec foie gras, truffes noires et mozzarella di bufala.",
+        "prix": 82,
+        "categorie": "plats",
+        "est_vegetarien": false,
+        "allergene_id": [
+            50,
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 5,
+        "nb_commandee": 1
+    },
+    "Pizza Truffe": {
+        "id": 9,
+        "nom": "Pizza Truffe",
+        "description": "Pizza artisanale garnie de truffe blanche d'Alba, jambon sec et mozzarella.",
+        "prix": 68,
+        "categorie": "plats",
+        "est_vegetarien": false,
+        "allergene_id": [
+            50,
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 6,
+        "nb_commandee": 0
+    },
+    "Risotto": {
+        "id": 10,
+        "nom": "Risotto",
+        "description": "Risotto crémeux à la truffe blanche d'Alba, préparé avec du parmesan affiné.",
+        "prix": 57,
+        "categorie": "plats",
+        "est_vegetarien": true,
+        "allergene_id": [
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 7,
+        "nb_commandee": 3
+    },
+    "Affogato": {
+        "id": 11,
+        "nom": "Affogato",
+        "description": "Sphère de glace vanille servie avec un espresso chaud versé dessus.",
+        "prix": 18,
+        "categorie": "desserts",
+        "est_vegetarien": true,
+        "allergene_id": [
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 2,
+        "nb_commandee": 1
+    },
+    "Panna cotta": {
+        "id": 12,
+        "nom": "Panna cotta",
+        "description": "Crème cuite à la vanille servie avec un coulis de fruits rouges.",
+        "prix": 20,
+        "categorie": "desserts",
+        "est_vegetarien": true,
+        "allergene_id": [
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 2
+    },
+    "Tiramisu": {
+        "id": 13,
+        "nom": "Tiramisu",
+        "description": "Dessert italien traditionnel à base de mascarpone, café et cacao.",
+        "prix": 22,
+        "categorie": "desserts",
+        "est_vegetarien": true,
+        "allergene_id": [
+            50,
+            52,
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 3,
+        "nb_commandee": 3
+
+    },
+    "Giacomo Boveri": {
+        "id": 14,
+        "nom": "Giacomo Boveri",
+        "description": "Vin rouge italien corsé aux arômes de fruits rouges et d'épices.",
+        "prix": 45,
+        "categorie": "vins",
+        "est_vegetarien": true,
+        "allergene_id": [],
+        "disponible": true,
+        "ordre_affichage": 1
+    },
+    "Albino Rocca": {
+        "id": 15,
+        "nom": "Albino Rocca",
+        "description": "Vin blanc italien frais avec des notes d'agrumes et de fleurs blanches.",
+        "prix": 50,
+        "categorie": "vins",
+        "est_vegetarien": true,
+        "allergene_id": [],
+        "disponible": true,
+        "ordre_affichage": 2,
+        "nb_commandee": 3
+    },
+    "Etto Germano": {
+        "id": 16,
+        "nom": "Etto Germano",
+        "description": "Vin rosé italien léger et fruité, parfait pour accompagner les plats d'été.",
+        "prix": 60,
+        "categorie": "vins",
+        "est_vegetarien": true,
+        "allergene_id": [],
+        "disponible": true,
+        "ordre_affichage": 3,
+        "nb_commandee": 1
+    },
+    "Espresso": {
+        "id": 17,
+        "nom": "Espresso",
+        "description": "Café italien fort et concentré, servi dans une petite tasse.",
+        "prix": 7,
+        "categorie": "cafes",
+        "est_vegetarien": true,
+        "allergene_id": [],
+        "disponible": true,
+        "ordre_affichage": 1,
+        "nb_commandee": 3
+    },
+    "Latte macchiato": {
+        "id": 18,
+        "nom": "Latte macchiato",
+        "description": "Boisson à base de lait chaud avec un espresso versé dessus.",
+        "prix": 10,
+        "categorie": "cafes",
+        "est_vegetarien": true,
+        "allergene_id": [
+            53
+        ],
+        "disponible": true,
+        "ordre_affichage": 2,
+        "nb_commandee": 1
+    }
 }

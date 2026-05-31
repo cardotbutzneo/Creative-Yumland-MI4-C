@@ -51,21 +51,7 @@ verifier_connexion($role,"Cuisinier");
     <div id="liste-commandes">
         <p>Chargement des commandes...</p>
     </div>
-
     <script>
-        async function chargerCommandes() {
-            let nCmd = document.querySelector("#nb-cmd");
-            let n = nCmd.dataset.nb_cmd;
-            try{
-                const reponse = await fetch("../api/get_new_commande.php");
-                const data =  await reponse.json();
-                renderCommandes(data, n);
-            }
-            catch (e){
-                console.log("Erreur :" + e);
-            }
-        }
-
         // chargement des commandes au démarages
         chargerCommandes();
         setInterval(chargerCommandes,10000);

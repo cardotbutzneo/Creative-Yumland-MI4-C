@@ -192,7 +192,7 @@ $minDateTime = date("Y-m-d\TH:i");
             </section>
             <div class="total" id="bloc-total" data-reduc="<?= isset($reduc) ? $reduc : 0 ?>">
                 <span>Total</span>
-                <span id="display-total"><?= $total_brut ?>€</span>
+                <span id="display-total"><?= number_format($total_brut, 2, '.', ',') ?>€</span>
             </div>
             <?php if ($total_brut == $nv_total){ ?>
                 <p id="p-pas-reduc">Pas de réduction disponible</p>
@@ -203,7 +203,7 @@ $minDateTime = date("Y-m-d\TH:i");
                 </div>
                 <div class="total" id="bloc-total-reduit">
                     <span>Total après réductions</span>
-                    <span id="display-total-reduit"><?= $nv_total ?>€</span>
+                    <span id="display-total-reduit"><?= number_format($nv_total,2, '.', ',') ?>€</span>
                 </div>
             <?php } ?>
             <form method="POST" action="paiement.php">

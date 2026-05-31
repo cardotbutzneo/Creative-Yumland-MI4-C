@@ -118,4 +118,16 @@ function verifier_connexion(string $role, array | string $roles_autorisés = ["C
         exit;
     }
 }
+
+/**
+ * Retourne un booléen en fonction du role de l'utilisateur (Attention ne fonctionne que si l'utilisateur est déjà connecté à une session)
+ * @return bool - True si l'utilisateur est un admin, False sinon
+ */
+function is_admin() : bool {
+    if (isset($_SESSION["role"])){
+        if ($_SESSION["role"] === "admin") return true;
+    }
+    return false;
+}
+
 ?>

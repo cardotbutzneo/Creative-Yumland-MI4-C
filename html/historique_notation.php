@@ -39,6 +39,7 @@ function etoiles(int $note): string {
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/historique_notation.css">
+    <script src="../javascript/commande.js" defer></script>
     
 </head>
 <body>
@@ -52,6 +53,12 @@ function etoiles(int $note): string {
         </ul>
     </nav>
     </header>
+    <div id="btn-affichage">
+        <div id="conteneur-btn">
+            <button id="btn-avis" class="actif" onclick="changerAffichage('btn-avis')">Avis</button>
+            <button id="btn-cmd" onclick="changerAffichage('btn-cmd')">Meilleurs commandes</button>
+        </div>
+    </div>
 
     <main class="page-notations">
         <h1>Historique des notations</h1>
@@ -138,6 +145,9 @@ function etoiles(int $note): string {
                     </div>
                 <?php } ?>
             </div>
+            <div class="avis-card" id="meilleurs-cmd" style='display : none'>
+                Chargement des meilleurs commandes...
+            </div>
 
         <?php } ?>
     </main>
@@ -164,6 +174,88 @@ function etoiles(int $note): string {
 
             cartes.forEach(c => liste.appendChild(c));
         }
+
+        async function getListePlat(){
+            try{
+                let response = await fetch("../api/get_plat.php");
+                response = await response.json();
+                if (!response.success) {
+                    console.error("Error : " + (response.erreur ?? ""));
+                    return null;
+                }
+                //console.log(response.data);
+                return response.data;
+            }
+            catch(e){
+                console.error("Error : " + e);
+            }
+        }
+
+        async function creerMeilleursCmd(){
+            let plat = await getListePlat();
+            if (plat == null) return;
+            plat = Object.values(plat);
+            plat.shift(); // on enlève la ligne des alergènes
+
+            function createConteneur(){
+                const conteneur = document.createElement("li");
+                conteneur.classList = "podium-liste";
+                return conteneur;
+            }
+            let total = 0;
+            plat.forEach(p => {
+                if (p.categorie != "entrees" && p.categorie != "plats") return;
+                total += p.nb_commandee ?? 0;
+            }); // on calcul le nombre de commandes total
+
+            plat.sort((a,b) => b.nb_commandee - a.nb_commandee);
+            plat = plat.slice(0,3) // affiche les 3 premiers
+            
+            const conteneur = document.getElementById("meilleurs-cmd");
+            conteneur.innerHTML = "";
+
+            plat.forEach(p => {
+                const c = createConteneur();
+                // Utilisation de Math.round() natif pour éviter une erreur si ta fonction 'round' n'est pas définie
+                const pourcentage = total > 0 ? Math.round((p.nb_commandee / total) * 100) : 0;
+                
+                c.innerHTML = `
+                    <strong style="color: #f5f5f5; font-weight: 500;">${p.nom}</strong>
+                    <span style="color: #666; font-size: 0.8rem;">${p.nb_commandee} commandes</span>
+                    <b style="color: #c9a24d; font-weight: 600;">${pourcentage}%</b>
+                `;
+                conteneur.appendChild(c);
+            });
+            const c = createConteneur();
+            c.innerHTML = `<h2>Total de plats commandés : ${total}</h2>`;
+            conteneur.appendChild(c);
+        }
+
+        function changerAffichage(target){
+            if (target === null || target === undefined) return;
+            const btnActuel = document.querySelector("#conteneur-btn button.actif");
+            btnActuel?.classList.remove("actif");
+
+            const nouveauBouton = document.getElementById(target);
+            nouveauBouton?.classList.add("actif");
+
+            const conteneurAvis = document.getElementById('avis-liste');
+            const conteneurCmd = document.getElementById('meilleurs-cmd');
+            const btnAvis = document.getElementById('btn-avis');
+            const btnCmd = document.getElementById('btn-cmd');
+
+            if (target === "btn-avis") {
+                conteneurAvis.style.display = "block";
+                conteneurCmd.style.display = "none";    
+            }
+            else if (target === "btn-cmd") {
+                conteneurAvis.style.display = "none";
+                conteneurCmd.style.display = "block";    
+            }
+        }
+
+        creerMeilleursCmd();
+        setInterval(creerMeilleursCmd,100000);
     </script>
 </body>
 </html>

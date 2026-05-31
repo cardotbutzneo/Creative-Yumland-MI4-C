@@ -1,3 +1,17 @@
+:root{
+    --color : var(--color,#c9a24d);
+    --backgrond : #0f0f0f;
+    --fontSize : 25px;
+}
+
+button{
+    background-color: var(--background,#0f0f0f);
+    color: var(--color,#c9a24d);
+    border: 0;
+    
+    font-size: var(--fontSize,16);
+}
+
 .page-notations {
     max-width: 800px;
     margin: 60px auto;
@@ -40,7 +54,7 @@
 .moyenne-note {
     font-size: 2rem;
     font-weight: 600;
-    color: #c9a24d;
+    color: var(--color,#c9a24d);
     line-height: 1;
 }
 
@@ -132,7 +146,7 @@
 }
 
 .note-etoiles .plein {
-    color: #c9a24d;
+    color: var(--color,#c9a24d);
 }
 
 .note-etoiles .vide {
@@ -140,7 +154,7 @@
 }
 
 .avis-commentaire {
-    background: #0b0b0b;
+    background: var(--background,#0f0f0f);
     border: 1px solid #2a2a2a;
     border-radius: 8px;
     padding: 12px 14px;
@@ -153,13 +167,13 @@
 
 .avis-commentaire::before {
     content: "« ";
-    color: #c9a24d;
+    color: var(--color,#c9a24d);
     font-style: normal;
 }
 
 .avis-commentaire::after {
     content: " »";
-    color: #c9a24d;
+    color: var(--color,#c9a24d);
     font-style: normal;
 }
 
@@ -196,5 +210,87 @@
 
 .filtres select:focus {
     outline: none;
-    border-color: #c9a24d;
+    border-color: var(--color,#c9a24d);
+}
+
+#meilleurs-cmd {
+    list-style: none;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.podium-liste {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--background,#0f0f0f);
+    border: 1px solid #222;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    color: #ccc;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.podium-liste:hover {
+    border-color: #444;
+    transform: translateX(4px);
+}
+
+#meilleurs-cmd .podium-liste:nth-child(1) {
+    border-left: 3px solid var(--color,#c9a24d);
+}
+#meilleurs-cmd .podium-liste:nth-child(2) {
+    border-left: 3px solid #888;
+}
+#meilleurs-cmd .podium-liste:nth-child(3) {
+    border-left: 3px solid #cd7f32;
+}
+
+#meilleurs-cmd {
+    color: #666;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+#btn-affichage{
+    position: fixed;
+    top : 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+#conteneur-btn{
+    display: inline-flex;
+    border: 1px white solid;
+    border-radius: 30px;
+    padding: 6px;
+    gap : 10px;
+}
+
+#conteneur-btn button {
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 10px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#conteneur-btn button:hover:not(.actif) {
+    color: #fff;
+}
+
+#conteneur-btn button.actif {
+    background: #c9a24d;
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(201, 162, 77, 0.2);
 }

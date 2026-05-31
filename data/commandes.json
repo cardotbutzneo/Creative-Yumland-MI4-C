@@ -4,7 +4,7 @@
         "date": "2026-04-03 07:22:46",
         "montant": "308.00",
         "numero": "00000001",
-        "livraison": false,
+        "livraison": true,
         "est-valide": true,
         "etat": "preparee",
         "plats": [
@@ -154,5 +154,35 @@
         "instructions": "",
         "numero": "00000005",
         "deja_modifie": true
+    },
+    "258C4C48": {
+        "email": "client1@gmail.com",
+        "date": "2026-05-12 17:21:55",
+        "montant": "85.00",
+        "livraison": false,
+        "est-valide": true,
+        "etat": "notee",
+        "note_livraison": "4",
+        "note_produits": "5",
+        "commentaire": "Excellent repas, livraison rapide !",
+        "plats": {
+            "Carpaccio": {
+                "nom": "Carpaccio",
+                "prix": 32,
+                "quantite": 1
+            },
+            "Focaccia": {
+                "nom": "Focaccia",
+                "prix": 24,
+                "quantite": 1
+            },
+            "Burrata": {
+                "nom": "Burrata",
+                "prix": 29,
+                "quantite": 1
+            }
+        },
+        "instructions": "sans olives",
+        "numero": "00000006"
     }
 }

@@ -30,7 +30,7 @@ if (empty($_SESSION) || !isset($_SESSION["role"]) and !in_array(basename($_SERVE
 // Définition des constantes de configuration des variables
 $data_client = lire_data("../data/client.json");
 $data_commandes = lire_data("../data/commandes.json");
-$data_panier = lire_data("../data/panier.json");
+$data_panier = lire_data("../data/paniers.json");
 $data_plats = lire_data("../data/plats.json");
 $data_langue = lire_data("../data/langue.json");    
 

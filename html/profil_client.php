@@ -168,8 +168,8 @@ else if ($_SESSION["role"] == "admin"){
         <?php
         $email_courant   = $_SESSION["email"] ?? '';
         $historique_ids  = $data_client[$email_courant]["dernieres_commandes"] ?? [];
+        echo "<div class='contenent'>";
         if (!empty($historique_ids)){
-            echo "<div class='contenent'>";
             echo "<h2>Historique des dernières commandes</h2>";
             echo "<nav>";
                 foreach ($historique_ids as $cmd) {
@@ -195,6 +195,14 @@ else if ($_SESSION["role"] == "admin"){
                 <?php }
             echo "</nav>";
             echo "<a href='suivi_commande.php'><button class='btn-suivi'>Suivre ma dernière commande</button></a>";
+        }
+        else if (!is_admin()){
+            ?>
+            <div>
+                <p style='padding-bottom : 5px;'>Vous n'avez pas d'historique de commande.</p>
+                <button style='background-color : #c9a24d; border-radius : 10px; padding : 5px; font-size : 16px' onclick="window.location.href = 'presentation.php'">+ Commander</button>
+            </div>
+            <?php
         }
         ?>
         <script>
@@ -297,4 +305,4 @@ function donner_grade(int $pts) : ?string{
     return $nom_grade;
 }
 
-?>S
+?>

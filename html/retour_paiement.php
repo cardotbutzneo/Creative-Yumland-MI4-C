@@ -58,7 +58,7 @@ if ($paiement_valide && $statut_reel === "accepted") {
             unset($_SESSION["modif_commande"]);
         }
 
-    } elseif (isset($_SESSION["commande_en_attente"])) {
+    } elseif (isset($_SESSION["commande_en_attente"])) { // sauvegarder la commande
         $nv_id = generer_id($commandes);
         $nv = $_SESSION["commande_en_attente"];
         $nv["est-valide"] = true;
@@ -67,6 +67,19 @@ if ($paiement_valide && $statut_reel === "accepted") {
 
         $commandes[$nv_id] = $nv;
         sauvegarder_data($chemin_commandes, $commandes);
+
+        foreach ($data_panier[$email]["articles"] as $nom_plat => $details){
+            if (!isset($data_plats[$nom_plat])) {
+                continue; 
+            }
+
+            if ($data_plats[$nom_plat]["categorie"] !== "entrees" && $data_plats[$nom_plat]["categorie"] !== "plats") {
+                continue;
+            }
+            $data_plats[$nom_plat]["nb_commandee"] += $details["quantite"];
+        }
+
+        sauvegarder_data("../data/plats.json",$data_plats); // on sauvegarde
 
         $paniers = $data_panier;
         if (isset($paniers[$email])) {
