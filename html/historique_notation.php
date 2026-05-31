@@ -40,6 +40,7 @@ function etoiles(int $note): string {
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/historique_notation.css">
     <script src="../javascript/commande.js" defer></script>
+    <script src="../script.js"></script>
     
 </head>
 <body>
@@ -145,6 +146,17 @@ function etoiles(int $note): string {
                     </div>
                 <?php } ?>
             </div>
+            <div class="filtres" id="filtre-cmd" style="display : none">
+                <label for="tri-cmd">Trier par :</label>
+                <select id="tri-cmd" onchange="creerMeilleursCmd()">
+                    <option value="all">Tout</option>
+                    <option value="entrees">Entrées</option>
+                    <option value="plats">Plats</option>
+                    <option value="desserts">Desserts</option>
+                    <option value="vins">Vins</option>
+                    <option value="cafes">Cafés</option>
+                </select>
+            </div>
             <div class="avis-card" id="meilleurs-cmd" style='display : none'>
                 Chargement des meilleurs commandes...
             </div>
@@ -183,7 +195,6 @@ function etoiles(int $note): string {
                     console.error("Error : " + (response.erreur ?? ""));
                     return null;
                 }
-                //console.log(response.data);
                 return response.data;
             }
             catch(e){
@@ -192,33 +203,42 @@ function etoiles(int $note): string {
         }
 
         async function creerMeilleursCmd(){
-            let plat = await getListePlat();
-            if (plat == null) return;
-            plat = Object.values(plat);
-            plat.shift(); // on enlève la ligne des alergènes
+            let plats = await getListePlat();
+            if (plats == null) return;
+            
+            plats = Object.values(plats);
+            plats.shift(); // On enlève la ligne des allergènes
 
             function createConteneur(){
                 const conteneur = document.createElement("li");
                 conteneur.classList = "podium-liste";
                 return conteneur;
             }
-            let total = 0;
-            plat.forEach(p => {
-                if (p.categorie != "entrees" && p.categorie != "plats") return;
-                total += p.nb_commandee ?? 0;
-            }); // on calcul le nombre de commandes total
 
-            plat.sort((a,b) => b.nb_commandee - a.nb_commandee);
-            plat = plat.slice(0,3) // affiche les 3 premiers
+            let liste_categories = [];
             
+            const categorie = ["entrees", "plats", "desserts", "vins", "cafes", "all"];
+            categorie.forEach(cat => {
+                const { plat, total } = MeilleurCommandes(plats, cat); 
+            
+                liste_categories.push({ categorie: cat, plat, total });
+            });
+            
+            const donneesGlobales = liste_categories.find(item => item.categorie === "all");
+            if (!donneesGlobales) return;
+
+            const trie = document.querySelector("#filtre-cmd option:checked").value;
+
+            const platsAAfficher = Object.values(liste_categories[categorie.indexOf(trie)]); // C'est un tableau de plats
+            const totalCommandes = donneesGlobales.total; // Le score total global
+
             const conteneur = document.getElementById("meilleurs-cmd");
             conteneur.innerHTML = "";
 
-            plat.forEach(p => {
+            platsAAfficher[1].forEach(p => {
                 const c = createConteneur();
-                // Utilisation de Math.round() natif pour éviter une erreur si ta fonction 'round' n'est pas définie
-                const pourcentage = total > 0 ? Math.round((p.nb_commandee / total) * 100) : 0;
-                
+                const pourcentage = totalCommandes > 0 ? Math.round((p.nb_commandee / totalCommandes) * 100) : 0;
+                        
                 c.innerHTML = `
                     <strong style="color: #f5f5f5; font-weight: 500;">${p.nom}</strong>
                     <span style="color: #666; font-size: 0.8rem;">${p.nb_commandee} commandes</span>
@@ -226,8 +246,9 @@ function etoiles(int $note): string {
                 `;
                 conteneur.appendChild(c);
             });
+
             const c = createConteneur();
-            c.innerHTML = `<h2>Total de plats commandés : ${total}</h2>`;
+            c.innerHTML = `<h2 style="font-size: 1rem; color: #fff; margin: 0;">Total de plats commandés : ${totalCommandes}</h2>`;
             conteneur.appendChild(c);
         }
 
@@ -245,15 +266,19 @@ function etoiles(int $note): string {
             const btnCmd = document.getElementById('btn-cmd');
 
             if (target === "btn-avis") {
+                document.querySelectorAll(".filtres")[0].style.display = 'block';
+                document.getElementById("filtre-cmd").style.display = "none";
                 conteneurAvis.style.display = "block";
                 conteneurCmd.style.display = "none";    
             }
             else if (target === "btn-cmd") {
+                document.querySelectorAll(".filtres")[0].style.display = 'none';
+                document.getElementById("filtre-cmd").style.display = "block";
                 conteneurAvis.style.display = "none";
                 conteneurCmd.style.display = "block";    
             }
         }
-
+        
         creerMeilleursCmd();
         setInterval(creerMeilleursCmd,100000);
     </script>

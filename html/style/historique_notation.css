@@ -294,3 +294,64 @@ button{
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(201, 162, 77, 0.2);
 }
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+
+     /* Décale le bouton sous le header (adapte 70px à la hauteur réelle de ton header) */
+    #btn-affichage {
+        position:relative;
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Donne de l'espace au main pour ne pas se faire couvrir */
+    .page-notations {
+        margin-top: 150px; /* header + bouton + marge */
+    }
+
+    #conteneur-btn {
+        flex-direction: row;
+        border-radius: 30px;
+        padding: 6px;
+        gap: 10px;
+    }
+
+    #conteneur-btn button {
+        width: auto;
+        padding: 10px 20px;
+        border-radius: 25px;
+    }
+
+    /* Grille moyennes : 2 colonnes mais un peu plus aérées */
+    .moyennes {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 32px;
+    }
+
+    /* Page principale : moins de marge haute pour éviter l'overlap avec le bouton fixe */
+    .page-notations {
+        margin-top: 80px;
+    }
+
+    /* Filtres : alignement plus compact */
+    .filtres {
+        flex-wrap: nowrap;
+    }
+
+    /* Cartes d'avis : padding légèrement réduit */
+    .avis-card {
+        padding: 16px 18px;
+    }
+
+    .avis-header {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* Ligne de note : on s'assure que l'intitulé ne déborde pas */
+    .note-intitule {
+        min-width: 120px;
+    }
+}

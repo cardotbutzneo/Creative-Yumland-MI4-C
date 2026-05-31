@@ -6,3 +6,6 @@
 [31mCRITICAL[0m [2026-05-20 20:28:44] -- Securite : Tentative d'accès au fichier de log
 [31mCRITICAL[0m [2026-05-20 20:28:56] -- Securite : Tentative d'accès aux fichiers de log
 [31mCRITICAL[0m [2026-05-20 20:30:21] -- Securite : Tentative d'accès aux fichiers de log par Gates Bill avec le rôle admin
+[38;5;208mWARNING [0m [2026-05-31 10:53:38] -- Accès non autorisé à historique_notation.php
+[38;5;208mWARNING [0m [2026-05-31 10:53:55] -- Securite : Tentative d'accès aux base de données
+[31mCRITICAL[0m [2026-05-31 13:51:01] -- Securite : Tentative d'accès aux fichiers de log par Chalamet Timothée avec le rôle Client

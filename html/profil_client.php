@@ -200,7 +200,7 @@ else if ($_SESSION["role"] == "admin"){
             ?>
             <div>
                 <p style='padding-bottom : 5px;'>Vous n'avez pas d'historique de commande.</p>
-                <button style='background-color : #c9a24d; border-radius : 10px; padding : 5px; font-size : 16px' onclick="window.location.href = 'presentation.php'">+ Commander</button>
+                <button style='background-color : #0b0b00; color : #c9a24d; border: 1px #c9a24d solid; border-radius:20px; padding : 5px; font-size : 16px' onclick="window.location.href = 'presentation.php'">+ Commander</button>
             </div>
             <?php
         }

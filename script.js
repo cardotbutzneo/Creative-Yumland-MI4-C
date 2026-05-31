@@ -108,3 +108,32 @@ async function verfierURL(url) {
 		console.error("Erreur : " + error);
 	}
 }
+
+/**
+ * Retourne les 3 plats les plus commandés et le nombre total de commandes pour les entrées et les plats
+ * @param {Array} plat Tableau d'objets représentant les plats, chaque objet doit contenir les propriétés "categorie" (string) et "nb_commandee" (number)
+ * @param {string} categorie (optionnel) La catégorie de plats à filtrer ("entree", "plat", "dessert", "vin", "cafe" ou "all" pour tous les plats, par défaut : "all")
+ * @returns Objet contenant les 3 plats les plus commandés et le nombre total de commandes pour les entrées et les plats
+ */
+function MeilleurCommandes(liste_plats, categorie = "all") {
+    let platsFiltres = liste_plats;
+    
+    if (categorie !== "all") {
+        platsFiltres = liste_plats.filter(p => p.categorie === categorie);
+    }
+
+    let total = 0;
+    platsFiltres.forEach(p => {
+        total += p.nb_commandee ?? 0;
+    });
+
+    let podium = [...platsFiltres]
+        .sort((a, b) => b.nb_commandee - a.nb_commandee)
+        .slice(0, 3);
+
+    // 4. On renvoie le résultat
+    return {
+        plat: podium,
+        total: total
+    };
+}

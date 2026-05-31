@@ -179,7 +179,8 @@
             53
         ],
         "disponible": true,
-        "ordre_affichage": 2
+        "ordre_affichage": 2,
+        "nb_commandee": 0
     },
     "Tiramisu": {
         "id": 13,
@@ -207,7 +208,8 @@
         "est_vegetarien": true,
         "allergene_id": [],
         "disponible": true,
-        "ordre_affichage": 1
+        "ordre_affichage": 1,
+        "nb_commandee": 0
     },
     "Albino Rocca": {
         "id": 15,
