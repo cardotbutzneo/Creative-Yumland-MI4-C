@@ -4,8 +4,8 @@ require_once __DIR__."/../api/config.php";
 
 verifier_connexion($role,"Client");
 
-$email = $_SESSION["email"];
 $a = "../data/paniers.json";
+$email = $_SESSION["email"];
 
 function calcul(array $tab_articles) : float {
     $somme = 0;
@@ -21,10 +21,9 @@ function sauvegarder(string $fichier, array $data): void {
 
 $action = $_GET["action"] ?? '';
 $id_plat = $_GET["id"] ?? '';
-$paniers = lire_data($a);
 
-if (!isset($paniers[$email])) {
-    $paniers[$email] = ["articles" => [], "total" => 0];
+if (!isset($data_panier[$email])) {
+    $data_panier[$email] = ["articles" => [], "total" => 0];
 }
 
 if (isset($_GET["id_cmd"])) {
@@ -36,50 +35,46 @@ if (isset($_GET["id_cmd"])) {
         exit;
     }
 
-    $plats_catalogue = lire_data("../data/plats.json");
+    $plats_catalogue = $data_plats;
     foreach ($commande["plats"] as $plat_cmd) {
         $id_plat_cmd = $plat_cmd["nom"];
-        if (isset($paniers[$email]["articles"][$id_plat_cmd])) {
-            $paniers[$email]["articles"][$id_plat_cmd]["quantite"] += $plat_cmd["quantite"];
-        } else {
-            $plat = $plats_catalogue[$id_plat_cmd] ?? null;
-            if ($plat !== null) {
-                $paniers[$email]["articles"][$id_plat_cmd] = [
-                    "nom" => $plat["nom"],
-                    "prix" => $plat["prix"],
-                    "quantite" => $plat_cmd["quantite"]
-                ];
-            }
+        $plat = $plats_catalogue[$id_plat_cmd] ?? null;
+        if ($plat !== null) { // on écrase l'ancien panier pour eviter les duplications
+            $data_panier[$email]["articles"][$id_plat_cmd] = [
+                "nom" => $plat["nom"],
+                "prix" => $plat["prix"],
+                "quantite" => $plat_cmd["quantite"]
+            ];
         }
     }
-    $paniers[$email]["total"] = calcul($paniers[$email]["articles"]);
-    sauvegarder($a, $paniers);
+    $data_panier[$email]["total"] = calcul($data_panier[$email]["articles"]);
+    sauvegarder($a, $data_panier);
     header("Location: panier.php");
     exit;
 }
 
 if ($action === "set_qte" && $id_plat !== '' && isset($_GET["qte"])) {
     $qte = (int)$_GET["qte"];
-    if (isset($paniers[$email]["articles"][$id_plat])) {
+    if (isset($data_panier[$email]["articles"][$id_plat])) {
         if ($qte > 0) {
-            $paniers[$email]["articles"][$id_plat]["quantite"] = $qte;
+            $data_panier[$email]["articles"][$id_plat]["quantite"] = $qte;
         } else {
-            unset($paniers[$email]["articles"][$id_plat]);
+            unset($data_panier[$email]["articles"][$id_plat]);
         }
-        $paniers[$email]["total"] = calcul($paniers[$email]["articles"]);
-        sauvegarder($a, $paniers);
+        $data_panier[$email]["total"] = calcul($data_panier[$email]["articles"]);
+        sauvegarder($a, $data_panier);
     }
     exit; 
 }
 
 if ($action === "ajouter") {
-    if (isset($paniers[$email]["articles"][$id_plat])) {
-        $paniers[$email]["articles"][$id_plat]["quantite"]++;
+    if (isset($data_panier[$email]["articles"][$id_plat])) {
+        $data_panier[$email]["articles"][$id_plat]["quantite"]++;
     } else {
-        $plats = lire_data("../data/plats.json");
+        $plats = $data_plats;
         $plat = $plats[$id_plat] ?? null;
         if ($plat !== null) {
-            $paniers[$email]["articles"][$id_plat] = [
+            $data_panier[$email]["articles"][$id_plat] = [
                 "nom" => $plat["nom"],
                 "prix" => $plat["prix"],
                 "quantite" => 1
@@ -89,25 +84,25 @@ if ($action === "ajouter") {
 }
 
 if ($action === "retirer") {
-    if (isset($paniers[$email]["articles"][$id_plat])) {
-        $paniers[$email]["articles"][$id_plat]["quantite"]--;
-        if ($paniers[$email]["articles"][$id_plat]["quantite"] <= 0) {
-            unset($paniers[$email]["articles"][$id_plat]);
+    if (isset($data_panier[$email]["articles"][$id_plat])) {
+        $data_panier[$email]["articles"][$id_plat]["quantite"]--;
+        if ($data_panier[$email]["articles"][$id_plat]["quantite"] <= 0) {
+            unset($data_panier[$email]["articles"][$id_plat]);
         }
     }
 }
 
 if ($action === "supprimer") {
-    unset($paniers[$email]["articles"][$id_plat]);
+    unset($data_panier[$email]["articles"][$id_plat]);
 }
 
 if($action === "tous_supprimer") {
-    $paniers[$email]["articles"] = [];
+    $data_panier[$email]["articles"] = [];
 }
 
 if ($action !== '' && $action !== 'set_qte') {
     $pts = $_SESSION["total-fidelite"] ?? 0;
-    $total_brut = calcul($paniers[$email]["articles"]);
+    $total_brut = calcul($data_panier[$email]["articles"]);
     $nv_total = $total_brut;
 
     if ($pts >= 500 && $pts < 1200) {
@@ -118,13 +113,13 @@ if ($action !== '' && $action !== 'set_qte') {
         $nv_total = ceil($total_brut * (1 - $reduc));
     }
 
-    $paniers[$email]["total"] = $nv_total;
-    sauvegarder($a, $paniers);
+    $data_panier[$email]["total"] = $nv_total;
+    sauvegarder($a, $data_panier);
     header("Location: panier.php");
     exit;
 }
 
-$articles = $paniers[$email]["articles"];
+$articles = $data_panier[$email]["articles"];
 $total_brut = calcul($articles);
 $pts = $_SESSION["total-fidelite"] ?? 0;
 $nv_total = $total_brut;

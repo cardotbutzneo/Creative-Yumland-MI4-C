@@ -1,10 +1,6 @@
 <?php
 require_once __DIR__."/../api/config.php";
 
-if(!isset($_SESSION["connecte"])){
-    header("Location: connexion.php");
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -25,6 +21,7 @@ if(!isset($_SESSION["connecte"])){
             <h1>Merci d'avoir commandé chez nous !</h1>
             <p>Nous espérons vous revoir très bientôt chez L'oro di Cicerone.</p>
             <p>Vous allez être redirigé vers la page d'acceuil d'ici quelques instants...</p>
+            <a href="mailto:<?= $_SESSION["email"] ?>">Ajouter ma réservation à mon angenda</a>
             <a href="index.php">Cliquez ici si la redirection ne marche pas</a>
             </div>
     </main>
