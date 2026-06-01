@@ -124,6 +124,18 @@ $total_brut = calcul($articles);
 $pts = $_SESSION["total-fidelite"] ?? 0;
 $nv_total = $total_brut;
 
+$plats_catalogue = $data_plats;
+
+$plats_catalogue = $data_plats;
+
+foreach ($articles as $cle => $article) { // on ajoute une clé d'ordre d'affichage pour pouvoir trier les articles du panier dans le même ordre que le catalogue
+    $articles[$cle]["ordre_affichage"] = $plats_catalogue[$cle]["ordre_affichage"]; 
+}
+
+uasort($articles, function ($a, $b) { // tri selon l'ordre d'affichage du catalogue
+    return $a["ordre_affichage"] <=> $b["ordre_affichage"]; // on utilise le spaceship operator pour comparer les valeurs d'ordre d'affichage 
+});
+
 if ($pts >= 500 && $pts < 1200) {
     $reduc = 0.15;
     $nv_total = ceil($total_brut * (1 - $reduc));
