@@ -137,3 +137,17 @@ function MeilleurCommandes(liste_plats, categorie = "all") {
         total: total
     };
 }
+
+/**
+ * Revoit la valeur d'un cookie à partir de son nom
+ * @param {string} nom nom du cookie à lire 
+ * @returns string la valeur du cookie ou null si le cookie n'existe pas
+ */
+function lireCookie(nom) {
+    // On remplace les "; " par des "&"
+    const cookiesFormates = document.cookie.replace(/;\s*/g, "&");
+    const dechiffreur = new URLSearchParams(cookiesFormates);
+    
+    // On récupère la valeur directement
+    return dechiffreur.get(nom);
+}

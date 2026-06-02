@@ -6,5 +6,25 @@
     "client1@gmail.com": {
         "articles": [],
         "total": 0
+    },
+    "test@gmail.com": {
+        "articles": {
+            "Burrata": {
+                "nom": "Burrata",
+                "prix": 29,
+                "quantite": 1
+            },
+            "Focaccia": {
+                "nom": "Focaccia",
+                "prix": 24,
+                "quantite": 1
+            },
+            "Lasagne dorée": {
+                "nom": "Lasagne dorée",
+                "prix": 95,
+                "quantite": 1
+            }
+        },
+        "total": 148
     }
 }

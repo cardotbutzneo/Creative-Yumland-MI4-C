@@ -72,6 +72,6 @@
     function changerLangue(){
         let langue = document.querySelector("input[name='langue']:checked").id;
         setCookie("langue",langue,30);
-        window.location.reload();
+        window.location = window.location.origin + window.location.pathname + "?lg=" + langue;
     }
 </script>
