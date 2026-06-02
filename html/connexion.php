@@ -138,13 +138,13 @@ if (isset($_POST["connexion"])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang=<?= $isFrench ? "fr" : "en" ?>>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
-    <title>Connexion - L'oro di Cicerone</title>
+    <title><?= $text["connexion"]["title"] ?></title>
 </head>
 <body>
 
@@ -152,14 +152,14 @@ if (isset($_POST["connexion"])) {
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page" ?></a></li>
         </ul>
     </nav>
 </header>
 
 <main class="conteneur-connexion">
     <section class="carte-connexion">
-        <h2 class="titre-page">Connexion</h2>
+        <h2 class="titre-page"><?= $text["connexion"]["title-section"] ?></h2>
 
         <?php if (!empty($erreur)) { ?>
             <div class="message-erreur">
@@ -169,21 +169,21 @@ if (isset($_POST["connexion"])) {
 
         <form method="post" action="">
             <div class="champ-formulaire">
-                <label class="intitule">Adresse e-mail</label>
-                <input type="email" name="email" class="champ" required>
+                <label class="intitule" for="email"><?= $text["connexion"]["email-label"] ?></label>
+                <input type="email" name="email" id="email" class="champ" required>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Mot de passe</label>
-                <input type="password" name="password" class="champ" required>
+                <label class="intitule" for="password"><?= $text["connexion"]["password-label"] ?></label>
+                <input type="password" name="password" id="password" class="champ" required>
             </div>
             <div class="champ-formulaire">
                 <label class="intitule">
-                    <input type="checkbox" name="remember_me"> Se souvenir de moi
+                    <input type="checkbox" name="remember_me"> <?= $text["connexion"]["remember-me"] ?>
                 </label>
             </div>
-            <input type="submit" name="connexion" value="Se connecter" class="bouton-validation">
+            <input type="submit" name="connexion" class="bouton-validation" value="<?= $text["connexion"]["submit-button"] ?>">
             <div class="liens-secondaires">
-                <a href="inscription.php">Créer un compte</a>
+                <a href="inscription.php"><?= $text["connexion"]["create-account-link"] ?></a>
             </div>
         </form>
     </section>

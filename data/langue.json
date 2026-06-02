@@ -36,6 +36,7 @@
 			"label_phone": "Téléphone",
 			"label_email": "Adresse e-mail",
 			"submit_button": "Valider les modifications",
+			"required_prefix" : "une",
 			"required_field_info": "signifie un champ obligatoire"
 		},
 		"profil_client": {
@@ -100,6 +101,20 @@
 			"without_lactose": "Sans lactose",
 			"without_nuts": "Sans fruits à coque",
 			"add_button": "+ Ajouter"
+		},
+		"connexion" : {
+			"title": "Connexion - L'oro di Cicerone",
+			"title-section" : "connexion",
+			"email-label": "Adresse e-mail",
+			"password-label": "Mot de passe",
+			"submit-button": "Se connecter",
+			"create-account-link": "Créer un compte",
+			"remember-me": "Se souvenir de moi"
+		},
+		"contact" : {
+			"site_title": "Contact - L'oro di Cicerone",
+			"site_contributors": "Contributeurs",
+			"adresse_placeholder" : "Au 3ème étage de la Tour Eiffel"
 		}
 	},
 	"en": {
@@ -139,6 +154,7 @@
 			"label_phone": "Phone",
 			"label_email": "Email address",
 			"submit_button": "Save changes",
+			"required_prefix" : "a",
 			"required_field_info": "means a required field"
 		},
 		"profil_client": {
@@ -203,6 +219,20 @@
 			"without_lactose": "Lactose-free",
 			"without_nuts": "Nut-free",
 			"add_button": "+ Add"
+		},
+		"connexion" : {
+			"title": "Login - L'oro di Cicerone",
+			"title-section" : "Login",
+			"email-label": "Email address",
+			"password-label": "Password",
+			"submit-button": "Log in",
+			"create-account-link": "create an accont",
+			"remember-me": "Remember me"
+		},
+		"contact" : {
+			"site_title": "Contact - L'oro di Cicerone",
+			"site_contributors": "Contributeurs",
+			"adresse_placeholder" : "On the 3rd floor of the Eiffel Tower"
 		}
 	}
 }

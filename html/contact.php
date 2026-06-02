@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__."/../api/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,19 +12,26 @@ session_start();
 </head>
 <body>
     <header>
-        <a href="index.php"><h1>L'oro di Cicerone</h1></a>
+        <a href="index.php"><h1> L'oro di Cicerone</h1></a>
         <nav>
             <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="restaurant.php">Le Restaurant</a></li>
-                <li><a href="chef.php">Le Chef</a></li>
+                <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page" ?></a></li>
+                <li><a href="restaurant.php"><?php if ($isFrench) echo "Le restaurant"; else echo "The restaurant" ?></a></li>
+                <li><a href="chef.php"><?php if ($isFrench) echo "Le chef"; else echo "The chief" ?></a></li>
                 <li><a href="presentation.php">Menu</a></li>
-                <li><a href="connexion.php">Réserver</a></li>
+                <?php if (isset($_SESSION["connecte"]) and $_SESSION["connecte"] == true){
+                    ($isFrench) ? $txt_profil = "Profil" : $txt_profil = "Profile";
+                } 
+                else {
+                    ($isFrench) ? $txt_profil = "Se connecter" : $txt_profil = "Log in";
+                }
+                ?>
+                <li><a href="connexion.php"><?= $txt_profil ?></a></li>
             </ul>
         </nav>
     </header>
     <section class="section-light contact">
-        <h3>Contributeurs du site</h3>
+    <h3><?= $text["contact"]["site_title"] ?></h3>
 
         <ul class="contributors">
             <li class="card">
@@ -68,7 +75,7 @@ session_start();
         <div class="infos">
              <a href="index.php"><h4>L'oro di Cicerone</h4></a>    
             <p>Adresse : Avenue Gustave Eiffel, 75007 Paris</p>
-            <p>Au 3ème étage de la Tour Eiffel</p>
+            <p><?= $text["contact"]["adresse_placeholder"] ?></p>
             <p>
                 <a href="tel:+33123456789" class="tel"> +33 1 23 45 67 89</a>
             </p>

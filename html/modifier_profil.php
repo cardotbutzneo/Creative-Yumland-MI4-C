@@ -76,7 +76,7 @@ $erreur = "";
             <input type="submit" name="valider" value="<?= $text["modifier_profil"]["submit_button"] ?>" class="bouton-validation">
         </form>
         <p style="font-size: smaller; color: white" class="message-erreur">
-            <?= $text["modifier_profil"]["required_prefix"] ?> <span class="obligatoire">* </span><?= $text["modifier_profil"]["required_suffix"] ?>
+            <?= $text["modifier_profil"]["required_prefix"] ?> <span class="obligatoire">* </span><?= $text["modifier_profil"]["required_field_info"] ?>
         </p>
     </section>
 
