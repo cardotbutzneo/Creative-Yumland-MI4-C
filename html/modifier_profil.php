@@ -10,11 +10,11 @@ $erreur = "";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>modifier le profil</title>
+    <title><?= $text["modifier_profil"]["title"] ?></title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
     <script src="../script.js" defer></script>
@@ -25,16 +25,20 @@ $erreur = "";
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
         </ul>
     </nav>
     </header>
 
     <main class="conteneur-connexion">
     <section class="carte-connexion">
-        <h2 class="titre-page">Modifier les informations</h2>
-        <p style="font-size: smaller;">Vos informations ont été préremplis depuis votre page de profil.</p>
-        <p style="text-align:center" ><a href="condition_generale.php" target="_blank" class="obligatoire" style="font-size: smaller;">A props de mes données personnelles</a></p>
+        <h2 class="titre-page"><?= $text["modifier_profil"]["page_title"] ?></h2>
+        <p style="font-size: smaller;"><?= $text["modifier_profil"]["prefilled_info"] ?></p>
+        <p style="text-align:center">
+            <a href="condition_generale.php" target="_blank" class="obligatoire" style="font-size: smaller;">
+                <?= $text["modifier_profil"]["personal_data_link"] ?>
+            </a>
+        </p>
 
         <?php if (!empty($erreur)){ ?>
             <div class="message-erreur">
@@ -44,35 +48,35 @@ $erreur = "";
 
         <form method="POST" action="">
             <div class="champ-formulaire">
-                <label class="intitule" for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" class="champ" value="<?= htmlspecialchars( $informations["nom"] ?? '') ?>">
+                <label class="intitule" for="nom"><?= $text["modifier_profil"]["label_lastname"] ?></label>
+                <input type="text" id="nom" name="nom" class="champ" value="<?= htmlspecialchars($informations["nom"] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule" for="prenom">Prénom</label>
+                <label class="intitule" for="prenom"><?= $text["modifier_profil"]["label_firstname"] ?></label>
                 <input type="text" id="prenom" name="prenom" class="champ" value="<?= htmlspecialchars($informations["prenom"] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule" for="adresse"></span>Adresse</label>
+                <label class="intitule" for="adresse"><?= $text["modifier_profil"]["label_address"] ?></label>
                 <input type="text" id="adresse" name="adresse" class="champ"
-                       placeholder="Ex : 19 Rue du Chemin Vert, 75011 Paris" value="<?= htmlspecialchars($informations["contact"]["adresse"] ?? '') ?>">
+                       placeholder="<?= $text["modifier_profil"]["address_placeholder"] ?>" value="<?= htmlspecialchars($informations["contact"]["adresse"] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule" for="cmp-adresse">Complément d'adresse</label>
+                <label class="intitule" for="cmp-adresse"><?= $text["modifier_profil"]["label_address_complement"] ?></label>
                 <input type="text" id="cmp-adresse" name="complement_adresse" class="champ"
-                       placeholder="Ex : Code immeuble, étage…" value="<?= htmlspecialchars($informations["contact"]["complément d'adresse"] ?? '') ?>">
+                       placeholder="<?= $text["modifier_profil"]["address_complement_placeholder"] ?>" value="<?= htmlspecialchars($informations["contact"]["complément d'adresse"] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule" for="tel">Téléphone</label>
+                <label class="intitule" for="tel"><?= $text["modifier_profil"]["label_phone"] ?></label>
                 <input type="text" id="tel" name="tel" class="champ" required value="<?= htmlspecialchars($informations["contact"]["téléphone"] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule" for="email">Adresse e-mail</label>
+                <label class="intitule" for="email"><?= $text["modifier_profil"]["label_email"] ?></label>
                 <input type="email" id="email" name="mail" class="champ" required value="<?= htmlspecialchars($informations["contact"]["adresse email"] ?? '') ?>">
             </div>
-            <input type="submit" name="valider" value="Valider les modifications" class="bouton-validation">
+            <input type="submit" name="valider" value="<?= $text["modifier_profil"]["submit_button"] ?>" class="bouton-validation">
         </form>
         <p style="font-size: smaller; color: white" class="message-erreur">
-            Une <span class="obligatoire">* </span>signifie un champ obligatoire
+            <?= $text["modifier_profil"]["required_prefix"] ?> <span class="obligatoire">* </span><?= $text["modifier_profil"]["required_suffix"] ?>
         </p>
     </section>
 
@@ -112,7 +116,7 @@ $afficher_confirmation = false;
 if (isset($_POST["valider"]) && !empty($_POST["valider"])){
     modifier_infos();
     header("Location: " . $_SERVER['PHP_SELF']);
-    exit; // on rafraichit
+    exit;
 }
 
 /** Modifie les infos de l'utilisateur */

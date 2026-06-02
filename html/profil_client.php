@@ -78,7 +78,7 @@ else if ($_SESSION["role"] == "admin"){
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -86,19 +86,19 @@ else if ($_SESSION["role"] == "admin"){
     <link rel="stylesheet" href="style/profil_client.css"> 
     <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
-    <title>Profil Client - L'oro di Cicerone</title>
+    <title><?= $text["profil_client"]["title"] ?></title>
 </head>
 <body>
     <header>
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
             <li><a href="presentation.php">Menu</a></li>
             <?php if ($nom_grade == "Buisson-Or" or $nom_grade == "Rubi") echo "<li><a href='vip.php'>VIP</a></li>";?>
-            <li><a href="modifier_profil.php">Modifier le profil</a></li>
-            <li><a href="securite.php">Sécurité</a></li>
-            <li><a href="deconnexion.php">se déconnecter</a></li>
+            <li><a href="modifier_profil.php"><?= $text["profil_client"]["nav_edit_profile"] ?></a></li>
+            <li><a href="securite.php"><?= $text["profil_client"]["nav_security"] ?></a></li>
+            <li><a href="deconnexion.php"><?= $text["profil_client"]["nav_logout"] ?></a></li>
         </ul>
     </nav>
 </header>
@@ -108,7 +108,7 @@ else if ($_SESSION["role"] == "admin"){
             <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
         </div>
         <p class="notification-body">
-            Vos modifications ont bien été enregistrées.
+            <?= $text["profil_client"]["notification_success"] ?>
         </p>
         <div class="notification-barre">
             <div class="notification-barre-fill"></div>
@@ -120,7 +120,7 @@ else if ($_SESSION["role"] == "admin"){
             <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
         </div>
         <p class="notification-body">
-            Désolé, nous n'avons pas réussi à charger votre commade.
+            <?= $text["profil_client"]["notification_error"] ?>
         </p>
         <div class="notification-barre">
             <div class="notification-barre-fill"></div>
@@ -151,16 +151,16 @@ else if ($_SESSION["role"] == "admin"){
         }?>
 
         <div class="contenent">
-            <p id='nom'>Bienvenue  <?=$client["nom"] . " " . $client["prenom"]?> </p>
-            <div id='fidelite'><span>Programme <?=$client["programme-fidelite"] . "</span><span>Nombre de points : ". $client["pts-fidelite"]?> </span></div>
+            <p id='nom'><?= $text["profil_client"]["welcome"] ?> <?=$client["nom"] . " " . $client["prenom"]?> </p>
+            <div id='fidelite'><span><?= $text["profil_client"]["program"] ?> <?=$client["programme-fidelite"] . "</span><span>" . $text["profil_client"]["points_count"] . " ". $client["pts-fidelite"]?> </span></div>
             <div class="information">
-                <p>Informations : </p>
+                <p><?= $text["profil_client"]["information"] ?> </p>
                 <ul>
-                    <li>Nom : <?= $client["nom"] ?></li>
-                    <li>Prénom : <?=$client["prenom"] ?></li>
-                    <li>Email : <?=$client["contact"]["adresse email"] ?></li>
-                    <li>Adresse : <?=$client["contact"]["adresse"]?></li>
-                    <li>Téléphone : <?=$client["contact"]["téléphone"]?></li>
+                    <li><?= $text["profil_client"]["lastname"] ?> <?= $client["nom"] ?></li>
+                    <li><?= $text["profil_client"]["firstname"] ?> <?=$client["prenom"] ?></li>
+                    <li><?= $text["profil_client"]["email"] ?> <?=$client["contact"]["adresse email"] ?></li>
+                    <li><?= $text["profil_client"]["address"] ?> <?=$client["contact"]["adresse"]?></li>
+                    <li><?= $text["profil_client"]["phone"] ?> <?=$client["contact"]["téléphone"]?></li>
                 </ul>
             </div>
         </div>
@@ -170,7 +170,7 @@ else if ($_SESSION["role"] == "admin"){
         $historique_ids  = $data_client[$email_courant]["dernieres_commandes"] ?? [];
         echo "<div class='contenent'>";
         if (!empty($historique_ids)){
-            echo "<h2>Historique des dernières commandes</h2>";
+            echo "<h2>" . $text["profil_client"]["orders_history"] . "</h2>";
             echo "<nav>";
                 foreach ($historique_ids as $cmd) {
                     $id_upper = strtoupper($cmd);
@@ -184,23 +184,23 @@ else if ($_SESSION["role"] == "admin"){
                             }
                             echo "<hr>";
                         }
-                        echo "<div class='cmd-total'>Total : <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";?>
-                        <button onclick="envoyerPanier('<?=strtoupper($cmd)?>')" class='btn-suivi'>Recommander</button>
+                        echo "<div class='cmd-total'>" . $text["profil_client"]["total"] . " <strong>" . htmlspecialchars($cmd_complette["montant"]) . "€</strong></div>";?>
+                        <button onclick="envoyerPanier('<?=strtoupper($cmd)?>')" class='btn-suivi'><?= $text["profil_client"]["order_again"] ?></button>
                         <?php if ($cmd_complette["etat"] === "payee" && empty($cmd_complette["deja_modifie"])) { ?>
                             <a href="modifier_commande.php?id=<?= htmlspecialchars($id_upper) ?>">
-                                <button class='btn-suivi'>Modifier ma commande</button>
+                                <button class='btn-suivi'><?= $text["profil_client"]["edit_order"] ?></button>
                             </a>
                         <?php } ?>
                     </div>
                 <?php }
             echo "</nav>";
-            echo "<a href='suivi_commande.php'><button class='btn-suivi'>Suivre ma dernière commande</button></a>";
+            echo "<a href='suivi_commande.php'><button class='btn-suivi'>" . $text["profil_client"]["track_last_order"] . "</button></a>";
         }
         else if (!is_admin()){
             ?>
             <div>
-                <p style='padding-bottom : 5px;'>Vous n'avez pas d'historique de commande.</p>
-                <button style='background-color : #0b0b00; color : #c9a24d; border: 1px #c9a24d solid; border-radius:20px; padding : 5px; font-size : 16px' onclick="window.location.href = 'presentation.php'">+ Commander</button>
+                <p style='padding-bottom : 5px;'><?= $text["profil_client"]["no_order_history"] ?></p>
+                <button style='background-color : #0b0b00; color : #c9a24d; border: 1px #c9a24d solid; border-radius:20px; padding : 5px; font-size : 16px' onclick="window.location.href = 'presentation.php'"><?= $text["profil_client"]["order"] ?></button>
             </div>
             <?php
         }
@@ -214,9 +214,9 @@ else if ($_SESSION["role"] == "admin"){
         </script>
         </div>
         <div class="contenent">
-            <h2>Nos suggestions</h2>
+            <h2><?= $text["profil_client"]["suggestions"] ?></h2>
             <nav>
-                <h2>Entrée</h2>
+                <h2><?= $text["profil_client"]["starter"] ?></h2>
                 <ul class="sugestions">
                     <?php
                         $val = generer_suggestions($plats,"entrees");
@@ -226,7 +226,7 @@ else if ($_SESSION["role"] == "admin"){
                     ?>
                 </ul>
                 <hr>
-                <h2>Plats</h2>
+                <h2><?= $text["profil_client"]["main_courses"] ?></h2>
                 <ul class="sugestions">
                     <?php
                         $val = generer_suggestions($plats,"plats");
@@ -238,7 +238,7 @@ else if ($_SESSION["role"] == "admin"){
                     ?>
                 </ul>
                 <hr>
-                <h2>Desserts</h2>
+                <h2><?= $text["profil_client"]["desserts"] ?></h2>
                 <ul class="sugestions">
                     <?php
                         $val = generer_suggestions($plats,"desserts");
@@ -248,7 +248,7 @@ else if ($_SESSION["role"] == "admin"){
                     ?>
                 </ul>
                 <hr>
-                <h2>Café</h2>
+                <h2><?= $text["profil_client"]["coffee"] ?></h2>
                 <ul class="sugestions">
                     <?php
                         $val = generer_suggestions($plats,"cafe");
@@ -260,19 +260,19 @@ else if ($_SESSION["role"] == "admin"){
             </nav>
         </div>
         <div class="contenent">
-            <h2>Vos points fidélités</h2>
+            <h2><?= $text["profil_client"]["loyalty_points"] ?></h2>
             <div class="fidelite-card">
                 <progress class="<?= $class ?>" value="<?= $pts ?>" max="<?= $max ?>"></progress>
-                <span><?php if ($pts <= $max) {echo "$pts / $max points";} else echo "$pts points cumulés"?></span>
+                <span><?php if ($pts <= $max) {echo "$pts / $max " . $text["profil_client"]["points"];} else echo "$pts " . $text["profil_client"]["points_accumulated"]?></span>
                 <?php if ($pts < 50){ ?>
-                    <p>Prochain programme : <strong><?= ($pts < 25) ? "Rubis" : "Or" ?></strong></p>
+                    <p><?= $text["profil_client"]["next_program"] ?> <strong><?= ($pts < 25) ? "Rubis" : "Or" ?></strong></p>
                 <?php } ?>
             </div>
         </div>
     </section>
 <footer>
-    <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
-    <a href="contact.php">Nous contacter</a>
+    <p><?= $text["profil_client"]["footer_rights"] ?></p>
+    <a href="contact.php"><?= $text["profil_client"]["footer_contact"] ?></a>
 </footer>
 </body>
 </html>

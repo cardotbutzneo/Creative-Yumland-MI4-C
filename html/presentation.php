@@ -8,11 +8,11 @@ if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true && $_SESSION[
 }
 
 $categories = [ // Labels des catégories de plats pour l'affichage
-    "entrees" => "Entrées",
-    "plats" => "Plats",
-    "desserts" => "Desserts",
-    "vins" => "Vins",
-    "cafes" => "Cafés",
+    "entrees" => $text["presentation"]["category_starters"],
+    "plats" => $text["presentation"]["category_dishes"],
+    "desserts" => $text["presentation"]["category_desserts"],
+    "vins" => $text["presentation"]["category_wines"],
+    "cafes" => $text["presentation"]["category_coffees"],
 ];
 
 if (isset($_GET['ajax'])) {  // Traite la requête AJAX pour le filtrage de la carte
@@ -40,10 +40,10 @@ if (isset($_GET['ajax'])) {  // Traite la requête AJAX pour le filtrage de la c
 $data = $data_plats;
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
-    <title>La Carte - L'oro di Cicerone</title>
+    <title><?= $text["presentation"]["title"] ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/presentation.css">
@@ -58,15 +58,15 @@ $data = $data_plats;
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
+            <li><a href="restaurant.php"><?php if ($isFrench) echo "Le Restaurant"; else echo "The restaurant"; ?></a></li>
+            <li><a href="chef.php"><?php if ($isFrench) echo "Le Chef"; else echo "The chef"; ?></a></li>
             <?php
             if ($est_client) {
-                echo "<li><a href='panier.php'>Panier</a></li>";
-                echo "<li><a href='connexion.php'>Profil</a></li>";
+                echo "<li><a href='panier.php'>" . $text["presentation"]["nav_cart"] . "</a></li>";
+                echo "<li><a href='connexion.php'>" . $text["presentation"]["nav_profile"] . "</a></li>";
             } else {
-                echo "<li><a href='connexion.php'>Se connecter</a></li>";
+                echo "<li><a href='connexion.php'>" . $text["presentation"]["nav_login"] . "</a></li>";
             }
             ?>
         </ul>
@@ -74,27 +74,27 @@ $data = $data_plats;
 </header>
 <main>
     <div class="barre-filtre">
-        <input type="text" id="bar-recherche" placeholder="Rechercher un plat">
+        <input type="text" id="bar-recherche" placeholder="<?= $text["presentation"]["search_placeholder"] ?>">
         <select id="filtre-carte">
-            <option value="">Toute la carte</option>
-            <option value="entrees">Entrées</option>
-            <option value="plats">Plats</option>
-            <option value="desserts">Desserts</option>
-            <option value="vins">Vins</option>
-            <option value="cafes">Cafés</option>
+            <option value=""><?= $text["presentation"]["filter_all_menu"] ?></option>
+            <option value="entrees"><?= $text["presentation"]["category_starters"] ?></option>
+            <option value="plats"><?= $text["presentation"]["category_dishes"] ?></option>
+            <option value="desserts"><?= $text["presentation"]["category_desserts"] ?></option>
+            <option value="vins"><?= $text["presentation"]["category_wines"] ?></option>
+            <option value="cafes"><?= $text["presentation"]["category_coffees"] ?></option>
         </select>
         <select id="filtre-regime">
-            <option value="">Tous les régimes</option>
-            <option value="vege">Végétarien</option>
-            <option value="non-vege">Non végétarien</option>
+            <option value=""><?= $text["presentation"]["filter_all_diets"] ?></option>
+            <option value="vege"><?= $text["presentation"]["diet_vegetarian"] ?></option>
+            <option value="non-vege"><?= $text["presentation"]["diet_non_vegetarian"] ?></option>
         </select>
         <select id="filtre-allergenes">
-            <option value="">Tous</option>
-            <option value="50">Sans gluten</option>
-            <option value="51">Sans crustacés</option>
-            <option value="52">Sans oeufs</option>
-            <option value="53">Sans lactose</option>
-            <option value="54">Sans fruits à coque</option>
+            <option value=""><?= $text["presentation"]["filter_all_allergens"] ?></option>
+            <option value="50"><?= $text["presentation"]["without_gluten"] ?></option>
+            <option value="51"><?= $text["presentation"]["without_shellfish"] ?></option>
+            <option value="52"><?= $text["presentation"]["without_eggs"] ?></option>
+            <option value="53"><?= $text["presentation"]["without_lactose"] ?></option>
+            <option value="54"><?= $text["presentation"]["without_nuts"] ?></option>
         </select>
     </div>
     <div id="liste-plats">
@@ -118,7 +118,7 @@ $data = $data_plats;
             echo "</div>";
             echo "<span class='description'>{$plat['description']}</span>";
             if ($est_client) {
-                echo "<div><a href='panier.php?action=ajouter&id=" . urlencode($cle) . "' class='btn-ajouter'>+ Ajouter</a></div>";
+                echo "<div><a href='panier.php?action=ajouter&id=" . urlencode($cle) . "' class='btn-ajouter'>" . $text["presentation"]["add_button"] . "</a></div>";
             }
             echo "</li>";
         }
