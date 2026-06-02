@@ -3,203 +3,48 @@ require_once __DIR__."/../api/config.php";
 
 ?>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-        background-color: #0f0f0f;
-        color: #c9a24d;
-        min-height: 100vh;
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    main{
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .card {
-        background-color: #161616;
-        border: 1px solid #2a2a2a;
-        border-radius: 8px;
-        padding: 40px 30px;
-        width: 100%;
-        max-width: 450px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-        font-weight: 400;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        border-bottom: 1px solid #c9a24d;
-        padding-bottom: 10px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .div-btn {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 15px;
-        width: 100%;
-        background-color: #1c1c1c;
-        padding: 20px;
-        border-radius: 6px;
-        border: 1px solid #222;
-    }
-
-    .div-btn-controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        width: 100%;
-    }
-
-    .div-btn button {
-        background-color: transparent;
-        color: #c9a24d;
-        border: 1px solid #c9a24d;
-        font-size: 1.5rem;
-        width: 45px;
-        height: 45px;
-        border-radius: 10%;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .div-btn button:hover {
-        background-color: #c9a24d;
-        color: #0f0f0f;
-        box-shadow: 0 0 10px rgba(201, 162, 77, 0.4);
-    }
-
-    .div-btn button:active {
-        transform: scale(0.95);
-    }
-
-    .div-btn p {
-        font-size: 1.1rem;
-        letter-spacing: 0.5px;
-    }
-
-    .div-btn p:last-of-type {
-        margin-top: 10px;
-        font-size: 1rem;
-        color: #8a8a8a;
-        display: flex;
-        gap: 5px;
-    }
-
-    #n-table {
-        color: #c9a24d;
-        font-weight: bold;
-    }
-
-    .horaire {
-        width: 100%;
-        text-align: center;
-        font-size: 0.9rem;
-        color: #8a8a8a;
-    }
-
-    #horaire-container {
-    width: 100%;
-    margin-top: 10px;
-}
-
-    #horaire-select {
-        width: 100%;
-        background-color: #1c1c1c;
-        color: #c9a24d;
-        border: 1px solid #c9a24d;
-        padding: 12px 15px;
-        font-size: 1rem;
-        border-radius: 6px;
-        cursor: pointer;
-        outline: none;
-        text-align: center;
-        transition: border-color 0.2s ease;
-    }
-
-    #horaire-select:focus {
-        border-color: #ffffff;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-    }
-
-    #reservation{
-        width: 100%; 
-        border: none;
-        border: 1px #c9a24d solid;
-        border-radius: 10px;
-        padding: 15px;
-        color:#c9a24d;
-        background-color: #161616;
-    }
-
-    #reservation:hover{
-        background-color: #c9a24d;
-        color: black;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/reservation.css">
+    <script src="../script.js" defer></script>
     <title>Réserver une table</title>
 </head>
 <body>
+    <header>
+        <a href="index.php"><h1>L'oro di Cicerone</h1></a>
+        <nav>
+            <ul>
+                <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page" ?></a></li>
+                <?php require_once "../api/get_accessibilite.php" ?>
+            </ul>
+        </nav>
+    </header>
     <main>
         <div class="card">
-            <h2>Réserver une table</h2>
+            <h2><?= $isFrench ? "Réserver une table" : "Book a table" ?></h2>
             <div class="div-btn">
                 <button onclick="ajouterTable('-')" value="-">-</button>
-                <p>Nombre de personne : <span id="nb-personne">0</span></p>
+                <p> <?= $isFrench ? "Nombre de personne" : "Number of people" ?>  : <span id="nb-personne">0</span></p>
                 <button onclick="ajouterTable('+')" value="-">+</button>
             </div>
             <p id="erreur"></p>
-            <p>Nombre de table : <span id="n-table">0</span></p>
+            <p><?= $isFrench ? "Nombre de table : " : "Number of table : " ?><span id="n-table">0</span></p>
         </div>
         <div class="card" id="horaire-cont" style="display:none">
-            <p>A quelle heure souhaitez vous venir ?</p>
-            <div id="horaire-container">
-                <select name="" id="horaire-select"></select>
+            <p><?= $isFrench ? "A quelle heure souhaitez vous venir ?" : "What time do you want for a reservation ?" ?></p>
+            <div id="jour-container" class="horaire-container">
+                <select name="" id="jour-select" class="horaire-select"></select>
             </div>
-            <div id="jour-container">
-                <select name="" id="jour-select"></select>
+            <div id="horaire-container" class="horaire-container">
+                <select name="" id="horaire-select" class="horaire-select"></select>
             </div>
         </div>
         <div class="card">
-            <button id="reservation" onclick="window.location = 'remerciement.php?res=true'">RESERVER</button>
+            <button id="reservation" onclick="window.location = 'remerciement.php?res=true'"><?= $isFrench ? "RESERVER" : "Book" ?></button>
         </div>
     </main>
 </body>
@@ -275,7 +120,11 @@ require_once __DIR__."/../api/config.php";
 
         const joursDeLaSemaine = [];
 
-        const formateur = new Intl.DateTimeFormat('en-US', { weekday: 'long' }); // changer cette ligne pour avoir changer la langue
+        const parametresURL = new URLSearchParams(window.location.search);
+        const langue_autorisée = ['fr', 'fr-FR', 'en', 'en-US', 'en-GB', 'es', 'es-ES'];
+        let langue = parametresURL.get('lg'); // langue récupérer depuis l'URL
+        if (!langue_autorisée.includes(langue)) langue = 'en-US'; // en-US par défaut.
+        const formateur = new Intl.DateTimeFormat( langue, { weekday: 'long' }); 
 
         for (let i = 0; i < 7; i++) {
             const jourCourant = new Date(baseDate);

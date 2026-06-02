@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    background-color: #0f0f0f;
+    color: #c9a24d;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background-color: #161616;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #c9a24d;
+    padding-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.div-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    background-color: #1c1c1c;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #222;
+}
+
+.div-btn-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.div-btn button {
+    background-color: transparent;
+    color: #c9a24d;
+    border: 1px solid #c9a24d;
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 10%;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-btn button:hover {
+    background-color: #c9a24d;
+    color: #0f0f0f;
+    box-shadow: 0 0 10px rgba(201, 162, 77, 0.4);
+}
+
+.div-btn button:active {
+    transform: scale(0.95);
+}
+
+.div-btn p {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.div-btn p:last-of-type {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #8a8a8a;
+    display: flex;
+    gap: 5px;
+}
+
+#n-table {
+    color: #c9a24d;
+    font-weight: bold;
+}
+
+.horaire {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #8a8a8a;
+}
+
+#horaire-container, #jour-select {
+width: 100%;
+margin-top: 10px;
+}
+
+.horaire-select {
+    width: 100%;
+    background-color: #1c1c1c;
+    color: #c9a24d;
+    border: 1px solid #c9a24d;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.2s ease;
+}
+
+.horaire-select:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+#horaire-cont {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+#reservation{
+    width: 100%; 
+    border: none;
+    border: 1px #c9a24d solid;
+    border-radius: 10px;
+    padding: 15px;
+    color:#c9a24d;
+    background-color: #161616;
+}
+
+#reservation:hover{
+    background-color: #c9a24d;
+    color: black;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

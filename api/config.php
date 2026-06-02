@@ -13,7 +13,7 @@
 
 require_once __DIR__."/../serveur.php";
 
-$chemin_valide = ["index.php", "restaurant.php", "chef.php", "presentation.php", "connexion.php", "inscription.php"];
+$chemin_hors_session = ["index.php", "restaurant.php", "chef.php", "presentation.php", "connexion.php", "inscription.php","reservation.php"];
 
 // Vérification de la session et du rôle de l'utilisateur
 if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -21,7 +21,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 }
 
 // Si la session n'existe pas ou si le rôle n'est pas défini, rediriger vers la page de connexion
-if (empty($_SESSION) || !isset($_SESSION["role"]) and !in_array(basename($_SERVER["PHP_SELF"]), $chemin_valide)) {
+if (empty($_SESSION) || !isset($_SESSION["role"]) and !in_array(basename($_SERVER["PHP_SELF"]), $chemin_hors_session)) {
     ecrire_log("Accès non autorisé à " . basename($_SERVER["PHP_SELF"]));
     header("Location: connexion.php?error=unauthorized");
     exit;
@@ -50,5 +50,6 @@ $aujourdhui = date("Y-m-d");
 $demain = date("Y-m-d",strtotime("+1 day"));
 
 // lecture du fichier de langue
-$text = $data_langue[($_COOKIE["langue"]) ?? "fr"];
+$langue = $_COOKIE["langue"];
+$text = $data_langue[($langue) ?? "fr"];
 ?>

@@ -18,10 +18,10 @@ require_once __DIR__."/../api/config.php";
     </header>
     <main>
         <div class="texte">
-            <h1>Merci d'avoir commandé chez nous !</h1>
+            <h1>Merci d'avoir <?= isset($_GET["res"]) ? "réservé" : "commandé" ?> chez nous !</h1>
             <p>Nous espérons vous revoir très bientôt chez L'oro di Cicerone.</p>
             <p>Vous allez être redirigé vers la page d'acceuil d'ici quelques instants...</p>
-            <a href="mailto:<?= $_SESSION["email"] ?>">Ajouter ma réservation à mon angenda</a>
+            <a href="mailto:<?= $_SESSION["email"] ?>">Ajouter ma réservation à mon angenda</a><br>
             <a href="index.php">Cliquez ici si la redirection ne marche pas</a>
             </div>
     </main>

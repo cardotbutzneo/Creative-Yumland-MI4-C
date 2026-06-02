@@ -13,7 +13,6 @@ require_once __DIR__."/../api/config.php";
     <link rel="stylesheet" href="style/notification.css">
     <link rel="stylesheet" href="style/chatbot.css">
     <title>L'oro di Cicerone</title>
-    
 </head>
 
 <header>
@@ -94,7 +93,7 @@ require_once __DIR__."/../api/config.php";
 
 <section class="section-light cta">
     <p><?= $text["index"]["cta_text"] ?></p>
-    <a href="connexion.php"><?= $text["index"]["cta_button"] ?></a>
+    <a href="reservation.php?lg=<?= $langue ?>"><?= $text["index"]["cta_button"] ?></a>
 </section>
 
 <footer>
