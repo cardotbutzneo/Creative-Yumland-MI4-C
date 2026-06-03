@@ -3,6 +3,13 @@
 require_once __DIR__."/../serveur.php";
 session_start();
 
+$maintenance = false;
+    
+if ($maintenance) { // on redirige vers la page de maintenanc à chaque requêtte
+    include "api/maintenance.php";
+    exit;
+}
+
 // 1. On récupère l'URL demandée par le navigateur (ex: /html/index.php ou /html/style/main.css)
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 

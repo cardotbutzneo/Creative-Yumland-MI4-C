@@ -72,7 +72,7 @@ if (isset($_POST["password"])){
                         <button type='submit' name='confirm' class='champ' onclick="toggleSecurite(2)"><?= $text["securite"]["confirm_delete"] ?></button>
                     </div>
                     <div class='champ-formulaire'>
-                        <button type='submit' name='abandon' class='champ'><?= $text["securite"]["cancel_delete"] ?></button>
+                        <button type='submit' name='abandon' class='champ' onclick="window.location = 'profil_client.php'"><?= $text["securite"]["cancel_delete"] ?></button>
                     </div>
                 </div>
                 <div id="verif_password" style="display : none">

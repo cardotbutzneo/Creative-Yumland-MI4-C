@@ -1,3 +1,10 @@
+<?php  
+/**
+ * Fichier d'erreur 404
+ * Il est volontairement isolé du reste pour éviter tout bug vennant interférer
+ */
+?>
+
 <style>
     body{
         background-color: #0f0f0f;
@@ -51,7 +58,7 @@
     }
 
     .body-error {
-        font-size: 13px;
+        font-size: 16px;
         color: rgba(245, 245, 245, 0.45);
         line-height: 1.8;
         letter-spacing: 0.3px;
@@ -76,28 +83,97 @@
         background: rgba(197, 160, 33, 0.08);
         border-color: #C5A021;
     }
+    .lang-selector {
+        display: flex;
+        justify-content: right;
+        padding-right: 50px;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .lang-selector a {
+        display: inline-block;
+        transition: transform 0.2s, opacity 0.2s;
+        opacity: 0.5;
+    }
+
+    .lang-selector a:hover, 
+    .lang-selector a.active {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    .lang-selector img {
+        width: 35px;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
 
 </style>
+
+<?php 
+
+$texte_global = [ // on stocke ici pour ne pas dépendre d'un serveur distant qui peut être inaccessible en cas de panne
+    "fr" => [
+        "title" => "404 Not found - L'oro di Cicerone",
+        "message" => "Oups ! La page que vous cherchez n'existe pas. Elle a peut-être été déplacée ou supprimée.",
+        "home_link" => "Retour à l'accueil",
+        "error-title" => "Page introuvable"
+    ],
+    "en" => [
+        "title" => "404 Not found - L'oro di Cicerone",
+        "message" => "Oops! The page you are looking for does not exist. It may have been moved or deleted.",
+        "home_link" => "Back to home",
+        "error-title" => "Page not found"
+    ]
+];
+
+$lang = "fr"; // par défaut
+
+if (!empty($_GET["lang"])) {
+
+    $lang = strtolower(substr($_GET["lang"], 0, 2));
+} else if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    
+    $lang = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+}
+
+if ($lang !== "en" && $lang !== "fr") {
+    $lang = "fr"; 
+}
+
+$text = $texte_global[$lang];
+?>
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 not found</title>
+    <title><?= $text["title"] ?></title>
 </head>
 <body>
+    <div class="lang-selector">
+        <a href="?lang=fr" class="<?= $lang === 'fr' ? 'active' : '' ?>">
+            <img src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" alt="Français">
+        </a>
+        <a href="?lang=en" class="<?= $lang === 'en' ? 'active' : '' ?>">
+            <img src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" alt="English">
+        </a>
+    </div>
     <main>
         <section class="error-box">
             <p class="error-code">404</p>
             <div class="error-divider"></div>
-            <p class="error-title">Page introuvable</p>
+            <p class="error-title"><?= $text["error-title"] ?></p>
             <p class="body-error">
-                Désolé, la page demandée n'a pas pu être trouvée.<br>
-                Elle a peut-être été déplacée ou supprimée.
+                <?= $text["message"] ?>
             </p>
             <button class="btn-retour" onclick="window.location='../html/index.php'">
-                Revenir à l'accueil
+                <?= $text["home_link"] ?>
             </button>
         </section>
     </main>

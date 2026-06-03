@@ -55,7 +55,7 @@ if (isset($_POST["connexion"])) {
     $mdp = $_POST["password"];
 
     if (!isset($bdd_actuelle[$email])) {
-        $erreur = "Adresse email ou mot de passe incorrect";
+        $erreur = ($isFrench) ? "Adresse email ou mot de passe incorrect" : "Invalid email address or password" ;
     } else {
         $utilisateur = $bdd_actuelle[$email];
 
@@ -69,9 +69,9 @@ if (isset($_POST["connexion"])) {
         }
 
         if ($utilisateur["securite"]["est_banni"]) {
-            $erreur = "Votre compte est banni.";
+            $erreur = ($isFrench) ? "Votre compte est banni." : "Your account have been banned";
         } elseif ($utilisateur["securite"]["tentative_echec"] >= 5) {
-            $erreur = "Trop de tentatives échouées. Réessayez plus tard.";
+            $erreur = ($isFrench) ? "Trop de tentatives échouées. Réessayez plus tard." : "Too many failed attempt. Retry later";
         } else {
             //mise à jour des données de l'utilisateur vers la base de données
             $hash = $utilisateur["mot de passe"];
@@ -127,7 +127,7 @@ if (isset($_POST["connexion"])) {
                 $bdd_actuelle[$email]["securite"]["tentative_echec"]++;
                 $bdd_actuelle[$email]["securite"]["derniere_tentative"] = date("Y-m-d H:i:s");
                 ecrire_data("../data/client.json", $bdd_actuelle);
-                $erreur = "Adresse email ou mot de passe incorrect";
+                $erreur = ($isFrench) ? "Adresse email ou mot de passe incorrect" : "Incorrect email address or password";
                 ecrire_log("Connexion : Mot de passe incorrect de " . $_POST["email"], "info");
                 if($bdd_actuelle[$email]["securite"]["tentative_echec"] == 5){
                     ecrire_log("Connexion : 5 tentatives échouées de " . $_POST["email"] . ". Compte temporairement bloqué", "warning");
