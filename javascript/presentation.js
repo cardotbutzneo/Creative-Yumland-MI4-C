@@ -29,9 +29,10 @@ function afficherPlats(plats) { // Fonction qui affiche les plats dans la page H
         html += "<h2>" + cat.label + "</h2><ul>";
         platscat.forEach(([cle, plat]) => { // Parcours de tous les plats de cette catégorie
             const desc = (!is_french) ? plat.description_eng : plat.description; // Choix de la description selon la langue
+            const nom = (!is_french) ? plat.nom_eng : plat.nom; // Choix du nom selon la langue
             html += "<li>";
             html += "<div class='ligne'>";
-            html += "<span class='nom'>" + plat.nom + "</span>";
+            html += "<span class='nom'>" + nom + "</span>";
             html += "<span class='prix'>" + plat.prix + "€</span>";
             html += "</div>";
             html += "<span class='description'>" + desc + "</span>";

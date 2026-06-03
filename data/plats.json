@@ -9,6 +9,7 @@
     "Burrata": {
         "id": 1,
         "nom": "Burrata",
+        "nom_eng": "Burrata",
         "description": "Fromage frais crémeux servi avec tomates cerises et basilic.",
         "description_eng": "Creamy fresh cheese served with cherry tomatoes and basil.",
         "prix": 29,
@@ -24,6 +25,7 @@
     "Carpaccio": {
         "id": 2,
         "nom": "Carpaccio",
+        "nom_eng": "Carpaccio",
         "description": "Fines tranches de bœuf marinées, servies avec roquette et parmesan.",
         "description_eng": "Thin slices of marinated beef, served with arugula and parmesan.",
         "prix": 32,
@@ -39,6 +41,7 @@
     "Focaccia": {
         "id": 3,
         "nom": "Focaccia",
+        "nom_eng": "Focaccia",
         "description": "Pain italien moelleux garni d'huile d'olive, romarin et sel de mer.",
         "description_eng": "Italian soft bread topped with olive oil, rosemary and sea salt.",
         "prix": 24,
@@ -54,6 +57,7 @@
     "Lasagne dorée": {
         "id": 4,
         "nom": "Lasagne dorée",
+        "nom_eng": "Golden Lasagna",
         "description": "Lasagne traditionnelle garnie de feuilles d'or comestibles.",
         "description_eng": "Traditional lasagne topped with edible gold leaves.",
         "prix": 95,
@@ -71,6 +75,7 @@
     "Pâtes au pesto": {
         "id": 5,
         "nom": "Pâtes au pesto",
+        "nom_eng": "Pasta with Pesto",
         "description": "Pâtes fraîches servies avec une sauce pesto maison.",
         "description_eng": "Fresh pasta served with a homemade pesto sauce.",
         "prix": 38,
@@ -88,6 +93,7 @@
     "Pâtes aux gambas": {
         "id": 6,
         "nom": "Pâtes aux gambas",
+        "nom_eng": "Pasta with Shrimp",
         "description": "Pâtes fraîches accompagnées de gambas sautées à l'ail et au piment.",
         "description_eng": "Fresh pasta accompanied by sautéed shrimp with garlic and chili.",
         "prix": 56,
@@ -104,6 +110,7 @@
     "Pizza Burrata": {
         "id": 7,
         "nom": "Pizza Burrata",
+        "nom_eng":"Pizza Burrata",
         "description": "Pizza garnie de burrata crémeuse, tomates fraîches et basilic.",
         "description_eng": "Pizza topped with creamy burrata, fresh tomatoes and basil.",
         "prix": 42,
@@ -120,6 +127,7 @@
     "Pizza Cicerone": {
         "id": 8,
         "nom": "Pizza Cicerone",
+        "nom_eng": "Pizza Cicerone",
         "description": "Pizza gastronomique avec foie gras, truffes noires et mozzarella di bufala.",
         "description_eng": "Gastronomic pizza with foie gras, black truffles and mozzarella di bufala.",
         "prix": 82,
@@ -136,6 +144,7 @@
     "Pizza Truffe": {
         "id": 9,
         "nom": "Pizza Truffe",
+        "nom_eng": "Pizza Truffle",
         "description": "Pizza artisanale garnie de truffe blanche d'Alba, jambon sec et mozzarella.",
         "description_eng": "Artisanal pizza topped with white truffle from Alba, cured ham and mozzarella.",
         "prix": 68,
@@ -152,6 +161,7 @@
     "Risotto": {
         "id": 10,
         "nom": "Risotto",
+        "nom_eng": "Risotto",
         "description": "Risotto crémeux à la truffe blanche d'Alba, préparé avec du parmesan affiné.",
         "description_eng": "Creamy risotto with white truffle from Alba, prepared with aged parmesan.",
         "prix": 57,
@@ -167,6 +177,7 @@
     "Affogato": {
         "id": 11,
         "nom": "Affogato",
+        "nom_eng": "Affogato",
         "description": "Sphère de glace vanille servie avec un espresso chaud versé dessus.",
         "description_eng": "Vanilla ice cream served with a hot espresso poured over it.",
         "prix": 18,
@@ -182,6 +193,7 @@
     "Panna cotta": {
         "id": 12,
         "nom": "Panna cotta",
+        "nom_eng": "Panna cotta",
         "description": "Crème cuite à la vanille servie avec un coulis de fruits rouges.",
         "description_eng": "Vanilla custard served with a red fruit coulis.",
         "prix": 20,
@@ -197,6 +209,7 @@
     "Tiramisu": {
         "id": 13,
         "nom": "Tiramisu",
+        "nom_eng": "Tiramisu",
         "description": "Dessert italien traditionnel à base de mascarpone, café et cacao.",
         "description_eng": "Traditional Italian dessert made with mascarpone, coffee and cacao.",
         "prix": 22,
@@ -214,6 +227,7 @@
     "Giacomo Boveri": {
         "id": 14,
         "nom": "Giacomo Boveri",
+        "nom_eng": "Giacomo Boveri",
         "description": "Vin rouge italien corsé aux arômes de fruits rouges et d'épices.",
         "description_eng": "Bold Italian red wine with aromas of red fruits and spices.",
         "prix": 45,
@@ -227,6 +241,7 @@
     "Albino Rocca": {
         "id": 15,
         "nom": "Albino Rocca",
+        "nom_eng": "Albino Rocca",
         "description": "Vin blanc italien frais avec des notes d'agrumes et de fleurs blanches.",
         "description_eng": "Fresh Italian white wine with notes of citrus and white flowers.",
         "prix": 50,
@@ -240,6 +255,7 @@
     "Etto Germano": {
         "id": 16,
         "nom": "Etto Germano",
+        "nom_eng": "Etto Germano",
         "description": "Vin rosé italien léger et fruité, parfait pour accompagner les plats d'été.",
         "description_eng": "Light and fruity Italian rosé wine, perfect for accompanying summer dishes.",
         "prix": 60,
@@ -253,6 +269,7 @@
     "Espresso": {
         "id": 17,
         "nom": "Espresso",
+        "nom_eng": "Espresso",
         "description": "Café italien fort et concentré, servi dans une petite tasse.",
         "description_eng": "Strong and concentrated Italian coffee, served in a small cup.",
         "prix": 7,
@@ -266,6 +283,7 @@
     "Latte macchiato": {
         "id": 18,
         "nom": "Latte macchiato",
+        "nom_eng": "Latte macchiato",
         "description": "Boisson à base de lait chaud avec un espresso versé dessus.",
         "description_eng": "Drink made with hot milk and an espresso poured on top.",
         "prix": 10,

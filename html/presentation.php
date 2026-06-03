@@ -121,7 +121,8 @@ $data = $data_plats;
         foreach ($platscat as $cle => $plat) { // Affiche les plats de la catégorie courante
             echo "<li>";
             echo "<div class='ligne'>";
-            echo "<span class='nom'>{$plat['nom']}</span>";
+            $nom=(!$isFrench) ? $plat['nom_eng'] : $plat['nom'];
+            echo "<span class='nom'>$nom</span>";
             echo "<span class='prix'>{$plat['prix']}€</span>";
             echo "</div>";
             $desc = (!$isFrench) ? $plat['description_eng'] : $plat['description'];
