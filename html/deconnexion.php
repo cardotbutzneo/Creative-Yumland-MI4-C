@@ -1,6 +1,6 @@
 <?php
-session_start();
-require_once __DIR__."/../serveur.php";
+
+require_once __DIR__."/../api/config.php";
 
 if(!isset($_SESSION["connecte"])){
     header("Location: connexion.php");
@@ -37,13 +37,13 @@ elseif (isset($_POST["abandonner"])){
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/authentification.css">
-    <title>Déconnexion - L'oro di Cicerone</title>
+    <title><?= $text["deconnexion"]["title"] ?></title>
 </head>
 <body>
 
@@ -51,23 +51,23 @@ elseif (isset($_POST["abandonner"])){
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
+            <li><a href="restaurant.php"><?php if ($isFrench) echo "Le Restaurant"; else echo "The Restaurant"; ?></a></li>
+            <li><a href="chef.php"><?php if ($isFrench) echo "Le Chef"; else echo "The Chef"; ?></a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
+            <li><a href="connexion.php"><?= $text["deconnexion"]["nav_booking"] ?></a></li>
         </ul>
     </nav>
 </header>
 
 <main class="conteneur-connexion">
     <section class="carte-connexion">
-        <h2 class="titre-page">Déconnexion</h2>
-        <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+        <h2 class="titre-page"><?= $text["deconnexion"]["page_title"] ?></h2>
+        <p><?= $text["deconnexion"]["confirmation"] ?></p>
         
         <form method="post" action="">
-            <input type="submit" name="deconnexion" value="Se déconnecter" class="bouton-validation">
-            <input type="submit" name="abandonner" value="Abandonner la deconnexion" class="bouton-validation">
+            <input type="submit" name="deconnexion" value="<?= $text["deconnexion"]["logout_button"] ?>" class="bouton-validation">
+            <input type="submit" name="abandonner" value="<?= $text["deconnexion"]["cancel_button"] ?>" class="bouton-validation">
         </form>
     </section>
 </main>

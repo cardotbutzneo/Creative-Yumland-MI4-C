@@ -6,8 +6,20 @@ verifier_connexion($role,"Client",false);
 $email_client = $_SESSION["email"];
 $bdd_client = lire_data("../data/client.json", $email_client);
 
-$derniere_cmd = $bdd_client["dernieres_commandes"][0];
+$derniere_cmd = $bdd_client["dernieres_commandes"][0] ?? null;
 $bdd_cmd = $data_commandes;
+
+if (!$derniere_cmd) {
+    header("Location: profil_client.php?err=noOrder");
+    exit;
+}
+
+$derniere_cmd = strtoupper($derniere_cmd);
+
+if (!isset($bdd_cmd[$derniere_cmd])) {
+    header("Location: profil_client.php?err=fetchFailed");
+    exit;
+}
 
 if (isset($_POST["valider"])) {
     $note_livraison = $_POST["note_livraison"];
@@ -15,37 +27,48 @@ if (isset($_POST["valider"])) {
 
     $bdd_cmd[$derniere_cmd]["note_livraison"] = $note_livraison;
     $bdd_cmd[$derniere_cmd]["note_produits"] = $note_produits;
+
     if(isset($_POST["commentaires"])){
         $commentaires = $_POST["commentaires"];
         $bdd_cmd[$derniere_cmd]["commentaire"] = $commentaires;
     }
+
     $bdd_cmd[$derniere_cmd]["etat"] = "notee";
 
     ecrire_data("../data/commandes.json", $bdd_cmd);
+
+    header("Location: remerciement.php");
+    exit;
 }
 
-// Normaliser les plats (gestion des deux formats : tableau ou objet associatif)
-$plats = $bdd_cmd[$derniere_cmd]["plats"];
-$plats_liste = [];
-if (array_is_list($plats)) {
-    foreach ($plats as $plat) {
-        $plats_liste[] = ["nom" => $plat["nom"], "quantite" => $plat["quantite"]];
-    }
-} else {
-    foreach ($plats as $plat) {
-        $plats_liste[] = ["nom" => $plat["nom"], "quantite" => $plat["quantite"]];
-    }
+$plats = $bdd_cmd[$derniere_cmd]["plats"] ?? [];
+
+if (!is_array($plats) || empty($plats)) {
+    header("Location: profil_client.php?err=fetchFailed");
+    exit;
 }
-$montant = $bdd_cmd[$derniere_cmd]["montant"];
-$date_cmd = $bdd_cmd[$derniere_cmd]["date"];
+
+$plats_liste = [];
+
+foreach ($plats as $plat) {
+    if (!is_array($plat)) continue;
+
+    $plats_liste[] = [
+        "nom" => $plat["nom"] ?? "",
+        "quantite" => $plat["quantite"] ?? 0
+    ];
+}
+
+$montant = $bdd_cmd[$derniere_cmd]["montant"] ?? 0;
+$date_cmd = $bdd_cmd[$derniere_cmd]["date"] ?? date("Y-m-d");
 $numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notation - L'oro di Cicerone</title>
+    <title><?= $text["notation"]["title"] ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/notation.css">
@@ -59,12 +82,12 @@ $numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
     <main>
         <?php if($bdd_cmd[$derniere_cmd]["etat"] === "livree") { ?>
             <div class="bulle">
-                <h1>Évaluer votre expérience</h1>
+                <h1><?= $text["notation"]["page_title"] ?></h1>
 
                 <div class="recap-commande">
-                    <h2>Votre commande</h2>
+                    <h2><?= $text["notation"]["your_order"] ?></h2>
                     <div class="recap-meta">
-                        <span>Commande n° <?= htmlspecialchars($numero) ?></span>
+                        <span><?= $text["notation"]["order_number"] ?> <?= htmlspecialchars($numero) ?></span>
                         <span><?= htmlspecialchars(date("d/m/Y", strtotime($date_cmd))) ?></span>
                     </div>
                     <ul class="recap-plats">
@@ -76,14 +99,14 @@ $numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
                         <?php } ?>
                     </ul>
                     <div class="recap-total">
-                        <span>Total</span>
+                        <span><?= $text["notation"]["total"] ?></span>
                         <span><?= number_format((float)$montant, 2, ',', ' ') ?> €</span>
                     </div>
                 </div>
 
                 <form action="notation.php" method="POST">
                     <div class="ligne">
-                        <span class="intitule">Note de la livraison :</span>
+                        <span class="intitule"><?= $text["notation"]["delivery_rating"] ?></span>
                         <div class="etoiles">
                             <input type="radio" name="note_livraison" value="5" id="l5">
                             <label for="l5">★</label>
@@ -98,7 +121,7 @@ $numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
                         </div>
                     </div>
                     <div class="ligne">
-                        <span class="intitule">Note des produits :</span>
+                        <span class="intitule"><?= $text["notation"]["products_rating"] ?></span>
                         <div class="etoiles">
                             <input type="radio" name="note_produits" value="5" id="p5">
                             <label for="p5">★</label>
@@ -113,24 +136,26 @@ $numero = $bdd_cmd[$derniere_cmd]["numero"] ?? "-";
                         </div>
                     </div>
                     <div class="commentaires">
-                        <div class="intitule">Commentaires :</div>
-                        <textarea name="commentaires" id="commentaires" placeholder="Partagez votre expérience" maxlength="500"></textarea>
+                        <div class="intitule"><?= $text["notation"]["comments"] ?></div>
+                        <textarea name="commentaires" id="commentaires" placeholder="<?= $text["notation"]["comments_placeholder"] ?>" maxlength="500"></textarea>
                         <div>
-                            <span id="compteur">0</span> / 500 caractères
+                            <span id="compteur">0</span> / 500 <?= $text["notation"]["characters"] ?>
                         </div>
                     </div>
                     <div class="button-centre">
-                        <input type="submit" name="valider" value="Envoyer mon avis" class="bouton-validation">
+                        <input type="submit" name="valider" value="<?= $text["notation"]["submit"] ?>" class="bouton-validation">
                     </div>
                 </form>
             </div>
             <footer>
-                <p>© 2026 L'oro di Cicerone — Tous droits réservés</p>
+                <p><?= $text["notation"]["footer_rights"] ?></p>
             </footer>
         <?php } elseif ($bdd_cmd[$derniere_cmd]["etat"] === "notee") {
             header("Location: remerciement.php");
+            exit;
         } else {
             header("Location: index.php?error=unauthorized");
+            exit;
         } ?>
     </main>
 </body>

@@ -43,13 +43,13 @@ if (isset($_POST["inscription"])) {
     $confirmer_password = $_POST["confirmer_password"];
 
     if ($password !== $confirmer_password) {
-        $erreur = "Les mots de passe sont différents.";
+        $erreur = $text["inscription"]["error_passwords_different"];
     } else {
         $bdd_actuelle = $data_client;
         if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
 
         if (isset($bdd_actuelle[$email])) {
-            $erreur = "Un compte utilisateur existe déjà avec cette adresse mail.";
+            $erreur = $text["inscription"]["error_account_exists"];
         } else {
             $nouveau_client = creer_client($bdd_actuelle);
             $bdd_actuelle[$email] = $nouveau_client;
@@ -61,7 +61,7 @@ if (isset($_POST["inscription"])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +69,7 @@ if (isset($_POST["inscription"])) {
     <link rel="stylesheet" href="style/authentification.css">
     <link rel="stylesheet" href="style/notification.css">
     <script src="../javascript/inscription.js" defer></script>
-    <title>Inscription - L'oro di Cicerone</title>
+    <title><?= $text["inscription"]["title"] ?></title>
 </head>
 <body>
 
@@ -77,18 +77,18 @@ if (isset($_POST["inscription"])) {
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
+            <li><a href="restaurant.php"><?php if ($isFrench) echo "Le Restaurant"; else echo "The Restaurant"; ?></a></li>
+            <li><a href="chef.php"><?php if ($isFrench) echo "Le Chef"; else echo "The Chef"; ?></a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
+            <li><a href="connexion.php"><?= $text["inscription"]["nav_booking"] ?></a></li>
         </ul>
     </nav>
 </header>
 
 <main class="conteneur-connexion">
     <section class="carte-connexion">
-        <h2 class="titre-page">Créer un compte</h2>
+        <h2 class="titre-page"><?= $text["inscription"]["page_title"] ?></h2>
 
         <?php if (!empty($erreur)){ ?>
             <div class="message-erreur">
@@ -98,55 +98,55 @@ if (isset($_POST["inscription"])) {
 
         <form method="post" action="">
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Nom</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["lastname"] ?></label>
                 <input type="text" name="nom" class="champ" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Prénom</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["firstname"] ?></label>
                 <input type="text" name="prenom" class="champ" required value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Adresse</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["address"] ?></label>
                 <input type="text" name="adresse" class="champ"
-                       placeholder="Ex : 19 Rue du Chemin Vert, 75011 Paris" required value="<?= htmlspecialchars($_POST['adresse'] ?? '') ?>">
+                       placeholder="<?= $text["inscription"]["address_placeholder"] ?>" required value="<?= htmlspecialchars($_POST['adresse'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule">Complément d'adresse</label>
+                <label class="intitule"><?= $text["inscription"]["address_complement"] ?></label>
                 <input type="text" name="complement_adresse" class="champ"
-                       placeholder="Ex : Code immeuble, étage…" value="<?= htmlspecialchars($_POST['complement_adresse'] ?? '') ?>">
+                       placeholder="<?= $text["inscription"]["address_complement_placeholder"] ?>" value="<?= htmlspecialchars($_POST['complement_adresse'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Téléphone</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["phone"] ?></label>
                 <input type="text" name="tel" class="champ" required value="<?= htmlspecialchars($_POST['tel'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Adresse e-mail</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["email"] ?></label>
                 <input type="email" name="mail" class="champ" required value="<?= htmlspecialchars($_POST['mail'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Mot de passe</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["password"] ?></label>
                 <div class="password-wrapper">
                     <input type="password" name="password" id="password" class="champ" required>
-                    <button type="button" class="toggle-eye" onclick="togglePassword('password', 'oeil_ouvert', 'oeil_ferme')" aria-label="Afficher le mot de passe">
-                        <img id="oeil_ouvert" src="style/img/oeil_ouvert.png" alt="Afficher">
-                        <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="Masquer" style="display:none;">
+                    <button type="button" class="toggle-eye" onclick="togglePassword('password', 'oeil_ouvert', 'oeil_ferme')" aria-label="<?= $text["inscription"]["show_password"] ?>">
+                        <img id="oeil_ouvert" src="style/img/oeil_ouvert.png" alt="<?= $text["inscription"]["show"] ?>">
+                        <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="<?= $text["inscription"]["hide"] ?>" style="display:none;">
                     </button>
                 </div>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span>Confirmer le mot de passe</label>
+                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["confirm_password"] ?></label>
                 <div class="password-wrapper">
                     <input type="password" name="confirmer_password" id="confirmer_password" class="champ" required>
                 </div>
             </div>
-            <input type="submit" name="inscription" value="S'inscrire" class="bouton-validation">
+            <input type="submit" name="inscription" value="<?= $text["inscription"]["submit"] ?>" class="bouton-validation">
 
             <div class="liens-secondaires">
-                <a href="connexion.php">Déjà un compte ? Se connecter</a>
+                <a href="connexion.php"><?= $text["inscription"]["already_account"] ?></a>
             </div>
         </form>
         <p style="font-size: smaller; color: white" class="message-erreur">
-            Une <span class="obligatoire">* </span>signifie un champ obligatoire
+            <?= $text["inscription"]["required_prefix"] ?> <span class="obligatoire">* </span><?= $text["inscription"]["required_suffix"] ?>
         </p>
     </section>
 </main>

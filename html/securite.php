@@ -10,7 +10,7 @@ $suppression = false;
 
 if (isset($_POST["password"])){
     $email = $_SESSION["email"];
-    if (password_verify($_POST["password"],$data_client["mot de passe"])){
+    if (password_verify($_POST["password"],$data_client[$email]["mot de passe"])){
         if (supprimer_compte($email)){
             $verif = true;
             $verif_mdp = true;
@@ -18,15 +18,18 @@ if (isset($_POST["password"])){
             ?><script>console.log(<?= $suppression ?>)</script><?php
         }
         else {
-            echo "<p class='message-erreur'>Mot de passe incorrect.</p>";
+            echo "<p class='message-erreur'>" . $text["securite"]["incorrect_password"] . "</p>";
         }
+    }
+    else {
+        echo "<p class='message-erreur'>" . $text["securite"]["incorrect_password"] . "</p>";
     }
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,60 +38,67 @@ if (isset($_POST["password"])){
     <link rel="stylesheet" href="style/authentification.css">
     <script src="../javascript/inscription.js" defer></script>
     <script src="../script.js" defer></script>
-    <title>Sécurité</title>
+    <title><?= $text["securite"]["title"] ?></title>
 </head>
 <body>
     <header>
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <?php if (!$suppression) echo '<li><a href="profil_client.php">Revenir au profil</a></li>';?>
+                <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
+                <?php if (!$suppression) echo '<li><a href="profil_client.php">' . $text["securite"]["nav_back_profile"] . '</a></li>';?>
             </ul>
         </nav>
     </header>
     <main class="conteneur-connexion">
         <section class="carte-connexion">
-            <h2 class="titre-page">Sécurité</h2>
+            <h2 class="titre-page"><?= $text["securite"]["page_title"] ?></h2>
             <form method="post"> 
                 <div id="settings" style="display : <?= (!$suppression) ? "block" : "none"; ?>">
                     <div class="champ-formulaire">
-                        <button type="submit" name="modif-info" class="champ">Modifier vos informations
+                        <button type="submit" name="modif-info" class="champ"><?= $text["securite"]["edit_info"] ?></button>
                     </div>
                     <div class="champ-formulaire">
-                        <button type="submit" name="modif-mdp" class="champ" >Changer votre mot de passe 
+                        <button type="submit" name="modif-mdp" class="champ"><?= $text["securite"]["change_password"] ?></button>
                     </div>
                     <div class="champ-formulaire">
-                        <button type="submit" name="supp" class="message-erreur" onclick="toggleSecurite(1)">Supprimer le compte
+                        <button type="submit" name="supp" class="message-erreur" onclick="toggleSecurite(1)"><?= $text["securite"]["delete_account"] ?></button>
                     </div>
                 </div>
                 
                 <div id="verif" style="display : none">
-                    <div class='message-erreur'>Attention cette action sera définitive et vous perdrez votre compte.</div>
-                    <div class='champ-formulaire'><button type='submit' name='confirm' class='champ' onclick="toggleSecurite(2)">Confirmer la suppression</div>
-                    <div class='champ-formulaire'><button type='submit' name='abandon' class='champ'>Abandonner la suppression</div>
+                    <div class='message-erreur'><?= $text["securite"]["warning_delete"] ?></div>
+                    <div class='champ-formulaire'>
+                        <button type='submit' name='confirm' class='champ' onclick="toggleSecurite(2)"><?= $text["securite"]["confirm_delete"] ?></button>
+                    </div>
+                    <div class='champ-formulaire'>
+                        <button type='submit' name='abandon' class='champ'><?= $text["securite"]["cancel_delete"] ?></button>
+                    </div>
                 </div>
                 <div id="verif_password" style="display : none">
-                    <div class='message-erreur'>Confirmer votre action en rentrant votre mot de passe.</div>
-                    <label for="conf-supp"><span class="obligatoire">* </span>Confirmer vos modifications</label>
+                    <div class='message-erreur'><?= $text["securite"]["confirm_action_password"] ?></div>
+                    <label for="conf-supp"><span class="obligatoire">* </span><?= $text["securite"]["confirm_changes"] ?></label>
                     <div class="password-wrapper">
                         <input type="password" name="password" id="password" class="champ" required>
-                        <button type="button" class="toggle-eye" onclick='togglePassword("password", "oeil_ouvert", "oeil_ferme")' aria-label="Afficher le mot de passe">
-                            <img id="oeil_ouvert" src="style/img/oeil_ouvert.png" alt="Afficher">
-                            <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="Masquer" style="display:none;">
+                        <button type="button" class="toggle-eye" onclick='togglePassword("password", "oeil_ouvert", "oeil_ferme")' aria-label="<?= $text["securite"]["show_password"] ?>">
+                            <img id="oeil_ouvert" src="style/img/oeil_ouvert.png" alt="<?= $text["securite"]["show"] ?>">
+                            <img id="oeil_ferme" src="style/img/oeil_ferme.png" alt="<?= $text["securite"]["hide"] ?>" style="display:none;">
                         </button>
                     </div>
-                    <div class="champ-formulaire"><button type="submit" name="confirmation" class="champ" onclick="toggleSecurite(3)">Confirmer</div>
-                    <p style="font-size : smaller; color : white;" class="message-erreur">Une <span class="obligatoire">* </span>signifie un champ obligatoire</p>
+                    <div class="champ-formulaire">
+                        <button type="submit" name="confirmation" class="champ" onclick="toggleSecurite(3)"><?= $text["securite"]["confirm"] ?></button>
+                    </div>
+                    <p style="font-size : smaller; color : white;" class="message-erreur">
+                        <?= $text["securite"]["required_prefix"] ?> <span class="obligatoire">* </span><?= $text["securite"]["required_suffix"] ?>
+                    </p>
                 </div>
                 <div id="delete-account" style="display : <?= $suppression ? "block" : "none"; ?>" >
                     <div style="text-align : center">
-                        <p>Votre compte a bien été supprimé.</p>
-                        <p>En espérant vous revoir !</p>
-                        <p>Vous allez être redirigé dans quelsques instants...</p>
-                        <a href='index.php'>Cliquez ici si la redirection ne charge pas.</a></div>
+                        <p><?= $text["securite"]["deleted_success"] ?></p>
+                        <p><?= $text["securite"]["goodbye"] ?></p>
+                        <p><?= $text["securite"]["redirecting"] ?></p>
+                        <a href='index.php'><?= $text["securite"]["redirect_link"] ?></a>
                     </div>
-
                 </div>            
             </form>
         </section>

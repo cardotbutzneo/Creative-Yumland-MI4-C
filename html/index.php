@@ -21,7 +21,7 @@ require_once __DIR__."/../api/config.php";
         <ul>
             <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page" ?></a></li>
             <li><a href="restaurant.php"><?php if ($isFrench) echo "Le restaurant"; else echo "The restaurant" ?></a></li>
-            <li><a href="chef.php"><?php if ($isFrench) echo "Le chef"; else echo "The chief" ?></a></li>
+            <li><a href="chef.php"><?php if ($isFrench) echo "Le chef"; else echo "The chef" ?></a></li>
             <li><a href="presentation.php">Menu</a></li>
             <?php if (isset($_SESSION["connecte"]) and $_SESSION["connecte"] == true){
                 ($isFrench) ? $txt_profil = "Profil" : $txt_profil = "Profile";

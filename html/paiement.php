@@ -19,7 +19,7 @@ if ($is_modification) { // Cas d'une modification de commande : les données à 
     $id_cmd = $data_modif["id_cle"];
     $montant = $data_modif["reste_a_payer"];
     $transaction = substr("MOD" . bin2hex(random_bytes(8)), 0, 15);
-    $type_label = "Modification (Supplément)";
+    $type_label = $text["paiement"]["modification_label"];
     $articles_a_afficher = $data_modif["plats"];
     $id_retour = $id_cmd;
 } else { // Cas d'un paiement classique depuis le panier : les données à afficher sont récupérées depuis le panier du client
@@ -34,7 +34,19 @@ if ($is_modification) { // Cas d'une modification de commande : les données à 
     $form_data = $_SESSION["panier_form"] ?? []; // Récupère les données du formulaire de commande (type de commande, instructions) depuis la session, si elles existent (stockées temporairement par panier.php)
     unset($_SESSION["panier_form"]);
     $type_raw = $_POST["type_commande"] ?? $form_data["type_commande"] ?? "sur_place";
-    $type_label = ucfirst(str_replace('_', ' ', $type_raw));
+
+    if ($type_raw === "sur_place") {
+        $type_label = $text["paiement"]["type_sur_place"];
+    }
+    elseif ($type_raw === "livraison") {
+        $type_label = $text["paiement"]["type_livraison"];
+    }
+    elseif ($type_raw === "a_emporter") {
+        $type_label = $text["paiement"]["type_a_emporter"];
+    }
+    else {
+        $type_label = ucfirst(str_replace('_', ' ', $type_raw));
+    }
 
     $total_brut_panier = 0;
     foreach ($panier["articles"] as $art) { // Calcule le total brut du panier
@@ -73,10 +85,10 @@ $montant_fmt = number_format((float)$montant, 2, '.', '');
 $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vendeur . "#" . $retour . "#"); 
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
-    <title>Paiement — L'oro di Cicerone</title>
+    <title><?= $text["paiement"]["title"] ?></title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/paiement.css">
 </head>
@@ -85,14 +97,14 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     </header>
     <main>
-        <h2>Récapitulatif de votre règlement</h2>
+        <h2><?= $text["paiement"]["summary_title"] ?></h2>
         <div class="recap">
             <table>
                 <thead>
                     <tr>
-                        <th>PLAT</th>
-                        <th>QUANTITÉ</th>
-                        <th style="text-align:right;">SOUS-TOTAL</th>
+                        <th><?= $text["paiement"]["dish"] ?></th>
+                        <th><?= $text["paiement"]["quantity"] ?></th>
+                        <th style="text-align:right;"><?= $text["paiement"]["subtotal"] ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,19 +122,19 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
                         </tr>
                     <?php }
                     } else {
-                        echo "<tr><td colspan='3' style='text-align:center;padding:20px;'>Aucun article trouvé.</td></tr>";
+                        echo "<tr><td colspan='3' style='text-align:center;padding:20px;'>" . $text["paiement"]["no_article"] . "</td></tr>";
                     } ?>
                 </tbody>
             </table>
         </div>
         <div class="infos-commande">
             <div class="info-ligne">
-                <span class="label">Type :</span>
+                <span class="label"><?= $text["paiement"]["type"] ?></span>
                 <span class="valeur"><?= htmlspecialchars($type_label) ?></span>
             </div>
         </div>
         <div class="total">
-            <span>Total à régler :</span>
+            <span><?= $text["paiement"]["total_to_pay"] ?></span>
             <span class="montant"><?= $montant_fmt ?>€</span>
         </div>
         <form action="https://www.plateforme-smc.fr/cybank/index.php" method="POST">
@@ -133,8 +145,8 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
             <input type="hidden" name="control" value="<?= $control ?>">
 
             <div class="action">
-                <a href="<?= $is_modification ? 'modifier_commande.php?id=' . htmlspecialchars($id_retour) : 'panier.php' ?>">Retour</a>
-                <button type="submit">Procéder au paiement</button>
+                <a href="<?= $is_modification ? 'modifier_commande.php?id=' . htmlspecialchars($id_retour) : 'panier.php' ?>"><?= $text["paiement"]["back"] ?></a>
+                <button type="submit"><?= $text["paiement"]["pay_button"] ?></button>
             </div>
         </form>
     </main>

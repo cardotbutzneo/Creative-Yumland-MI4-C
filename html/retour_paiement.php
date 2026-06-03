@@ -111,10 +111,10 @@ if ($paiement_valide && $statut_reel === "accepted") {
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
-    <title>Retour paiement — L'oro di Cicerone</title>
+    <title><?= $text["retour_paiement"]["title"] ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/retour_paiement.css">
@@ -124,10 +124,10 @@ if ($paiement_valide && $statut_reel === "accepted") {
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
-                <li><a href="index.php">Accueil</a></li>
+                <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
                 <li><a href="presentation.php">Menu</a></li>
-                <li><a href="panier.php">Mon panier</a></li>
-                <li><a href="profil_client.php">Profil</a></li>
+                <li><a href="panier.php"><?= $text["retour_paiement"]["nav_cart"] ?></a></li>
+                <li><a href="profil_client.php"><?= $text["retour_paiement"]["nav_profile"] ?></a></li>
             </ul>
         </nav>
     </header>
@@ -136,29 +136,32 @@ if ($paiement_valide && $statut_reel === "accepted") {
         <div class="status-card">
             <?php if (!$paiement_valide || $statut_reel === "denied") { ?>
                 <div class="icon error">✕</div>
-                <h2>Erreur</h2>
-                <p>Un problème est survenu lors du traitement de votre paiement.</p>
-                <div class="cta"><a href="panier.php">Retour au panier</a></div>
+                <h2><?= $text["retour_paiement"]["error_title"] ?></h2>
+                <p><?= $text["retour_paiement"]["error_message"] ?></p>
+                <div class="cta"><a href="panier.php"><?= $text["retour_paiement"]["back_to_cart"] ?></a></div>
 
             <?php } elseif ($statut_reel === "refused") { ?>
                 <div class="icon error">✕</div>
-                <h2>Paiement refusé</h2>
-                <p>Votre paiement a été refusé par la banque. Votre commande n'a pas été modifiée.</p>
+                <h2><?= $text["retour_paiement"]["refused_title"] ?></h2>
+                <p><?= $text["retour_paiement"]["refused_message"] ?></p>
                 <?php if (isset($_SESSION["modif_commande"])) { ?>
                     <div class="cta">
                         <a href="modifier_commande.php?id=<?= htmlspecialchars($_SESSION["modif_commande"]["id_cle"]) ?>">
-                            Réessayer la modification
+                            <?= $text["retour_paiement"]["retry_modification"] ?>
                         </a>
                     </div>
                 <?php } else { ?>
-                    <div class="cta"><a href="panier.php">Retour au panier</a></div>
+                    <div class="cta"><a href="panier.php"><?= $text["retour_paiement"]["back_to_cart"] ?></a></div>
                 <?php } ?>
 
             <?php } else { ?>
                 <div class="icon success">✓</div>
-                <h2>Succès !</h2>
-                <p>Transaction validée. Votre commande n°<strong><?= htmlspecialchars($id_affichage ?? 'Inconnue') ?></strong> est enregistrée.</p>
-                <div class="cta"><a href="profil_client.php">Voir mes commandes</a></div>
+                <h2><?= $text["retour_paiement"]["success_title"] ?></h2>
+                <p>
+                    <?= $text["retour_paiement"]["success_message_before"] ?><strong><?= htmlspecialchars($id_affichage ?? $text["retour_paiement"]["unknown_order"]) ?></strong>
+                    <?= $text["retour_paiement"]["success_message_after"] ?>
+                </p>
+                <div class="cta"><a href="profil_client.php"><?= $text["retour_paiement"]["view_orders"] ?></a></div>
             <?php } ?>
         </div>
     </main>

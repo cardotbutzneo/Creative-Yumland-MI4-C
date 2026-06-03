@@ -147,11 +147,11 @@ if ($pts >= 500 && $pts < 1200) {
 $minDateTime = date("Y-m-d\TH:i");
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon panier - L'oro di Cicerone</title>
+    <title><?= $text["panier"]["title"] ?></title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/panier.css">
     <script src="../javascript/panier.js" defer></script>
@@ -161,17 +161,17 @@ $minDateTime = date("Y-m-d\TH:i");
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
-                <li><a href="index.php">Accueil</a></li>
+                <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
                 <li><a href="presentation.php">Menu</a></li>
-                <li><a href="profil_client.php">Profil</a></li>
+                <li><a href="profil_client.php"><?= $text["panier"]["nav_profile"] ?></a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h2>Mon panier</h2>
+        <h2><?= $text["panier"]["page_title"] ?></h2>
         <?php if (count($articles) === 0){ ?>
-            <p>Votre panier est vide.</p>
-            <a href="presentation.php">Voir la carte</a>
+            <p><?= $text["panier"]["empty_cart"] ?></p>
+            <a href="presentation.php"><?= $text["panier"]["see_menu"] ?></a>
         <?php } else { ?>
             <section class="rectangle">
                 <ul>
@@ -187,60 +187,60 @@ $minDateTime = date("Y-m-d\TH:i");
                             <button type="button" class="btn-qte" onclick="modifierQte(this, -1)">-</button>
                             <span class="qte-nb"><?= $article["quantite"] ?></span>
                             <button type="button" class="btn-qte" onclick="modifierQte(this, 1)">+</button>
-                            <span class="unitaire"><?= $article["prix"] ?>€ / unité</span>
-                            <a class="btn-supp" href="panier.php?action=supprimer&id=<?= urlencode($cle) ?>">Supprimer</a>
+                            <span class="unitaire"><?= $article["prix"] ?>€ / <?= $text["panier"]["unit"] ?></span>
+                            <a class="btn-supp" href="panier.php?action=supprimer&id=<?= urlencode($cle) ?>"><?= $text["panier"]["delete"] ?></a>
                         </div>
                     </li>
                     <?php } ?>
                 </ul>
                 <div class="container-ts-supp">
-                    <a class="btn-ts-supp" href="panier.php?action=tous_supprimer">Tout supprimer</a>
+                    <a class="btn-ts-supp" href="panier.php?action=tous_supprimer"><?= $text["panier"]["delete_all"] ?></a>
                 </div>
             </section>
             <div class="total" id="bloc-total" data-reduc="<?= isset($reduc) ? $reduc : 0 ?>">
-                <span>Total</span>
+                <span><?= $text["panier"]["total"] ?></span>
                 <span id="display-total"><?= number_format($total_brut, 2, '.', ',') ?>€</span>
             </div>
             <?php if ($total_brut == $nv_total){ ?>
-                <p id="p-pas-reduc">Pas de réduction disponible</p>
+                <p id="p-pas-reduc"><?= $text["panier"]["no_discount"] ?></p>
             <?php } else { ?>
                 <div id="bloc-remise" style="text-align:right">
-                    <span>Remise immédiate : </span>
+                    <span><?= $text["panier"]["instant_discount"] ?> </span>
                     <span><?= $reduc * 100 ?>%</span>
                 </div>
                 <div class="total" id="bloc-total-reduit">
-                    <span>Total après réductions</span>
+                    <span><?= $text["panier"]["total_after_discount"] ?></span>
                     <span id="display-total-reduit"><?= number_format($nv_total,2, '.', ',') ?>€</span>
                 </div>
             <?php } ?>
             <form method="POST" action="paiement.php">
                 <div class="form-groupe">
-                    <label for="instructions">Instructions spéciales :</label>
+                    <label for="instructions"><?= $text["panier"]["special_instructions"] ?></label>
                     <textarea name="instructions" id="instructions" maxlength="500"
-                        placeholder="Ex : pizza sans olives, ..."><?= htmlspecialchars($_POST["instructions"] ?? "") ?></textarea>
+                        placeholder="<?= $text["panier"]["instructions_placeholder"] ?>"><?= htmlspecialchars($_POST["instructions"] ?? "") ?></textarea>
                     <span id="compteur-instructions"
                           style="font-size:11px; color:rgba(255,255,255,0.4); float:right;">0 / 500</span>
                 </div>
                 <div class="form-groupe">
-                    <label>Type de commande :</label>
+                    <label><?= $text["panier"]["order_type"] ?></label>
                     <div class="radio-groupe">
                         <label class="radio-label">
-                            <input type="radio" name="type_commande" value="sur_place" checked> Sur place
+                            <input type="radio" name="type_commande" value="sur_place" checked> <?= $text["panier"]["eat_in"] ?>
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="type_commande" value="livraison"> Livraison
+                            <input type="radio" name="type_commande" value="livraison"> <?= $text["panier"]["delivery"] ?>
                         </label>
                     </div>
                 </div>
                 <div class="form-groupe">
-                    <label for="date_livraison"> Date et heure de livraison
-                        <span class="label-hint">(laisser vide pour une livraison immédiate)</span>
+                    <label for="date_livraison"> <?= $text["panier"]["delivery_datetime"] ?>
+                        <span class="label-hint"><?= $text["panier"]["delivery_hint"] ?></span>
                     </label>
                     <input type="datetime-local" name="date_livraison" id="date_livraison" min="<?= $minDateTime ?>">
                 </div>
                 <div class="action">
-                    <a href="presentation.php">Continuer mes achats</a>
-                    <button type="submit">Valider mon panier</button>
+                    <a href="presentation.php"><?= $text["panier"]["continue_shopping"] ?></a>
+                    <button type="submit"><?= $text["panier"]["validate_cart"] ?></button>
                 </div>
             </form>
         <?php } ?>

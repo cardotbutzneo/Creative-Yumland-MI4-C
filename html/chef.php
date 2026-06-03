@@ -1,12 +1,14 @@
 <?php
-session_start();
+
+require_once __DIR__."/../api/config.php";
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Chef - L'oro di Cicerone</title>
+    <title><?= $text["chef"]["title"] ?></title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/chef.css">
 </head>
@@ -15,11 +17,11 @@ session_start();
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
     <nav>
         <ul>
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="restaurant.php">Le Restaurant</a></li>
-            <li><a href="chef.php">Le Chef</a></li>
+            <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
+            <li><a href="restaurant.php"><?php if ($isFrench) echo "Le Restaurant"; else echo "The Restaurant"; ?></a></li>
+            <li><a href="chef.php"><?php if ($isFrench) echo "Le Chef"; else echo "The Chef"; ?></a></li>
             <li><a href="presentation.php">Menu</a></li>
-            <li><a href="connexion.php">Réserver</a></li>
+            <li><a href="connexion.php"><?= $text["chef"]["nav_booking"] ?></a></li>
         </ul>
     </nav>
     </header>
@@ -28,51 +30,47 @@ session_start();
     <video autoplay muted loop playsinline>
     <source src="style/video/chef.mp4" type="video/mp4">
     </video>
-    <h2>Le Chef<br>
-        <span class="sous-titre">Maestro de la gastronomie italienne</span>
+    <h2><?= $text["chef"]["hero_title"] ?><br>
+        <span class="sous-titre"><?= $text["chef"]["hero_subtitle"] ?></span>
     </h2>
     </section>
         <section class="section-light">
             <div class="experience">
-                <img src="style/img/chef.png" alt="Chef étoilé">
+                <img src="style/img/chef.png" alt="<?= $text["chef"]["hero_title"] ?>">
                     <div>
-                        <h3>Un parcours d'exception</h3>
+                        <h3><?= $text["chef"]["exception_title"] ?></h3>
                         <p>
-                        Originaire d'Italie, notre chef découvre très tôt la richesse de la cuisine méditerranéenne.
-                        Formé au sein des plus grandes maisons européennes, il développe une vision culinaire où
-                        la tradition italienne se mêle à une recherche constante de perfection.
+                        <?= $text["chef"]["exception_text_1"] ?>
                         </p>
                         <p>
-                        Fasciné par Paris et son rayonnement culturel, il choisit la Tour Eiffel comme écrin pour
-                        exprimer pleinement son art et fonder L'oro di Cicerone, symbole d'excellence et de transmission.
+                        <?= $text["chef"]["exception_text_2"] ?>
                         </p>
                     </div>
             </div>
         </section>
         <section>
             <div class="philosophy">
-                <h3>Sa philosophie</h3>
+                <h3><?= $text["chef"]["philosophy_title"] ?></h3>
                 <p>
-                Pour le chef, la cuisine est un langage universel. Chaque plat doit raconter une histoire,
-                évoquer une émotion et célébrer l'authenticité des produits.
+                <?= $text["chef"]["philosophy_text"] ?>
                 </p>
-                <p class="quote">« La simplicité est la plus grande des élégances. »</p>
+                <p class="quote"><?= $text["chef"]["quote"] ?></p>
             </div>
         </section>
         <section class="section-light">
-            <h3 style="text-align:center;">Distinctions</h3>
+            <h3 style="text-align:center;"><?= $text["chef"]["awards_title"] ?></h3>
             <div class="awards">
                 <div class="award">
-                    <h4>★★★ Michelin</h4>
-                    <p>Excellence gastronomique</p>
+                    <h4><?= $text["chef"]["award_michelin_title"] ?></h4>
+                    <p><?= $text["chef"]["award_michelin_text"] ?></p>
                 </div>
                 <div class="award">
-                    <h4>Chef de l'année</h4>
-                    <p>Guide européen</p>
+                    <h4><?= $text["chef"]["award_year_title"] ?></h4>
+                    <p><?= $text["chef"]["award_year_text"] ?></p>
                 </div>
                 <div class="award">
-                    <h4>Prix de l'innovation</h4>
-                    <p>Cuisine contemporaine</p>
+                    <h4><?= $text["chef"]["award_innovation_title"] ?></h4>
+                    <p><?= $text["chef"]["award_innovation_text"] ?></p>
                 </div>
             </div>
         </section>

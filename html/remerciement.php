@@ -3,11 +3,11 @@ require_once __DIR__."/../api/config.php";
 
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remerciement - L'oro di Cicerone</title>
+    <title><?= $text["remerciement"]["title"] ?></title>
     <meta http-equiv="refresh" content="8; URL=index.php"> 
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/remerciement.css">
@@ -18,12 +18,14 @@ require_once __DIR__."/../api/config.php";
     </header>
     <main>
         <div class="texte">
-            <h1>Merci d'avoir <?= isset($_GET["res"]) ? "réservé" : "commandé" ?> chez nous !</h1>
-            <p>Nous espérons vous revoir très bientôt chez L'oro di Cicerone.</p>
-            <p>Vous allez être redirigé vers la page d'acceuil d'ici quelques instants...</p>
-            <a href="mailto:<?= $_SESSION["email"] ?>">Ajouter ma réservation à mon angenda</a><br>
-            <a href="index.php">Cliquez ici si la redirection ne marche pas</a>
-            </div>
+            <h1>
+                <?= isset($_GET["res"]) ? $text["remerciement"]["thanks_reserved"] : $text["remerciement"]["thanks_ordered"] ?>
+            </h1>
+            <p><?= $text["remerciement"]["hope"] ?></p>
+            <p><?= $text["remerciement"]["redirect"] ?></p>
+            <a href="mailto:<?= $_SESSION["email"] ?? "" ?>"><?= $text["remerciement"]["add_reservation"] ?></a><br>
+            <a href="index.php"><?= $text["remerciement"]["redirect_link"] ?></a>
+        </div>
     </main>
     <footer>
         <p><?= $text["index"]["footer_rights"] ?></p>
