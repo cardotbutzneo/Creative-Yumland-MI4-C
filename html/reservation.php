@@ -28,11 +28,11 @@ require_once __DIR__."/../api/config.php";
             <h2><?= $isFrench ? "Réserver une table" : "Book a table" ?></h2>
             <div class="div-btn">
                 <button onclick="ajouterTable('-')" value="-">-</button>
-                <p> <?= $isFrench ? "Nombre de personne" : "Number of people" ?>  : <span id="nb-personne">0</span></p>
+                <p> <?= $isFrench ? "Nombre de personnes" : "Number of people" ?>  : <span id="nb-personne">0</span></p>
                 <button onclick="ajouterTable('+')" value="-">+</button>
             </div>
             <p id="erreur"></p>
-            <p><?= $isFrench ? "Nombre de table : " : "Number of table : " ?><span id="n-table">0</span></p>
+            <p><?= $isFrench ? "Nombre de tables : " : "Number of table : " ?><span id="n-table">0</span></p>
         </div>
         <div class="card" id="horaire-cont" style="display:none">
             <p><?= $isFrench ? "A quelle heure souhaitez vous venir ?" : "What time do you want for a reservation ?" ?></p>
@@ -47,11 +47,17 @@ require_once __DIR__."/../api/config.php";
             <button id="reservation" onclick="window.location = 'remerciement.php?res=true'"><?= $isFrench ? "RESERVER" : "Book" ?></button>
         </div>
     </main>
+    <footer>
+        <p><?= $text["index"]["footer_rights"] ?></p>
+        <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
+        <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
+    </footer>
 </body>
 </html>
 
 
 <script>
+    const is_french = <?= $isFrench ? 'true' : 'false' ?>;
     function ajouterTable(valeur) {
         let nb_personne = Number(document.getElementById("nb-personne").textContent);
         let n_table = Number(document.getElementById("n-table").textContent);
@@ -66,11 +72,19 @@ require_once __DIR__."/../api/config.php";
             console.log(nb_personne);
             if (nb_personne >= 8) {
                 if (erreurElement) {
-                    erreurElement.textContent = "Vous êtes plus de 8 ? ";
-                    const link = document.createElement("a");
-                    link.textContent = "Appelez-nous pour réserver.";
-                    link.href = "contact.php";
-                    erreurElement.appendChild(link);
+                    if (is_french) {
+                        erreurElement.textContent = "Vous êtes plus de 8 ? ";
+                        const link = document.createElement("a");
+                        link.textContent = "Appelez-nous pour réserver.";
+                        link.href = "contact.php";
+                        erreurElement.appendChild(link);
+                    } else {
+                        erreurElement.textContent = "More than 8 people ? ";
+                        const link = document.createElement("a");
+                        link.textContent = "Call us to book.";
+                        link.href = "contact.php";
+                        erreurElement.appendChild(link);
+                    }
                 }
                 nb_personne = 8;
             }
