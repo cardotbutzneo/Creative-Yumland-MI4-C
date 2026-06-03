@@ -49,6 +49,14 @@ $data = $data_plats;
     <link rel="stylesheet" href="style/presentation.css">
     <script>
         const est_client = <?php if ($est_client) { echo 'true'; } else { echo 'false'; } ?>;
+        const is_french = <?= $isFrench ? 'true' : 'false' ?>;
+        const category_labels = {
+            entrees: "<?= $text['presentation']['category_starters'] ?>",
+            plats: "<?= $text['presentation']['category_dishes'] ?>",
+            desserts: "<?= $text['presentation']['category_desserts'] ?>",
+            vins: "<?= $text['presentation']['category_wines'] ?>",
+            cafes: "<?= $text['presentation']['category_coffees'] ?>",
+        };    
     </script>
     <script src="../javascript/presentation.js" defer></script>
 </head>
@@ -116,7 +124,8 @@ $data = $data_plats;
             echo "<span class='nom'>{$plat['nom']}</span>";
             echo "<span class='prix'>{$plat['prix']}€</span>";
             echo "</div>";
-            echo "<span class='description'>{$plat['description']}</span>";
+            $desc = (!$isFrench) ? $plat['description_eng'] : $plat['description'];
+            echo "<span class='description'>$desc</span>";
             if ($est_client) {
                 echo "<div><a href='panier.php?action=ajouter&id=" . urlencode($cle) . "' class='btn-ajouter'>" . $text["presentation"]["add_button"] . "</a></div>";
             }
