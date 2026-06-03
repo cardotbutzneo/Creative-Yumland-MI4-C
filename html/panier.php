@@ -42,6 +42,7 @@ if (isset($_GET["id_cmd"])) {
         if ($plat !== null) { // on écrase l'ancien panier pour eviter les duplications
             $data_panier[$email]["articles"][$id_plat_cmd] = [
                 "nom" => $plat["nom"],
+                "nom_eng" => $plat["nom_eng"],
                 "prix" => $plat["prix"],
                 "quantite" => $plat_cmd["quantite"]
             ];
@@ -76,6 +77,7 @@ if ($action === "ajouter") {
         if ($plat !== null) {
             $data_panier[$email]["articles"][$id_plat] = [
                 "nom" => $plat["nom"],
+                "nom_eng" => $plat["nom_eng"],
                 "prix" => $plat["prix"],
                 "quantite" => 1
             ];
@@ -180,7 +182,11 @@ $minDateTime = date("Y-m-d\TH:i");
                         data-prix="<?= (int)$article["prix"] ?>"
                         data-cle="<?= htmlspecialchars($cle) ?>">
                         <div class="ligne">
-                            <span class="nom"><?= htmlspecialchars($article["nom"]) ?></span>
+                            <?php if ($isFrench) { ?>
+                                <span class="nom"><?= htmlspecialchars($article["nom"]) ?></span>
+                            <?php } else { ?>
+                                <span class="nom"><?= htmlspecialchars($article["nom_eng"]) ?></span>
+                            <?php } ?>
                             <span class="prix mc-item-subtotal"><?= $article["prix"] * $article["quantite"] ?>€</span>
                         </div>
                         <div class="quantite">
