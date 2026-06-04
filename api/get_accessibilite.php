@@ -39,13 +39,24 @@ $lang = $langue ?? "fr";
         border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
+
+    .btn-toggle-accessibilite {
+        background-color: rgba(0, 0, 0, 0.9);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+    .btn-toggle-accessibilite .img-accessibilite {
+        width: 32px;
+        height: auto;
+    }
 </style>
 
 <link rel='stylesheet' href='style/graphique.css'>
 <script src="../script.js" defer></script>
 
-<button onclick='togleAcc()'>
-    <img alt="Logo d'accessibilité" src='style/img/accessibilite.png' class='img-accessibilite'>
+<button class='btn-toggle-accessibilite' onclick='togleAcc()'>
+    <img alt="Logo d'accessibilité" src='style/img/accessibilite2.png' class='img-accessibilite'>
 </button>
 
 <div class='div-accessibilite' id='div-accessibilite' style='display : none'>
