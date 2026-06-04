@@ -4,15 +4,25 @@ require_once __DIR__."/../api/config.php";
 
 $erreur = "";
 
-//creer et initialise les champs de l'utilisateur
+/*
+ * Crée un nouveau client à partir des données déjà existantes.
+ *
+ * @param array $donnee Tableau contenant les clients déjà enregistrés.
+ * @return array Tableau représentant le nouveau client.
+ */
 function creer_client(array $donnee) : array {
+    //on crée un nouvel identifiant en fonction du nombre de clients existants
     $nouveau_nombre = count($donnee) + 1;
+
+    //transforme ce nombre en identifiant à 8 chiffres
     $id = str_pad($nouveau_nombre, 8, "0", STR_PAD_LEFT);
     
+    //retourne toutes les informations du nouveau client sous forme de tableau
     return [
         "id" => $id,
         "nom" => $_POST["nom"],
         "prenom" => $_POST["prenom"],
+
         "mot de passe" => password_hash($_POST["password"], PASSWORD_BCRYPT),
         "contact" => [
             "adresse" => $_POST["adresse"],
@@ -37,7 +47,10 @@ function creer_client(array $donnee) : array {
     ];  
 }
 
+//verifie si le formulaire d'inscription a été envoyé
 if (isset($_POST["inscription"])) {
+
+    // recupération des champs nécessaires à l'inscription
     $email = $_POST["mail"];
     $password = $_POST["password"];
     $confirmer_password = $_POST["confirmer_password"];
@@ -45,14 +58,22 @@ if (isset($_POST["inscription"])) {
     if ($password !== $confirmer_password) {
         $erreur = $text["inscription"]["error_passwords_different"];
     } else {
+
+        //recupération de la base actuelle des clients.
         $bdd_actuelle = $data_client;
+
+        //si les données récupérées ne sont pas un tableau, on initialise un tableau vide
         if (!is_array($bdd_actuelle)) $bdd_actuelle = [];
 
+        //verifie si un compte existe déjà avec cette adresse email.
         if (isset($bdd_actuelle[$email])) {
             $erreur = $text["inscription"]["error_account_exists"];
         } else {
+            //creation du nouveau client.
             $nouveau_client = creer_client($bdd_actuelle);
+            //ajout du nouveau client dans la base avec son email comme clé
             $bdd_actuelle[$email] = $nouveau_client;
+            //ecriture des nouvelles données dans le fichier JSON des clients.
             ecrire_data("../data/client.json", $bdd_actuelle);
             header("Location: index.php?flag=success");
             exit;
@@ -60,6 +81,7 @@ if (isset($_POST["inscription"])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
@@ -75,6 +97,7 @@ if (isset($_POST["inscription"])) {
 
 <header>
     <a href="index.php"><h1>L'oro di Cicerone</h1></a>
+
     <nav>
         <ul>
             <li><a href="index.php"><?php if ($isFrench) echo "Accueil"; else echo "Home page"; ?></a></li>
@@ -98,15 +121,21 @@ if (isset($_POST["inscription"])) {
 
         <form method="post" action="">
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["lastname"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["lastname"] ?>
+                </label>
                 <input type="text" name="nom" class="champ" required value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["firstname"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["firstname"] ?>
+                </label>
                 <input type="text" name="prenom" class="champ" required value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["address"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["address"] ?>
+                </label>
                 <input type="text" name="adresse" class="champ"
                        placeholder="<?= $text["inscription"]["address_placeholder"] ?>" required value="<?= htmlspecialchars($_POST['adresse'] ?? '') ?>">
             </div>
@@ -116,15 +145,22 @@ if (isset($_POST["inscription"])) {
                        placeholder="<?= $text["inscription"]["address_complement_placeholder"] ?>" value="<?= htmlspecialchars($_POST['complement_adresse'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["phone"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["phone"] ?>
+                </label>
                 <input type="text" name="tel" class="champ" required value="<?= htmlspecialchars($_POST['tel'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["email"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["email"] ?>
+                </label>
                 <input type="email" name="mail" class="champ" required value="<?= htmlspecialchars($_POST['mail'] ?? '') ?>">
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["password"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["password"] ?>
+                </label>
+
                 <div class="password-wrapper">
                     <input type="password" name="password" id="password" class="champ" required>
                     <button type="button" class="toggle-eye" onclick="togglePassword('password', 'oeil_ouvert', 'oeil_ferme')" aria-label="<?= $text["inscription"]["show_password"] ?>">
@@ -134,7 +170,10 @@ if (isset($_POST["inscription"])) {
                 </div>
             </div>
             <div class="champ-formulaire">
-                <label class="intitule"><span class="obligatoire">* </span><?= $text["inscription"]["confirm_password"] ?></label>
+                <label class="intitule">
+                    <span class="obligatoire">* </span><?= $text["inscription"]["confirm_password"] ?>
+                </label>
+
                 <div class="password-wrapper">
                     <input type="password" name="confirmer_password" id="confirmer_password" class="champ" required>
                 </div>
@@ -146,7 +185,9 @@ if (isset($_POST["inscription"])) {
             </div>
         </form>
         <p style="font-size: smaller; color: white" class="message-erreur">
-            <?= $text["inscription"]["required_prefix"] ?> <span class="obligatoire">* </span><?= $text["inscription"]["required_suffix"] ?>
+            <?= $text["inscription"]["required_prefix"] ?> 
+            <span class="obligatoire">* </span>
+            <?= $text["inscription"]["required_suffix"] ?>
         </p>
     </section>
 </main>

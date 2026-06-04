@@ -1,19 +1,36 @@
 <?php
 require_once __DIR__."/../api/config.php";
 
-$delai_reset = 15 * 60; // 15 minutes
+// Durée avant la réinitialisation des tentatives échouées
+// Ici : 15 minutes
+$delai_reset = 15 * 60;
 
-//récuperation données de la base de données des utilisateurs
+// Vérifie si l'utilisateur n'est pas connecté mais possède un cookie de connexion automatique.
 if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
     require_once __DIR__ . "/../serveur.php";
     $bdd = $data_client;
     $token_recu = $_COOKIE["remember_token"];
 
+    // Parcours de tous les utilisateurs pour retrouver celui qui possède le token correspondant.
     foreach ($bdd as $email => $utilisateur) {
+        //recupération du token stocké en base s'il existe
         $token_stocke = $utilisateur["securite"]["remember_token"] ?? null;
+        //rcupération de la date d'expiration du token
         $token_expiration = $utilisateur["securite"]["remember_token_expiration"] ?? 0;
 
-        if ($token_stocke && hash_equals($token_stocke, hash("sha256", $token_recu)) && $token_expiration > time() && !$utilisateur["securite"]["est_banni"]) {
+        // Vérifie plusieurs conditions :
+        // - un token existe en base ;
+        // - le token reçu correspond au token stocké après hachage ;
+        // - le token n'est pas expiré ;
+        // - le compte utilisateur n'est pas banni.
+        if (
+            $token_stocke &&
+            hash_equals($token_stocke, hash("sha256", $token_recu)) &&
+            $token_expiration > time() &&
+            !$utilisateur["securite"]["est_banni"]
+        ) {
+            // Si le token est valide, l'utilisateur est reconnecté automatiquement.
+            // Les informations principales sont enregistrées dans la session.
             $_SESSION["email"] = $email;
             $_SESSION["connecte"] = true;
             $_SESSION["role"] = $bdd[$email]["role"];
@@ -23,12 +40,14 @@ if (!isset($_SESSION["connecte"]) && isset($_COOKIE["remember_token"])) {
             $_SESSION["total-fidelite"] = $bdd[$email]["total-fidelite"];
             $_SESSION["derniers-plats"] = $bdd[$email]["dernieres_commandes"] ?? [];
             $_SESSION["derniere-connexion"] = time();
+
+            // Arrête la boucle dès que l'utilisateur correspondant est trouvé.
             break;
         }
     }
 }
 
-//redirection de l'utilisateur s'il déjà est connecté
+// Si l'utilisateur est déjà connecté, il est redirigé directement vers la page correspondant à son rôle.
 if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true) {
     if ($_SESSION["role"] == "Client") {
         header("Location: profil_client.php");
@@ -46,36 +65,46 @@ if (isset($_SESSION["connecte"]) && $_SESSION["connecte"] === true) {
 }
 
 require_once __DIR__ . "/../serveur.php";
-
 $erreur = "";
 
 if (isset($_POST["connexion"])) {
     $bdd_actuelle = $data_client;
     $email = $_POST["email"];
     $mdp = $_POST["password"];
-
+    //vérifie si l'adresse email existe dans la base.
     if (!isset($bdd_actuelle[$email])) {
+        //message volontairement général pour ne pas indiquer si l'email existe ou non
         $erreur = ($isFrench) ? "Adresse email ou mot de passe incorrect" : "Invalid email address or password" ;
     } else {
+        //recupération des informations de l'utilisateur correspondant à l'email.
         $utilisateur = $bdd_actuelle[$email];
-
-        // reinitialisation automatique des tentatives si le délai est écoulé
+        //recupération de la dernière tentative de connexion échouée.
         $derniere_tentative = $utilisateur["securite"]["derniere_tentative"] ?? null;
+        // Si une dernière tentative existe et que le délai de blocage est dépassé,
+        // les tentatives échouées sont remises à zéro.
         if ($derniere_tentative !== null && (time() - strtotime($derniere_tentative)) > $delai_reset) {
             $bdd_actuelle[$email]["securite"]["tentative_echec"] = 0;
             $bdd_actuelle[$email]["securite"]["derniere_tentative"] = null;
+            // Mise à jour de la variable locale avec les nouvelles données.
             $utilisateur = $bdd_actuelle[$email];
+            // Sauvegarde des modifications dans le fichier JSON.
             ecrire_data("../data/client.json", $bdd_actuelle);
         }
 
+        // Empêche la connexion si le compte est banni.
         if ($utilisateur["securite"]["est_banni"]) {
             $erreur = ($isFrench) ? "Votre compte est banni." : "Your account have been banned";
+
+        // Empêche temporairement la connexion après 5 tentatives échouées.
         } elseif ($utilisateur["securite"]["tentative_echec"] >= 5) {
             $erreur = ($isFrench) ? "Trop de tentatives échouées. Réessayez plus tard." : "Too many failed attempt. Retry later";
+
         } else {
-            //mise à jour des données de l'utilisateur vers la base de données
+            // Récupération du mot de passe haché stocké en base.
             $hash = $utilisateur["mot de passe"];
+            // Vérifie si le mot de passe saisi correspond au mot de passe haché.
             if (password_verify($mdp, $hash)) {
+                // Connexion réussie : enregistrement des informations utilisateur dans la session.
                 $_SESSION["email"] = $email;
                 $_SESSION["connecte"] = true;
                 $_SESSION["role"] = $bdd_actuelle[$email]["role"];
@@ -85,30 +114,35 @@ if (isset($_POST["connexion"])) {
                 $_SESSION["total-fidelite"] = $bdd_actuelle[$email]["total-fidelite"];
                 $_SESSION["derniers-plats"] = $bdd_actuelle[$email]["dernieres_commandes"] ?? [];
                 $_SESSION["derniere-connexion"] = time();
-
+                // Mise à jour des informations de sécurité après une connexion réussie.
                 $bdd_actuelle[$email]["securite"]["derniere_connexion"] = date("Y-m-d H:i:s");
                 $bdd_actuelle[$email]["securite"]["est_en_ligne"] = true;
                 $bdd_actuelle[$email]["securite"]["tentative_echec"] = 0;
                 $bdd_actuelle[$email]["securite"]["derniere_tentative"] = null;
-
+                // Si l'utilisateur coche "se souvenir de moi",
+                // un token sécurisé est généré et stocké dans un cookie.
                 if (isset($_POST["remember_me"])) {
+                    // Génère un token aléatoire de 64 caractères hexadécimaux.
                     $token = bin2hex(random_bytes(32));
+                    // Définit une expiration de 24 heures.
                     $expiration = time() + (24 * 60 * 60);
-
+                    // Création du cookie contenant le token non haché.
+                    // httponly empêche l'accès au cookie via JavaScript.
+                    // samesite Strict limite l'envoi du cookie aux requêtes du même site.
                     setcookie("remember_token", $token, [
                         "expires" => $expiration,
                         "path" => "/",
                         "httponly" => true,
                         "samesite" => "Strict"
                     ]);
-
+                    // Le token est haché avant d'être stocké en base.
                     $bdd_actuelle[$email]["securite"]["remember_token"] = hash("sha256", $token);
+                    // Sauvegarde de la date d'expiration du token.
                     $bdd_actuelle[$email]["securite"]["remember_token_expiration"] = $expiration;
                 }
-
+                // Sauvegarde des modifications de l'utilisateur dans le fichier JSON.
                 ecrire_data("../data/client.json", $bdd_actuelle);
-
-                //redirection de l'utilisateur venant de se connecté en fonction de son rôle
+                // Redirection de l'utilisateur connecté selon son rôle.
                 if ($_SESSION["role"] == "Client") {
                     header("Location: profil_client.php");
                     exit;
@@ -123,12 +157,20 @@ if (isset($_POST["connexion"])) {
                     exit;
                 }
             } else {
-                //mot de passe incorrect
+
+                // Mot de passe incorrect :
+                // on augmente le compteur de tentatives échouées.
                 $bdd_actuelle[$email]["securite"]["tentative_echec"]++;
+                // On enregistre la date et l'heure de cette tentative.
                 $bdd_actuelle[$email]["securite"]["derniere_tentative"] = date("Y-m-d H:i:s");
+                // Sauvegarde des informations de sécurité mises à jour.
                 ecrire_data("../data/client.json", $bdd_actuelle);
+                // Message d'erreur général pour l'utilisateur.
                 $erreur = ($isFrench) ? "Adresse email ou mot de passe incorrect" : "Incorrect email address or password";
+                // Écriture d'un log indiquant qu'un mot de passe incorrect a été saisi.
                 ecrire_log("Connexion : Mot de passe incorrect de " . $_POST["email"], "info");
+                // Si l'utilisateur atteint 5 tentatives échouées,
+                // un log d'avertissement est créé.
                 if($bdd_actuelle[$email]["securite"]["tentative_echec"] == 5){
                     ecrire_log("Connexion : 5 tentatives échouées de " . $_POST["email"] . ". Compte temporairement bloqué", "warning");
                 }
@@ -137,6 +179,7 @@ if (isset($_POST["connexion"])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang=<?= $isFrench ? "fr" : "en" ?>>
 <head>
