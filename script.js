@@ -27,7 +27,7 @@ setInterval(async () => {
  */
 async function bannir(mail, action, elementBouton) {
 	let raison = "";
-	if (action === "Bloquer") {
+	if (action === "Bloquer" || action =="") {
 		raison = prompt("Veuillez entrer la raison du bannissement :");
 	}
 	const formData = new FormData();

@@ -405,6 +405,32 @@
 
 			"result_note": "Notre suggestion pour vous ce soir. Buon appetito !",
 			"restart": "Choisir autre chose"
+		},
+		"admin" : {
+			"title" : "Page d'administration - L'oro di Cicerone",
+			"subtitle" : "Page d'administration",
+			"home_link" : "Acceuil",
+			"logout_link" : "se deconnecter",
+			"user" : "Utilisateur",
+			"user-btn" : "Utilisateurs",
+			"logs-btn" : "Logs",
+			"placeholder-search" : "Rechercher un utilisateur",
+			"clear-search-btn" : "Effacer",
+			"name-placeholder" : "Nom d'utilisateur",
+			"ID" : "Identifiant",
+			"status" : "Statut",
+			"last-login" : "Dernière connexion",
+			"actions" : {
+				"block" : "Bloquer",
+				"unblock" : "Débloquer"
+			},
+			"role" : {
+				"Client" : "Client",
+				"Admin" : "Admin",
+				"chef" : "Chef",
+				"delivreur" : "Livreur"
+			},
+			"notification_placegholder" : "Désolé l'utilisateur saisi n'a pas pu être atteint."
 		}
 	},
 	"en": {
@@ -813,6 +839,32 @@
 
 			"result_note": "Our suggestion for you tonight. Buon appetito!",
 			"restart": "Choose something else"
+		},
+		"admin" : {
+			"title" : "Administration page - L'oro di Cicerone",
+			"subtitle" : "Administration page",
+			"home_link" : "Home page",
+			"logout_link" : "Log out",
+			"user" : "Users",
+			"user-btn" : "Users",
+			"logs-btn" : "Logs",
+			"placeholder-search" : "Search for a user",
+			"clear-search-btn" : "Clear",
+			"name-placeholder" : "User name",
+			"ID" : "ID",
+			"status" : "Statut",
+			"last-login" : "Last login",
+			"actions" : {
+				"block" : "Block",
+				"unblock" : "Unblock"
+			},
+			"role" : {
+				"Client" : "Customer",
+				"Admin" : "Admin",
+				"chef" : "Chef",
+				"delivreur" : "Delivery person"
+			},
+			"notification_placegholder" : "Sorry, we were unable to load this user."
 		}
 	}
 }

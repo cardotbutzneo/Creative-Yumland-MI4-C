@@ -23,7 +23,7 @@ if (isset($_POST["nvRole"])){
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang=<?= $isFrench ? "fr" : "en" ?>>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,15 +32,15 @@ if (isset($_POST["nvRole"])){
     <link rel="stylesheet" href="style/notification.css">
     <script src="../script.js" defer></script>
     <script src="../javascript/admin.js" defer></script>
-    <title>Profil Admin - L'oro di Cicerone</title>
+    <title><?= $text["admin"]["title"] ?></title>
 </head>
 <body>
     <header>
         <a href="index.php"><h1>L'oro di Cicerone</h1></a>
         <nav>
             <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="deconnexion.php">se déconnecter</a></li>
+                <li><a href="index.php"> <?= $text["admin"]["home_link"] ?> </a></li>
+                <li><a href="deconnexion.php"><?= $text["admin"]["logout_link"] ?></a></li>
             </ul>
         </nav>
     </header>
@@ -50,7 +50,7 @@ if (isset($_POST["nvRole"])){
             <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
         </div>
         <p class="notification-body">
-            Désolé l'utilisateur saisi n'a pas pu être atteint.
+            <?= $text["admin"]["notification_placegholder"] ?>
         </p>
         <div class="notification-barre">
             <div class="notification-barre-fill"></div>
@@ -62,39 +62,39 @@ if (isset($_POST["nvRole"])){
             document.getElementById('notification').style.display = "block";
         </script>
     <?php } ?>
-    <h1>Page d'administration</h1>
+    <h1><?= $text["admin"]["subtitle"] ?></h1>
     <div id="button-display">
         <div id="btn">
-            <button id="user" onclick="afficher('user-display', this)">Utilisateurs</button>
-            <button id="logs" onclick="afficher('logs-display', this)">Logs</button>
+            <button id="user" onclick="afficher('user-display', this)"><?= $text["admin"]["user-btn"] ?></button>
+            <button id="logs" onclick="afficher('logs-display', this)"><?= $text["admin"]["logs-btn"] ?></button>
         </div>
         <div id="log-container" style="display: none;"> 
             <select id="choix-log" class="bar-recherche" placeholder="Trie des logs" onchange="trieLog()">
-                <option value="all">Tous les logs</option>
-                <option value="info">Informations (INFO)</option>
-                <option value="warning">Avertissements (WARNING)</option>
-                <option value="critical">Critique (CRITICAL)</option>
+                <option value="all"><?= $isFrench ? "Tous les logs" : "All logs" ?></option>
+                <option value="info"><?= $isFrench ? "Informations (INFO)" : "Informations" ?></option>
+                <option value="warning"><?= $isFrench ? "Avertissements (WARNING)" : "Warning" ?></option>
+                <option value="critical"><?= $isFrench ? "Critique (CRITICAL)" : "Critical" ?></option>
             </select>
-            <button onclick="document.getElementById('choix-log').value = 'all'; trieLog()">Supprimer</button>
+            <button onclick="document.getElementById('choix-log').value = 'all'; trieLog()"><?= $text["admin"]["clear-search-btn"] ?></button>
         </div>
     </div>
     <div class="box">
         <section class="table-utilisateur" id="user-display">
-            <h2>Utilisateurs</h2>
+            <h2><?= $text["admin"]["user"] ?></h2>
             <form action="profil_admin.php" method="get">
-            <input list="data-recherche" type="text" name="recherche" id="bar-recherche" placeholder="Rechercher un utilisateur" onchange="chercherUtilisateur(this.value)">    
+            <input list="data-recherche" type="text" name="recherche" id="bar-recherche" placeholder='<?= $text["admin"]["placeholder-search"] ?>' onchange="chercherUtilisateur(this.value)">    
             <datalist id="data-recherche">
 
             </datalist>
-            <button type="button" onclick="document.getElementById('bar-recherche').value = ''; chercherUtilisateur('')">Effacer</button>
+            <button type="button" onclick="document.getElementById('bar-recherche').value = ''; chercherUtilisateur('')"><?= $text["admin"]["clear-search-btn"] ?></button>
             </form> 
             <table>
                 <tr>
-                    <th>Nom d'utilisateur</th>
-                    <th>Identifiant</th>
-                    <th>Statut</th>
-                    <th>Dernière date de connexion</th>
-                    <th>Bloquer</th>
+                    <th><?= $text["admin"]["name-placeholder"] ?></th>
+                    <th><?= $text["admin"]["ID"] ?></th>
+                    <th><?= $text["admin"]["status"] ?></th>
+                    <th><?= $text["admin"]["last-login"] ?></th>
+                    <th><?= $text["admin"]["actions"]["block"] ?></th>
                 </tr>
                 <?php 
                 foreach ($data_client as $client => $info){
@@ -104,8 +104,8 @@ if (isset($_POST["nvRole"])){
                     if ($roleActuel == "Client") $ref = "profil_client.php";
                     if ($roleActuel == "Cuisinier") $ref = "commandes.php";
                     if ($roleActuel == "livreur") $ref = "livraison.php";
-                    if ($info["securite"]["est_banni"] == false) $value = 'Bloquer';
-                    else if ($info["securite"]["est_banni"] == true) $value = 'Débloquer';
+                    if ($info["securite"]["est_banni"] == false) $value = $text["admin"]["actions"]["block"];
+                    else if ($info["securite"]["est_banni"] == true) $value = $text["admin"]["actions"]["unblock"];
                     ?>
                         <tr class="utilisateur" data-mail="<?=$client?>">
                             <form method='POST'>
@@ -113,10 +113,10 @@ if (isset($_POST["nvRole"])){
                                 <td> <?= $i ?><input type='hidden' name='id_utilisateur' value= <?=$i?>></td>
                                 <td>   
                                     <select name='role' id="role" onchange="changerRole('<?= $client?>',this)">
-                                        <option value='Client' <?= ($roleActuel == 'Client' ? 'selected' : '') ?>>Client</option>
-                                        <option value='livreur' <?= ($roleActuel == 'livreur' ? 'selected' : '') ?>>Livreur</option>
-                                        <option value='Cuisinier' <?= ($roleActuel == 'Cuisinier' ? 'selected' : '') ?>>Cuisinier</option>
-                                        <option value='admin' <?= ($roleActuel == 'admin' ? 'selected' : '') ?>>Administrateur</option>
+                                        <option value='Client' <?= ($roleActuel == 'Client' ? 'selected' : '') ?>><?= $text["admin"]["role"]["Client"] ?></option>
+                                        <option value='livreur' <?= ($roleActuel == 'livreur' ? 'selected' : '') ?>><?= $text["admin"]["role"]["delivreur"] ?></option>
+                                        <option value='Cuisinier' <?= ($roleActuel == 'Cuisinier' ? 'selected' : '') ?>><?= $text["admin"]["role"]["chef"] ?></option>
+                                        <option value='admin' <?= ($roleActuel == 'admin' ? 'selected' : '') ?>><?= $text["admin"]["role"]["Admin"] ?></option>
                                     </select>
                                 </td>
                                 <td> <?= $info["securite"]["derniere_connexion"] ?></td>

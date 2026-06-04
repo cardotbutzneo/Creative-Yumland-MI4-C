@@ -130,15 +130,18 @@ require_once __DIR__."/../api/config.php";
         /**
          * Retourne un tableau avec la liste des jours de la semaine en fonction du pays
          */
-        const baseDate = new Date(2026, 5, 1);
-
         const joursDeLaSemaine = [];
 
         const parametresURL = new URLSearchParams(window.location.search);
         const langue_autorisée = ['fr', 'fr-FR', 'en', 'en-US', 'en-GB', 'es', 'es-ES'];
-        let langue = parametresURL.get('lg'); // langue récupérer depuis l'URL
+        let langue = parametresURL.get('lang'); // langue récupérer depuis l'URL
         if (!langue_autorisée.includes(langue)) langue = 'en-US'; // en-US par défaut.
         const formateur = new Intl.DateTimeFormat( langue, { weekday: 'long' }); 
+
+        let jourDepart = 1; // lundi par défaut
+        if (langue == "en-US" ||langue == "en") jourDepart = 0; // le dimanche
+
+        const baseDate = new Date(2026, 4, 31 + jourDepart);
 
         for (let i = 0; i < 7; i++) {
             const jourCourant = new Date(baseDate);
@@ -146,7 +149,7 @@ require_once __DIR__."/../api/config.php";
             
             joursDeLaSemaine.push(formateur.format(jourCourant));
         }
-
+        console.log(joursDeLaSemaine);
         return joursDeLaSemaine;
     }
 
@@ -161,6 +164,7 @@ require_once __DIR__."/../api/config.php";
         const selectElement = document.getElementById("horaire-select");
         const jourElement = document.getElementById("jour-select");
         selectElement.innerHTML = "";
+        jourElement.innerHTML = "";
 
         services.forEach(service => {
             const heures = service.split(":");
