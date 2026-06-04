@@ -1,7 +1,7 @@
 # Creative-Yumland-MI4-C
 
 
-# 🍜🍝 Creative-Yumland
+# 🍝 Creative-Yumland
 Deuxième année de Pré-Ingénieur CY Tech, Semestre 4 2025-2026
 
 ## 👥 Collaborateur :
@@ -16,7 +16,6 @@ Deuxième année de Pré-Ingénieur CY Tech, Semestre 4 2025-2026
 ## :gear: Description
 Ce projet vise à recréer un site complet d'un ou d'une chaine de restaurant.
 L'objectif est de gérer à la fois les clients, le personnels et les livreurs.
-Par conséquent le site doit être responsive. 
 
 ## :toolbox: Prérequis
 - internet (facultatif)
@@ -40,6 +39,7 @@ php -S localhost:7180
 Tous les emails sont suivies de @gmail.com
 - Client : client1 : 1234
 - Client : client2 : motdepasse
+- Client : test : 1234 *(test version)*
 - Cuisinier : cuisinier1 : 1234
 - Livreur : livreur1 : 1234
 - Admin : admin1 : 1234
@@ -49,9 +49,15 @@ Pour vous connecter il suffit d'aller sur la page de connexion, qui vous redirig
 
 Pour lancer le php :
 ````bash
-php -S localhost:7180
+php -S localhost:7180 api/routeur.php
 ````
 puis dans la bare d'ip du navigateur
 ````html
-localhost:7180/html/index.php
+localhost:7180
 ````
+
+Nouveauté :
+- Le serveur dispose maintenant d'un gestion de la maintenance.
+Pour l'activer, passez en true la variable $maintenance pour que toutes les requètes soit redirigé vers la page de maintenance.
+- 🇬🇧 Good news : our site has been translated into English for your convenience.
+
