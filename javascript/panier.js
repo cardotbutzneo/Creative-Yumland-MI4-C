@@ -1,11 +1,11 @@
 function calculerTout() { // Fonction principale qui calcule tous les montants du panier
     let total = 0; 
-    document.querySelectorAll('.mc-item').forEach(function(elt) { // Parcours de tous les articles du panier
+    document.querySelectorAll('.item').forEach(function(elt) { // Parcours de tous les articles du panier
         const prix = parseInt(elt.getAttribute("data-prix"));
         const qte = parseInt(elt.querySelector('.qte-nb').innerText);
         const sousTotal = prix * qte;
         total += sousTotal;
-        elt.querySelector('.mc-item-subtotal').innerText = sousTotal + "€";
+        elt.querySelector('.item-soustot').innerText = sousTotal + "€";
     });
 
     document.getElementById('display-total').innerText = total + "€"; // Mise à jour de l’affichage du total général
@@ -42,22 +42,39 @@ function calculerTout() { // Fonction principale qui calcule tous les montants d
     }
 }
 
-function modifierQte(btn, delta) { // Fonction permettant de modifier la quantité d’un article
+function supprimerLigne(btn) { // Supprime un article du panier
+    const item = btn.closest('.item');
+    const cle = item.dataset.cle;
+    item.remove();
+    fetch('panier.php?action=supprimer&id=' + encodeURIComponent(cle)); // Suppression côté serveur
+    if (document.querySelectorAll('.item').length === 0) { // Si le panier est vide, affichage du message
+        document.getElementById('panier-contenu').style.display = 'none';
+        document.getElementById('panier-vide').style.display = '';
+    } else {
+        calculerTout();
+    }
+}
+ 
+function modifierQte(btn, delta) { // Fonction permettant de modifier la quantité d'un article
     const span = btn.parentElement.querySelector('.qte-nb');
-    const cle = btn.closest('.mc-item').dataset.cle;
+    const cle = btn.closest('.item').dataset.cle;
     let qte = parseInt(span.innerText) + delta;
-
     if (qte > 0) { // Si la quantité est supérieure à 0
         span.innerText = qte;
         fetch('panier.php?action=set_qte&id=' + encodeURIComponent(cle) + '&qte=' + qte); // Mise à jour de la quantité côté serveur
     } else { // Si la quantité est de 0 ou moins
         if (confirm("Retirer ce plat du panier ?")) {
-            btn.closest('.mc-item').remove();
+            btn.closest('.item').remove();
             fetch('panier.php?action=supprimer&id=' + encodeURIComponent(cle));
+            if (document.querySelectorAll('.item').length === 0) { // Si le panier est vide, affichage du message
+                document.getElementById('panier-contenu').style.display = 'none';
+                document.getElementById('panier-vide').style.display = '';
+            }
         }
     }
     calculerTout(); // Recalcul des montants après modification
 }
+
 
 function initCompteurInstructions() { // Fonction permettant d’initialiser le compteur de caractères
     const textarea = document.getElementById("instructions");

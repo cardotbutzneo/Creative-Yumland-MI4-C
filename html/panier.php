@@ -171,14 +171,15 @@ $minDateTime = date("Y-m-d\TH:i");
     </header>
     <main>
         <h2><?= $text["panier"]["page_title"] ?></h2>
-        <?php if (count($articles) === 0){ ?>
+        <div id="panier-vide" <?= count($articles) > 0 ? 'style="display:none"' : '' ?>>
             <p><?= $text["panier"]["empty_cart"] ?></p>
             <a href="presentation.php"><?= $text["panier"]["see_menu"] ?></a>
-        <?php } else { ?>
+        </div>
+        <div id="panier-contenu" <?= count($articles) === 0 ? 'style="display:none"' : '' ?>>
             <section class="rectangle">
                 <ul>
                     <?php foreach ($articles as $cle => $article){ ?>
-                    <li class="mc-item"
+                    <li class="item"
                         data-prix="<?= (int)$article["prix"] ?>"
                         data-cle="<?= htmlspecialchars($cle) ?>">
                         <div class="ligne">
@@ -187,14 +188,14 @@ $minDateTime = date("Y-m-d\TH:i");
                             <?php } else { ?>
                                 <span class="nom"><?= htmlspecialchars($article["nom_eng"]) ?></span>
                             <?php } ?>
-                            <span class="prix mc-item-subtotal"><?= $article["prix"] * $article["quantite"] ?>€</span>
+                            <span class="prix item-soustot"><?= $article["prix"] * $article["quantite"] ?>€</span>
                         </div>
                         <div class="quantite">
                             <button type="button" class="btn-qte" onclick="modifierQte(this, -1)">-</button>
                             <span class="qte-nb"><?= $article["quantite"] ?></span>
                             <button type="button" class="btn-qte" onclick="modifierQte(this, 1)">+</button>
                             <span class="unitaire"><?= $article["prix"] ?>€ / <?= $text["panier"]["unit"] ?></span>
-                            <a class="btn-supp" href="panier.php?action=supprimer&id=<?= urlencode($cle) ?>"><?= $text["panier"]["delete"] ?></a>
+                            <button type="button" class="btn-supp" onclick="supprimerLigne(this)"><?= $text["panier"]["delete"] ?></button>
                         </div>
                     </li>
                     <?php } ?>
@@ -249,7 +250,6 @@ $minDateTime = date("Y-m-d\TH:i");
                     <button type="submit"><?= $text["panier"]["validate_cart"] ?></button>
                 </div>
             </form>
-        <?php } ?>
     </main>
     <footer>
         <p><?= $text["index"]["footer_rights"] ?></p>
