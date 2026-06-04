@@ -353,6 +353,58 @@
 			"redirect": "Vous allez être redirigé vers la page d'accueil d'ici quelques instants...",
 			"add_reservation": "Ajouter ma réservation à mon agenda",
 			"redirect_link": "Cliquez ici si la redirection ne marche pas"
+		},
+		"chatbot": {
+			"aria_open": "Ouvrir le conseiller de table",
+			"aria_dialog": "Conseiller de table",
+			"header_subtitle": "Votre conseiller de table",
+
+			"start_q": "Bonsoir ! Permettez-moi de vous guider dans votre choix ce soir. Que souhaitez-vous ?",
+			"starter": "Entrée",
+			"main": "Plat",
+			"dessert": "Dessert",
+			"drink": "Boisson",
+
+			"starter_q1": "Préférez-vous une entrée végétarienne ?",
+			"starter_q2": "Vous avez envie de quelque chose de léger ou de plus consistant ?",
+
+			"main_q1": "Préférez-vous un plat végétarien ?",
+			"main_q2": "Quel type de plat vous fait envie ?",
+			"main_q3": "Vous cherchez quelque chose de…",
+
+			"dessert_q1": "Préférez-vous un dessert accompagné de café ?",
+			"dessert_q2": "Vous avez plutôt envie de quelque chose de…",
+
+			"drink_q1": "Souhaitez-vous une boisson alcoolisée ?",
+			"wine_q": "Quel style de vin vous tente ce soir ?",
+			"coffee_q": "Quel type de café préférez-vous ?",
+
+			"yes": "Oui",
+			"no": "Non",
+			"no_preference": "Sans préférence",
+			"light": "Léger",
+			"more_filling": "Plus consistant",
+			"pasta_rice": "Pâtes / riz",
+			"pizza": "Pizza",
+			"simple": "Simple / classique",
+			"premium": "Raffiné / premium",
+			"fresh": "Léger / frais",
+			"creamy": "Crémeux / gourmand",
+			"wine": "Oui, un vin",
+			"coffee": "Non, un café",
+			"light_wine": "Léger et frais",
+			"strong_wine": "Corsé et intense",
+			"short_intense": "Court et intense",
+			"sweet_milk": "Doux et lacté",
+
+			"cat_starter": "Entrée",
+			"cat_main": "Plat",
+			"cat_dessert": "Dessert",
+			"cat_wine": "Boisson · Vin",
+			"cat_coffee": "Boisson · Café",
+
+			"result_note": "Notre suggestion pour vous ce soir. Buon appetito !",
+			"restart": "Choisir autre chose"
 		}
 	},
 	"en": {
@@ -709,6 +761,58 @@
 			"redirect": "You will be redirected to the home page in a few moments...",
 			"add_reservation": "Add my reservation to my calendar",
 			"redirect_link": "Click here if the redirect does not work"
+		},
+		"chatbot": {
+			"aria_open": "Open the table advisor",
+			"aria_dialog": "Table advisor",
+			"header_subtitle": "Your table advisor",
+
+			"start_q": "Good evening! Let me guide you through tonight's choices. What would you like?",
+			"starter": "Starter",
+			"main": "Main course",
+			"dessert": "Dessert",
+			"drink": "Drink",
+
+			"starter_q1": "Would you prefer a vegetarian starter?",
+			"starter_q2": "Would you like something light or more filling?",
+
+			"main_q1": "Would you prefer a vegetarian main course?",
+			"main_q2": "What kind of dish are you in the mood for?",
+			"main_q3": "Are you looking for something…",
+
+			"dessert_q1": "Would you like a dessert with coffee?",
+			"dessert_q2": "Are you more in the mood for something…",
+
+			"drink_q1": "Would you like an alcoholic drink?",
+			"wine_q": "What style of wine would you like tonight?",
+			"coffee_q": "What type of coffee do you prefer?",
+
+			"yes": "Yes",
+			"no": "No",
+			"no_preference": "No preference",
+			"light": "Light",
+			"more_filling": "More filling",
+			"pasta_rice": "Pasta / rice",
+			"pizza": "Pizza",
+			"simple": "Simple / classic",
+			"premium": "Refined / premium",
+			"fresh": "Light / fresh",
+			"creamy": "Creamy / indulgent",
+			"wine": "Yes, wine",
+			"coffee": "No, coffee",
+			"light_wine": "Light and fresh",
+			"strong_wine": "Full-bodied and intense",
+			"short_intense": "Short and intense",
+			"sweet_milk": "Smooth and milky",
+
+			"cat_starter": "Starter",
+			"cat_main": "Main course",
+			"cat_dessert": "Dessert",
+			"cat_wine": "Drink · Wine",
+			"cat_coffee": "Drink · Coffee",
+
+			"result_note": "Our suggestion for you tonight. Buon appetito!",
+			"restart": "Choose something else"
 		}
 	}
 }

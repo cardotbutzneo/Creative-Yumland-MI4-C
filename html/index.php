@@ -5,7 +5,7 @@ require_once __DIR__."/../api/config.php";
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php if ($isFrench) echo "fr"; else echo "en"; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@ require_once __DIR__."/../api/config.php";
             <button class="notification-close" onclick="this.closest('.notification').style.display='none'">✕</button>
         </div>
         <p class="notification-body">
-            Votre inscription a bien été réalisée.
+            <?php if ($isFrench) echo "Votre inscription a bien été réalisée."; else echo "Your registration has been completed successfully."; ?>
         </p>
         <div class="notification-barre">
             <div class="notification-barre-fill"></div>
@@ -69,7 +69,7 @@ require_once __DIR__."/../api/config.php";
 
 <section class="section-light">
     <div class="experience">
-        <img src="style/img/tour Eiffel.jpg" alt="Restaurant dans la Tour Eiffel">
+        <img src="style/img/tour Eiffel.jpg" alt="<?php if ($isFrench) echo "Restaurant dans la Tour Eiffel"; else echo "Restaurant inside the Eiffel Tower"; ?>">
         <div>
             <h3><?= $text["index"]["experience_title"] ?></h3>
             <p>
@@ -87,7 +87,7 @@ require_once __DIR__."/../api/config.php";
                 <?= $text["index"]["chef_text"] ?>
             </p>
         </div>
-        <img src="style/img/chef.png" alt="Chef étoilé">
+        <img src="style/img/chef.png" alt="<?php if ($isFrench) echo "Chef étoilé"; else echo "Starred chef"; ?>">
     </div>
 </section>
 
@@ -101,6 +101,12 @@ require_once __DIR__."/../api/config.php";
     <a href="contact.php"><?= $text["index"]["footer_contact"] ?></a><span> |</span>
     <a href="condition_generale.php"><?= $text["index"]["footer_privacy"] ?></a>
 </footer>
+
+<script>
+    window.CHATBOT_TEXT = <?= json_encode($text["chatbot"] ?? [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+    window.PLATS_TEXT = <?= json_encode($data_plats, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+    window.IS_FRENCH = <?= $isFrench ? "true" : "false" ?>;
+</script>
 <script src="../javascript/chatbot.js"></script>
 </body>
 </html>

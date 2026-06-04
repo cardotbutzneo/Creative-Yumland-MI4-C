@@ -13,33 +13,46 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
 « Choisir autre chose » réinitialise entièrement la conversation.
  */
 (function () {
+  const TXT = window.CHATBOT_TEXT || {};
+  const PLATS = window.PLATS_TEXT || {};
+  const IS_FRENCH = window.IS_FRENCH !== false;
+
+  function t(key, fallback) {
+    return TXT[key] || fallback;
+  }
+
+  function nomPlat(nom) {
+    if (!PLATS[nom]) return nom;
+    return IS_FRENCH ? PLATS[nom].nom : (PLATS[nom].nom_eng || PLATS[nom].nom);
+  }
+
   //arbre de décision
   const FLOW = {
     start: {
-      q: "Bonsoir ! Permettez-moi de vous guider dans votre choix ce soir. Que souhaitez-vous ?",
+      q: t("start_q", "Bonsoir ! Permettez-moi de vous guider dans votre choix ce soir. Que souhaitez-vous ?"),
       opts: [
-        { label: "Entrée", next: "entree_q1" },
-        { label: "Plat", next: "plat_q1" },
-        { label: "Dessert", next: "dessert_q1" },
-        { label: "Boisson", next: "boisson_q1" }
+        { label: t("starter", "Entrée"), next: "entree_q1" },
+        { label: t("main", "Plat"), next: "plat_q1" },
+        { label: t("dessert", "Dessert"), next: "dessert_q1" },
+        { label: t("drink", "Boisson"), next: "boisson_q1" }
       ]
     },
 
     //Entrées
     entree_q1: {
-      q: "Préférez-vous une entrée végétarienne ?",
+      q: t("starter_q1", "Préférez-vous une entrée végétarienne ?"),
       opts: [
-        { label: "Oui", val: "a", next: "entree_q2" },
-        { label: "Non", val: "b", next: "entree_q2" },
-        { label: "Sans préférence", val: "c", next: "entree_q2" }
+        { label: t("yes", "Oui"), val: "a", next: "entree_q2" },
+        { label: t("no", "Non"), val: "b", next: "entree_q2" },
+        { label: t("no_preference", "Sans préférence"), val: "c", next: "entree_q2" }
       ]
     },
     entree_q2: {
-      q: "Vous avez envie de quelque chose de léger ou de plus consistant ?",
+      q: t("starter_q2", "Vous avez envie de quelque chose de léger ou de plus consistant ?"),
       opts: [
-        { label: "Léger", val: "a" },
-        { label: "Plus consistant", val: "b" },
-        { label: "Sans préférence", val: "c" }
+        { label: t("light", "Léger"), val: "a" },
+        { label: t("more_filling", "Plus consistant"), val: "b" },
+        { label: t("no_preference", "Sans préférence"), val: "c" }
       ],
       // ans = concaténation des val choisies à chaque étape (ex: "ab" = végétarien + consistant)
       // la map associe chaque combinaison de lettres à un plat recommandé
@@ -49,34 +62,34 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
           ba: "Carpaccio", bb: "Focaccia", bc: "Carpaccio",
           ca: "Carpaccio", cb: "Focaccia", cc: "Burrata"
         };
-        return { dish: map[ans], cat: "Entrée" };
+        return { dish: map[ans], cat: t("cat_starter", "Entrée") };
         // retourne un objet avec le nom du plat et la catégorie pour l'affichage de la carte résultat
       }
     },
 
     //Plats
     plat_q1: {
-      q: "Préférez-vous un plat végétarien ?",
+      q: t("main_q1", "Préférez-vous un plat végétarien ?"),
       opts: [
-        { label: "Oui", val: "a", next: "plat_q2" },
-        { label: "Non", val: "b", next: "plat_q2" },
-        { label: "Sans préférence", val: "c", next: "plat_q2" }
+        { label: t("yes", "Oui"), val: "a", next: "plat_q2" },
+        { label: t("no", "Non"), val: "b", next: "plat_q2" },
+        { label: t("no_preference", "Sans préférence"), val: "c", next: "plat_q2" }
       ]
     },
     plat_q2: {
-      q: "Quel type de plat vous fait envie ?",
+      q: t("main_q2", "Quel type de plat vous fait envie ?"),
       opts: [
-        { label: "Pâtes / riz", val: "a", next: "plat_q3" },
-        { label: "Pizza", val: "b", next: "plat_q3" },
-        { label: "Sans préférence", val: "c", next: "plat_q3" }
+        { label: t("pasta_rice", "Pâtes / riz"), val: "a", next: "plat_q3" },
+        { label: t("pizza", "Pizza"), val: "b", next: "plat_q3" },
+        { label: t("no_preference", "Sans préférence"), val: "c", next: "plat_q3" }
       ]
     },
     plat_q3: {
-      q: "Vous cherchez quelque chose de…",
+      q: t("main_q3", "Vous cherchez quelque chose de…"),
       opts: [
-        { label: "Simple / classique", val: "a" },
-        { label: "Raffiné / premium", val: "b" },
-        { label: "Sans préférence", val: "c" }
+        { label: t("simple", "Simple / classique"), val: "a" },
+        { label: t("premium", "Raffiné / premium"), val: "b" },
+        { label: t("no_preference", "Sans préférence"), val: "c" }
       ],
       // ans = clé à 3 lettres
       // la map couvre toutes les combinaisons possibles
@@ -85,32 +98,32 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
           aaa: "Pâtes au pesto", aab: "Risotto", aac: "Pâtes au pesto",
           aba: "Pizza Burrata", abb: "Pizza Burrata", abc: "Pizza Burrata",
           aca: "Pâtes au pesto", acb: "Risotto", acc: "Risotto",
-          baa: "Lasagne", bab: "Pâtes aux gambas", bac: "Lasagne",
+          baa: "Lasagne dorée", bab: "Pâtes aux gambas", bac: "Lasagne dorée",
           bba: "Pizza Truffe", bbb: "Pizza Cicerone", bbc: "Pizza Truffe",
-          bca: "Lasagne", bcb: "Pizza Cicerone", bcc: "Pizza Truffe",
-          caa: "Pâtes au pesto", cab: "Pâtes aux gambas", cac: "Lasagne",
+          bca: "Lasagne dorée", bcb: "Pizza Cicerone", bcc: "Pizza Truffe",
+          caa: "Pâtes au pesto", cab: "Pâtes aux gambas", cac: "Lasagne dorée",
           cba: "Pizza Burrata", cbb: "Pizza Cicerone", cbc: "Pizza Truffe",
-          cca: "Lasagne", ccb: "Pizza Cicerone", ccc: "Risotto"
+          cca: "Lasagne dorée", ccb: "Pizza Cicerone", ccc: "Risotto"
         };
-        return { dish: map[ans], cat: "Plat" };
+        return { dish: map[ans], cat: t("cat_main", "Plat") };
       }
     },
 
     //Desserts
     dessert_q1: {
-      q: "Préférez-vous un dessert accompagné de café ?",
+      q: t("dessert_q1", "Préférez-vous un dessert accompagné de café ?"),
       opts: [
-        { label: "Oui", val: "a", next: "dessert_q2" },
-        { label: "Non", val: "b", next: "dessert_q2" },
-        { label: "Sans préférence", val: "c", next: "dessert_q2" }
+        { label: t("yes", "Oui"), val: "a", next: "dessert_q2" },
+        { label: t("no", "Non"), val: "b", next: "dessert_q2" },
+        { label: t("no_preference", "Sans préférence"), val: "c", next: "dessert_q2" }
       ]
     },
     dessert_q2: {
-      q: "Vous avez plutôt envie de quelque chose de…",
+      q: t("dessert_q2", "Vous avez plutôt envie de quelque chose de…"),
       opts: [
-        { label: "Léger / frais", val: "a" },
-        { label: "Crémeux / gourmand", val: "b" },
-        { label: "Sans préférence", val: "c" }
+        { label: t("fresh", "Léger / frais"), val: "a" },
+        { label: t("creamy", "Crémeux / gourmand"), val: "b" },
+        { label: t("no_preference", "Sans préférence"), val: "c" }
       ],
       resolve: function (ans) {
         let map = {
@@ -118,45 +131,45 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
           ba: "Panna cotta", bb: "Panna cotta", bc: "Panna cotta",
           ca: "Affogato", cb: "Tiramisu", cc: "Panna cotta"
         };
-        return { dish: map[ans], cat: "Dessert" };
+        return { dish: map[ans], cat: t("cat_dessert", "Dessert") };
       }
     },
 
     //Boissons
     boisson_q1: {
-      q: "Souhaitez-vous une boisson alcoolisée ?",
+      q: t("drink_q1", "Souhaitez-vous une boisson alcoolisée ?"),
       opts: [
-        { label: "Oui, un vin", val: "a", next: "boisson_vin"  },
-        { label: "Non, un café", val: "b", next: "boisson_cafe" },
-        { label: "Sans préférence", val: "c", next: "boisson_vin"  }
+        { label: t("wine", "Oui, un vin"), val: "a", next: "boisson_vin"  },
+        { label: t("coffee", "Non, un café"), val: "b", next: "boisson_cafe" },
+        { label: t("no_preference", "Sans préférence"), val: "c", next: "boisson_vin"  }
       ]
     },
     boisson_vin: {
-      q: "Quel style de vin vous tente ce soir ?",
+      q: t("wine_q", "Quel style de vin vous tente ce soir ?"),
       opts: [
-        { label: "Léger et frais", val: "a" },
-        { label: "Corsé et intense", val: "b" },
-        { label: "Sans préférence", val: "c" }
+        { label: t("light_wine", "Léger et frais"), val: "a" },
+        { label: t("strong_wine", "Corsé et intense"), val: "b" },
+        { label: t("no_preference", "Sans préférence"), val: "c" }
       ],
       //ans.slice(-1) récupère uniquement la dernière lettre accumulée car seul le dernier choix détermine le résultat ici
       resolve: function (ans) {
         let last = ans.slice(-1);
-        let map = { a: "Etto Germano (Rosé)", b: "Giacomo Boveri (Rouge)", c: "Albino Rocca (Blanc)" };
-        return { dish: map[last], cat: "Boisson · Vin" };
+        let map = { a: "Etto Germano", b: "Giacomo Boveri", c: "Albino Rocca" };
+        return { dish: map[last], cat: t("cat_wine", "Boisson · Vin") };
       }
     },
     boisson_cafe: {
-      q: "Quel type de café préférez-vous ?",
+      q: t("coffee_q", "Quel type de café préférez-vous ?"),
       opts: [
-        { label: "Court et intense", val: "a" },
-        { label: "Doux et lacté", val: "b" },
-        { label: "Sans préférence", val: "c" }
+        { label: t("short_intense", "Court et intense"), val: "a" },
+        { label: t("sweet_milk", "Doux et lacté"), val: "b" },
+        { label: t("no_preference", "Sans préférence"), val: "c" }
       ],
       // même logique que boisson_vin -> seule la dernière lettre compte pour le café
       resolve: function (ans) {
         let last = ans.slice(-1);
         let map = { a: "Espresso", b: "Latte macchiato", c: "Latte macchiato" };
-        return { dish: map[last], cat: "Boisson · Café" };
+        return { dish: map[last], cat: t("cat_coffee", "Boisson · Café") };
       }
     }
   };
@@ -184,7 +197,7 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
     //créer un div temporaire pour y insérer le HTML via innerHTML
     let el = document.createElement("div");
     el.innerHTML = [
-      '<button id="chatbot-toggle" aria-label="Ouvrir le conseiller de table">',
+      '<button id="chatbot-toggle" aria-label="' + esc(t("aria_open", "Ouvrir le conseiller de table")) + '">',
         '<svg class="icon-chat" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">',
           '<path d="M20 2H4a2 2 0 00-2 2v18l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z"/>',
         '</svg>',
@@ -192,11 +205,11 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
           '<path d="M18 6L6 18M6 6l12 12" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" fill="none"/>',
         '</svg>',
       '</button>',
-      '<div id="chatbot-window" role="dialog" aria-label="Conseiller de table" aria-live="polite">',
+      '<div id="chatbot-window" role="dialog" aria-label="' + esc(t("aria_dialog", "Conseiller de table")) + '" aria-live="polite">',
         // aria-live="polite" : annonce les nouveaux messages aux lecteurs d'écran
         '<div class="cb-header">',
           '<p class="cb-header-title">L\'oro di Cicerone</p>',
-          '<p class="cb-header-sub">Votre conseiller de table</p>',
+          '<p class="cb-header-sub">' + esc(t("header_subtitle", "Votre conseiller de table")) + '</p>',
         '</div>',
         '<div class="cb-messages" id="cb-messages"></div>',
       '</div>'
@@ -285,10 +298,10 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
       // esc() protège contre l'injection HTML en cas de données inattendues dans result
       card.innerHTML = [
         '<p class="cb-result-cat">' + esc(result.cat) + '</p>', // catégorie
-        '<p class="cb-result-dish">' + esc(result.dish) + '</p>', // nom du plat recommandé
+        '<p class="cb-result-dish">' + esc(nomPlat(result.dish)) + '</p>', // nom du plat recommandé
         '<div class="cb-divider"></div>',
-        '<p class="cb-result-note">Notre suggestion pour vous ce soir. Buon appetito !</p>',
-        '<button class="cb-restart-btn">Choisir autre chose</button>'
+        '<p class="cb-result-note">' + esc(t("result_note", "Notre suggestion pour vous ce soir. Buon appetito !")) + '</p>',
+        '<button class="cb-restart-btn">' + esc(t("restart", "Choisir autre chose")) + '</button>'
       ].join("");
       // branche le redémarrage sur le bouton après que innerHTML a créé l'élément
       card.querySelector(".cb-restart-btn").addEventListener("click", restart);
@@ -377,7 +390,8 @@ Le bouton flottant permet d'ouvrir/fermer la fenêtre de chat, et un bouton
     return String(s)
       .replace(/&/g, "&amp;")  // & doit être échappé en premier pour ne pas double-échapper les suivants
       .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
   //Lancement
