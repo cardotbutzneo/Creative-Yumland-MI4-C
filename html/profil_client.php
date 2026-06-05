@@ -179,7 +179,11 @@ else if ($_SESSION["role"] == "admin"){
                     echo "<div class='cmd-bloc'>";
                         foreach ($cmd_complette["plats"] as $cat) {
                             if (isset($cat)) {
-                                echo "<li class='cmd-list'><span>" . htmlspecialchars($cat["nom"]) . " </span>";
+                                if($isFrench) {
+                                    echo "<li class='cmd-list'><span>" . htmlspecialchars($cat["nom"]) . " </span>";
+                                } else {
+                                    echo "<li class='cmd-list'><span>" . htmlspecialchars($cat["nom_eng"] ?? $cat["nom"]) . " </span>";
+                                }
                                 echo "<span>x" . htmlspecialchars($cat["quantite"]) . "</span></li>";
                             }
                             echo "<hr>";

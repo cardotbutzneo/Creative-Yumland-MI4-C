@@ -66,6 +66,12 @@ if ($is_modification) { // Cas d'une modification de commande : les données à 
 
     $transaction = substr(bin2hex(random_bytes(10)), 0, 15); // Génère un identifiant de transaction unique pour le paiement
     $articles_a_afficher = $panier["articles"]; // Articles qui seront affichés dans le récapitulatif
+    $plats_enrichis = [];
+    foreach ($articles_a_afficher as $art) {
+        $art["nom_eng"] = $catalogue_plats[$art["nom"]]["nom_eng"] ?? $art["nom"];
+        $plats_enrichis[] = $art;
+    }
+ 
     $_SESSION["commande_en_attente"] = [ // Stocke temporairement les données de la commande en session pour les récupérer après le paiement dans retour_paiement.php
         "email" => $email,
         "date" => date("Y-m-d H:i:s"),
@@ -73,7 +79,7 @@ if ($is_modification) { // Cas d'une modification de commande : les données à 
         "livraison" => ($type_raw === "livraison"),
         "est-valide" => false,
         "etat" => "en_attente",
-        "plats" => $articles_a_afficher,
+        "plats" => $plats_enrichis,
         "instructions" => $_POST["instructions"] ?? $form_data["instructions"] ?? ""
     ];
 }
@@ -111,12 +117,13 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
                     <?php if (!empty($articles_a_afficher)) { // Affiche les articles du panier ou de la commande modifiée
                         foreach ($articles_a_afficher as $art) {
                             $nom = $art["nom"];
+                            $nom_affiche = $isFrench ? $nom : ($art["nom_eng"] ?? $nom);
                             $qte = $art["quantite"];
                             $prix_u = $catalogue_plats[$nom]["prix"] ?? 0;
                             $st = $prix_u * $qte;
                     ?>
                         <tr>
-                            <td class="nom"><?= htmlspecialchars($nom) ?></td>
+                            <td class="nom"><?= htmlspecialchars($nom_affiche) ?></td>
                             <td class="qte">x <?= $qte ?></td>
                             <td class="sous-total"><?= $st ?>€</td>
                         </tr>

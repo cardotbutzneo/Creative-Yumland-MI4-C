@@ -28,7 +28,7 @@ $email = $_SESSION["email"];
 $api_key = getAPIKey($vendeur);
 
 $hash_accepted = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#accepted#");
-$hash_refused  = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#refused#");
+$hash_refused = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#refused#");
 
 $paiement_valide = false;
 $statut_reel = "denied";
@@ -131,7 +131,6 @@ if ($paiement_valide && $statut_reel === "accepted") {
             </ul>
         </nav>
     </header>
-
     <main class="status-container">
         <div class="status-card">
             <?php if (!$paiement_valide || $statut_reel === "denied") { ?>
@@ -139,7 +138,6 @@ if ($paiement_valide && $statut_reel === "accepted") {
                 <h2><?= $text["retour_paiement"]["error_title"] ?></h2>
                 <p><?= $text["retour_paiement"]["error_message"] ?></p>
                 <div class="cta"><a href="panier.php"><?= $text["retour_paiement"]["back_to_cart"] ?></a></div>
-
             <?php } elseif ($statut_reel === "refused") { ?>
                 <div class="icon error">✕</div>
                 <h2><?= $text["retour_paiement"]["refused_title"] ?></h2>
