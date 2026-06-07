@@ -224,24 +224,6 @@
         "instructions": "sans olives",
         "numero": "00000006"
     },
-    "40FC35F3": {
-        "email": "client1@gmail.com",
-        "date": "2026-06-07 10:18:20",
-        "montant": "228.00",
-        "livraison": false,
-        "est-valide": true,
-        "etat": "payee",
-        "plats": [
-            {
-                "nom": "Lasagne dorée",
-                "quantite": 3,
-                "nom_eng": "Golden Lasagna"
-            }
-        ],
-        "instructions": "",
-        "numero": "00000006",
-        "deja_modifie": true
-    },
     "C2757D30": {
         "email": "test2@gmail.com",
         "date": "2026-06-07 15:50:33",

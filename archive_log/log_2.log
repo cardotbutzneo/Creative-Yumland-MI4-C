@@ -1,0 +1,25 @@
+[38;5;208mWARNING [0m [2026-05-19 17:15:39] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 17:16:01] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 17:16:10] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[38;5;208mWARNING [0m [2026-05-19 17:16:28] -- Securite : Tentative d'accès au fichier de log parCostanzo avec le rôle Cuisinier
+[31mCRITICAL[0m [2026-05-20 20:27:24] -- Securite : Tentative d'accès au fichier de log
+[31mCRITICAL[0m [2026-05-20 20:28:44] -- Securite : Tentative d'accès au fichier de log
+[31mCRITICAL[0m [2026-05-20 20:28:56] -- Securite : Tentative d'accès aux fichiers de log
+[31mCRITICAL[0m [2026-05-20 20:30:21] -- Securite : Tentative d'accès aux fichiers de log par Gates Bill avec le rôle admin
+[38;5;208mWARNING [0m [2026-05-31 10:53:38] -- Accès non autorisé à historique_notation.php
+[38;5;208mWARNING [0m [2026-05-31 10:53:55] -- Securite : Tentative d'accès aux base de données
+[31mCRITICAL[0m [2026-05-31 13:51:01] -- Securite : Tentative d'accès aux fichiers de log par Chalamet Timothée avec le rôle Client
+[38;5;208mWARNING [0m [2026-05-31 22:37:45] -- Accès non autorisé à commandes_disponibles.php par Federico Costanzo avec le rôle Cuisinier
+[33mINFO    [0m [2026-05-31 22:40:28] -- Connexion : Mot de passe incorrect de cuisinier1@gmail.com
+[38;5;208mWARNING [0m [2026-06-01 18:47:59] -- Accès non autorisé à remerciement.php
+[38;5;208mWARNING [0m [2026-06-02 14:22:07] -- Accès non autorisé à profil_client.php
+[38;5;208mWARNING [0m [2026-06-02 17:03:25] -- Accès non autorisé à reservation.php
+[38;5;208mWARNING [0m [2026-06-02 17:07:24] -- Accès non autorisé à profil_client.php
+[38;5;208mWARNING [0m [2026-06-02 17:07:29] -- Accès non autorisé à panier.php
+[38;5;208mWARNING [0m [2026-06-02 17:07:38] -- Accès non autorisé à remerciement.php
+[38;5;208mWARNING [0m [2026-06-02 18:55:37] -- Accès non autorisé à commandes.php par Timothée Chalamet avec le rôle Client
+[38;5;208mWARNING [0m [2026-06-07 15:48:01] -- Securite : Tentative d'accès aux base de données
+[38;5;208mWARNING [0m [2026-06-07 15:48:25] -- Accès non autorisé à profil_admin.php
+[38;5;208mWARNING [0m [2026-06-07 15:48:34] -- Securite : Tentative d'accès aux base de données
+[33mINFO    [0m [2026-06-07 15:52:28] -- Connexion : Mot de passe incorrect de cuisinier1@gmail.com
+[38;5;208mWARNING [0m [2026-06-07 16:01:23] -- Accès non autorisé à profil_client.php par Sébastien Banatzailea avec le rôle livreur

@@ -3,12 +3,13 @@
  */
 
 let bouton_courant;
+var langue = document.documentElement.lang; // langue de la page, utilisée pour les traductions
 
 /** Affiche les commandes dans les différentes catégories
  * @param {Object} data - Les données des commandes
  * @param {number} n - Le nombre de commandes affichées
  */
-function renderCommandes(data, n) {
+function renderCommandes(data, n, lg) {
 	const conteneurPrincipal = document.getElementById("liste-commandes");
 	const aujourdhui = new Date();
 	conteneurPrincipal.innerHTML = "";
@@ -17,12 +18,14 @@ function renderCommandes(data, n) {
 	const nav = document.createElement("nav");
 	nav.className = "tabs-nav";
 
+	const title_category = lg.title_category;
+	console.log(title_category);
 	const categories = [
-		{ id: "payee", titre: "Payées", color: "#4CAF50" },
-		{ id: "preparation", titre: "En préparation", color: "#FF9800" },
-		{ id: "prete", titre: "Prêtes", color: "#2196F3" },
-		{ id: "differee", titre: "Différées", color: "#9C27B0" },
-		{ id: "livree", titre: "Livrées", color: "#607D8B" },
+		{ id: "payee", titre: title_category.paid, color: "#4CAF50" },
+		{ id: "preparation", titre: title_category.preparing, color: "#FF9800" },
+		{ id: "prete", titre: title_category.ready, color: "#2196F3" },
+		{ id: "differee", titre: title_category.deferred, color: "#9C27B0" },
+		{ id: "livree", titre: title_category.delivered, color: "#607D8B" },
 	];
 
 	// 2. Création des conteneurs de colonnes
@@ -66,12 +69,12 @@ function renderCommandes(data, n) {
 			affichage = "grid",
 			contenu = "",
 			affichage_date = "none";
-		if (commande.etat == "payee") action = "Accepter la commande";
+		if (commande.etat == "payee") action = action = lg.actions.accept;
 		else if (
 			commande.etat == "en preparation" &&
 			!isDifferee
 		) {
-			action = "Prendre la commande";
+			action = lg.actions.take;
 		} else if (commande.etat == "en preparation" && isDifferee) {
 			contenu = new Date(commande.date_livraison).toLocaleString();
 			affichage_date = "block";
@@ -125,7 +128,7 @@ function renderCommandes(data, n) {
 
 	categories.forEach((cat) => {
 		if (zones[cat.id].innerHTML == "")
-			zones[cat.id].innerHTML = "<p>Aucune commande en attente</p>";
+			zones[cat.id].innerHTML = "<p>" + lg.no_commande + "</p>";
 	});
 }
 
@@ -158,8 +161,10 @@ async function chargerCommandes() {
 	let n = nCmd.dataset.nb_cmd;
 	try{
 		const reponse = await fetch("../api/get_new_commande.php");
-		const data =  await reponse.json();
-		renderCommandes(data, n);
+		const data_global =  await reponse.json();
+		const data = data_global.commandes;
+		const langues = data_global.langue;
+		renderCommandes(data, n, langues[langue ?? "en"]);
 	}
 	catch (e){
 		console.log("Erreur :" + e);

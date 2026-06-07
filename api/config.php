@@ -35,6 +35,9 @@ $data_plats = lire_data("../data/plats.json");
 $data_langue = lire_data("../data/langue.json");    
 
 // Récupération du rôle de l'utilisateur
+if (isset($_SESSION["email"])){
+    $_SESSION["role"] = $data_client[$_SESSION["email"]]["role"]; // on actualise le role à chaque changement de page
+}
 $role = $_SESSION["role"];
 $_SESSION["derniere-connexion"] = time();
 

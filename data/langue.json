@@ -19,7 +19,21 @@
 			"nav_logout": "Se déconnecter",
 			"search_placeholder": "Saisir un id de commande",
 			"notification_body": "Nouvelle commande disponible.",
-			"loading": "Chargement des commandes..."
+			"loading": "Chargement des commandes...",
+			"accept_button": "Accepter la commande",
+			"title_category" : {
+				"paid": "payées",
+				"preparing": "en préparation",
+				"ready": "prêtes",
+				"deferred": "différées",
+				"delivered": "livrées"
+			},
+			"actions" : {
+				"accept" : "Accepter la commande",
+				"take" : "Prendre la commande"
+			},
+			"complentary_info" : "Complement",
+			"no_commande" : "Aucunes commandes pour l'instant"
 		},
 		"modifier_profil": {
 			"title": "Modifier le profil",
@@ -453,7 +467,20 @@
 			"nav_logout": "Log out",
 			"search_placeholder": "Enter an order id",
 			"notification_body": "New order available.",
-			"loading": "Loading orders..."
+			"loading": "Loading orders...",
+			"title_category" : {
+				"paid": "paid",
+				"preparing": "preparing",
+				"ready": "ready",
+				"deferred": "deferred",
+				"delivered": "delivered"
+			},
+			"actions" : {
+				"accept" : "Accept order",
+				"take" : "take order"
+			},
+			"complentary_info" : "Complement",
+			"no_commande" : "No orders for now"
 		},
 		"modifier_profil": {
 			"title": "Edit profile",
