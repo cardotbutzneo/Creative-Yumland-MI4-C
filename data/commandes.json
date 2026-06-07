@@ -51,7 +51,7 @@
     "D731931F": {
         "email": "client1@gmail.com",
         "date": "2026-04-03 07:59:12",
-        "montant": "278.00",
+        "montant": "316.00",
         "numero": "00000002",
         "livraison": false,
         "est-valide": true,
@@ -59,44 +59,44 @@
         "plats": [
             {
                 "nom": "Burrata",
-                "nom_eng": "Burrata",
-                "quantite": 1
+                "quantite": 1,
+                "nom_eng": "Burrata"
             },
             {
                 "nom": "Risotto",
-                "nom_eng": "Risotto",
-                "quantite": 1
+                "quantite": 1,
+                "nom_eng": "Risotto"
             },
             {
                 "nom": "Affogato",
-                "nom_eng": "Affogato",
-                "quantite": 1
+                "quantite": 1,
+                "nom_eng": "Affogato"
             },
             {
                 "nom": "Etto Germano",
-                "nom_eng": "Etto Germano",
-                "quantite": 1
+                "quantite": 1,
+                "nom_eng": "Etto Germano"
             },
             {
                 "nom": "Latte macchiato",
-                "nom_eng": "Latte macchiato",
-                "quantite": 2
+                "quantite": 2,
+                "nom_eng": "Latte macchiato"
             },
             {
                 "nom": "Pâtes aux gambas",
-                "nom_eng":"Pasta with Shrimp",
-                "quantite": 1
+                "quantite": 1,
+                "nom_eng": "Pasta with Shrimp"
             },
             {
                 "nom": "Pâtes au pesto",
-                "nom_eng": "Pasta with Pesto",
-                "quantite": 1
+                "quantite": 2,
+                "nom_eng": "Pasta with Pesto"
             }
         ],
         "instructions": "",
         "livreur": null,
         "transaction": "69cf73505ee1f",
-        "deja_modifie": true
+        "deja_modifie": false
     },
     "4FDBA8E1": {
         "email": "client2@gmail.com",

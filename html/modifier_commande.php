@@ -92,6 +92,7 @@ if (isset($_POST['json_plats'])) {
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/modifier_commande.css">
     <script>
+        const isFrench = <?= $isFrench ? 'true' : 'false' ?>;
         const TOTAL_BRUT_ORIGINAL = <?= $total_brut_original ?>;
         const MONTANT_PAYE = <?= $montant_paye ?>;
         window.addEventListener("DOMContentLoaded", function() { // Avertissement affiché au chargement de la page
@@ -111,14 +112,15 @@ if (isset($_POST['json_plats'])) {
                 <h2 class="titre"><?= $text["modifier_commande"]["page_title"] ?></h2>
                 <p class="sous-titre"><?= $text["modifier_commande"]["subtitle"] ?></p>
             </div>
-
             <div class="barre-ajout">
                 <select id="select-plat" class="select-plat-style">
                     <option value="" disabled selected><?= $text["modifier_commande"]["select_placeholder"] ?></option>
                     <?php foreach ($tous_les_plats as $nom => $p) {
                         if ($nom !== "Allergenes") { ?>
-                        <option value="<?= htmlspecialchars($nom) ?>" data-prix="<?= $p['prix'] ?>">
-                            <?= htmlspecialchars($nom) ?> - <?= $p['prix'] ?>€
+                        <option value="<?= htmlspecialchars($nom) ?>" 
+                            data-prix="<?= $p['prix'] ?>"
+                            data-nom-eng="<?= htmlspecialchars($p['nom_eng'] ?? $nom) ?>">
+                            <?= htmlspecialchars($isFrench ? $nom : ($p['nom_eng'] ?? $nom)) ?> - <?= $p['prix'] ?>€
                         </option>
                     <?php } } ?>
                 </select>
@@ -130,10 +132,11 @@ if (isset($_POST['json_plats'])) {
                 <?php foreach ($cmd["plats"] as $p_cmd) {
                     $pu = $tous_les_plats[$p_cmd['nom']]['prix'] ?? 0; ?>
                     <div class="plat-ligne"
-                         data-nom="<?= htmlspecialchars($p_cmd['nom']) ?>"
-                         data-prix="<?= $pu ?>">
+                        data-nom="<?= htmlspecialchars($p_cmd['nom']) ?>"
+                        data-nom-eng="<?= htmlspecialchars($tous_les_plats[$p_cmd['nom']]['nom_eng'] ?? $p_cmd['nom']) ?>"
+                        data-prix="<?= $pu ?>">
                         <div class="plat-haut">
-                            <span class="plat-nom"><?= htmlspecialchars($p_cmd['nom']) ?></span>
+                            <span class="plat-nom"><?= htmlspecialchars($isFrench ? $p_cmd['nom'] : ($tous_les_plats[$p_cmd['nom']]['nom_eng'] ?? $p_cmd['nom'])) ?></span>
                             <span class="plat-sous-total"><?= number_format($pu * $p_cmd['quantite'], 2) ?>€</span>
                         </div>
                         <div class="plat-bas">
@@ -163,7 +166,6 @@ if (isset($_POST['json_plats'])) {
                     <?= $text["modifier_commande"]["no_refund"] ?>
                 </p>
             </div>
-
             <form id="form-final" method="POST">
                 <input type="hidden" name="json_plats" id="input-json">
                 <input type="hidden" name="nouveau_total" id="input-total">

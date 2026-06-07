@@ -5,6 +5,8 @@ function calculerTout() {
     items.forEach(function(elt) {     // Parcours de chaque plat pour calculer son sous-total
         let prix = parseInt(elt.getAttribute("data-prix")); // Récupération du prix unitaire et de la quantité
         let qte = parseInt(elt.querySelector('.qte-nb').innerText);
+        let nomAffiche = isFrench ? elt.getAttribute("data-nom") : elt.getAttribute("data-nom-eng");
+        elt.querySelector('.plat-nom').innerText = nomAffiche;
         let sousTotal = prix * qte;
         total = total + sousTotal;
         elt.querySelector('.plat-sous-total').innerText = sousTotal + "€"; // Mise à jour de l'affichage du sous-total
@@ -15,7 +17,9 @@ function calculerTout() {
     let diff = total - TOTAL_BRUT_ORIGINAL;
 
     let nouveauMontant = MONTANT_PAYE + diff;
-    if (nouveauMontant < 0) nouveauMontant = 0;
+    if (nouveauMontant < 0){
+        nouveauMontant = 0;
+    }
     document.getElementById('display-total').innerText = nouveauMontant.toFixed(2) + "€"; // Mise à jour de l'affichage du total final
 
     let diffRow = document.getElementById('diff-row'); // Récupération des éléments d'information visuelle
@@ -24,8 +28,8 @@ function calculerTout() {
     if (diff > 0) { // Cas où un supplément doit être payé
         diffRow.style.display = "flex";
         info.style.display = "none";
-        document.getElementById('diff-label').innerText = "Supplément à régler";
-        document.getElementById('diff-amount').innerText = "+" + diff.toFixed(2) + "€"; 
+        document.getElementById('diff-label').innerText = isFrench ? "Supplément à régler" : "Additional amount to pay";
+        document.getElementById('diff-amount').innerText = ": " + diff.toFixed(2) + "€"; 
     } else if (diff < 0) { // Cas où le montant est inférieur ou égale au montant original
         diffRow.style.display = "none";
         info.style.display = "block";
@@ -43,7 +47,7 @@ function modifierQte(btn, delta) {
     if (qte > 0) { // Mis à jour de l'affichage
         span.innerText = qte;
     } else {
-        if (confirm("Retirer ce plat de la commande ?")) {
+        if (confirm(isFrench ? "Retirer ce plat de la commande ?" : "Remove this item?")) {
             btn.closest('.plat-ligne').remove();
         }
     }
@@ -52,7 +56,7 @@ function modifierQte(btn, delta) {
 
 // Fonction permettant de supprimer complètement une ligne de plat
 function supprimerLigne(btn) {
-    if (confirm("Supprimer cet article ?")) {
+    if (confirm(isFrench ? "Supprimer cet article ?" : "Remove this item?")) {
         btn.closest('.plat-ligne').remove();
         calculerTout();
     }
@@ -66,6 +70,8 @@ function ajouterPlat() {
         return;
     }
     let prix = parseInt(select.options[select.selectedIndex].getAttribute("data-prix"));
+    let nom_eng = select.options[select.selectedIndex].getAttribute("data-nom-eng");
+    let nomAffiche = isFrench ? nom : (nom_eng ?? nom);
     let list = document.getElementById('liste-commande');
     let exist = null;
     let items = list.querySelectorAll('.plat-ligne');
@@ -82,10 +88,11 @@ function ajouterPlat() {
         let div = document.createElement('div');
         div.className = "plat-ligne";
         div.setAttribute("data-nom", nom);
+        div.setAttribute("data-nom-eng", nom_eng);
         div.setAttribute("data-prix", prix);
         div.innerHTML = // Construction du contenu HTML de la ligne
             '<div class="plat-haut">' +
-                '<span class="plat-nom">' + nom + '</span>' +
+                '<span class="plat-nom">' + nomAffiche + '</span>' +
                 '<span class="plat-sous-total">' + prix + '€</span>' +
             '</div>' +
             '<div class="plat-bas">' +
@@ -95,9 +102,9 @@ function ajouterPlat() {
                         '<span class="qte-nb">1</span>' +
                         '<button type="button" onclick="modifierQte(this, 1)">+</button>' +
                     '</div>' +
-                    '<span class="hint-unite">' + prix + '€ / unité</span>' +
+                    '<span class="hint-unite">' + prix + '€/' + (isFrench ? 'unité' : 'unit') + '</span>' +
                 '</div>' +
-                '<button type="button" class="btn-retirer" onclick="supprimerLigne(this)">Retirer</button>' +
+                '<button type="button" class="btn-retirer" onclick="supprimerLigne(this)">' + (isFrench ? 'Retirer' : 'Remove') + '</button>' +
             '</div>';
         list.appendChild(div); // Ajout de la ligne dans la liste
     }
