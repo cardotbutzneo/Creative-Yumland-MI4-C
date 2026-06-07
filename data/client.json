@@ -12,22 +12,23 @@
         },
         "role": "Client",
         "dernieres_commandes": [
+            "40FC35F3",
             "D731931F",
             "CFBC2D7D"
         ],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-06-04 09:46:44",
+            "derniere_connexion": "2026-06-07 10:14:31",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "derniere_tentative": null,
             "remember_token": null,
             "remember_token_expiration": null
         },
-        "pts-fidelite": 3095,
-        "total-fidelite": 6095,
+        "pts-fidelite": 3121,
+        "total-fidelite": 6121,
         "livraison": false,
         "tel": "+33 "
     },

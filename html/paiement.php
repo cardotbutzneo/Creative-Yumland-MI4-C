@@ -150,7 +150,6 @@ $control = md5($api_key . "#" . $transaction . "#" . $montant_fmt . "#" . $vende
             <input type="hidden" name="vendeur" value="<?= $vendeur ?>">
             <input type="hidden" name="retour" value="<?= $retour ?>">
             <input type="hidden" name="control" value="<?= $control ?>">
-
             <div class="action">
                 <a href="<?= $is_modification ? 'modifier_commande.php?id=' . htmlspecialchars($id_retour) : 'panier.php' ?>"><?= $text["paiement"]["back"] ?></a>
                 <button type="submit"><?= $text["paiement"]["pay_button"] ?></button>

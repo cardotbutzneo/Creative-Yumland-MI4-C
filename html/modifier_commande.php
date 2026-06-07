@@ -41,20 +41,24 @@ if (!empty($cmd["deja_modifie"])) { // Empêche les modifications multiples
 }
 
 $total_brut_original = 0; // Calcule le total brut de la commande originale 
-foreach ($cmd["plats"] as $p) {
-    $prix_u = $tous_les_plats[$p["nom"]]["prix"] ?? 0;
-    $total_brut_original += $prix_u * $p["quantite"];
+foreach ($cmd["plats"] as $p) { // Parcourt les plats de la commande originale
+    $prix_u = $tous_les_plats[$p["nom"]]["prix"] ?? 0; // Récupère le prix unitaire du plat à partir de la liste de tous les plats
+    $total_brut_original += $prix_u * $p["quantite"]; // Ajoute le prix total de ce plat (prix unitaire x quantité) au total brut original
 }
 
 $montant_paye = (float)$cmd["montant"]; // Montant déjà payé par le client
 
 if (isset($_POST['json_plats'])) {
     $nouveaux_plats = json_decode($_POST["json_plats"], true); 
+    foreach ($nouveaux_plats as &$p) {
+        $p["nom_eng"] = $tous_les_plats[$p["nom"]]["nom_eng"] ?? $p["nom"];
+    }
+    unset($p);
 
     if (empty($nouveaux_plats)) { // Si la commande est vide après modification, on la supprime
-        unset($commandes[$id_cle]);
-        file_put_contents("../data/commandes.json", json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        header("Location: profil_client.php?info=deleted");
+        unset($commandes[$id_cle]); 
+        file_put_contents("../data/commandes.json", json_encode($commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)); 
+        header("Location: profil_client.php?info=deleted"); 
         exit;
     }
 
@@ -122,7 +126,6 @@ if (isset($_POST['json_plats'])) {
                     <span class="icone-ajout">+</span> <?= $text["modifier_commande"]["add_button"] ?>
                 </button>
             </div>
-
             <div id="liste-commande" class="liste-plats">
                 <?php foreach ($cmd["plats"] as $p_cmd) {
                     $pu = $tous_les_plats[$p_cmd['nom']]['prix'] ?? 0; ?>

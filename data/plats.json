@@ -70,7 +70,7 @@
         ],
         "disponible": true,
         "ordre_affichage": 4,
-        "nb_commandee": 2
+        "nb_commandee": 4
     },
     "Pâtes au pesto": {
         "id": 5,
@@ -110,7 +110,7 @@
     "Pizza Burrata": {
         "id": 7,
         "nom": "Pizza Burrata",
-        "nom_eng":"Pizza Burrata",
+        "nom_eng": "Pizza Burrata",
         "description": "Pizza garnie de burrata crémeuse, tomates fraîches et basilic.",
         "description_eng": "Pizza topped with creamy burrata, fresh tomatoes and basil.",
         "prix": 42,

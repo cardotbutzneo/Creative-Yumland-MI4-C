@@ -10,30 +10,37 @@
         "plats": [
             {
                 "nom": "Burrata",
+                "nom_eng": "Burrata",
                 "quantite": 1
             },
             {
                 "nom": "Pizza Cicerone",
+                "nom_eng": "Pizza Cicerone",
                 "quantite": 1
             },
             {
                 "nom": "Carpaccio",
+                "nom_eng": "Carpaccio",
                 "quantite": 1
             },
             {
                 "nom": "Risotto",
+                "nom_eng": "Risotto",
                 "quantite": 1
             },
             {
                 "nom": "Tiramisu",
+                "nom_eng": "Tiramisu",
                 "quantite": 2
             },
             {
                 "nom": "Albino Rocca",
+                "nom_eng": "Albino Rocca",
                 "quantite": 1
             },
             {
                 "nom": "Espresso",
+                "nom_eng": "Espresso",
                 "quantite": 2
             }
         ],
@@ -44,7 +51,7 @@
     "D731931F": {
         "email": "client1@gmail.com",
         "date": "2026-04-03 07:59:12",
-        "montant": "174.00",
+        "montant": "278.00",
         "numero": "00000002",
         "livraison": false,
         "est-valide": true,
@@ -52,28 +59,44 @@
         "plats": [
             {
                 "nom": "Burrata",
+                "nom_eng": "Burrata",
                 "quantite": 1
             },
             {
                 "nom": "Risotto",
+                "nom_eng": "Risotto",
                 "quantite": 1
             },
             {
                 "nom": "Affogato",
+                "nom_eng": "Affogato",
                 "quantite": 1
             },
             {
                 "nom": "Etto Germano",
+                "nom_eng": "Etto Germano",
                 "quantite": 1
             },
             {
                 "nom": "Latte macchiato",
+                "nom_eng": "Latte macchiato",
+                "quantite": 2
+            },
+            {
+                "nom": "Pâtes aux gambas",
+                "nom_eng":"Pasta with Shrimp",
+                "quantite": 1
+            },
+            {
+                "nom": "Pâtes au pesto",
+                "nom_eng": "Pasta with Pesto",
                 "quantite": 1
             }
         ],
         "instructions": "",
         "livreur": null,
-        "transaction": "69cf73505ee1f"
+        "transaction": "69cf73505ee1f",
+        "deja_modifie": true
     },
     "4FDBA8E1": {
         "email": "client2@gmail.com",
@@ -86,26 +109,32 @@
         "plats": [
             {
                 "nom": "Burrata",
+                "nom_eng": "Burrata",
                 "quantite": 1
             },
             {
-                "nom": "Lasagne aux feuilles d'or",
+                "nom": "Lasagne dorée",
+                "nom_eng": "Golden Lasagna",
                 "quantite": 2
             },
             {
                 "nom": "Albino Rocca",
+                "nom_eng": "Albino Rocca",
                 "quantite": 2
             },
             {
                 "nom": "Espresso",
+                "nom_eng": "Espresso",
                 "quantite": 1
             },
             {
                 "nom": "Pâtes au pesto",
+                "nom_eng": "Pasta with Pesto",
                 "quantite": 1
             },
             {
                 "nom": "Pâtes aux gambas",
+                "nom_eng": "Pasta with Shrimp",
                 "quantite": 1
             }
         ],
@@ -124,30 +153,37 @@
         "plats": [
             {
                 "nom": "Burrata",
+                "nom_eng": "Burrata",
                 "quantite": 1
             },
             {
                 "nom": "Albino Rocca",
+                "nom_eng": "Albino Rocca",
                 "quantite": 1
             },
             {
                 "nom": "Pâtes au pesto",
+                "nom_eng": "Pasta with Pesto",
                 "quantite": 1
             },
             {
                 "nom": "Pâtes aux gambas",
+                "nom_eng": "Pasta with Shrimp",
                 "quantite": 1
             },
             {
                 "nom": "Focaccia",
+                "nom_eng": "Focaccia",
                 "quantite": 1
             },
             {
                 "nom": "Affogato",
+                "nom_eng": "Affogato",
                 "quantite": 1
             },
             {
                 "nom": "Tiramisu",
+                "nom_eng": "Tiramisu",
                 "quantite": 1
             }
         ],
@@ -168,21 +204,42 @@
         "plats": {
             "Carpaccio": {
                 "nom": "Carpaccio",
+                "nom_eng": "Carpaccio",
                 "prix": 32,
                 "quantite": 1
             },
             "Focaccia": {
                 "nom": "Focaccia",
+                "nom_eng": "Focaccia",
                 "prix": 24,
                 "quantite": 1
             },
             "Burrata": {
                 "nom": "Burrata",
+                "nom_eng": "Burrata",
                 "prix": 29,
                 "quantite": 1
             }
         },
         "instructions": "sans olives",
         "numero": "00000006"
+    },
+    "40FC35F3": {
+        "email": "client1@gmail.com",
+        "date": "2026-06-07 10:18:20",
+        "montant": "228.00",
+        "livraison": false,
+        "est-valide": true,
+        "etat": "payee",
+        "plats": [
+            {
+                "nom": "Lasagne dorée",
+                "quantite": 3,
+                "nom_eng": "Golden Lasagna"
+            }
+        ],
+        "instructions": "",
+        "numero": "00000006",
+        "deja_modifie": true
     }
 }
