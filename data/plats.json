@@ -52,7 +52,7 @@
         ],
         "disponible": true,
         "ordre_affichage": 3,
-        "nb_commandee": 2
+        "nb_commandee": 4
     },
     "Lasagne dorée": {
         "id": 4,
@@ -139,7 +139,7 @@
         ],
         "disponible": true,
         "ordre_affichage": 8,
-        "nb_commandee": 1
+        "nb_commandee": 2
     },
     "Pizza Truffe": {
         "id": 9,

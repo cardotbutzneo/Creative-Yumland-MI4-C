@@ -22,6 +22,19 @@ if (!isset($bdd_cmd[$derniere_cmd])) {
     exit;
 }
 
+$etat_commande = $bdd_cmd[$derniere_cmd]["etat"];
+
+if (
+    $etat_commande !== "payee" &&
+    $etat_commande !== "en preparation" &&
+    $etat_commande !== "preparee" &&
+    $etat_commande !== "livraison" &&
+    $etat_commande !== "livree"
+) {
+    header("Location: remerciement.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,40 +63,104 @@ if (!isset($bdd_cmd[$derniere_cmd])) {
     <main>
         <div class="bulle">
             <h1><?= $text["suivi_commande"]["page_title"] ?></h1>
-            <?php if($bdd_cmd[$derniere_cmd]["etat"] === "payee") { ?>
-                <div class="statut-commande">
+
+            <div id="statutCommande" class="statut-commande">
+                <?php if($etat_commande === "payee") { ?>
                     <p><?= $text["suivi_commande"]["paid_1"] ?></p>
                     <p><?= $text["suivi_commande"]["paid_2"] ?></p>
-                </div>
-            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "en preparation") { ?>
-                <div class="statut-commande">
+                <?php } elseif($etat_commande === "en preparation") { ?>
                     <p><?= $text["suivi_commande"]["preparing_1"] ?></p>
                     <p><?= $text["suivi_commande"]["preparing_2"] ?></p>
-                </div>
-            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "preparee") { ?>
-                <div class="statut-commande">
+                <?php } elseif($etat_commande === "preparee") { ?>
                     <p><?= $text["suivi_commande"]["ready_1"] ?></p>
                     <p><?= $text["suivi_commande"]["ready_2"] ?></p>
-                </div>
-            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "livraison") { ?>
-                <div class="statut-commande">
+                <?php } elseif($etat_commande === "livraison") { ?>
                     <p><?= $text["suivi_commande"]["delivery_1"] ?></p>
                     <p><?= $text["suivi_commande"]["delivery_2"] ?></p>
-                </div>
-            <?php } elseif($bdd_cmd[$derniere_cmd]["etat"] === "livree") { ?>
-                <div class="statut-commande">
+                <?php } elseif($etat_commande === "livree") { ?>
                     <p><?= $text["suivi_commande"]["delivered_1"] ?></p>
                     <p><?= $text["suivi_commande"]["delivered_2"] ?></p>
                     <a class="lien-notation" href="notation.php"><?= $text["suivi_commande"]["rate_link"] ?></a>
-                </div>
-            <?php } else {
-                header("Location: remerciement.php");
-                exit;
-            } ?>
+                <?php } ?>
+            </div>
         </div>
     </main>
     <footer>
         <p><?= $text["suivi_commande"]["footer_rights"] ?></p>
     </footer>
+    <script>
+        const numeroCommande = <?= json_encode($derniere_cmd) ?>;
+        let etatActuel = <?= json_encode($etat_commande) ?>;
+
+        const textesEtat = {
+            "payee": {
+                ligne1: <?= json_encode($text["suivi_commande"]["paid_1"]) ?>,
+                ligne2: <?= json_encode($text["suivi_commande"]["paid_2"]) ?>
+            },
+            "en preparation": {
+                ligne1: <?= json_encode($text["suivi_commande"]["preparing_1"]) ?>,
+                ligne2: <?= json_encode($text["suivi_commande"]["preparing_2"]) ?>
+            },
+            "preparee": {
+                ligne1: <?= json_encode($text["suivi_commande"]["ready_1"]) ?>,
+                ligne2: <?= json_encode($text["suivi_commande"]["ready_2"]) ?>
+            },
+            "livraison": {
+                ligne1: <?= json_encode($text["suivi_commande"]["delivery_1"]) ?>,
+                ligne2: <?= json_encode($text["suivi_commande"]["delivery_2"]) ?>
+            },
+            "livree": {
+                ligne1: <?= json_encode($text["suivi_commande"]["delivered_1"]) ?>,
+                ligne2: <?= json_encode($text["suivi_commande"]["delivered_2"]) ?>,
+                lienNotation: <?= json_encode($text["suivi_commande"]["rate_link"]) ?>
+            }
+        };
+
+        function afficherEtatCommande(etat) {
+            const blocStatut = document.getElementById("statutCommande");
+            if (!textesEtat[etat]) {
+                window.location.href = "remerciement.php";
+                return;
+            }
+            let html = `
+                <p>${textesEtat[etat].ligne1}</p>
+                <p>${textesEtat[etat].ligne2}</p>
+            `;
+            if (etat === "livree") {
+                html += `
+                    <a class="lien-notation" href="notation.php">
+                        ${textesEtat[etat].lienNotation}
+                    </a>
+                `;
+            }
+            blocStatut.innerHTML = html;
+        }
+
+        async function verifierEtatCommande() {
+            try {
+                const reponse = await fetch("../api/get_new_commande.php", {
+                    method: "GET",
+                    cache: "no-store"
+                });
+                if (!reponse.ok) {
+                    throw new Error("Erreur lors de la récupération des commandes");
+                }
+                const commandes = await reponse.json();
+                if (!commandes[numeroCommande]) {
+                    window.location.href = "profil_client.php?err=fetchFailed";
+                    return;
+                }
+                const nouvelEtat = commandes[numeroCommande].etat;
+                if (nouvelEtat !== etatActuel) {
+                    etatActuel = nouvelEtat;
+                    afficherEtatCommande(nouvelEtat);
+                }
+            } catch (erreur) {
+                console.error("Impossible de vérifier l'état de la commande :", erreur);
+            }
+        }
+        //envoie la requete toutes les 15 secondes
+        setInterval(verifierEtatCommande, 15000);
+    </script>
 </body>
 </html>

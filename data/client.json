@@ -47,9 +47,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-14",
-            "derniere_connexion": "2026-06-01 10:17:16",
+            "derniere_connexion": "2026-06-07 15:52:33",
             "est_banni": false,
-            "est_en_ligne": true,
+            "est_en_ligne": false,
             "est_modifiable": true,
             "tentative_echec": 0,
             "derniere_tentative": null,
@@ -136,9 +136,9 @@
         "dernieres_commandes": [],
         "securite": {
             "date_creation": "2026-03-19",
-            "derniere_connexion": "2026-05-17 16:09:24",
+            "derniere_connexion": "2026-06-07 15:53:58",
             "est_banni": false,
-            "est_en_ligne": false,
+            "est_en_ligne": true,
             "est_modifiable": true,
             "tentative_echec": 0,
             "derniere_tentative": null,
@@ -198,6 +198,36 @@
         },
         "pts-fidelite": 0,
         "total-fidelite": 0,
+        "livraison": false
+    },
+    "test2@gmail.com": {
+        "id": "00000008",
+        "nom": "Test2",
+        "prenom": "test2",
+        "mot de passe": "$2y$10$Yqx1Bbz2EH\/HG53Auj4evOH\/vMmLW7mfkG6MIoJYyX1O9v1pfkIkq",
+        "contact": {
+            "adresse": "rue du test",
+            "complément d'adresse": "",
+            "téléphone": "0662389233",
+            "adresse email": "test2@gmail.com"
+        },
+        "role": "Client",
+        "dernieres_commandes": [
+            "C2757D30"
+        ],
+        "securite": {
+            "date_creation": "2026-06-07",
+            "derniere_connexion": "2026-06-07 15:49:34",
+            "est_banni": false,
+            "est_en_ligne": false,
+            "est_modifiable": true,
+            "tentative_echec": 0,
+            "derniere_tentative": null,
+            "remember_token": null,
+            "remember_token_expiration": null
+        },
+        "pts-fidelite": 18,
+        "total-fidelite": 18,
         "livraison": false
     }
 }

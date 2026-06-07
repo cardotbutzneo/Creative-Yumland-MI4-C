@@ -25,6 +25,10 @@ body {
     border-radius: 16px;
 }    
 
+.carte-disponible {
+    margin-bottom: 1.5rem;
+}
+
 .ligne-information {
     display: grid;
     grid-template-columns: 200px 1fr;

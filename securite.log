@@ -18,3 +18,8 @@
 [38;5;208mWARNING [0m [2026-06-02 17:07:29] -- Accès non autorisé à panier.php
 [38;5;208mWARNING [0m [2026-06-02 17:07:38] -- Accès non autorisé à remerciement.php
 [38;5;208mWARNING [0m [2026-06-02 18:55:37] -- Accès non autorisé à commandes.php par Timothée Chalamet avec le rôle Client
+[38;5;208mWARNING [0m [2026-06-07 15:48:01] -- Securite : Tentative d'accès aux base de données
+[38;5;208mWARNING [0m [2026-06-07 15:48:25] -- Accès non autorisé à profil_admin.php
+[38;5;208mWARNING [0m [2026-06-07 15:48:34] -- Securite : Tentative d'accès aux base de données
+[33mINFO    [0m [2026-06-07 15:52:28] -- Connexion : Mot de passe incorrect de cuisinier1@gmail.com
+[38;5;208mWARNING [0m [2026-06-07 16:01:23] -- Accès non autorisé à profil_client.php par Sébastien Banatzailea avec le rôle livreur

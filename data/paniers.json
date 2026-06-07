@@ -10,5 +10,9 @@
     "test@gmail.com": {
         "articles": [],
         "total": 0
+    },
+    "test2@gmail.com": {
+        "articles": [],
+        "total": 0
     }
 }

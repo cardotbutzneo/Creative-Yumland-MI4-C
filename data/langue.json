@@ -104,7 +104,7 @@
 		},
 		"connexion" : {
 			"title": "Connexion - L'oro di Cicerone",
-			"title-section" : "connexion",
+			"title-section" : "Connexion",
 			"email-label": "Adresse e-mail",
 			"password-label": "Mot de passe",
 			"submit-button": "Se connecter",
