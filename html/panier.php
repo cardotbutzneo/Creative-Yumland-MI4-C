@@ -128,8 +128,6 @@ $nv_total = $total_brut;
 
 $plats_catalogue = $data_plats;
 
-$plats_catalogue = $data_plats;
-
 foreach ($articles as $cle => $article) { // on ajoute une clé d'ordre d'affichage pour pouvoir trier les articles du panier dans le même ordre que le catalogue
     $articles[$cle]["ordre_affichage"] = $plats_catalogue[$cle]["ordre_affichage"]; 
 }
